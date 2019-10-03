@@ -3,15 +3,22 @@
 @extends('layouts.frontend.header')
 
 <!-- HERO SECTION -->
-<div class="hero-image" style="background-image: url(public/hmtl_theme/hedone/assets/img/hero-image.jpg);">
+{{--<div class="hero-image" style="background-image: url({{ asset('hmtl_theme/hedone/assets/img/hero-image.jpg') }});">--}}
+{{--<div class="hero-image" style="background-image: url(../hmtl_theme/hedone/assets/img/hero-image.jpg);">--}}
+<div class="hero-image" {{--style="background-image: url(hero-image.jpg);"--}}>
     <div class="slide-wrap">
         <div class="container">
             <div class="row">
                 <div class="animatedParent animateOnce">
-                    <div class="slider-text-top animated fadeInDown">project</div>
+                    {{--<div class="slider-text-top animated fadeInDown">project</div>
                     <div class="slider-text-mid animated fadeInShake delay-750">atlas</div>
                     <div class="slider-line animated fadeInUp delay-750"></div>
-                    <div class="slider-text-bottom animated fadeInUp delay-1250">a digital garden concept</div>
+                    <div class="slider-text-bottom animated fadeInUp delay-1250">a digital garden concept</div>--}}
+
+                    {{--<div class="slider-text-top animated fadeInDown">thatobabusi.co.za</div>--}}
+                    <div class="slider-text-mid animated fadeInShake delay-750">coming soon...</div>
+                    <div class="slider-line animated fadeInUp delay-750"></div>
+                    <div class="slider-text-bottom animated fadeInUp delay-1250">this website is still currently under development...</div>
                     <a href="#about-home" class="home-move-button animated fadeInUp delay-1500"></a>
                 </div>
             </div>

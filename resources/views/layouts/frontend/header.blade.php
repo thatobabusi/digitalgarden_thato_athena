@@ -15,7 +15,8 @@
                                     {{--<a href="index.html">
                                         <img src="{{ asset('hmtl_theme/hedone/assets/img/site-logo.png') }}" alt="brand logo"/>
                                     </a>--}}
-                                    <h3>Project Atlas</h3>
+                                    <h3>thatobabusi.co.za</h3>
+                                    {{--<h3>Project Atlas</h3>--}}
                                 </div>
                             </div>
                             <!-- PRIMARY MENU -->

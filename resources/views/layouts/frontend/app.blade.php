@@ -54,7 +54,7 @@
 @yield('content')
 
 <!-- FOOTER -->
-@include('layouts.frontend.footer')
+{{--@include('layouts.frontend.footer')--}}
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="{{ asset('html_theme/hedone/assets/js/jquery.js') }}"></script>

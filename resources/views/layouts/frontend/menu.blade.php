@@ -3,7 +3,7 @@
         <ul class="hedone-menu">
             <li class="menu-item menu-item-has-children current-page-ancestor current-menu-ancestor current-menu-parent current-page-parent current_page_parent current_page_ancestor">
                 <a href="#">Home</a>
-                <ul class="sub-menu">
+                {{--<ul class="sub-menu">
                     <li class="menu-item current-menu-item">
                         <a href="index.html">text effects on load</a>
                     </li>
@@ -22,9 +22,9 @@
                     <li class="menu-item">
                         <a href="one-page.html">one-page version</a>
                     </li>
-                </ul>
+                </ul>--}}
             </li>
-            <li class="menu-item">
+            {{--<li class="menu-item">
                 <a href="about.html">About</a>
             </li>
             <li class="menu-item">
@@ -41,7 +41,7 @@
             </li>
             <li class="menu-item">
                 <a href="elements.html">elements</a>
-            </li>
+            </li>--}}
         </ul>
     </div>
 </div>
