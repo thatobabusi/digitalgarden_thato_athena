@@ -1,68 +1,76 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
-
-    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('html_theme/hedone/assets/img/molecule.png') }}">
-
-    <!-- Bootstrap -->
-    <link href="{{ asset('html_theme/hedone/assets/css/bootstrap.min.css') }}" rel="stylesheet">
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
-    <link href="{{ asset('html_theme/hedone/assets/css/animations.css') }}" rel="stylesheet" type="text/css"/>
-    <link href="{{ asset('html_theme/hedone/assets/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css"/>
-    <link href="{{ asset('html_theme/hedone/assets/css/owl.carousel.custom.css') }}" rel="stylesheet" type="text/css"/>
-    <link href="{{ asset('html_theme/hedone/assets/css/hedone.css') }}" rel="stylesheet" type="text/css"/>
-    <link href="{{ asset('html_theme/hedone/assets/css/colors.css') }}" rel="stylesheet" type="text/css"/>
-
-    <!--[if lte IE 9]>
-    <link href="{{ asset('html_theme/hedone/assets/css/animations-ie-fix.css') }}" rel="stylesheet" type="text/css"/>
-    <![endif]-->
-    <link rel="icon" href="http://fototeg.ru/favicon.ico" type="image/x-icon"/>
-    <link rel="shortcut icon" href="http://fototeg.ru/favicon.ico" type="image/x-icon"/>
+    <!-- META DATA -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Responsive Website Template">
+    <meta name="author" content="The Develovers">
+    <!-- CORE CSS -->
+    <link href="template/assets/css/bootstrap.css" rel="stylesheet" type="text/css">
+    <link href="template/assets/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="template/assets/css/elegant-icons.css" rel="stylesheet" type="text/css">
+    <!-- THEME CSS -->
+    <link href="template/assets/css/main.css" rel="stylesheet" type="text/css">
+    <link href="template/assets/css/my-custom-styles.css" rel="stylesheet" type="text/css">
+    <!-- GOOGLE FONTS -->
+    <link href='https://fonts.googleapis.com/css?family=Raleway:700,400,400italic,500' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,400italic,700,300,300italic' rel='stylesheet' type='text/css'>
+    <!-- FAVICONS -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="template/assets/ico/bravana144.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="template/assets/ico/bravana114.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="template/assets/ico/bravana72.png">
+    <link rel="apple-touch-icon-precomposed" href="template/assets/ico/bravana57.png">
+    <link rel="shortcut icon" href="template/assets/ico/favicon.ico">
 </head>
 
-<body class="royal_preloader">
+<body>
 
-<!-- PRELOADER -->
-<div id="royal_preloader"></div>
+    <!-- WRAPPER -->
+    <div id="wrapper row">
+        <!-- NAVBAR -->
+        @include('layouts.frontend.menu')
+        <!-- END NAVBAR -->
 
-<!-- TOP SCROLL -->
-<div id="top-home-scroll"></div>
-<a href="#top-home-scroll" class="scroll-to-top-arrow-button"></a>
+        <div class="page-content col-md-offset-1">
+            <div class="container">
+                <div class="row">
 
-<!-- AJAX LOADER -->
-<div id="ajax-loader" class="loader loader-default" data-half="" data-text="Loading..."></div>
+                    <!-- MAIN CONTENT -->
+                    @yield('content')
+                    <!-- END MAIN CONTENT -->
 
-<!-- IS MOBILE HACK -->
-<div id="isMobile"></div>
+                    <!-- SIDEBAR CONTENT -->
+                    @include('layouts.frontend.sidebar')
+                    <!-- END SIDEBAR CONTENT -->
 
-@yield('content')
+                </div>
+            </div>
+        </div>
+        <!-- FOOTER -->
+        @include('layouts.frontend.footer')
+        <!-- END FOOTER -->
+        <div class="back-to-top">
+            <a href="#top"><i class="fa fa-chevron-up"></i></a>
+        </div>
+    </div>
+    <!-- END WRAPPER -->
 
-<!-- FOOTER -->
-{{--@include('layouts.frontend.footer')--}}
 
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="{{ asset('html_theme/hedone/assets/js/jquery.js') }}"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="{{ asset('html_theme/hedone/assets/js/bootstrap.min.js') }}"></script>
-<!-- PLUGINS -->
-<script src="{{ asset('html_theme/hedone/assets/js/plugins.js') }}" type="text/javascript"></script>
-<!-- MAIN JS -->
-<script src="{{ asset('html_theme/hedone/assets/js/main.js') }}" type="text/javascript"></script>
+
+    <!-- JAVASCRIPT -->
+    <script src="template/assets/js/jquery-2.1.1.min.js"></script>
+    <script src="template/assets/js/bootstrap.min.js"></script>
+    <script src="template/assets/js/plugins/easing/jquery.easing.min.js"></script>
+    <script src="template/assets/js/plugins/twitter/twitterFetcher.min.js"></script>
+    <script src="template/assets/js/bravana-lite.js"></script>
+    <!-- END JAVASCRIPT -->
 </body>
+
 </html>
