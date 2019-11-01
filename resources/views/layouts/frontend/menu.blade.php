@@ -10,33 +10,50 @@
         </a>
         <div id="main-nav-collapse" class="collapse navbar-collapse">
             <ul class="nav navbar-nav main-navbar-nav">
-                <li class="dropdown active">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">HOME <i class="fa fa-angle-down"></i></a>
-                    <ul class="dropdown-menu" role="menu">
-                        <li><a href="index.html">Home Default</a></li>
-                        <li class="active"><a href="index-blog.html">Home Blog</a></li>
-                    </ul>
-                </li>
-                <li class="dropdown ">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">FEATURES <i class="fa fa-angle-down"></i></a>
-                    <ul class="dropdown-menu" role="menu">
-                        <li><a href="features-hero-image-full.html">Fullscreen Image Background</a></li>
-                        <li><a href="features-footer-newsletter-dark.html">Footer Newsletter (Dark)</a></li>
-                    </ul>
-                </li>
-                <li class="dropdown ">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">PAGES <i class="fa fa-angle-down"></i></a>
-                    <ul class="dropdown-menu" role="menu">
-                        <li><a href="page-about.html">About</a></li>
-                        <li><a href="page-services.html">Services</a></li>
-                        <li><a href="page-contact.html">Contact</a></li>
-                    </ul>
-                </li>
-                <li><a href="blog-single-post.html">BLOG POST</a></li>
-                <li>
-                    <a href="https://www.themeineed.com/downloads/bravana-responsive-website-template/?utm_source=bravanalite&utm_medium=button&utm_campaign=bravana" target="_blank" class="btn-navbar"><span><i class="fa fa-rocket"></i> UPGRADE TO PRO</span></a>
-                </li>
-            </ul>
+                {{--Building menu--}}
+                <?php
+                $main_nagivation_menu_items = config('navigationmenu.main_navigation', ['You have not set up the config.navigationmenu.php properly']);
+
+                foreach($main_nagivation_menu_items as $menu_item) {
+                    $dropdown_toggle = true;
+                    $dropdown = true;
+
+                    $is_active = $menu_item['is_active'] ?? null;
+                    $title = $menu_item['title'] ?? null;
+                    $url_link = $menu_item['url_link'] ?? null;
+                    $route = $menu_item['route'] ?? null;
+                    $icon = "fa fa-angle-down" ?? null;
+                    $permissions = $menu_item['permissions'] ?? null;
+                    $has_children = $menu_item['has_children'] ?? null;
+                    $children = $menu_item['children'] ?? null;
+
+                    ?>
+                    @if($menu_item['has_children'])
+                        <li class="dropdown @if($is_active) active @endif">
+                            <a href="#"
+                               class="@if($dropdown_toggle) toggle @endif"
+                               data-toggle="@if($dropdown) dropdown @endif">
+                                @if($title) @endif{{$title}}
+                                    <i class="{{$icon}}"></i>
+                            </a>
+                            <ul class="dropdown-menu" role="menu">
+                                @foreach($children as $child)
+                                    @if(is_array($child))
+                                        <li><a href="{{$child['title']}}">{{$child['title']}}</a></li>
+                                    @else
+                                        <li><a href="{{$child}}">{{$child}}</a></li>
+                                    @endif
+                                @endforeach
+                            </ul>
+                        </li>
+                    @else
+                        <li class="dropdown">
+                            <a href="{{$route}}">{{$title}}</a>
+                        </li>
+                    @endif
+                <?php
+                }
+                ?>
         </div>
         <!-- END MAIN NAVIGATION -->
     </div>

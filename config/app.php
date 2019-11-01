@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name' => env('APP_NAME', 'thatobabusi.co.za'),
 
     /*
     |--------------------------------------------------------------------------
@@ -67,7 +67,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'Africa/Johannesburg',
 
     /*
     |--------------------------------------------------------------------------
@@ -122,6 +122,22 @@ return [
     'key' => env('APP_KEY'),
 
     'cipher' => 'AES-256-CBC',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Social Media Links and Creds
+    |--------------------------------------------------------------------------
+    |
+    | Just how to access your social media, dont be silly and enter your login
+    | credentials here
+    |
+    */
+    'twitter_feed' => env('TWITTER_FEED'),
+    'facebook_account_link' => env('FACEBOOK_ACCOUNT'),
+    'twitter_account_link' => env('TWITTER_ACCOUNT'),
+    'youtube_account_link' => env('YOUTUBE_ACCOUNT'),
+    'linkedin_account_link' => env('LINKEDIN_ACCOUNT'),
+    'soundcloud_account_link' => env('SOUNDCLOUD'),
 
     /*
     |--------------------------------------------------------------------------

@@ -31,10 +31,11 @@ class HelperServiceProvider extends ServiceProvider
         $helpers_core_directory_path = $helpers_directory_path . 'Core/';
 
         #Get the Core Ones First. Without them most of the other might not work
-        require $helpers_core_directory_path . 'FilesAndDirectoriesHelper.php';
-        require $helpers_core_directory_path . 'MigrationsHelper.php';
-        require $helpers_core_directory_path . 'RoutesHelper.php';
-        require $helpers_core_directory_path . 'StringHelper.php';
+        require base_path() .'/app/Helpers/Core/FilesAndDirectoriesHelper.php';
+        require base_path() .'/app/Helpers/Core/MenusHelper.php';
+        require base_path() .'/app/Helpers/Core/MigrationsHelper.php';
+        require base_path() .'/app/Helpers/Core/RoutesHelper.php';
+        require base_path() .'/app/Helpers/Core/StringHelper.php';
 
     }
 
