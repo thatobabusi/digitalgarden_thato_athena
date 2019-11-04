@@ -90,6 +90,9 @@ function build_frontend_menu($user)
 |
 */
 
+Route::get('/thato/1', 'Frontend\BlogController@index')->name('thato.test');
+
+
 Route::get('/', function () {
     return view('/frontend/home');
 });

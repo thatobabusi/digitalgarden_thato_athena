@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Models\BlogPost;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -36,4 +37,11 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    ###RELATIONS########################################################################################################
+    public function blogPosts()
+    {
+        return $this->hasMany(BlogPost::class);
+    }
+    ####################################################################################################################
 }

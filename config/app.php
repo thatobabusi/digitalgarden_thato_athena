@@ -1,5 +1,7 @@
 <?php
 
+use Carbon\Carbon;
+
 return [
 
     /*
@@ -14,6 +16,8 @@ return [
     */
 
     'name' => env('APP_NAME', 'thatobabusi.co.za'),
+
+    'app_host_name' => env('APP_HOST_NAME', 'thatobabusi.co.za'),
 
     /*
     |--------------------------------------------------------------------------
@@ -53,6 +57,10 @@ return [
     */
 
     'url' => env('APP_URL', 'http://localhost'),
+
+    'created_by_copyrights' => env('APP_CREATED_BY', 'D!gitalGardenMedia'),
+
+    'created_first_date' => env('APP_CREATED_FIRST_DATE', Carbon::now()->toDateString()),
 
     'asset_url' => env('ASSET_URL', null),
 

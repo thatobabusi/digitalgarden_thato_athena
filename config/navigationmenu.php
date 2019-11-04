@@ -4,7 +4,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Build Frontend Naviation Menu Here
+    | Build Frontend Header Naviation Menu Here
     |--------------------------------------------------------------------------
     |
     | Will fine tune this further in the future
@@ -142,6 +142,41 @@ return [
                 'Blog 3'
             ]
 
+        ],
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Build Frontend Footer Naviation Menu Here
+    |--------------------------------------------------------------------------
+    |
+    | Will fine tune this further in the future
+    |
+    */
+    'footer_navigation' => [
+        'News' => [
+            'title' => "News",
+            'url_link' => "#",
+            'route' => "#",
+            'icon' => "#",
+        ],
+        'Press' => [
+            'title' => "Press",
+            'url_link' => "#",
+            'route' => "#",
+            'icon' => "#",
+        ],
+        'Terms & Privacy' => [
+            'title' => "Terms & Privacy",
+            'url_link' => "#",
+            'route' => "#",
+            'icon' => "#",
+        ],
+        'We are Hiring' => [
+            'title' => "We're Hiring",
+            'url_link' => "#",
+            'route' => "#",
+            'icon' => "#",
         ],
     ],
 

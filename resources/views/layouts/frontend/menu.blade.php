@@ -4,7 +4,7 @@
             <span class="sr-only">Toggle Navigation</span>
             <i class="fa fa-bars"></i>
         </button>
-        <a href="index.html" class="navbar-brand">
+        <a href="{{config('app.app_url')}}" class="navbar-brand">
             {{ config('app.name', 'Laravel') }}
             {{--<img src="template/assets/img/logo/bravana-lite-logo.png" alt="Bravana Logo">--}}
         </a>
