@@ -18,7 +18,7 @@ class BlogPostsTableSeeder extends Seeder
         $faker = Faker::create();
 
         $y = 10;
-        for ($x = 0; $x <= $y; $x++) {
+        for ($x = 0; $x < $y; $x++) {
             $category_id = BlogPostCategory::inRandomOrder()->first()->id;
 
             $title = $faker->sentence(5);

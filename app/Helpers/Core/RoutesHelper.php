@@ -1,7 +1,7 @@
 <?php
 
-if (! function_exists('include_route_files')) {
-    function include_route_files($folder)
+if (! function_exists('include_route_files2')) {
+    function include_route_files2($folder)
     {
         try {
             $rdi = new recursiveDirectoryIterator($folder);

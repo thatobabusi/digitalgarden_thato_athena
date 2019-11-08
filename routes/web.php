@@ -79,6 +79,7 @@ function build_frontend_menu($user)
         echo $e->getMessage();
     }
 }
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
