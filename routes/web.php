@@ -102,8 +102,8 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-include_route_files(base_path().'/routes/backend/admin');
+/*include_route_files(base_path().'/routes/backend/admin');
 include_route_files(base_path().'/routes/backend/user');
 include_route_files(base_path().'/routes/frontend/authorized');
 include_route_files(base_path().'/routes/frontend/unauthorized');
-
+*/
