@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "21991a830e0e962f867c1d4c5e610c98",
+    "content-hash": "d73fad86e264dee836b22c935541b416",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -762,6 +762,50 @@
                 "validator"
             ],
             "time": "2019-08-13T17:33:27+00:00"
+        },
+        {
+            "name": "emir/laravel-webartisan",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/emir/laravel-webartisan.git",
+                "reference": "93e4d3440f459c9cca7d06565fc9a66c10b215cd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/emir/laravel-webartisan/zipball/93e4d3440f459c9cca7d06565fc9a66c10b215cd",
+                "reference": "93e4d3440f459c9cca7d06565fc9a66c10b215cd",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "~5.0",
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Emir\\Webartisan\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Emir Karşıyakalı",
+                    "email": "emirkarsiyakali@gmail.com"
+                }
+            ],
+            "description": "Web artisan allows to run artisan console commands using a browser",
+            "homepage": "https://github.com/emir/laravel-webartisan",
+            "keywords": [
+                "artisan",
+                "laravel",
+                "php",
+                "webartisan"
+            ],
+            "time": "2015-08-28T07:17:19+00:00"
         },
         {
             "name": "erusev/parsedown",
@@ -1931,6 +1975,61 @@
                 "symfony"
             ],
             "time": "2019-08-04T13:12:59+00:00"
+        },
+        {
+            "name": "nunomaduro/laravel-console-summary",
+            "version": "v1.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nunomaduro/laravel-console-summary.git",
+                "reference": "604a1c181f66fa4406075cb5ec4adc301f43f550"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nunomaduro/laravel-console-summary/zipball/604a1c181f66fa4406075cb5ec4adc301f43f550",
+                "reference": "604a1c181f66fa4406075cb5ec4adc301f43f550",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/console": "5.6.*|5.7.*|5.8.*|^6.0",
+                "illuminate/support": "5.6.*|5.7.*|5.8.*|^6.0",
+                "php": ">=7.1.3"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "NunoMaduro\\LaravelConsoleSummary\\LaravelConsoleSummaryServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "NunoMaduro\\LaravelConsoleSummary\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nuno Maduro",
+                    "email": "enunomaduro@gmail.com"
+                }
+            ],
+            "description": "A Beautiful Laravel Console Summary for your Laravel/Laravel Zero commands.",
+            "keywords": [
+                "artisan",
+                "cli",
+                "command-line",
+                "console",
+                "laravel",
+                "laravel-zero",
+                "php",
+                "symfony"
+            ],
+            "time": "2019-08-04T13:06:08+00:00"
         },
         {
             "name": "nunomaduro/laravel-console-task",

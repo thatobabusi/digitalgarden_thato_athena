@@ -10,12 +10,13 @@ class Install
     {
 
         return $run
-            ->artisan('backup:run', ['--only-files'])
+            ->artisan('down') //Put app on maintenance mode
+            ->artisan('backup:run', ['--only-files']) //run automated backup of files
             ->external('composer', 'install', '--no-dev', '--prefer-dist', '--optimize-autoloader')
-            ->artisan('key:generate', ['--force' => true])
-            ->artisan('migrate', ['--force' => true])
-            ->artisan('db:seed', ['--force' => true])
- //           ->artisan('storage:link')
+            ->artisan('key:generate', ['--force' => true]) //reset the key
+            ->artisan('migrate', ['--force' => true]) //migrate
+            ->artisan('db:seed', ['--force' => true]) //seed
+            //->artisan('storage:link')
 //            ->dispatch(new MakeCronTask)
 //            ->external('npm', 'install', '--production')
 //            ->external('npm', 'run', 'production')
@@ -28,6 +29,7 @@ class Install
             ->artisan('clear-compiled')
             ->artisan('optimize:clear')
             ->external('composer', 'dumpautoload', '-o')
+            ->artisan('up') //Put app back on live
             ;
     }
 
