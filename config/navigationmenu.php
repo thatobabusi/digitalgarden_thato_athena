@@ -4,7 +4,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Build Frontend Header Naviation Menu Here
+    | Build Frontend Header Navigation Menu Here
     |--------------------------------------------------------------------------
     |
     | Will fine tune this further in the future
@@ -15,8 +15,8 @@ return [
         'Home' => [
             'is_active' => true,
             'title' => "Home",
-            'url_link' => "#",
-            'route' => "#",
+            'url_link' => "/admin",
+            'route' => "admin.home",
             'icon' => "#",
             'permissions' => true,
             'has_children' => true,
@@ -174,6 +174,12 @@ return [
         ],
         'We are Hiring' => [
             'title' => "We're Hiring",
+            'url_link' => "#",
+            'route' => "#",
+            'icon' => "#",
+        ],
+        'Site Map' => [
+            'title' => "Site Map",
             'url_link' => "#",
             'route' => "#",
             'icon' => "#",

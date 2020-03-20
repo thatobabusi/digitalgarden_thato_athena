@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\BlogPostCategory;
+use App\Models\Blog\BlogPostCategory;
 use Faker\Factory as Faker;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -15,6 +15,8 @@ class BlogPostsTableSeeder extends Seeder
      */
     public function run()
     {
+        \DB::table('blog_posts')->truncate();
+
         $faker = Faker::create();
 
         $y = 10;
@@ -26,8 +28,8 @@ class BlogPostsTableSeeder extends Seeder
             $summary = $faker->paragraph();
             $body = $summary . "<br/>" . $faker->paragraph();
 
-            $created_at = $faker->dateTimeBetween($startDate = '-6 months', $endDate = 'now');
-            $updated_at = $faker->dateTimeBetween($startDate = '-4 months', $endDate = 'now');
+            $created_at = $faker->dateTimeBetween($startDate = '-24 months', $endDate = 'now');
+            $updated_at = $faker->dateTimeBetween($created_at, $endDate = 'now');
 
             DB::table('blog_posts')->insert([
                 'blog_post_category_id' => $category_id,
@@ -40,5 +42,7 @@ class BlogPostsTableSeeder extends Seeder
                 'deleted_at' => null,
             ]);
         }
+
+        Schema::enableForeignKeyConstraints();
     }
 }

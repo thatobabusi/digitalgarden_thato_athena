@@ -1,7 +1,8 @@
 <div class="footer-top">
     Thanks for visiting
 
-    <h3>future space for adverts and partners down here</h3>
+    <h3>Subscribe to the website to receive Newsletter and updates...</h3>
+
     {{--<h4 class="footer-heading">Subscribe to Our Newsletter</h4>
     <p class="copytext">Subscribe to the newsletter to get latest news and updates about our product.
         <br>Preview the latest issue <a href="#">here</a></p>

@@ -3,20 +3,21 @@
     <ul class="list-unstyled recommended-posts">
         @php($blogPostsCount = 0)
         @foreach($blogPosts as $blogPost)
-            @php($blogPostsCount++)
             <li>
                 <div class="post-entry-sidebar clearfix">
-                    <a href="#" class="left">
-                        <img src="{{ URL::asset(''.$blogPost->blogPostImage->blog_post_image_path.'') }}" alt="Post Thumbnail"
-                        width="80px">
-                    </a>
+                    @if(isset($blogPost->blogPostImage->blog_post_image_path))
+                        <a href="{{ route('frontend.viewBlogSinglePostBySlug', [$blogPost->slug]) }}" class="left">
+                            <img src="{{ URL::asset(''.$blogPost->blogPostImage->blog_post_image_path.'') }}" alt="Post Thumbnail"
+                            width="80px">
+                        </a>
+                    @endif
                     <div class="right">
                         <h4 class="media-heading post-title">
-                            <a href="#">
+                            <a href="{{ route('frontend.viewBlogSinglePostBySlug', [$blogPost->slug]) }}">
                                 {{$blogPost->title}}
                             </a>
                         </h4>
-                        <span class="timestamp">1h ago</span>
+                        <span class="timestamp">{{ \Carbon\Carbon::parse($blogPost->created_at)->diffForHumans() }}</span>
                     </div>
                 </div>
             </li>

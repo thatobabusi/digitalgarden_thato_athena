@@ -1,23 +1,38 @@
 <?php
 
-use App\Models\BlogPost;
-use App\Models\BlogPostCategory;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     *
-     * @return void
-     */
     public function run()
     {
-        // $this->call(UsersTableSeeder::class);
-        $this->call(BlogPostCategoriesTableSeeder::class);
-        $this->call(BlogPostsTableSeeder::class);
-        $this->call(BlogPostImagesTableSeeder::class);
-        $this->call(BlogPostTagsTableSeeder::class);
-        $this->call(BlogPostPostTagsTableSeeder::class);
+        Schema::disableForeignKeyConstraints();
+
+        $this->call([
+            //Access Control and Users
+            PermissionsTableSeeder::class,
+            RolesTableSeeder::class,
+            PermissionRoleTableSeeder::class,
+            UsersTableSeeder::class,
+            RoleUserTableSeeder::class,
+        ]);
+
+        $this->call([
+            BlogPostCategoriesTableSeeder::class,
+            BlogPostsTableSeeder::class,
+            BlogPostImagesTableSeeder::class,
+            BlogPostTagsTableSeeder::class,
+            BlogPostBlogPostTagTableSeeder::class
+        ]);
+
+        $this->call([
+            SystemConfigPluginsTableSeeder::class,
+            SystemPageCategoriesTableSeeder::class,
+            SystemMenuItemsTableSeeder::class
+        ]);
+
+        $this->call(OauthClientsTableSeeder::class);
+
+        Schema::enableForeignKeyConstraints();
     }
 }

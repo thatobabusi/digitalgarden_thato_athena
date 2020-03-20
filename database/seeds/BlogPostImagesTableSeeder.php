@@ -1,7 +1,7 @@
 <?php
 
-use App\Models\BlogPost;
-use App\Models\BlogPostCategory;
+use App\Models\Blog\BlogPost;
+use App\Models\Blog\BlogPostCategory;
 use Faker\Factory as Faker;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -16,18 +16,25 @@ class BlogPostImagesTableSeeder extends Seeder
      */
     public function run()
     {
+        \DB::table('blog_post_images')->truncate();
+
         $faker = Faker::create();
 
         $blogs = BlogPost::all();
         $y = 0;
 
         foreach($blogs as $blog) {
+
+            if($y > 11) {
+                $y = 0;
+            }
+
             $y++;
 
             $title = $faker->sentence(5);
             $slug = Str::slug($title, '-');
-            $created_at = $faker->dateTimeBetween($startDate = '-6 months', $endDate = 'now');
-            $updated_at = $faker->dateTimeBetween($startDate = '-4 months', $endDate = 'now');
+            $created_at = $faker->dateTimeBetween($startDate = '-24 months', $endDate = 'now');
+            $updated_at = $faker->dateTimeBetween($created_at, $endDate = 'now');
 
             DB::table('blog_post_images')->insert([
                 'blog_post_id' => $blog->id,

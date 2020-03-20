@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +14,26 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+#Commented out because its just filling up space when i havent even started this dev yet
+/*Route::group(['prefix' => 'v1', 'as' => 'api.', 'namespace' => 'Api\V1\Admin', 'middleware' => ['auth:api']], function () {
+    // Permissions
+    Route::apiResource('permissions', 'PermissionsApiController');
+
+    // Roles
+    Route::apiResource('roles', 'RolesApiController');
+
+    // Users
+    Route::apiResource('users', 'UsersApiController');
+
+    // Lessons
+    Route::apiResource('lessons', 'LessonsApiController');
+
+    // School Classes
+    Route::apiResource('school-classes', 'SchoolClassesApiController');
 });
+
+//Work in progress...
+Route::group(['prefix' => 'v1','namespace' => 'API'], function(){
+    Route::apiResource('users', 'UserController');
+    Route::apiResource('blogPosts', 'BlogPostController');
+});*/

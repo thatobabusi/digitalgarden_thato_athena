@@ -43,7 +43,7 @@ return [
     |
     */
 
-    'debug' => env('APP_DEBUG', false),
+    'debug' => (bool) env('APP_DEBUG', false),
 
     /*
     |--------------------------------------------------------------------------
@@ -189,8 +189,15 @@ return [
         /*
          * Package Service Providers...
          */
-        PragmaRX\Tracker\Vendor\Laravel\ServiceProvider::class,
-        Spatie\Backup\BackupServiceProvider::class,
+        DaveJamesMiller\Breadcrumbs\BreadcrumbsServiceProvider::class,
+
+        /*
+         * My Personal Service Providers...
+         */
+        \App\Providers\MyCustomBladeServiceProvider::class,
+        \App\Providers\HelperServiceProvider::class,
+        \App\Providers\RepositoryServiceProvider::class,
+
 
         /*
          * Application Service Providers...
@@ -200,6 +207,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        App\Providers\TelescopeServiceProvider::class,
 
     ],
 
@@ -222,6 +230,7 @@ return [
         'Auth' => Illuminate\Support\Facades\Auth::class,
         'Blade' => Illuminate\Support\Facades\Blade::class,
         'Broadcast' => Illuminate\Support\Facades\Broadcast::class,
+        'Breadcrumbs' => DaveJamesMiller\Breadcrumbs\Facades\Breadcrumbs::class,
         'Bus' => Illuminate\Support\Facades\Bus::class,
         'Cache' => Illuminate\Support\Facades\Cache::class,
         'Config' => Illuminate\Support\Facades\Config::class,
@@ -233,6 +242,7 @@ return [
         'File' => Illuminate\Support\Facades\File::class,
         'Gate' => Illuminate\Support\Facades\Gate::class,
         'Hash' => Illuminate\Support\Facades\Hash::class,
+        'Http' => Illuminate\Support\Facades\Http::class,
         'Lang' => Illuminate\Support\Facades\Lang::class,
         'Log' => Illuminate\Support\Facades\Log::class,
         'Mail' => Illuminate\Support\Facades\Mail::class,
@@ -251,8 +261,11 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-        'Tracker' => PragmaRX\Tracker\Vendor\Laravel\Facade::class,
 
     ],
 
+    'calendar' => [
+        'start_time'    => '08:00',
+        'end_time'      => '18:00',
+    ],
 ];

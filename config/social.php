@@ -4,7 +4,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Build Frontend Naviation Menu Here
+    | Social Media Links
     |--------------------------------------------------------------------------
     |
     | Will fine tune this further in the future
@@ -14,26 +14,26 @@ return [
     'social_media' => [
         'Facebook' => [
             'title' => 'Facebook',
-            'username' => 'Thato AdamNubian Babusi',
-            'link' => 'https://www.facebook.com/adamnubian',
+            'username' => env('FACEBOOK_ACCOUNT', '#'),
+            'link' => env('FACEBOOK_ACCOUNT_LINK', '#'),
             'icon' => 'fa fa-facebook',
         ],
         'Twitter' => [
             'title' => 'Twitter',
-            'username' => '@Thato_Babusi',
-            'link' => 'https://twitter.com/thato_babusi',
+            'username' => env('TWITTER_ACCOUNT', '#'),
+            'link' => env('TWITTER_ACCOUNT_LINK', '#'),
             'icon' => 'fa fa-twitter',
         ],
         'Github' => [
             'title' => 'Github',
-            'username' => 'Thato Babusi',
-            'link' => 'https://github.com/thatobabusi',
+            'username' => env('GITHUB_ACCOUNT', '#'),
+            'link' => env('GITHUB_ACCOUNT_LINK', '#'),
             'icon' => 'fa fa-github',
         ],
         'LinkedIn' => [
             'title' => 'LinkedIn',
-            'username' => 'Thato Babusi',
-            'link' => 'https://za.linkedin.com/in/thatobabusi',
+            'username' => env('LINKEDIN_ACCOUNT', '#'),
+            'link' => env('LINKEDIN_ACCOUNT_LINK', '#'),
             'icon' => 'fa fa-linkedin',
         ],
     ],

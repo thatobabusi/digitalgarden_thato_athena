@@ -1,84 +1,6 @@
 <?php
 
-use function Composer\Autoload\includeFile;
-
-function include_route_files($folder)
-{
-    try {
-        $rdi = new recursiveDirectoryIterator($folder);
-        $it = new recursiveIteratorIterator($rdi);
-
-        while ($it->valid()) {
-            if (!$it->isDot() && $it->isFile() && $it->isReadable() && $it->current()->getExtension() === 'php') {
-                require $it->key();
-            }
-
-            $it->next();
-        }
-    } catch (Exception $e) {
-        echo $e->getMessage();
-    }
-}
-
-function build_frontend_menu($user)
-{
-    if(!$user) {
-        $user = 'TODO::We going to use this to pass on who it is so we can check permissions for some future conditions';
-    }
-
-    $main_nagivation_menu_items = config('navigationmenu.main_navigation', ['You have not set up the config.navigationmenu.php properly']);
-
-    try {
-
-        $menu = "";
-
-        foreach($main_nagivation_menu_items as $menu_item) {
-
-            $dropdown_toggle = true;
-            $dropdown = true;
-            $icon = "fa fa-angle-down";
-
-            $menu .= "<li class=\"dropdown active\">
-                            <a href=\"#\" class=\"$dropdown_toggle\" data-toggle=\"$dropdown\">$menu_item <i class=\"$icon\"></i></a>
-                            <ul class=\"dropdown-menu\" role=\"menu\">
-                                <li><a href=\"index.html\">Home Default</a></li>
-                                <li class=\"active\"><a href=\"index-blog.html\">Home Blog</a></li>
-                            </ul>
-                        </li>";
-
-
-        }$menu = "";
-
-        foreach($main_nagivation_menu_items as $menu_item) {
-
-            $dropdown_toggle = true;
-            $dropdown = true;
-            $icon = "fa fa-angle-down";
-
-            $menu .= "<li class=\"dropdown active\">
-                            <a href=\"#\" class=\"$dropdown_toggle\" data-toggle=\"$dropdown\">$menu_item <i class=\"$icon\"></i></a>
-                            <ul class=\"dropdown-menu\" role=\"menu\">
-                                <li><a href=\"index.html\">Home Default</a></li>
-                                <li class=\"active\"><a href=\"index-blog.html\">Home Blog</a></li>
-                            </ul>
-                        </li>";
-
-
-        }
-
-        /*$test = "<li class=\"dropdown active\">
-                    <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\">HOME <i class=\"fa fa-angle-down\"></i></a>
-                    <ul class=\"dropdown-menu\" role=\"menu\">
-                        <li><a href=\"index.html\">Home Default</a></li>
-                        <li class=\"active\"><a href=\"index-blog.html\">Home Blog</a></li>
-                    </ul>
-                </li>";
-        */
-        dd($main_nagivation_menu_items);
-    } catch (Exception $e) {
-        echo $e->getMessage();
-    }
-}
+//use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -91,19 +13,91 @@ function build_frontend_menu($user)
 |
 */
 
-Route::get('/thato/1', 'Frontend\BlogController@index')->name('thato.test');
 
+/**
+ * NOTE: helper method "plugin_is_enabled" these remove certain routes when plugins are not enabled
+ * Good to use when in dev and trying to limit the number of routes being displayed
+ */
 
-Route::get('/', function () {
-    return view('/frontend/home');
+//TODO::Going to break these routes down between front and back and perhaps by entity as well
+
+/*****************************************BACKEND*********************************************************************/
+//Admin
+Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'middleware' => ['auth']], function () {
+
+    Route::get('/', 'HomeController@index')->name('home');
+
+    //Access Control Management
+    if(plugin_is_enabled('Access Control Management')) {
+        // Permissions
+        Route::delete('permissions/destroy', 'AccessControl\PermissionsController@massDestroy')->name('permissions.massDestroy');
+        Route::resource('permissions', 'AccessControl\PermissionsController');
+
+        // Roles
+        Route::delete('roles/destroy', 'AccessControl\RolesController@massDestroy')->name('roles.massDestroy');
+        Route::resource('roles', 'AccessControl\RolesController');
+    }
+
+    //User Management
+    if(plugin_is_enabled('User Management')) {
+        // Users
+        Route::delete('users/destroy', 'User\UsersController@massDestroy')->name('users.massDestroy');
+        Route::resource('users', 'User\UsersController');
+    }
+
+    //Blog Management
+    if(plugin_is_enabled('Blog')) {
+        // BlogPosts
+        Route::delete('blog/destroy', 'Blog\BlogPostsController@massDestroy')->name('blog.massDestroy');
+        Route::resource('blog', 'Blog\BlogPostsController');
+    }
+
+    //Activity Log
+    if(plugin_is_enabled('Activity Log')) {
+        Route::resource('activity', 'ActivityLog\ActivityLogController');
+        Route::get('/get-activity',
+            'ActivityLog\ActivityLogController@getAllAcitivityLogs')->name('activity.getAllAcitivityLogsByAjax');
+    }
+
+    //System Config/Plugins/Menu Items/Page Management
+    Route::resource('system-config-plugins', 'System\SystemConfigPluginsController');
+    Route::resource('system-menu-items', 'System\SystemMenuItemsController');
+    Route::resource('system-page-categories', 'System\SystemPageCategoriesController');
+    Route::resource('system-pages', 'System\SystemPagesController');
+
 });
 
-Auth::routes();
+/*****************************************FRONTEND*******************************************************************/
+//Landing Page
+Route::get('/', 'Frontend\GenericFrontendPagesController@index')->name('frontend.home');
 
-Route::get('/home', 'HomeController@index')->name('home');
+//Blog Pages
+if(plugin_is_enabled('Blog')) {
+    Route::get('/blog', 'Frontend\BlogController@index')->name('frontend.viewBlogHome');
+    Route::get('/blog/{slug}', 'Frontend\BlogController@showBlogPostBySlug')->name('frontend.viewBlogSinglePostBySlug');
+    Route::get('/blog-archives/{archiveDate}', 'Frontend\BlogController@indexArchive')->name('frontend.viewAllBlogPostsByArchive');
+    Route::get('/blog-category/{categorySlug}', 'Frontend\BlogController@indexCategory')->name('frontend.viewAllBlogPostsByCategory');
+    Route::get('/blog-tag/{tagSlug}', 'Frontend\BlogController@indexTag')->name('frontend.viewAllBlogPostsByTag');
+}
 
-/*include_route_files(base_path().'/routes/backend/admin');
-include_route_files(base_path().'/routes/backend/user');
-include_route_files(base_path().'/routes/frontend/authorized');
-include_route_files(base_path().'/routes/frontend/unauthorized');
-*/
+/*****************************************REDIRECTS*****************************************************************/
+
+//TODO::Not sure I really need these here.
+//Home Redirects
+Route::get('/home', function () {
+
+    $routeName = auth()->user() && (auth()->user()->is_student || auth()->user()->is_teacher) ? 'admin.calendar.index' : 'admin.home';
+    if (session('status')) {
+        return redirect()->route($routeName)->with('status', session('status'));
+    }
+
+    return redirect()->route($routeName);
+});
+
+/*****************************************AUTH ROUTES***************************************************************/
+//Add all Auth Routes but prevent the register one because that would allow anyone access into the system.
+Auth::routes(['register' => false]);
+
+/*****************************************STATIC FRONTEND PAGES ROUTES**********************************************/
+#Include these last because the wild card messes with most of my other routes
+Route::get('/{page?}', 'Frontend\GenericFrontendPagesController@index');

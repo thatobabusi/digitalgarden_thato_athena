@@ -1,6 +1,8 @@
 <footer class="footer-newsletter">
     <div class="container">
 
+        @include('partials.frontend.footer_advertisements')
+
         @include('partials.frontend.newsletter_subscribe')
 
         <div class="footer-bottom">

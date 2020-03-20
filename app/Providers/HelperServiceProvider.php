@@ -26,17 +26,7 @@ class HelperServiceProvider extends ServiceProvider
      */
     public function register()
     {
-
-        $helpers_directory_path = base_path() .'/app/Helpers/';
-        $helpers_core_directory_path = $helpers_directory_path . 'Core/';
-
-        #Get the Core Ones First. Without them most of the other might not work
-        require base_path() .'/app/Helpers/Core/FilesAndDirectoriesHelper.php';
-        require base_path() .'/app/Helpers/Core/MenusHelper.php';
-        require base_path() .'/app/Helpers/Core/MigrationsHelper.php';
-        require base_path() .'/app/Helpers/Core/RoutesHelper.php';
-        require base_path() .'/app/Helpers/Core/StringHelper.php';
-
+        recursively_include_all_files( base_path('app/Helpers') );
     }
 
 }

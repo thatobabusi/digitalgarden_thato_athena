@@ -14,6 +14,8 @@ class BlogPostTagsTableSeeder extends Seeder
      */
     public function run()
     {
+        \DB::table('blog_post_tags')->truncate();
+
         $faker = Faker::create();
 
         $y = 20;
@@ -21,8 +23,8 @@ class BlogPostTagsTableSeeder extends Seeder
             $title = $faker->sentence(2);
             $slug = Str::slug($title, '-');
 
-            $created_at = $faker->dateTimeBetween($startDate = '-6 months', $endDate = 'now');
-            $updated_at = $faker->dateTimeBetween($startDate = '-4 months', $endDate = 'now');
+            $created_at = $faker->dateTimeBetween($startDate = '-24 months', $endDate = 'now');
+            $updated_at = $faker->dateTimeBetween($created_at, $endDate = 'now');
 
             DB::table('blog_post_tags')->insert([
                 'title' => $title,
