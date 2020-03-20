@@ -1,4 +1,4 @@
-# Laravel 7 Thato Babusi - Project
+# DigitalGarden Project Atlas | Laravel 7 Thato Babusi - Project
 
 A demo project showing my Laravel skills. This initially started off as 
 a learning process of the new Laravel 6 standards, then Laravel 7.2 came out and 
