@@ -1,3 +1,4 @@
+@if(isset($page_title) && isset($blogPostsRelatedBlogPostCategoryOrTag))
 <section class="related-posts">
     <h3 class="section-heading text-center">Advertisements</h3>
     <p class="text-center">
@@ -22,3 +23,4 @@
         @endforeach
     </ul>
 </section>
+@endif

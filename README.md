@@ -1,9 +1,12 @@
 # DigitalGarden Project Atlas
 
+
 A demo project showing my Laravel skills. This initially started off as 
 a learning process of the new Laravel 6 standards, then Laravel 7.2 came out and 
 I just had to get on to that ASAP. Although they say its not the LTS, it's a good 
 start. The migration from 6-7 showed me a lot... 
+
+## Laravel 7 Thato Babusi - Project
 
 Currently my company uses L5.1 with very complex sparghetti-code that I am refactoring, 
 leaving very little room for me to learn on implement more up-to-date technologies, 
