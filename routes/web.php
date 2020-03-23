@@ -74,6 +74,7 @@ Route::get('/', 'Frontend\GenericFrontendPagesController@index')->name('frontend
 //Blog Pages
 if(plugin_is_enabled('Blog')) {
     Route::get('/blog', 'Frontend\BlogController@index')->name('frontend.viewBlogHome');
+    Route::get('/blog-get-more-by-ajax', 'Frontend\BlogController@getMoreByAjax')->name('frontend.getMorePostsByAjax');
     Route::get('/blog/{slug}', 'Frontend\BlogController@showBlogPostBySlug')->name('frontend.viewBlogSinglePostBySlug');
     Route::get('/blog-archives/{archiveDate}', 'Frontend\BlogController@indexArchive')->name('frontend.viewAllBlogPostsByArchive');
     Route::get('/blog-category/{categorySlug}', 'Frontend\BlogController@indexCategory')->name('frontend.viewAllBlogPostsByCategory');

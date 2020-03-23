@@ -19,21 +19,21 @@ interface BlogPostRepositoryInterface
     public function getAllBlogPostsRecords(int $limit = null);
 
     /**
-     * @param string   $criteria
-     * @param string   $value
-     * @param int|null $limit
+     * @param string $criteria
+     * @param string $value
+     * @param int    $limit
      *
      * @return mixed
      */
-    public function getAllBlogPostsRecordsByCriteria(string $criteria, string $value, int $limit = null);
+    public function getAllBlogPostsRecordsByCriteria(string $criteria, string $value, int $limit);
 
     /**
      * @param BlogPost $blogPost
-     * @param int|null $limit
+     * @param int      $limit
      *
      * @return mixed
      */
-    public function getAllBlogPostsRecordsRelatedToThisBlogPostByCategoryOrTag(BlogPost $blogPost, int $limit = null);
+    public function getAllBlogPostsRecordsRelatedToThisBlogPostByCategoryOrTag(BlogPost $blogPost, int $limit);
 
     /**
      * @param int|null $limit

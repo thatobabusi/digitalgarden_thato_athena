@@ -124,7 +124,7 @@ class BlogPostsController extends Controller
 
         $data = [
                 'blogPost' => $blogPost,
-                'blogPostsRelatedBlogPostCategoryOrTag' => $this->blogPostRepository->getAllBlogPostsRecordsRelatedToThisBlogPostByCategoryOrTag($blogPost),
+                'blogPostsRelatedBlogPostCategoryOrTag' => $this->blogPostRepository->getAllBlogPostsRecordsRelatedToThisBlogPostByCategoryOrTag($blogPost, 500),
                 'users' => $this->userRepository->listUsersRecordsByNameAndId(),
                 'tags' => $this->blogPostTagRepository->listAllTagsByTitleAndId(),
                 'categories' => $this->blogPostCategory->listAllCategoriesByTitleAndId(),

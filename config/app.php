@@ -19,6 +19,8 @@ return [
 
     'app_host_name' => env('APP_HOST_NAME', 'thatobabusi.co.za'),
 
+    'app_developer_name' => env('APP_DEVELOPER_NAME', 'Thato Babusi'),
+
     /*
     |--------------------------------------------------------------------------
     | Application Environment

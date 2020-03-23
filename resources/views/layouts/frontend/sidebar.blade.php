@@ -1,4 +1,4 @@
-<div class="col-md-4 col-lg-3">
+<div class="{{--visible-md visible-lg visible-xl--}} col-md-4 col-lg-3">
     <div class="sidebar">
 
         @if(plugin_is_enabled('Blog Search'))

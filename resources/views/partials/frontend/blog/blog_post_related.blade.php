@@ -3,7 +3,7 @@
     <h3 class="section-heading">Related Articles</h3>
     <ul class="list-unstyled related-post-list row">
         @foreach($blogPostsRelatedBlogPostCategoryOrTag as $related)
-        <li class="col-md-3">
+        <li class="col-md-6">
 
             @if(isset($related->blogPostImage->blog_post_image_path))
                 <a href="{{ route('frontend.viewBlogSinglePostBySlug', [$related->slug]) }}">

@@ -1,4 +1,4 @@
-<footer class="footer-newsletter">
+<footer class="visible-md visible-lg footer-newsletter">
     <div class="container">
 
         @include('partials.frontend.footer_advertisements')

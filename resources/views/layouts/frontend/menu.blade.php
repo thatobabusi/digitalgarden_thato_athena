@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default navbar-fixed-top ">
+<nav class="navbar navbar-default navbar-fixed-top sticky">
     <div class="container">
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-nav-collapse">
             <span class="sr-only">Toggle Navigation</span>

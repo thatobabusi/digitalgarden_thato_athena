@@ -12,34 +12,29 @@
     <!-- META DATA -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Responsive Website Template">
-    <meta name="author" content="The Develovers">
+    <meta name="description" content="{{config('app.name')}}">
+    <meta name="author" content="{{config('app.app_developer_name')}}">
 
     <!-- CORE CSS -->
-    <link href="{{ URL::asset('template/assets/css/bootstrap.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ URL::asset('template/assets/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ URL::asset('template/assets/css/elegant-icons.css') }}" rel="stylesheet" type="text/css">
+    @include('partials.frontend.app.app_core_styles')
 
     <!-- THEME CSS -->
-    <link href="{{ URL::asset('template/assets/css/main.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ URL::asset('template/assets/css/my-custom-styles.css') }}" rel="stylesheet" type="text/css">
+    @include('partials.frontend.app.app_theme_styles')
 
     <!-- GOOGLE FONTS -->
-    <link href='https://fonts.googleapis.com/css?family=Raleway:700,400,400italic,500' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Lato:400,400italic,700,300,300italic' rel='stylesheet' type='text/css'>
+    @include('partials.frontend.app.app_fonts')
 
     <!-- FAVICONS -->
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ URL::asset('template/assets/ico/bravana144.png') }}">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ URL::asset('template/assets/ico/bravana114.png') }}">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ URL::asset('template/assets/ico/bravana72.png') }}">
-    <link rel="apple-touch-icon-precomposed" href="{{ URL::asset('template/assets/ico/bravana57.png') }}">
-    <link rel="shortcut icon" href="{{ URL::asset('template/assets/ico/favicon.ico') }}">
+    @include('partials.frontend.app.app_favicons')
 </head>
 
 <body>
 
+    @include('partials.frontend.app.app_menu_styles')
+
     <!-- WRAPPER -->
     <div id="wrapper row">
+
         <!-- NAVBAR -->
         @include('layouts.frontend.menu')
 
@@ -48,9 +43,6 @@
         <div class="page-content col-md-offset-1">
             <div class="container">
                 <div class="row">
-
-                    {{--@yield('breadcrumbs')--}}
-
                     <!-- MAIN CONTENT -->
                     @yield('content')
                     <!-- END MAIN CONTENT -->
@@ -58,7 +50,6 @@
                     <!-- SIDEBAR CONTENT -->
                     @include('layouts.frontend.sidebar')
                     <!-- END SIDEBAR CONTENT -->
-
                 </div>
             </div>
         </div>
@@ -67,22 +58,21 @@
         @include('layouts.frontend.footer')
         <!-- END FOOTER -->
 
-        <div class="back-to-top">
-            <a href="#top"><i class="fa fa-chevron-up"></i></a>
-        </div>
-
+        <button onclick="scrollWinTop();"  title="Go to top" id="scrollToTopButton" name="scrollToTopButton"
+                class="btn btn-lg btn-primary">
+            <i class="fa fa-chevron-up"></i>Scroll to top
+        </button>
     </div>
+
     <!-- END WRAPPER -->
 
     <!-- JAVASCRIPT -->
-    <script src="{{ URL::asset('template/assets/js/jquery-2.1.1.min.js') }}"></script>
-    <script src="{{ URL::asset('template/assets/js/bootstrap.min.js') }}"></script>
-    <script src="{{ URL::asset('template/assets/js/plugins/easing/jquery.easing.min.js') }}"></script>
-    <script src="{{ URL::asset('template/assets/js/plugins/twitter/twitterFetcher.min.js') }}"></script>
-    <script src="{{ URL::asset('template/assets/js/bravana-lite.js') }}"></script>
+    @include('partials.frontend.app.app_core_javascripts')
     <!-- END JAVASCRIPT -->
 
     @yield('disqus_plugin')
+
+    @yield('js_bottom_scripts')
 </body>
 
 </html>

@@ -54,13 +54,35 @@ class BlogController extends Controller
         $this->blogPostTagRepository = $blogPostTagRepository;
     }
 
+    public function getMoreByAjax(Request $request)
+    {
+
+        $data = [
+            //'blogPosts' => $this->blogPostRepository->getAllBlogPostsRecords(10),
+            'blogPosts' => BlogPost::paginate(4),
+            'blogPostCategories' => $this->blogPostCategory->getAllCategoriesWhereHasBlogPosts(10),
+            'blogPostTags' => $this->blogPostTagRepository->getAllTagsWhereHasBlogPosts(10),
+            'blogPostDistinctArchiveYearAndMonthsArray' => $this->blogPostRepository->getAllDistinctArchiveYearAndMonthsArray(10),
+            'featuredBlogPost' => BlogPost::inRandomOrder()->first()
+        ];
+
+        if ($request->ajax()) {
+
+            $view = view('partials.frontend.blog.blog_posts_paginated',$data)->render();
+            return response()->json(['html'=>$view]);
+        }
+
+        return view('frontend.blog.blog_index', $data);
+    }
+
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
     {
         $data = [
-            'blogPosts' => $this->blogPostRepository->getAllBlogPostsRecords(10),
+            //'blogPosts' => $this->blogPostRepository->getAllBlogPostsRecords(10),
+            'blogPosts' => BlogPost::paginate(4),
             'blogPostCategories' => $this->blogPostCategory->getAllCategoriesWhereHasBlogPosts(10),
             'blogPostTags' => $this->blogPostTagRepository->getAllTagsWhereHasBlogPosts(10),
             'blogPostDistinctArchiveYearAndMonthsArray' => $this->blogPostRepository->getAllDistinctArchiveYearAndMonthsArray(10),
@@ -157,7 +179,7 @@ class BlogController extends Controller
         $data = [
             'blogPost' => $blogPost,
             'blogPosts' => $this->blogPostRepository->getAllBlogPostsRecords(10),
-            'blogPostsRelatedBlogPostCategoryOrTag' => $this->blogPostRepository->getAllBlogPostsRecordsRelatedToThisBlogPostByCategoryOrTag($blogPost),
+            'blogPostsRelatedBlogPostCategoryOrTag' => $this->blogPostRepository->getAllBlogPostsRecordsRelatedToThisBlogPostByCategoryOrTag($blogPost, 4),
             'blogPostCategories' => $this->blogPostCategory->getAllCategoriesWhereHasBlogPosts(10),
             'blogPostTags' => $this->blogPostTagRepository->getAllTagsWhereHasBlogPosts(10),
             'blogPostDistinctArchiveYearAndMonthsArray' => $this->blogPostRepository->getAllDistinctArchiveYearAndMonthsArray(10),

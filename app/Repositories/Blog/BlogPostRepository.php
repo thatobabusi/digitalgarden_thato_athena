@@ -30,21 +30,21 @@ class BlogPostRepository  implements BlogPostRepositoryInterface
     }
 
     /**
-     * @param string   $criteria
-     * @param string   $value
-     * @param int|null $limit
+     * @param string $criteria
+     * @param string $value
+     * @param int    $limit
      *
-     * @return BlogPost[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Support\Collection
+     * @return BlogPost[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Support\Collection|mixed|null
      */
-    public function getAllBlogPostsRecordsByCriteria(string $criteria, string $value, int $limit = null)
+    public function getAllBlogPostsRecordsByCriteria(string $criteria, string $value, int $limit)
     {
 
-        //dd($criteria, $value, $limit);
+        $blogPosts = null;
         switch ($criteria) {
 
             case 'archive_date': #Get where year and month matches that of the archive value
                 $archive_date = explode("-",$value);
-                return BlogPost::whereYear('created_at', '=', $archive_date[0])
+                $blogPosts = BlogPost::whereYear('created_at', '=', $archive_date[0])
                                 ->whereMonth('created_at', '=', $archive_date[1])
                                 ->orderBy('created_at', 'DESC')
                                 ->get()
@@ -54,30 +54,30 @@ class BlogPostRepository  implements BlogPostRepositoryInterface
 
             case 'category': #Get by Category Slug
                 $blogPostCategory = BlogPostCategory::whereSlug($value)->first();
-                return $blogPostCategory->blogPosts->take($limit);
+                $blogPosts =  $blogPostCategory->blogPosts->take($limit);
 
                 break;
 
             case 'tag': #Get by Tag Slug
                 $blogPostTag = BlogPostTag::whereSlug($value)->first();
-                return $blogPostTag->blogPosts->take($limit);
+                $blogPosts = $blogPostTag->blogPosts->take($limit);
 
                 break;
 
             default:
                 #None of the above, get everything
-                return $this->getAllBlogPostsRecords($limit);
+                $blogPosts =  $this->getAllBlogPostsRecords($limit);
         }
-
+        return $blogPosts;
     }
 
     /**
      * @param BlogPost $blogPost
-     * @param int|null $limit
+     * @param int      $limit
      *
      * @return BlogPost[]|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Query\Builder[]|\Illuminate\Support\Collection|mixed
      */
-    public function getAllBlogPostsRecordsRelatedToThisBlogPostByCategoryOrTag(BlogPost $blogPost, int $limit = null)
+    public function getAllBlogPostsRecordsRelatedToThisBlogPostByCategoryOrTag(BlogPost $blogPost, int $limit)
     {
         #Not the cleanest way, but self-explainatory
         $blogPostsIdsArray = [];
@@ -100,6 +100,7 @@ class BlogPostRepository  implements BlogPostRepositoryInterface
         return BlogPost::whereBlogPostCategoryId($blogPost->blog_post_category_id)
                         ->orWhereIn("id", $blogPostsIdsArray)
                         ->orderBy('created_at', 'DESC')
+                        ->take($limit)
                         ->get();
 
     }

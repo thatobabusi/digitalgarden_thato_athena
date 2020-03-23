@@ -89,57 +89,68 @@
 
             <div class="clearfix margin-top-30 margin-bottom-30"></div>
 
-            <div class="row">
-
-                @php($blogPostsCount = 0)
-
-                @foreach($blogPosts as $blogPost)
-
-                    @php($blogPostsCount++)
-
-                    <div class="col-sm-6">
-
-                        <div class="post-entry-card">
-
-                            @if(isset($blogPost->blogPostImage->blog_post_image_path))
-
-                                <a href="{{ route('frontend.viewBlogSinglePostBySlug', [$blogPost->slug]) }}">
-                                    <img src="{{ URL::asset(''.$blogPost->blogPostImage->blog_post_image_path.'') }}"
-                                         class="img-responsive" alt="Post Thumbnail">
-                                </a>
-
-                            @endif
-
-                            <div class="post-info">
-                                <h3 class="post-title">
-                                    <a href="{{ route('frontend.viewBlogSinglePostBySlug', [$blogPost->slug]) }}">
-                                        {{$blogPost->title}}
-                                    </a>
-                                </h3>
-
-                                <p class="post-excerpt">
-                                    {{$blogPost->summary}}...
-                                </p>
-
-                                <span class="post-meta">
-                                    <i class="fa fa-calendar-o"></i>
-                                    {{\Carbon\Carbon::parse($blogPost->created_at)}}
-                                </span>
-
-                                <a href="{{ route('frontend.viewBlogSinglePostBySlug', [$blogPost->slug]) }}" class="read-more pull-right">Read More</a>
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                    @if($blogPostsCount % 2 === 0)
-                        <div class="clearfix"></div>
-                    @endif
-
-                @endforeach
-
+            <div class="row" id="post-data">
+                @include('partials.frontend.blog.blog_posts_paginated')
             </div>
+
+            <div class="col-xl-12 col-lg-12 md-12 col-md-12 col-sm-12 col-xs-12">
+                <button type="button" id="load-more" name="load-more"
+                        class="load-more btn btn-lg btn-primary col-xl-12 col-lg-12 md-12 col-md-12 col-sm-12 col-xs-12">
+                    Load More Blog Post Records
+                </button>
+            </div>
+            <div class="ajax-load text-center" style="display:none">
+                <p><img src="http://demo.itsolutionstuff.com/plugin/loader.gif">Loading More post</p>
+            </div>
+
         </section>
     </div>
+@endsection
+
+
+@section('js_bottom_scripts')
+
+    <script type="text/javascript">
+        var page = 1;
+        /*TODO::Discuss with Sisko why this works only sometimes...*/
+        /*$(window).scroll(function() {
+            if($(window).scrollTop() + $(window).height() >= $(document).height()) {
+                page++;
+                loadMoreData(page);
+            }
+        });*/
+
+        $(".load-more").click(function(){
+            page++;
+            loadMoreData(page);
+            alert("Load more was clicked. Fetching " + page);
+        });
+
+        function loadMoreData(page){
+            $.ajax(
+                {
+                    url: "{{route('frontend.getMorePostsByAjax')}}?page=" + page,
+                    type: "get",
+                    beforeSend: function()
+                    {
+                        $('.ajax-load').show();
+                    }
+                })
+                .done(function(data)
+                {
+                    if(data.html === ""){
+                        $('.ajax-load').html("No more records found");
+                        return;
+                    }
+
+                    $('.ajax-load').hide();
+                    $("#post-data").append(data.html);
+
+                })
+                .fail(function(jqXHR, ajaxOptions, thrownError)
+                {
+                    // alert('server not responding...');
+                });
+        }
+    </script>
 @endsection

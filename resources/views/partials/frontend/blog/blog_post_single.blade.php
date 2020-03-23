@@ -8,7 +8,7 @@
         </h1>
 
         <p class="entry-lead">
-            {{$blogPost->summary}}
+            {!! $blogPost->summary !!}
         </p>
 
         <div class="meta-line">
