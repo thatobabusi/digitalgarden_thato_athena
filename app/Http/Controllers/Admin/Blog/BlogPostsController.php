@@ -186,7 +186,7 @@ class BlogPostsController extends Controller
 
         $this->blogPostRepository->destroySingleBlogPostRecord($blogPost);
 
-        flash('Blog Post Deleted Successfully!');
+        alert()->success('Success','Blog Post Deleted Successfully')->timerProgressBar();
 
         return back();
     }
@@ -200,7 +200,7 @@ class BlogPostsController extends Controller
     {
         $this->blogPostRepository->massDestroyBlogPostRecords($request);
 
-        flash('Blog Posts Deleted Successfully!');
+        alert()->success('Success','Blog Posts Deleted Successfully')->timerProgressBar();
 
         return response(null, Response::HTTP_NO_CONTENT);
     }

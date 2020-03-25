@@ -28,14 +28,11 @@
     <div class="col-md-9 col-lg-9 col-md-offset-0 col-lg-offset-0">
         <!-- latest posts -->
 
-        {{--{{ \DaveJamesMiller\Breadcrumbs\Facades\Breadcrumbs::render('frontend.home') }}--}}
-
         <section class="no-padding-top">
 
             @if(isset($featuredBlogPost->title))
 
                 <div class="entry-post entry-post-fullwidth">
-
 
                     <figure class="media">
                         @if(isset($featuredBlogPost->blogPostImage->blog_post_image_path))
@@ -72,7 +69,7 @@
 
                         <div class="excerpt">
                             <p>
-                                {{$featuredBlogPost->summary}}
+                                {!! $featuredBlogPost->summary !!}
                             </p>
                             <p class="read-more">
                                 <a href="{{ route('frontend.viewBlogSinglePostBySlug', [$featuredBlogPost->slug]) }}"

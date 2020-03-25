@@ -25,13 +25,13 @@
                 </h3>
 
                 <p class="post-excerpt">
-                    {{$blogPost->summary}}...
+                    {!! $blogPost->summary !!}
                 </p>
 
                 <span class="post-meta">
-                                    <i class="fa fa-calendar-o"></i>
-                                    {{\Carbon\Carbon::parse($blogPost->created_at)}}
-                                </span>
+                    <i class="fa fa-calendar-o"></i>
+                    {{\Carbon\Carbon::parse($blogPost->created_at)}}
+                </span>
 
                 <a href="{{ route('frontend.viewBlogSinglePostBySlug', [$blogPost->slug]) }}" class="read-more pull-right">Read More</a>
             </div>
