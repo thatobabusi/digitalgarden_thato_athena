@@ -2,6 +2,7 @@
 
 namespace App\Models\Blog;
 
+use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -35,6 +36,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class BlogPostImage extends Model
 {
+    use Cachable;
+
     protected $table = 'blog_post_images';
 
     /*******************************************************************************************************************

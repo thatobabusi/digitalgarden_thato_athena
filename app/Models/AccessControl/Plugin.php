@@ -3,6 +3,7 @@
 namespace App\Models\AccessControl;
 
 use Carbon\Carbon;
+use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -35,6 +36,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Plugin extends Model
 {
+    use Cachable;
 
     public $table = 'system_config_plugins';
 

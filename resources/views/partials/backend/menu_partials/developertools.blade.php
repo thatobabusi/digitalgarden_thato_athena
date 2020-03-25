@@ -40,6 +40,17 @@
             </li>
         @endif--}}
 
+        @if(plugin_is_enabled('Log Viewer'))
+            <li class="nav-item">
+                <a href="/admin/developer-tools/log-viewer" class="nav-link {{ request()->is('admin/log-viewer') || request()->is('admin/log-viewer/*') ? 'active' : '' }}">
+                    <i class="fa-fw fas fa-book nav-icon">
+
+                    </i>
+                    Log Viewer
+                </a>
+            </li>
+        @endif
+
         @if(plugin_is_enabled('Migration Manager'))
             <li class="nav-item">
                 <a href="/admin/developer-tools/migrations" class="nav-link {{ request()->is('admin/migrations') || request()->is('admin/migrations/*') ? 'active' : '' }}">

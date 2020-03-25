@@ -22,8 +22,8 @@ class SystemPageCategoriesTableSeeder extends Seeder
                 'title' => 'Frontend',
                 'slug' => 'frontend',
                 'type' => 'frontend',
-                'created_at' => '2020-03-17 12:18:03',
-                'updated_at' => '2020-03-17 12:18:03',
+                'created_at' => now(),
+                'updated_at' => now(),
                 'deleted_at' => '2020-03-17 12:18:03',
             ),
             1 =>
@@ -32,8 +32,8 @@ class SystemPageCategoriesTableSeeder extends Seeder
                 'title' => 'Backend',
                 'slug' => 'backend',
                 'type' => 'backend',
-                'created_at' => '2020-03-17 12:18:03',
-                'updated_at' => '2020-03-17 12:18:03',
+                'created_at' => now(),
+                'updated_at' => now(),
                 'deleted_at' => '2020-03-17 12:18:03',
             ),
         ));

@@ -8,8 +8,11 @@ class DatabaseSeeder extends Seeder
     {
         Schema::disableForeignKeyConstraints();
 
+        //$this->call([BlogPostBlogPostTagTableSeeder::class]);
+        //$this->call([BlogPostImagesTableSeeder::class]);
+
+
         $this->call([
-            //Access Control and Users
             PermissionsTableSeeder::class,
             RolesTableSeeder::class,
             PermissionRoleTableSeeder::class,
@@ -18,6 +21,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $this->call([
+            BlogPostStatussesTableSeeder::class,
             BlogPostCategoriesTableSeeder::class,
             BlogPostsTableSeeder::class,
             BlogPostImagesTableSeeder::class,
@@ -31,8 +35,7 @@ class DatabaseSeeder extends Seeder
             SystemMenuItemsTableSeeder::class
         ]);
 
-        $this->call(OauthClientsTableSeeder::class);
-
         Schema::enableForeignKeyConstraints();
+
     }
 }

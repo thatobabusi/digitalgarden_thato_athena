@@ -104,13 +104,6 @@ ART;
             })
             ->addLineBreak('-')
 
-            /*->addItem('1 [1] - App Install; Run the app::install command', function (CliMenu $menu) {
-                $this->call('app:install');
-            })
-            ->addItem('2 [2] - App Update; Run the app::update command', function (CliMenu $menu) {
-                $this->call('app:update');
-            })
-            ->addLineBreak('-')*/
 
             ->addItem('1 [1] - Analyse code; For PHP/Laravel standards (always run before commit/push/deploy)', function (CliMenu $menu) {
                 $this->call('nubian:code-analysis');
@@ -155,6 +148,18 @@ ART;
                 $this->warn('Finished. Click up to return to menu');
             })
 
+            ->addItem('9 [9] - Reverse Engineer MySQL tables to Laravel migrations', function (CliMenu $menu) {
+                $this->call('migrate:generate');
+                $this->warn('Finished. Click up to return to menu');
+            })
+
+            ->addLineBreak('-')
+            ->addItem('10 [i] - App Install; Run the app::install command', function (CliMenu $menu) {
+                $this->call('app:install');
+            })
+            ->addItem('11 [u] - App Update; Run the app::update command', function (CliMenu $menu) {
+                $this->call('app:update');
+            })
             ->addLineBreak('-')
 
             ->setBorder(1, 2, 'green')

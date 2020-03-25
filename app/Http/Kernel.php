@@ -45,6 +45,15 @@ class Kernel extends HttpKernel
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             \App\Http\Middleware\AuthGates::class,
             \App\Http\Middleware\SetLocale::class,
+
+            //Laravel Page Speed | If it breaks stuff, take it out.
+            //\RenatoMarinho\LaravelPageSpeed\Middleware\InlineCss::class, //This one messes with the telescope functionality
+            \RenatoMarinho\LaravelPageSpeed\Middleware\ElideAttributes::class,
+            \RenatoMarinho\LaravelPageSpeed\Middleware\InsertDNSPrefetch::class,
+            \RenatoMarinho\LaravelPageSpeed\Middleware\RemoveComments::class,
+            \RenatoMarinho\LaravelPageSpeed\Middleware\TrimUrls::class,
+            \RenatoMarinho\LaravelPageSpeed\Middleware\RemoveQuotes::class,
+            //\RenatoMarinho\LaravelPageSpeed\Middleware\CollapseWhitespace::class, //This one messes up my styling
         ],
     ];
 

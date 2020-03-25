@@ -2,6 +2,7 @@
 
 namespace App\Models\System;
 
+use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -37,7 +38,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class SystemPageCategory extends Model
 {
 
-    use SoftDeletes;
+    use SoftDeletes, Cachable;
 
     public $table = 'system_page_categories';
 

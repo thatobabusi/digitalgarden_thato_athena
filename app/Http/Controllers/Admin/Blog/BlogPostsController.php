@@ -8,6 +8,7 @@ use App\Http\Requests\StoreBlogPostRequest;
 use App\Http\Requests\UpdateBlogPostRequest;
 use App\Models\Blog\BlogPost;
 use App\Models\User\User;
+use RealRashid\SweetAlert\Facades\Alert;
 use App\Repositories\Blog\BlogPostCategoryRepository;
 use App\Repositories\Blog\BlogPostImageRepository;
 use App\Repositories\Blog\BlogPostRepository;
@@ -78,6 +79,7 @@ class BlogPostsController extends Controller
      */
     public function index(Request $request)
     {
+
         abort_if(Gate::denies('user_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $data = ['blogPosts' => $this->blogPostRepository->getAllBlogPostsRecords()];
@@ -92,7 +94,12 @@ class BlogPostsController extends Controller
     {
         abort_if(Gate::denies('user_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $data = [];
+        $data = [
+            'users' => $this->userRepository->listUsersRecordsByNameAndId(),
+            'tags' => $this->blogPostTagRepository->listAllTagsByTitleAndId(),
+            'categories' => $this->blogPostCategory->listAllCategoriesByTitleAndId(),
+            'statusses' => $this->blogPostRepository->listAllStatussesByTitleAndId(),
+        ];
 
         return view('admin.blog.blogPosts.create', $data);
     }
@@ -106,7 +113,9 @@ class BlogPostsController extends Controller
     {
         $this->blogPostRepository->storeNewBlogPostRecord($request);
 
-        return redirect()->route('admin.blog.blogPosts.index');
+        alert()->success('Success','Blog Post Created Successfully')->timerProgressBar();
+
+        return redirect()->route('admin.blog.index');
     }
 
     /**
@@ -120,14 +129,15 @@ class BlogPostsController extends Controller
 
         $blogPost = $this->blogPostRepository->getBlogPostRecordBySlug($blogPostSlug);
 
-        $blogPost->load('blogPostAuthor', 'blogPostTags', 'blogPostCategory'); //load these relations for use on the blade
+        $blogPost->load('blogPostAuthor', 'blogPostTags', 'blogPostCategory', 'blogPostStatus'); //load these relations for use on the blade
 
         $data = [
                 'blogPost' => $blogPost,
-                'blogPostsRelatedBlogPostCategoryOrTag' => $this->blogPostRepository->getAllBlogPostsRecordsRelatedToThisBlogPostByCategoryOrTag($blogPost, 500),
+                'blogPostsRelatedBlogPostCategoryOrTag' => $this->blogPostRepository->getAllBlogPostsRecordsRelatedToThisBlogPostByCategoryOrTag($blogPost, 10),
                 'users' => $this->userRepository->listUsersRecordsByNameAndId(),
                 'tags' => $this->blogPostTagRepository->listAllTagsByTitleAndId(),
                 'categories' => $this->blogPostCategory->listAllCategoriesByTitleAndId(),
+                'statusses' => $this->blogPostRepository->listAllStatussesByTitleAndId(),
                 ];
 
         return view('admin.blog.blogPosts.edit', $data);
@@ -142,6 +152,8 @@ class BlogPostsController extends Controller
     public function update(UpdateBlogPostRequest $request, string $blogPost_id)
     {
         $this->blogPostRepository->updateExistingBlogPostRecord($request,  $blogPost_id);
+
+        alert()->success('Success','Blog Post Updated Successfully')->timerProgressBar();
 
         return redirect()->route('admin.blog.index');
     }
@@ -174,6 +186,8 @@ class BlogPostsController extends Controller
 
         $this->blogPostRepository->destroySingleBlogPostRecord($blogPost);
 
+        flash('Blog Post Deleted Successfully!');
+
         return back();
     }
 
@@ -185,6 +199,8 @@ class BlogPostsController extends Controller
     public function massDestroy(MassDestroyBlogPostRequest $request)
     {
         $this->blogPostRepository->massDestroyBlogPostRecords($request);
+
+        flash('Blog Posts Deleted Successfully!');
 
         return response(null, Response::HTTP_NO_CONTENT);
     }

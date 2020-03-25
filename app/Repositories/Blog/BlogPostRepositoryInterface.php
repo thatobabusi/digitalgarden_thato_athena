@@ -52,6 +52,7 @@ interface BlogPostRepositoryInterface
     #Check
 
     #List
+    public function listAllStatussesByTitleAndId();
 
     #Store
     /**

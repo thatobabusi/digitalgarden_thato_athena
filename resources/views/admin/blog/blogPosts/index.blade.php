@@ -41,6 +41,9 @@
                             {{ trans('cruds.blogPost.fields.category') }}
                         </th>
                         <th>
+                            {{ trans('cruds.blogPost.fields.blog_post_status_id') }}
+                        </th>
+                        <th>
                             {{ trans('cruds.blogPost.fields.tags') }}
                         </th>
                         <th>
@@ -69,19 +72,14 @@
                             <td>
                                 {{ $blogPost->blogPostAuthor->name ?? '' }}
                             </td>
-                            {{--<td>
-                                @foreach($user->roles as $key => $item)
-                                    <span class="badge badge-info">{{ $item->title }}</span>
-                                @endforeach
-                            </td>--}}
                             <td>
                                 {{ $blogPost->blogPostCategory->title ?? '' }}
                             </td>
                             <td>
+                                {{ $blogPost->blogPostStatus->title ?? '' }}
+                            </td>
+                            <td>
                                 @foreach($blogPost->blogPostTags as $key => $item)
-                                    {{--<a class="btn btn-xs btn-default" href="#">
-                                        {{ $item->title ?? '' }}
-                                    </a>--}}
                                     <span class="badge badge-info">{{ $item->title }}</span>
                                 @endforeach
 
@@ -175,7 +173,7 @@
 
         $.extend(true, $.fn.dataTable.defaults, {
             order: [[ 1, 'desc' ]],
-            pageLength: 100,
+            pageLength: 10,
         });
 
         $('.datatable-User:not(.ajaxTable)').DataTable({

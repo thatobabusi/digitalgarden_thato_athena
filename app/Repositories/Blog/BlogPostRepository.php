@@ -7,8 +7,10 @@ use App\Http\Requests\StoreBlogPostRequest;
 use App\Http\Requests\UpdateBlogPostRequest;
 use App\Models\Blog\BlogPost;
 use App\Models\Blog\BlogPostCategory;
+use App\Models\Blog\BlogPostStatus;
 use App\Models\Blog\BlogPostTag;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
 
 class BlogPostRepository  implements BlogPostRepositoryInterface
@@ -140,23 +142,31 @@ class BlogPostRepository  implements BlogPostRepositoryInterface
     #Check
 
     #List
+    public function listAllStatussesByTitleAndId()
+    {
+        return BlogPostStatus::all()->pluck('title', 'id');
+    }
 
     #Store
 
     /**
      * @param StoreBlogPostRequest $request
      *
-     * @return BlogPost
+     * @return BlogPost|mixed
      */
     public function storeNewBlogPostRecord(StoreBlogPostRequest $request)
     {
         $blog_post = new BlogPost();
+        $blog_post->user_id = Auth::user()->getId();
         $blog_post->blog_post_category_id = $request->input('blog_post_category_id');
+        $blog_post->blog_post_status_id = $request->input('blog_post_status_id');
         $blog_post->title = $request->input('title');
         $blog_post->slug = $request->input('slug');
         $blog_post->summary = $request->input('summary');
         $blog_post->body = $request->input('body');
         $blog_post->save();
+
+        $blog_post->blogPostTags()->sync($request->tags);
 
         return $blog_post;
     }
@@ -172,6 +182,9 @@ class BlogPostRepository  implements BlogPostRepositoryInterface
         $blog_post = BlogPost::find($id);
         $blog_post->update($request->all());
         $blog_post->save();
+
+        $blog_post->blogPostTags()->detach();
+        $blog_post->blogPostTags()->sync($request->tags);
 
         return $blog_post;
     }

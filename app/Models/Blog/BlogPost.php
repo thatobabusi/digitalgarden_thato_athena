@@ -3,6 +3,7 @@
 namespace App\Models\Blog;
 
 use App\Models\User\User;
+use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -37,9 +38,14 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Blog\BlogPost whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Blog\BlogPost whereUserId($value)
  * @mixin \Eloquent
+ * @property int|null $blog_post_status_id
+ * @property-read \App\Models\Blog\BlogPostStatus|null $blogPostStatus
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Blog\BlogPost whereBlogPostStatusId($value)
  */
 class BlogPost extends Model
 {
+    use Cachable;
+
     protected $table = 'blog_posts';
 
     /**
@@ -48,6 +54,7 @@ class BlogPost extends Model
     protected $fillable = [
         'user_id',
         'blog_post_category_id',
+        'blog_post_status_id',
         'title',
         'slug',
         'summary',
@@ -85,6 +92,10 @@ class BlogPost extends Model
         return $this->belongsToMany(BlogPostTag::class);
     }
 
+    public function blogPostStatus()
+    {
+        return $this->belongsTo(BlogPostStatus::class, 'blog_post_status_id');
+    }
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */

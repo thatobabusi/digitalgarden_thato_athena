@@ -24,19 +24,15 @@ class StoreBlogPostRequest extends FormRequest
      */
     public function rules()
     {
+
         return [
-            'name'     => [
-                'required'],
-            'email'    => [
-                'required',
-                'unique:users'],
-            'password' => [
-                'required'],
-            'roles.*'  => [
-                'integer'],
-            'roles'    => [
-                'required',
-                'array'],
+            'user_id'                   => ['required'], //user is going to be author of the blog post
+            'blog_post_category_id'     => ['required'],
+            'blog_post_status_id'       => ['required'],
+            'title'                     => ['required'],
+            'slug '                     => [''], //TODO::check why these dont return valid when actually filled in
+            'summary '                  => [''], //TODO::check why these dont return valid when actually filled in
+            'body  '                    => [''], //TODO::check why these dont return valid when actually filled in
         ];
     }
 }

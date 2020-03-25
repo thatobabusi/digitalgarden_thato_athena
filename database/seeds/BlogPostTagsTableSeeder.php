@@ -30,7 +30,7 @@ class BlogPostTagsTableSeeder extends Seeder
                 'title' => $title,
                 'slug' => $slug,
                 'created_at' => $created_at,
-                'updated_at' => $updated_at,
+                'updated_at' => now(),
                 'deleted_at' => null,
             ]);
         }

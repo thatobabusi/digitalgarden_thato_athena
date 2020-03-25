@@ -43,6 +43,7 @@
         <div class="page-content col-md-offset-1">
             <div class="container">
                 <div class="row">
+                    @include('flash::message')
                     <!-- MAIN CONTENT -->
                     @yield('content')
                     <!-- END MAIN CONTENT -->
@@ -73,6 +74,12 @@
     @yield('disqus_plugin')
 
     @yield('js_bottom_scripts')
+
+    <script>
+        $('#flash-overlay-modal').modal();
+
+        $('div.alert').not('.alert-important').delay(3000).fadeOut(350);
+    </script>
 </body>
 
 </html>

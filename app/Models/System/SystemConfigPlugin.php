@@ -2,6 +2,7 @@
 
 namespace App\Models\System;
 
+use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -32,5 +33,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class SystemConfigPlugin extends Model
 {
+    use Cachable;
+
     public $table = 'system_config_plugins';
 }

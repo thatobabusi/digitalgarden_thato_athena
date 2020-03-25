@@ -26,8 +26,8 @@ class SystemConfigPluginsTableSeeder extends Seeder
             'realted_id' => '(NULL)',
                 'core_or_optional' => 'Core',
                 'enabled' => 1,
-                'created_at' => '2020-03-16 12:15:54',
-                'updated_at' => '2020-03-16 12:15:54',
+                'created_at' => now(),
+                'updated_at' => now(),
             ),
             1 =>
             array (
@@ -38,8 +38,8 @@ class SystemConfigPluginsTableSeeder extends Seeder
             'realted_id' => '(NULL)',
                 'core_or_optional' => 'Core',
                 'enabled' => 1,
-                'created_at' => '2020-03-16 12:15:54',
-                'updated_at' => '2020-03-16 12:15:54',
+                'created_at' => now(),
+                'updated_at' => now(),
             ),
             2 =>
             array (
@@ -50,8 +50,8 @@ class SystemConfigPluginsTableSeeder extends Seeder
             'realted_id' => '(NULL)',
                 'core_or_optional' => 'Core',
                 'enabled' => 1,
-                'created_at' => '2020-03-16 12:15:54',
-                'updated_at' => '2020-03-16 12:15:54',
+                'created_at' => now(),
+                'updated_at' => now(),
             ),
             3 =>
             array (
@@ -62,8 +62,8 @@ class SystemConfigPluginsTableSeeder extends Seeder
             'realted_id' => '(NULL)',
                 'core_or_optional' => 'Optional',
                 'enabled' => 1,
-                'created_at' => '2020-03-16 12:15:54',
-                'updated_at' => '2020-03-16 12:15:54',
+                'created_at' => now(),
+                'updated_at' => now(),
             ),
             4 =>
             array (
@@ -74,8 +74,8 @@ class SystemConfigPluginsTableSeeder extends Seeder
                 'realted_id' => '18',
                 'core_or_optional' => 'Optional',
                 'enabled' => 1,
-                'created_at' => '2020-03-16 12:15:54',
-                'updated_at' => '2020-03-16 12:15:54',
+                'created_at' => now(),
+                'updated_at' => now(),
             ),
             5 =>
             array (
@@ -86,8 +86,8 @@ class SystemConfigPluginsTableSeeder extends Seeder
             'realted_id' => '(NULL)',
                 'core_or_optional' => 'Core',
                 'enabled' => 1,
-                'created_at' => '2020-03-16 12:15:54',
-                'updated_at' => '2020-03-16 12:15:54',
+                'created_at' => now(),
+                'updated_at' => now(),
             ),
             6 =>
             array (
@@ -98,8 +98,8 @@ class SystemConfigPluginsTableSeeder extends Seeder
             'realted_id' => '(NULL)',
                 'core_or_optional' => 'Core',
                 'enabled' => 1,
-                'created_at' => '2020-03-16 12:15:54',
-                'updated_at' => '2020-03-16 12:15:54',
+                'created_at' => now(),
+                'updated_at' => now(),
             ),
             7 =>
             array (
@@ -110,8 +110,8 @@ class SystemConfigPluginsTableSeeder extends Seeder
             'realted_id' => '(NULL)',
                 'core_or_optional' => 'Optional',
                 'enabled' => 1,
-                'created_at' => '2020-03-16 12:15:54',
-                'updated_at' => '2020-03-16 12:15:54',
+                'created_at' => now(),
+                'updated_at' => now(),
             ),
             8 =>
             array (
@@ -122,8 +122,8 @@ class SystemConfigPluginsTableSeeder extends Seeder
             'realted_id' => '(NULL)',
                 'core_or_optional' => 'Optional',
                 'enabled' => 1,
-                'created_at' => '2020-03-16 12:15:54',
-                'updated_at' => '2020-03-16 12:15:54',
+                'created_at' => now(),
+                'updated_at' => now(),
             ),
             9 =>
             array (
@@ -134,8 +134,8 @@ class SystemConfigPluginsTableSeeder extends Seeder
             'realted_id' => '(NULL)',
                 'core_or_optional' => 'Core',
                 'enabled' => 1,
-                'created_at' => '2020-03-16 12:15:54',
-                'updated_at' => '2020-03-16 12:15:54',
+                'created_at' => now(),
+                'updated_at' => now(),
             ),
             10 =>
             array (
@@ -146,8 +146,8 @@ class SystemConfigPluginsTableSeeder extends Seeder
             'realted_id' => '(NULL)',
                 'core_or_optional' => 'Core',
                 'enabled' => 1,
-                'created_at' => '2020-03-16 12:15:54',
-                'updated_at' => '2020-03-16 12:15:54',
+                'created_at' => now(),
+                'updated_at' => now(),
             ),
             11 =>
             array (
@@ -158,8 +158,8 @@ class SystemConfigPluginsTableSeeder extends Seeder
             'realted_id' => '(NULL)',
                 'core_or_optional' => 'Optional',
                 'enabled' => 1,
-                'created_at' => '2020-03-16 12:15:54',
-                'updated_at' => '2020-03-16 12:15:54',
+                'created_at' => now(),
+                'updated_at' => now(),
             ),
             12 =>
             array (
@@ -170,8 +170,8 @@ class SystemConfigPluginsTableSeeder extends Seeder
             'realted_id' => '(NULL)',
                 'core_or_optional' => 'Core',
                 'enabled' => 1,
-                'created_at' => '2020-03-16 12:15:54',
-                'updated_at' => '2020-03-16 12:15:54',
+                'created_at' => now(),
+                'updated_at' => now(),
             ),
             13 =>
             array (
@@ -182,8 +182,8 @@ class SystemConfigPluginsTableSeeder extends Seeder
             'realted_id' => '(NULL)',
                 'core_or_optional' => 'Optional',
                 'enabled' => 1,
-                'created_at' => '2020-03-16 12:15:54',
-                'updated_at' => '2020-03-16 12:15:54',
+                'created_at' => now(),
+                'updated_at' => now(),
             ),
             14 =>
             array (
@@ -194,8 +194,8 @@ class SystemConfigPluginsTableSeeder extends Seeder
             'realted_id' => '(NULL)',
                 'core_or_optional' => 'Optional',
                 'enabled' => 1,
-                'created_at' => '2020-03-16 12:15:54',
-                'updated_at' => '2020-03-16 12:15:54',
+                'created_at' => now(),
+                'updated_at' => now(),
             ),
             15 =>
             array (
@@ -206,8 +206,8 @@ class SystemConfigPluginsTableSeeder extends Seeder
             'realted_id' => '(NULL)',
                 'core_or_optional' => 'Optional',
                 'enabled' => 1,
-                'created_at' => '2020-03-16 12:15:54',
-                'updated_at' => '2020-03-16 12:15:54',
+                'created_at' => now(),
+                'updated_at' => now(),
             ),
             16 =>
             array (
@@ -218,8 +218,8 @@ class SystemConfigPluginsTableSeeder extends Seeder
             'realted_id' => '(NULL)',
                 'core_or_optional' => 'Core',
                 'enabled' => 1,
-                'created_at' => '2020-03-16 12:15:54',
-                'updated_at' => '2020-03-16 12:15:54',
+                'created_at' => now(),
+                'updated_at' => now(),
             ),
             17 =>
             array (
@@ -230,8 +230,8 @@ class SystemConfigPluginsTableSeeder extends Seeder
             'realted_id' => '(NULL)',
                 'core_or_optional' => 'Core',
                 'enabled' => 1,
-                'created_at' => '2020-03-16 12:15:54',
-                'updated_at' => '2020-03-16 12:15:54',
+                'created_at' => now(),
+                'updated_at' => now(),
             ),
             18 =>
             array (
@@ -242,8 +242,8 @@ class SystemConfigPluginsTableSeeder extends Seeder
             'realted_id' => '(NULL)',
                 'core_or_optional' => 'Core',
                 'enabled' => 1,
-                'created_at' => '2020-03-16 12:15:54',
-                'updated_at' => '2020-03-16 12:15:54',
+                'created_at' => now(),
+                'updated_at' => now(),
             ),
             19 =>
             array (
@@ -254,8 +254,8 @@ class SystemConfigPluginsTableSeeder extends Seeder
                 'realted_id' => '5',
                 'core_or_optional' => 'Optional',
                 'enabled' => 1,
-                'created_at' => '2020-03-16 12:15:54',
-                'updated_at' => '2020-03-16 12:15:54',
+                'created_at' => now(),
+                'updated_at' => now(),
             ),
             20 =>
             array (
@@ -266,8 +266,8 @@ class SystemConfigPluginsTableSeeder extends Seeder
             'realted_id' => '(NULL)',
                 'core_or_optional' => 'Optional',
                 'enabled' => 1,
-                'created_at' => '2020-03-16 12:15:54',
-                'updated_at' => '2020-03-16 12:15:54',
+                'created_at' => now(),
+                'updated_at' => now(),
             ),
             21 =>
             array (
@@ -278,8 +278,8 @@ class SystemConfigPluginsTableSeeder extends Seeder
             'realted_id' => '(NULL)',
                 'core_or_optional' => 'Optional',
                 'enabled' => 1,
-                'created_at' => '2020-03-16 12:15:54',
-                'updated_at' => '2020-03-16 12:15:54',
+                'created_at' => now(),
+                'updated_at' => now(),
             ),
             22 =>
             array (
@@ -290,8 +290,8 @@ class SystemConfigPluginsTableSeeder extends Seeder
             'realted_id' => '(NULL)',
                 'core_or_optional' => 'Optional',
                 'enabled' => 1,
-                'created_at' => '2020-03-16 12:15:54',
-                'updated_at' => '2020-03-16 12:15:54',
+                'created_at' => now(),
+                'updated_at' => now(),
             ),
             23 =>
             array (
@@ -302,8 +302,8 @@ class SystemConfigPluginsTableSeeder extends Seeder
             'realted_id' => '(NULL)',
                 'core_or_optional' => 'Optional',
                 'enabled' => 1,
-                'created_at' => '2020-03-16 12:15:54',
-                'updated_at' => '2020-03-16 12:15:54',
+                'created_at' => now(),
+                'updated_at' => now(),
             ),
             24 =>
             array (
@@ -314,8 +314,8 @@ class SystemConfigPluginsTableSeeder extends Seeder
                 'realted_id' => '19',
                 'core_or_optional' => 'Optional',
                 'enabled' => 1,
-                'created_at' => '2020-03-16 12:15:54',
-                'updated_at' => '2020-03-16 12:15:54',
+                'created_at' => now(),
+                'updated_at' => now(),
             ),
             25 =>
             array (
@@ -326,8 +326,8 @@ class SystemConfigPluginsTableSeeder extends Seeder
                 'realted_id' => '19',
                 'core_or_optional' => 'Optional',
                 'enabled' => 1,
-                'created_at' => '2020-03-16 12:15:54',
-                'updated_at' => '2020-03-16 12:15:54',
+                'created_at' => now(),
+                'updated_at' => now(),
             ),
             26 =>
             array (
@@ -338,8 +338,8 @@ class SystemConfigPluginsTableSeeder extends Seeder
                 'realted_id' => '19',
                 'core_or_optional' => 'Optional',
                 'enabled' => 1,
-                'created_at' => '2020-03-16 12:15:54',
-                'updated_at' => '2020-03-16 12:15:54',
+                'created_at' => now(),
+                'updated_at' => now(),
             ),
             27 =>
             array (
@@ -350,8 +350,8 @@ class SystemConfigPluginsTableSeeder extends Seeder
                 'realted_id' => '19',
                 'core_or_optional' => 'Optional',
                 'enabled' => 1,
-                'created_at' => '2020-03-16 12:15:54',
-                'updated_at' => '2020-03-16 12:15:54',
+                'created_at' => now(),
+                'updated_at' => now(),
             ),
             28 =>
             array (
@@ -362,8 +362,8 @@ class SystemConfigPluginsTableSeeder extends Seeder
                 'realted_id' => '19',
                 'core_or_optional' => 'Optional',
                 'enabled' => 1,
-                'created_at' => '2020-03-16 12:15:54',
-                'updated_at' => '2020-03-16 12:15:54',
+                'created_at' => now(),
+                'updated_at' => now(),
             ),
         ));
 

@@ -5,6 +5,7 @@ namespace App\Models\User;
 use App\Models\AccessControl\Role;
 use App\Models\Blog\BlogPost;
 use Carbon\Carbon;
+use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -61,7 +62,7 @@ use Laravel\Passport\HasApiTokens;
  */
 class User extends Authenticatable
 {
-    use SoftDeletes, Notifiable, HasApiTokens;
+    use Cachable, SoftDeletes, Notifiable, HasApiTokens;
 
     public $table = 'users';
 
@@ -121,6 +122,22 @@ class User extends Authenticatable
     /*******************************************************************************************************************
      *############################                  GETTERS             ################################################
      ******************************************************************************************************************/
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFullName()
+    {
+        return $this->name;
+    }
 
     /**
      * @return bool

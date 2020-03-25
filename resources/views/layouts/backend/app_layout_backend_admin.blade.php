@@ -22,7 +22,6 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.css" rel="stylesheet" />
     <link href='https://cdn.jsdelivr.net/npm/froala-editor@3.1.0/css/froala_editor.pkgd.min.css' rel='stylesheet' type='text/css' />
     <link href="https://cdn.jsdelivr.net/npm/froala-editor@3.1.0/css/froala_style.min.css" rel="stylesheet" type="text/css" />
-    <link href="{{ URL::asset('css/editor.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet" />
     @yield('styles')
     <link rel="shortcut icon" href="{{ URL::asset('template/assets/ico/favicon.ico') }}">
@@ -60,11 +59,16 @@
     </header>
 
     <div class="app-body">
+
         @include('layouts.backend.menu')
-        <main class="main">
+
+        <main class="main" style="padding-top: 2% !important;">
 
 
             <div style="padding-top: 20px" class="container-fluid">
+
+                @include('flash::message')
+
                 @if(session('message'))
                     <div class="row mb-2">
                         <div class="col-lg-12">
@@ -112,7 +116,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/js/select2.full.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.js"></script>
     <script src="{{ asset('js/main.js') }}"></script>
-
+    @include('sweetalert::alert')
     <script>
         $(document).ready(function(){
 
@@ -248,6 +252,12 @@
 
     </script>
     @yield('scripts')
+
+    <script>
+        $('#flash-overlay-modal').modal();
+
+        $('div.alert').not('.alert-important').delay(3000).fadeOut(350);
+    </script>
 </body>
 
 </html>

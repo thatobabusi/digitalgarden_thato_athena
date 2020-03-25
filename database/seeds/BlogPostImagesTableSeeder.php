@@ -25,7 +25,7 @@ class BlogPostImagesTableSeeder extends Seeder
 
         foreach($blogs as $blog) {
 
-            if($y > 11) {
+            if($y > 9) {
                 $y = 0;
             }
 
@@ -33,8 +33,6 @@ class BlogPostImagesTableSeeder extends Seeder
 
             $title = $faker->sentence(5);
             $slug = Str::slug($title, '-');
-            $created_at = $faker->dateTimeBetween($startDate = '-24 months', $endDate = 'now');
-            $updated_at = $faker->dateTimeBetween($created_at, $endDate = 'now');
 
             DB::table('blog_post_images')->insert([
                 'blog_post_id' => $blog->id,
@@ -43,8 +41,8 @@ class BlogPostImagesTableSeeder extends Seeder
                 'blog_post_image_path' => "template/assets/img/blog/blog-med-img$y.jpg",
                 'blog_post_image_caption' => $title,
                 'credits_if_applicable' => null,
-                'created_at' => $created_at,
-                'updated_at' => $updated_at,
+                'created_at' => now(),
+                'updated_at' => now(),
                 'deleted_at' => null,
             ]);
         }
