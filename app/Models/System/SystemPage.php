@@ -37,6 +37,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\System\SystemPage withTrashed()
  * @method static \Illuminate\Database\Query\Builder|\App\Models\System\SystemPage withoutTrashed()
  * @mixin \Eloquent
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\System\SystemPage disableCache()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\System\SystemPage withCacheCooldownSeconds($seconds = null)
  */
 class SystemPage extends Model
 {

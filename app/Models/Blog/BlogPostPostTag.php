@@ -12,6 +12,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Blog\BlogPostPostTag newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Blog\BlogPostPostTag query()
  * @mixin \Eloquent
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Blog\BlogPostPostTag disableCache()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Blog\BlogPostPostTag withCacheCooldownSeconds($seconds = null)
  */
 class BlogPostPostTag extends Model
 {

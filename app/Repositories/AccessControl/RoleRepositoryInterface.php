@@ -15,6 +15,14 @@ interface RoleRepositoryInterface
     public function getAllRoles();
 
     /**
+     * @param string|null $criteria
+     * @param string|null $value
+     *
+     * @return mixed
+     */
+    public function getRolesCountByCriteria(string $criteria = null, string $value = null);
+
+    /**
      * @return mixed
      */
     public function listAllRolesByTitleAndId();

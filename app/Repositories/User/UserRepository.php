@@ -6,7 +6,6 @@ use App\Http\Requests\MassDestroyUserRequest;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\User\User;
-//use Illuminate\Support\Facades\Request;
 use Illuminate\Http\Request;
 
 class UserRepository implements UserRepositoryInterface
@@ -28,6 +27,22 @@ class UserRepository implements UserRepositoryInterface
 
         return $users;
     }
+
+    /**
+     * @param string|null $criteria
+     * @param string|null $value
+     *
+     * @return int|mixed
+     */
+    public function getUserCountByCriteria(string $criteria = null, string $value = null)
+    {
+        if($criteria === null) {
+            return User::all()->count();
+        }
+
+        return User::where("$criteria", "$value")->get()->count();
+    }
+
     #Check
 
     #List

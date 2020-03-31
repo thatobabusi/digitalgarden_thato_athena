@@ -41,6 +41,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property int|null $blog_post_status_id
  * @property-read \App\Models\Blog\BlogPostStatus|null $blogPostStatus
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Blog\BlogPost whereBlogPostStatusId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Blog\BlogPost disableCache()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Blog\BlogPost withCacheCooldownSeconds($seconds = null)
  */
 class BlogPost extends Model
 {

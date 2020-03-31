@@ -130,6 +130,21 @@ class BlogPostRepository  implements BlogPostRepositoryInterface
     }
 
     /**
+     * @param string|null $criteria
+     * @param string|null $value
+     *
+     * @return BlogPost[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Support\Collection|mixed
+     */
+    public function getBlogPostCountByCriteria(string $criteria = null, string $value = null)
+    {
+        if($criteria === null) {
+            return BlogPost::all()->count();
+        }
+
+        return BlogPost::where("$criteria", "$value")->get()->count();
+    }
+
+    /**
      * @param string $slug
      *
      * @return mixed

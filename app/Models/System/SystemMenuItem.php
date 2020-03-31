@@ -46,6 +46,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\System\SystemMenuItem withTrashed()
  * @method static \Illuminate\Database\Query\Builder|\App\Models\System\SystemMenuItem withoutTrashed()
  * @mixin \Eloquent
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\System\SystemMenuItem disableCache()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\System\SystemMenuItem withCacheCooldownSeconds($seconds = null)
  */
 class SystemMenuItem extends Model
 {

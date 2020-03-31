@@ -26,6 +26,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Blog\BlogPostTag whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Blog\BlogPostTag whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Blog\BlogPostTag disableCache()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Blog\BlogPostTag withCacheCooldownSeconds($seconds = null)
  */
 class BlogPostTag extends Model
 {

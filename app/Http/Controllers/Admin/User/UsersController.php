@@ -11,6 +11,7 @@ use App\Models\School\SchoolClass;
 use App\Models\User\User;
 use App\Repositories\AccessControl\RoleRepository;
 use App\Repositories\User\UserRepository;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -51,7 +52,8 @@ class UsersController extends Controller
     public function index(Request $request)
     {
         abort_if(Gate::denies('user_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
+        //dd(Carbon::parse(Carbon::now())->toDateString());
+        //dd(Carbon::parse(Carbon::now())->toDateTimeString());
         $data = ['users' => $this->userRepository->getUsersRecords($request)];
 
         return view('admin.users.index', $data);

@@ -1,7 +1,17 @@
 @extends('layouts.backend.app_layout_backend_admin')
+
 @section('content')
 <div class="content">
-    <div class="row">
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item"><a href="#">Library</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Data</li>
+        </ol>
+    </nav>
+
+    {{--<div class="row">
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header">
@@ -19,6 +29,19 @@
                 </div>
             </div>
         </div>
+    </div>--}}
+
+    <div class="row">
+        @include('partials.backend.buttons.home_buttons')
+    </div>
+
+    <div class="row">
+        @include('partials.backend.widgets.blog_posts')
+
+        @include('partials.backend.widgets.blog_post_categories')
+
+        @include('partials.backend.widgets.blog_post_tags')
+
     </div>
 </div>
 @endsection

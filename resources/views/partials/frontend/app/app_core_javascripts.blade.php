@@ -3,7 +3,7 @@
 <script src="{{ URL::asset('template/assets/js/plugins/easing/jquery.easing.min.js') }}"></script>
 <script src="{{ URL::asset('template/assets/js/plugins/twitter/twitterFetcher.min.js') }}"></script>
 <script src="{{ URL::asset('template/assets/js/bravana-lite.js') }}"></script>
-
+<script src="{{ URL::asset('js/lightwidget.js') }}"></script>
 <script>
     //Get the button:
     mybutton = document.getElementById("scrollToTopButton");

@@ -27,6 +27,15 @@
     <link rel="shortcut icon" href="{{ URL::asset('template/assets/ico/favicon.ico') }}">
 </head>
 
+<style>
+    .dashboard-list-scrollable{
+        max-height: 265px;
+        margin-bottom: 10px;
+        overflow-x: scroll;
+        /*overflow:scroll;*/
+        -webkit-overflow-scrolling: touch;
+    }
+</style>
 <body class="app header-fixed sidebar-fixed aside-menu-fixed pace-done sidebar-lg-show">
     <header class="app-header navbar">
         <button class="navbar-toggler sidebar-toggler d-lg-none mr-auto" type="button" data-toggle="sidebar-show">
@@ -53,8 +62,6 @@
                     </div>
                 </li>
             @endif
-
-
         </ul>
     </header>
 
@@ -66,8 +73,6 @@
 
 
             <div style="padding-top: 20px" class="container-fluid">
-
-                @include('flash::message')
 
                 @if(session('message'))
                     <div class="row mb-2">

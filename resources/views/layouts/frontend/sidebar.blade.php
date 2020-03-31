@@ -13,6 +13,12 @@
             <!-- end twitter feed widget -->
         @endif
 
+        @if(plugin_is_enabled('Instagram Feed Plugin'))
+            <!-- widget twitter feed-->
+            @include('partials.frontend.sidebar.instagram')
+            <!-- end twitter feed widget -->
+        @endif
+
         @if(plugin_is_enabled('Blog Recommended'))
             <!-- widget recommended -->
             @include('partials.frontend.sidebar.recommended')

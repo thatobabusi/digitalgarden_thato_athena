@@ -41,8 +41,8 @@ class BlogPostImagesTableSeeder extends Seeder
                 'blog_post_image_path' => "template/assets/img/blog/blog-med-img$y.jpg",
                 'blog_post_image_caption' => $title,
                 'credits_if_applicable' => null,
-                'created_at' => now(),
-                'updated_at' => now(),
+                'created_at' => \Carbon\Carbon::now(),
+                'updated_at' => \Carbon\Carbon::now(),
                 'deleted_at' => null,
             ]);
         }

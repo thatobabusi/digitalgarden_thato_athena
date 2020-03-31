@@ -20,6 +20,21 @@ class PermissionRepository implements PermissionRepositoryInterface
         return Permission::all();
     }
 
+    /**
+     * @param string|null $criteria
+     * @param string|null $value
+     *
+     * @return int
+     */
+    public function getPermissionsCountByCriteria(string $criteria = null, string $value = null)
+    {
+        if($criteria === null) {
+            return Permission::all()->count();
+        }
+
+        return Permission::where("$criteria", "$value")->get()->count();
+    }
+
     #Check
 
     #List

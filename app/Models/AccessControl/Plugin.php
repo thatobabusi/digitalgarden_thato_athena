@@ -33,6 +33,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AccessControl\Plugin whereCoreOrOptional($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AccessControl\Plugin whereParentId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AccessControl\Plugin whereRealtedId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AccessControl\Plugin disableCache()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AccessControl\Plugin withCacheCooldownSeconds($seconds = null)
  */
 class Plugin extends Model
 {

@@ -30,6 +30,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\System\SystemConfigPlugin whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\System\SystemConfigPlugin whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\System\SystemConfigPlugin disableCache()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\System\SystemConfigPlugin withCacheCooldownSeconds($seconds = null)
  */
 class SystemConfigPlugin extends Model
 {

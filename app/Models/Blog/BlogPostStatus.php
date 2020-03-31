@@ -26,6 +26,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Blog\BlogPostStatus whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Blog\BlogPostStatus whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Blog\BlogPostStatus disableCache()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Blog\BlogPostStatus withCacheCooldownSeconds($seconds = null)
  */
 class BlogPostStatus extends Model
 {

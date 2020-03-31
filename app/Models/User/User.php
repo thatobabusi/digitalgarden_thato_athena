@@ -59,6 +59,8 @@ use Laravel\Passport\HasApiTokens;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User\User withTrashed()
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User\User withoutTrashed()
  * @mixin \Eloquent
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User\User disableCache()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User\User withCacheCooldownSeconds($seconds = null)
  */
 class User extends Authenticatable
 {
@@ -78,8 +80,8 @@ class User extends Authenticatable
      * @var array
      */
     protected $dates = [
-        'updated_at',
         'created_at',
+        'updated_at',
         'deleted_at',
         'email_verified_at',
     ];
@@ -164,11 +166,41 @@ class User extends Authenticatable
     }
 
     /**
-     * @param $value
+     * @param string|null $value
      *
      * @return string|null
      */
-    public function getEmailVerifiedAtAttribute($value)
+    public function getCreatedAtAttribute(string $value = null)
+    {
+        return $this->attributes['created_at'] = Carbon::parse($value)->toDateTimeString() ?? null;
+    }
+
+    /**
+     * @param string|null $value
+     *
+     * @return string|null
+     */
+    public function getUpdatedAtAttribute(string $value = null)
+    {
+        return $this->attributes['updated_at'] = Carbon::parse($value)->toDateTimeString() ?? null;
+    }
+
+    /**
+     * @param string|null $value
+     *
+     * @return string|null
+     */
+    public function getDeletedAtAttribute(string $value = null)
+    {
+        return $this->attributes['deleted_at'] = Carbon::parse($value)->toDateTimeString() ?? null;
+    }
+
+    /**
+     * @param string|null $value
+     *
+     * @return string|null
+     */
+    public function getEmailVerifiedAtAttribute(string $value = null)
     {
         //$value ? Carbon::createFromFormat('Y-m-d H:i:s', $value)->format(config('panel.date_format') . ' ' . config('panel.time_format')) : null;
 
@@ -186,27 +218,6 @@ class User extends Authenticatable
     /*******************************************************************************************************************
      *############################                  SETTERS             ################################################
      ******************************************************************************************************************/
-
-    /**
-     * @param string $value
-     *
-     * @return string|null
-     */
-    public function setEmailVerifiedAtAttribute(string $value)
-    {
-        //$this->attributes['email_verified_at'] = $value ? Carbon::createFromFormat(config('panel.date_format') . ' ' . config('panel.time_format'), $value)->format('Y-m-d H:i:s') : null;
-
-        $return = null;
-
-        if($value) {
-            $val = Carbon::createFromFormat('Y-m-d H:i:s', $value);
-            if($val) {
-                $return = $val->format(config('panel.date_format') . ' ' . config('panel.time_format'));
-            }
-        }
-
-        return $this->attributes['email_verified_at'] = $return;
-    }
 
     /**
      * @param string $input
@@ -232,6 +243,57 @@ class User extends Authenticatable
         $this->notify(new ResetPassword($token));
 
         return true;
+    }
+
+    /**
+     * @param string $value
+     *
+     * @return string|null
+     */
+    public function setCreatedAtAttribute(string $value)
+    {
+        return $this->attributes['created_at'] = Carbon::parse($value)->toDateTimeString() ?? null;
+    }
+
+    /**
+     * @param string $value
+     *
+     * @return string|null
+     */
+    public function setUpdatedAtAttribute(string $value)
+    {
+        return $this->attributes['updated_at'] = Carbon::parse($value)->toDateTimeString() ?? null;
+    }
+
+    /**
+     * @param string $value
+     *
+     * @return string|null
+     */
+    public function setDeletedAtAttribute(string $value)
+    {
+        return $this->attributes['deleted_at'] = Carbon::parse($value)->toDateTimeString() ?? null;
+    }
+
+    /**
+     * @param string $value
+     *
+     * @return string|null
+     */
+    public function setEmailVerifiedAtAttribute(string $value)
+    {
+        //$this->attributes['email_verified_at'] = $value ? Carbon::createFromFormat(config('panel.date_format') . ' ' . config('panel.time_format'), $value)->format('Y-m-d H:i:s') : null;
+
+        $return = null;
+
+        if($value) {
+            $val = Carbon::createFromFormat('Y-m-d H:i:s', $value);
+            if($val) {
+                $return = $val->format(config('panel.date_format') . ' ' . config('panel.time_format'));
+            }
+        }
+
+        return $this->attributes['email_verified_at'] = $return;
     }
 
 }

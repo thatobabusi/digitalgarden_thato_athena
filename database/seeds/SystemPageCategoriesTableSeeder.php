@@ -22,8 +22,8 @@ class SystemPageCategoriesTableSeeder extends Seeder
                 'title' => 'Frontend',
                 'slug' => 'frontend',
                 'type' => 'frontend',
-                'created_at' => now(),
-                'updated_at' => now(),
+                'created_at' => \Carbon\Carbon::now(),
+                'updated_at' => \Carbon\Carbon::now(),
                 'deleted_at' => '2020-03-17 12:18:03',
             ),
             1 =>
@@ -32,8 +32,8 @@ class SystemPageCategoriesTableSeeder extends Seeder
                 'title' => 'Backend',
                 'slug' => 'backend',
                 'type' => 'backend',
-                'created_at' => now(),
-                'updated_at' => now(),
+                'created_at' => \Carbon\Carbon::now(),
+                'updated_at' => \Carbon\Carbon::now(),
                 'deleted_at' => '2020-03-17 12:18:03',
             ),
         ));

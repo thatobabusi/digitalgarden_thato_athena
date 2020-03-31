@@ -26,8 +26,8 @@ class SystemConfigPluginsTableSeeder extends Seeder
             'realted_id' => '(NULL)',
                 'core_or_optional' => 'Core',
                 'enabled' => 1,
-                'created_at' => now(),
-                'updated_at' => now(),
+                'created_at' => \Carbon\Carbon::now(),
+                'updated_at' => \Carbon\Carbon::now(),
             ),
             1 =>
             array (
@@ -38,8 +38,8 @@ class SystemConfigPluginsTableSeeder extends Seeder
             'realted_id' => '(NULL)',
                 'core_or_optional' => 'Core',
                 'enabled' => 1,
-                'created_at' => now(),
-                'updated_at' => now(),
+                'created_at' => \Carbon\Carbon::now(),
+                'updated_at' => \Carbon\Carbon::now(),
             ),
             2 =>
             array (
@@ -50,8 +50,8 @@ class SystemConfigPluginsTableSeeder extends Seeder
             'realted_id' => '(NULL)',
                 'core_or_optional' => 'Core',
                 'enabled' => 1,
-                'created_at' => now(),
-                'updated_at' => now(),
+                'created_at' => \Carbon\Carbon::now(),
+                'updated_at' => \Carbon\Carbon::now(),
             ),
             3 =>
             array (
@@ -62,8 +62,8 @@ class SystemConfigPluginsTableSeeder extends Seeder
             'realted_id' => '(NULL)',
                 'core_or_optional' => 'Optional',
                 'enabled' => 1,
-                'created_at' => now(),
-                'updated_at' => now(),
+                'created_at' => \Carbon\Carbon::now(),
+                'updated_at' => \Carbon\Carbon::now(),
             ),
             4 =>
             array (
@@ -71,11 +71,11 @@ class SystemConfigPluginsTableSeeder extends Seeder
                 'title' => 'Blog Management',
                 'backend_frontend' => 'Backend',
                 'parent_id' => 1,
-                'realted_id' => '18',
+                'realted_id' => '20',
                 'core_or_optional' => 'Optional',
                 'enabled' => 1,
-                'created_at' => now(),
-                'updated_at' => now(),
+                'created_at' => \Carbon\Carbon::now(),
+                'updated_at' => \Carbon\Carbon::now(),
             ),
             5 =>
             array (
@@ -86,8 +86,8 @@ class SystemConfigPluginsTableSeeder extends Seeder
             'realted_id' => '(NULL)',
                 'core_or_optional' => 'Core',
                 'enabled' => 1,
-                'created_at' => now(),
-                'updated_at' => now(),
+                'created_at' => \Carbon\Carbon::now(),
+                'updated_at' => \Carbon\Carbon::now(),
             ),
             6 =>
             array (
@@ -98,8 +98,8 @@ class SystemConfigPluginsTableSeeder extends Seeder
             'realted_id' => '(NULL)',
                 'core_or_optional' => 'Core',
                 'enabled' => 1,
-                'created_at' => now(),
-                'updated_at' => now(),
+                'created_at' => \Carbon\Carbon::now(),
+                'updated_at' => \Carbon\Carbon::now(),
             ),
             7 =>
             array (
@@ -110,8 +110,8 @@ class SystemConfigPluginsTableSeeder extends Seeder
             'realted_id' => '(NULL)',
                 'core_or_optional' => 'Optional',
                 'enabled' => 1,
-                'created_at' => now(),
-                'updated_at' => now(),
+                'created_at' => \Carbon\Carbon::now(),
+                'updated_at' => \Carbon\Carbon::now(),
             ),
             8 =>
             array (
@@ -122,8 +122,8 @@ class SystemConfigPluginsTableSeeder extends Seeder
             'realted_id' => '(NULL)',
                 'core_or_optional' => 'Optional',
                 'enabled' => 1,
-                'created_at' => now(),
-                'updated_at' => now(),
+                'created_at' => \Carbon\Carbon::now(),
+                'updated_at' => \Carbon\Carbon::now(),
             ),
             9 =>
             array (
@@ -134,8 +134,8 @@ class SystemConfigPluginsTableSeeder extends Seeder
             'realted_id' => '(NULL)',
                 'core_or_optional' => 'Core',
                 'enabled' => 1,
-                'created_at' => now(),
-                'updated_at' => now(),
+                'created_at' => \Carbon\Carbon::now(),
+                'updated_at' => \Carbon\Carbon::now(),
             ),
             10 =>
             array (
@@ -146,8 +146,8 @@ class SystemConfigPluginsTableSeeder extends Seeder
             'realted_id' => '(NULL)',
                 'core_or_optional' => 'Core',
                 'enabled' => 1,
-                'created_at' => now(),
-                'updated_at' => now(),
+                'created_at' => \Carbon\Carbon::now(),
+                'updated_at' => \Carbon\Carbon::now(),
             ),
             11 =>
             array (
@@ -158,8 +158,8 @@ class SystemConfigPluginsTableSeeder extends Seeder
             'realted_id' => '(NULL)',
                 'core_or_optional' => 'Optional',
                 'enabled' => 1,
-                'created_at' => now(),
-                'updated_at' => now(),
+                'created_at' => \Carbon\Carbon::now(),
+                'updated_at' => \Carbon\Carbon::now(),
             ),
             12 =>
             array (
@@ -170,8 +170,8 @@ class SystemConfigPluginsTableSeeder extends Seeder
             'realted_id' => '(NULL)',
                 'core_or_optional' => 'Core',
                 'enabled' => 1,
-                'created_at' => now(),
-                'updated_at' => now(),
+                'created_at' => \Carbon\Carbon::now(),
+                'updated_at' => \Carbon\Carbon::now(),
             ),
             13 =>
             array (
@@ -182,8 +182,8 @@ class SystemConfigPluginsTableSeeder extends Seeder
             'realted_id' => '(NULL)',
                 'core_or_optional' => 'Optional',
                 'enabled' => 1,
-                'created_at' => now(),
-                'updated_at' => now(),
+                'created_at' => \Carbon\Carbon::now(),
+                'updated_at' => \Carbon\Carbon::now(),
             ),
             14 =>
             array (
@@ -194,8 +194,8 @@ class SystemConfigPluginsTableSeeder extends Seeder
             'realted_id' => '(NULL)',
                 'core_or_optional' => 'Optional',
                 'enabled' => 1,
-                'created_at' => now(),
-                'updated_at' => now(),
+                'created_at' => \Carbon\Carbon::now(),
+                'updated_at' => \Carbon\Carbon::now(),
             ),
             15 =>
             array (
@@ -206,8 +206,8 @@ class SystemConfigPluginsTableSeeder extends Seeder
             'realted_id' => '(NULL)',
                 'core_or_optional' => 'Optional',
                 'enabled' => 1,
-                'created_at' => now(),
-                'updated_at' => now(),
+                'created_at' => \Carbon\Carbon::now(),
+                'updated_at' => \Carbon\Carbon::now(),
             ),
             16 =>
             array (
@@ -218,8 +218,8 @@ class SystemConfigPluginsTableSeeder extends Seeder
             'realted_id' => '(NULL)',
                 'core_or_optional' => 'Core',
                 'enabled' => 1,
-                'created_at' => now(),
-                'updated_at' => now(),
+                'created_at' => \Carbon\Carbon::now(),
+                'updated_at' => \Carbon\Carbon::now(),
             ),
             17 =>
             array (
@@ -230,8 +230,8 @@ class SystemConfigPluginsTableSeeder extends Seeder
             'realted_id' => '(NULL)',
                 'core_or_optional' => 'Core',
                 'enabled' => 1,
-                'created_at' => now(),
-                'updated_at' => now(),
+                'created_at' => \Carbon\Carbon::now(),
+                'updated_at' => \Carbon\Carbon::now(),
             ),
             18 =>
             array (
@@ -242,8 +242,8 @@ class SystemConfigPluginsTableSeeder extends Seeder
             'realted_id' => '(NULL)',
                 'core_or_optional' => 'Core',
                 'enabled' => 1,
-                'created_at' => now(),
-                'updated_at' => now(),
+                'created_at' => \Carbon\Carbon::now(),
+                'updated_at' => \Carbon\Carbon::now(),
             ),
             19 =>
             array (
@@ -254,8 +254,8 @@ class SystemConfigPluginsTableSeeder extends Seeder
                 'realted_id' => '5',
                 'core_or_optional' => 'Optional',
                 'enabled' => 1,
-                'created_at' => now(),
-                'updated_at' => now(),
+                'created_at' => \Carbon\Carbon::now(),
+                'updated_at' => \Carbon\Carbon::now(),
             ),
             20 =>
             array (
@@ -266,8 +266,8 @@ class SystemConfigPluginsTableSeeder extends Seeder
             'realted_id' => '(NULL)',
                 'core_or_optional' => 'Optional',
                 'enabled' => 1,
-                'created_at' => now(),
-                'updated_at' => now(),
+                'created_at' => \Carbon\Carbon::now(),
+                'updated_at' => \Carbon\Carbon::now(),
             ),
             21 =>
             array (
@@ -278,8 +278,8 @@ class SystemConfigPluginsTableSeeder extends Seeder
             'realted_id' => '(NULL)',
                 'core_or_optional' => 'Optional',
                 'enabled' => 1,
-                'created_at' => now(),
-                'updated_at' => now(),
+                'created_at' => \Carbon\Carbon::now(),
+                'updated_at' => \Carbon\Carbon::now(),
             ),
             22 =>
             array (
@@ -290,8 +290,8 @@ class SystemConfigPluginsTableSeeder extends Seeder
             'realted_id' => '(NULL)',
                 'core_or_optional' => 'Optional',
                 'enabled' => 1,
-                'created_at' => now(),
-                'updated_at' => now(),
+                'created_at' => \Carbon\Carbon::now(),
+                'updated_at' => \Carbon\Carbon::now(),
             ),
             23 =>
             array (
@@ -302,8 +302,8 @@ class SystemConfigPluginsTableSeeder extends Seeder
             'realted_id' => '(NULL)',
                 'core_or_optional' => 'Optional',
                 'enabled' => 1,
-                'created_at' => now(),
-                'updated_at' => now(),
+                'created_at' => \Carbon\Carbon::now(),
+                'updated_at' => \Carbon\Carbon::now(),
             ),
             24 =>
             array (
@@ -314,8 +314,8 @@ class SystemConfigPluginsTableSeeder extends Seeder
                 'realted_id' => '19',
                 'core_or_optional' => 'Optional',
                 'enabled' => 1,
-                'created_at' => now(),
-                'updated_at' => now(),
+                'created_at' => \Carbon\Carbon::now(),
+                'updated_at' => \Carbon\Carbon::now(),
             ),
             25 =>
             array (
@@ -326,8 +326,8 @@ class SystemConfigPluginsTableSeeder extends Seeder
                 'realted_id' => '19',
                 'core_or_optional' => 'Optional',
                 'enabled' => 1,
-                'created_at' => now(),
-                'updated_at' => now(),
+                'created_at' => \Carbon\Carbon::now(),
+                'updated_at' => \Carbon\Carbon::now(),
             ),
             26 =>
             array (
@@ -338,8 +338,8 @@ class SystemConfigPluginsTableSeeder extends Seeder
                 'realted_id' => '19',
                 'core_or_optional' => 'Optional',
                 'enabled' => 1,
-                'created_at' => now(),
-                'updated_at' => now(),
+                'created_at' => \Carbon\Carbon::now(),
+                'updated_at' => \Carbon\Carbon::now(),
             ),
             27 =>
             array (
@@ -350,8 +350,8 @@ class SystemConfigPluginsTableSeeder extends Seeder
                 'realted_id' => '19',
                 'core_or_optional' => 'Optional',
                 'enabled' => 1,
-                'created_at' => now(),
-                'updated_at' => now(),
+                'created_at' => \Carbon\Carbon::now(),
+                'updated_at' => \Carbon\Carbon::now(),
             ),
             28 =>
             array (
@@ -362,9 +362,33 @@ class SystemConfigPluginsTableSeeder extends Seeder
                 'realted_id' => '19',
                 'core_or_optional' => 'Optional',
                 'enabled' => 1,
-                'created_at' => now(),
-                'updated_at' => now(),
+                'created_at' => \Carbon\Carbon::now(),
+                'updated_at' => \Carbon\Carbon::now(),
             ),
+            29 =>
+                array (
+                    'id' => 30,
+                    'title' => 'Instagram Feed Plugin',
+                    'backend_frontend' => 'Frontend',
+                    'parent_id' => 2,
+                    'realted_id' => '(NULL)',
+                    'core_or_optional' => 'Optional',
+                    'enabled' => 1,
+                    'created_at' => \Carbon\Carbon::now(),
+                    'updated_at' => \Carbon\Carbon::now(),
+                ),
+            30 =>
+                array (
+                    'id' => 31,
+                    'title' => 'Log Viewer',
+                    'backend_frontend' => 'Backend',
+                    'parent_id' => 6,
+                    'realted_id' => '(NULL)',
+                    'core_or_optional' => 'Core',
+                    'enabled' => 1,
+                    'created_at' => \Carbon\Carbon::now(),
+                    'updated_at' => \Carbon\Carbon::now(),
+                ),
         ));
 
 

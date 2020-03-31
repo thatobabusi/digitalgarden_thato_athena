@@ -30,6 +30,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\AccessControl\Permission withTrashed()
  * @method static \Illuminate\Database\Query\Builder|\App\Models\AccessControl\Permission withoutTrashed()
  * @mixin \Eloquent
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AccessControl\Permission disableCache()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AccessControl\Permission withCacheCooldownSeconds($seconds = null)
  */
 class Permission extends Model
 {

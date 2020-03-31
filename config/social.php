@@ -18,6 +18,12 @@ return [
             'link' => env('FACEBOOK_ACCOUNT_LINK', '#'),
             'icon' => 'fa fa-facebook',
         ],
+        'Instagram' => [
+            'title' => 'Instagram',
+            'username' => env('INSTAGRAM_ACCOUNT', '#'),
+            'link' => env('INSTAGRAM_ACCOUNT_LINK', '#'),
+            'icon' => 'fa fa-instagram',
+        ],
         'Twitter' => [
             'title' => 'Twitter',
             'username' => env('TWITTER_ACCOUNT', '#'),

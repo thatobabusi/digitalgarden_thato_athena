@@ -33,6 +33,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Blog\BlogPostImage whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Blog\BlogPostImage whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Blog\BlogPostImage disableCache()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Blog\BlogPostImage withCacheCooldownSeconds($seconds = null)
  */
 class BlogPostImage extends Model
 {

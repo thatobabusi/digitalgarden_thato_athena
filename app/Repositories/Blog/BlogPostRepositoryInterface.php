@@ -49,6 +49,14 @@ interface BlogPostRepositoryInterface
      */
     public function getBlogPostRecordBySlug(string $slug);
 
+    /**
+     * @param string|null $criteria
+     * @param string|null $value
+     *
+     * @return mixed
+     */
+    public function getBlogPostCountByCriteria(string $criteria = null, string $value = null);
+
     #Check
 
     #List

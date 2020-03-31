@@ -18,6 +18,14 @@ interface UserRepositoryInterface
     public function getUsersRecords(\Illuminate\Http\Request $request);
 
     /**
+     * @param string|null $criteria
+     * @param string|null $value
+     *
+     * @return mixed
+     */
+    public function getUserCountByCriteria(string $criteria = null, string $value = null);
+
+    /**
      * @param StoreUserRequest $request
      *
      * @return mixed

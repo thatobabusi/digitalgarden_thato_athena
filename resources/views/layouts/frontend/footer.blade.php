@@ -1,6 +1,10 @@
 <footer class="visible-md visible-lg footer-newsletter">
     <div class="container">
 
+        @if(plugin_is_enabled('Instagram Feed Plugin'))
+            @include('partials.frontend.instagram')
+        @endif
+
         @include('partials.frontend.footer_advertisements')
 
         @include('partials.frontend.newsletter_subscribe')
@@ -30,7 +34,7 @@
             <ul class="right list-inline social-icons social-icons-bordered social-icons-small social-icons-fullrounded">
                 @foreach(config('social.social_media') as $key => $value)
                     <li>
-                        <a href="{{$value['link']}}">
+                        <a href="{{$value['link']}}" target="_blank">
                             <i class="{{$value['icon']}}"></i>
                         </a>
                     </li>

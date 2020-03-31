@@ -26,6 +26,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Blog\BlogPostCategory whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Blog\BlogPostCategory whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Blog\BlogPostCategory disableCache()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Blog\BlogPostCategory withCacheCooldownSeconds($seconds = null)
  */
 class BlogPostCategory extends Model
 {

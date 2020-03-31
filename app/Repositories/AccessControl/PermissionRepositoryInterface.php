@@ -15,6 +15,14 @@ interface PermissionRepositoryInterface
     public function getAllPermissions();
 
     /**
+     * @param string|null $criteria
+     * @param string|null $value
+     *
+     * @return mixed
+     */
+    public function getPermissionsCountByCriteria(string $criteria = null, string $value = null);
+
+    /**
      * @return mixed
      */
     public function listAllPermissionsByTitleAndId();

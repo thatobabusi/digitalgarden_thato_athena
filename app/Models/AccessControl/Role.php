@@ -33,6 +33,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\AccessControl\Role withTrashed()
  * @method static \Illuminate\Database\Query\Builder|\App\Models\AccessControl\Role withoutTrashed()
  * @mixin \Eloquent
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AccessControl\Role disableCache()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AccessControl\Role withCacheCooldownSeconds($seconds = null)
  */
 class Role extends Model
 {

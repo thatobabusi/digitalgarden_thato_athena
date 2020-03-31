@@ -6,7 +6,6 @@ use App\Http\Requests\MassDestroyRoleRequest;
 use App\Http\Requests\StoreRoleRequest;
 use App\Http\Requests\UpdateRoleRequest;
 use App\Models\AccessControl\Role;
-use App\Models\User\User;
 use Illuminate\Support\Facades\Request;
 
 class RoleRepository implements RoleRepositoryInterface
@@ -20,6 +19,20 @@ class RoleRepository implements RoleRepositoryInterface
         return Role::all();
     }
 
+    /**
+     * @param string|null $criteria
+     * @param string|null $value
+     *
+     * @return int
+     */
+    public function getRolesCountByCriteria(string $criteria = null, string $value = null)
+    {
+        if($criteria === null) {
+            return Role::all()->count();
+        }
+
+        return Role::where("$criteria", "$value")->get()->count();
+    }
     #Check
 
     #List
