@@ -3,6 +3,11 @@
 use App\Models\AccessControl\Plugin;
 
 if (! function_exists('plugin_is_enabled')) {
+    /**
+     * @param $plugin_name
+     *
+     * @return bool
+     */
     function plugin_is_enabled($plugin_name)
     {
         $plugin = Plugin::whereTitle($plugin_name)->first();
@@ -18,6 +23,9 @@ if (! function_exists('plugin_is_enabled')) {
 }
 
 if (! function_exists('recursively_include_all_files')) {
+    /**
+     * @param $folder
+     */
     function recursively_include_all_files($folder)
     {
         try {
@@ -38,6 +46,12 @@ if (! function_exists('recursively_include_all_files')) {
 }
 
 if (! function_exists('getDirContents')) {
+    /**
+     * @param       $dir
+     * @param array $results
+     *
+     * @return array
+     */
     function getDirContents($dir, &$results = array())
     {
         $files = scandir($dir);
@@ -57,24 +71,34 @@ if (! function_exists('getDirContents')) {
 }
 
 if (! function_exists('myEncryptFunction')) {
+    /**
+     * @param $value
+     *
+     * @return string
+     */
     function myEncryptFunction($value)
     {
-        $base64String = encrypt($value);
-        $base64String = Crypt::encrypt($base64String);
-        $base64String = base64_encode($base64String);
+        $encrypted = encrypt($value);
+        $encrypted = Crypt::encrypt($encrypted);
+        $encrypted = base64_encode($encrypted);
 
-        return $base64String;
+        return $encrypted;
     }
 }
 
 if (! function_exists('myDecryptFunction')) {
+    /**
+     * @param $value
+     *
+     * @return false|mixed|string
+     */
     function myDecryptFunction($value)
     {
-        $base64String = base64_decode($value);
-        $base64String = Crypt::decrypt($base64String);
-        $base64String = decrypt($base64String);
+        $decrypted = base64_decode($value);
+        $decrypted = Crypt::decrypt($decrypted);
+        $decrypted = decrypt($decrypted);
 
-        return $base64String;
+        return $decrypted;
     }
 }
 
