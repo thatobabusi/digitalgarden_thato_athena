@@ -24,7 +24,7 @@ class SystemPageCategoriesTableSeeder extends Seeder
                 'type' => 'frontend',
                 'created_at' => \Carbon\Carbon::now(),
                 'updated_at' => \Carbon\Carbon::now(),
-                'deleted_at' => '2020-03-17 12:18:03',
+                'deleted_at' => null,
             ),
             1 =>
             array (
@@ -34,7 +34,7 @@ class SystemPageCategoriesTableSeeder extends Seeder
                 'type' => 'backend',
                 'created_at' => \Carbon\Carbon::now(),
                 'updated_at' => \Carbon\Carbon::now(),
-                'deleted_at' => '2020-03-17 12:18:03',
+                'deleted_at' => null,
             ),
         ));
 

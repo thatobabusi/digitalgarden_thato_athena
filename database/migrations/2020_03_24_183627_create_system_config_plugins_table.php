@@ -22,6 +22,7 @@ class CreateSystemConfigPluginsTable extends Migration {
 			$table->string('core_or_optional', 191)->nullable()->default('Optional');
 			$table->boolean('enabled')->default(0);
 			$table->timestamps();
+            $table->softDeletes();
 		});
 	}
 

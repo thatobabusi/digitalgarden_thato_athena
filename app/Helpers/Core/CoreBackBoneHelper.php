@@ -56,3 +56,33 @@ if (! function_exists('getDirContents')) {
     }
 }
 
+if (! function_exists('myEncryptFunction')) {
+    function myEncryptFunction($value)
+    {
+        $base64String = encrypt($value);
+        $base64String = Crypt::encrypt($base64String);
+        $base64String = base64_encode($base64String);
+
+        return $base64String;
+    }
+}
+
+if (! function_exists('myDecryptFunction')) {
+    function myDecryptFunction($value)
+    {
+        $base64String = base64_decode($value);
+        $base64String = Crypt::decrypt($base64String);
+        $base64String = decrypt($base64String);
+
+        return $base64String;
+    }
+}
+
+/*
+$base64String = "R0lGODdhAQABAPAAAP8AAAAAACwAAAAAAQABAAACAkQBADs";
+$image = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '',$base64String));
+$FILE = time().rand(111111111, 999999999) . '.png';
+*/
+
+//dd($base64String);
+

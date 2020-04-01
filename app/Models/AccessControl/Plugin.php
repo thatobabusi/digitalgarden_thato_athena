@@ -35,6 +35,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AccessControl\Plugin whereRealtedId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AccessControl\Plugin disableCache()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AccessControl\Plugin withCacheCooldownSeconds($seconds = null)
+ * @property string|null $deleted_at
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AccessControl\Plugin whereDeletedAt($value)
  */
 class Plugin extends Model
 {
@@ -55,6 +57,10 @@ class Plugin extends Model
      */
     protected $fillable = [
         'title',
+        'backend_frontend',
+        'parent_id',
+        'realted_id', //TODO::change to related_id
+        'core_or_optional', //TODO::change to related_id
         'enabled',
     ];
 

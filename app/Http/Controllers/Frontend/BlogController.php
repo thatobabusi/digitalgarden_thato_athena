@@ -83,7 +83,7 @@ class BlogController extends Controller
         $data = [
             //'blogPosts' => $this->blogPostRepository->getAllBlogPostsRecords(10),
             'blogPosts' => BlogPost::paginate(4),
-            'blogPostCategories' => $this->blogPostCategory->getAllCategoriesWhereHasBlogPosts(10),
+            'blogPostCategories' => $this->blogPostCategory->getAllCategoriesWhereHasBlogPosts(15),
             'blogPostTags' => $this->blogPostTagRepository->getAllTagsWhereHasBlogPosts(10),
             'blogPostDistinctArchiveYearAndMonthsArray' => $this->blogPostRepository->getAllDistinctArchiveYearAndMonthsArray(10),
             'featuredBlogPost' => BlogPost::inRandomOrder()->first()
@@ -109,7 +109,7 @@ class BlogController extends Controller
             'page_header' => 'Archive ' . $archive_date,
             'page_title' => 'Archive ' . $archive_date,
             'blogPosts' => $this->blogPostRepository->getAllBlogPostsRecordsByCriteria('archive_date', $archive_date,10),
-            'blogPostCategories' => $this->blogPostCategory->getAllCategoriesWhereHasBlogPosts(10),
+            'blogPostCategories' => $this->blogPostCategory->getAllCategoriesWhereHasBlogPosts(15),
             'blogPostTags' => $this->blogPostTagRepository->getAllTagsWhereHasBlogPosts(10),
             'blogPostDistinctArchiveYearAndMonthsArray' => $this->blogPostRepository->getAllDistinctArchiveYearAndMonthsArray(10),
             'featuredBlogPost' => BlogPost::inRandomOrder()->first()
@@ -130,7 +130,7 @@ class BlogController extends Controller
             'page_header' => \Str::title('Category ' . $category_slug),
             'page_title' => \Str::title($category_slug),
             'blogPosts' => $this->blogPostRepository->getAllBlogPostsRecordsByCriteria('category', $category_slug,10),
-            'blogPostCategories' => $this->blogPostCategory->getAllCategoriesWhereHasBlogPosts(10),
+            'blogPostCategories' => $this->blogPostCategory->getAllCategoriesWhereHasBlogPosts(15),
             'blogPostTags' => $this->blogPostTagRepository->getAllTagsWhereHasBlogPosts(10),
             'blogPostDistinctArchiveYearAndMonthsArray' => $this->blogPostRepository->getAllDistinctArchiveYearAndMonthsArray(10),
             'featuredBlogPost' => BlogPost::inRandomOrder()->first()
@@ -151,7 +151,7 @@ class BlogController extends Controller
             'page_header' => \Str::title('Tag ' . $tag_slug),
             'page_title' => \Str::title($tag_slug),
             'blogPosts' => $this->blogPostRepository->getAllBlogPostsRecordsByCriteria('tag', $tag_slug,10),
-            'blogPostCategories' => $this->blogPostCategory->getAllCategoriesWhereHasBlogPosts(10),
+            'blogPostCategories' => $this->blogPostCategory->getAllCategoriesWhereHasBlogPosts(15),
             'blogPostTags' => $this->blogPostTagRepository->getAllTagsWhereHasBlogPosts(10),
             'blogPostDistinctArchiveYearAndMonthsArray' => $this->blogPostRepository->getAllDistinctArchiveYearAndMonthsArray(10),
             'featuredBlogPost' => BlogPost::inRandomOrder()->first()

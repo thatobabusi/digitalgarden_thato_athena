@@ -32,10 +32,21 @@ use Illuminate\Database\Eloquent\Model;
  * @mixin \Eloquent
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\System\SystemConfigPlugin disableCache()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\System\SystemConfigPlugin withCacheCooldownSeconds($seconds = null)
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\System\SystemConfigPlugin whereDeletedAt($value)
  */
 class SystemConfigPlugin extends Model
 {
     use Cachable;
 
     public $table = 'system_config_plugins';
+
+    /**
+     * @var array
+     */
+    protected $dates = [
+        'created_at',
+        'updated_at',
+        'deleted_at',
+    ];
 }

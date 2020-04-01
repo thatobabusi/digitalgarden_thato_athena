@@ -53,6 +53,15 @@ class BlogPost extends Model
     /**
      * @var array
      */
+    protected $dates = [
+        'created_at',
+        'updated_at',
+        'deleted_at',
+    ];
+
+    /**
+     * @var array
+     */
     protected $fillable = [
         'user_id',
         'blog_post_category_id',

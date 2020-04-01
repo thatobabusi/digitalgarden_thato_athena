@@ -12,6 +12,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Str;
 use Laravel\Passport\HasApiTokens;
 
 /**
@@ -93,7 +94,6 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'class_id',
         'created_at',
         'updated_at',
         'deleted_at',
@@ -138,7 +138,7 @@ class User extends Authenticatable
      */
     public function getFullName()
     {
-        return $this->name;
+        return  Str::title($this->name);
     }
 
     /**

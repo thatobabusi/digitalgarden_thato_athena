@@ -1,7 +1,7 @@
 <div class="col-lg-4">
     <div class="card">
         <div class="card-header">
-            Blog Post Categories
+            Blog Post Tags
         </div>
 
         <div class="card-body">

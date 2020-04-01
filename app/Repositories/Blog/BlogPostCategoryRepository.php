@@ -39,7 +39,7 @@ class BlogPostCategoryRepository  implements BlogPostCategoryRepositoryInterface
      */
     public function listAllCategoriesByTitleAndId()
     {
-        return BlogPostCategory::all()->pluck('title', 'id');
+        return BlogPostCategory::orderBy('title')->get()->pluck('title', 'id');
     }
 
     #Store

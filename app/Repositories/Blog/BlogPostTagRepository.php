@@ -38,7 +38,7 @@ class BlogPostTagRepository  implements BlogPostTagRepositoryInterface
      */
     public function listAllTagsByTitleAndId()
     {
-        return BlogPostTag::all()->pluck('title', 'id');
+        return BlogPostTag::orderBy('title')->get()->pluck('title', 'id');
     }
     #Store
 

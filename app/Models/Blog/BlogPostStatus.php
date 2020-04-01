@@ -38,6 +38,15 @@ class BlogPostStatus extends Model
     /**
      * @var array
      */
+    protected $dates = [
+        'created_at',
+        'updated_at',
+        'deleted_at',
+    ];
+
+    /**
+     * @var array
+     */
     protected $fillable = [
         'title',
         'slug',

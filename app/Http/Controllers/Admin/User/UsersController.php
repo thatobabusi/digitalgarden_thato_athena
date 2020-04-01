@@ -52,8 +52,7 @@ class UsersController extends Controller
     public function index(Request $request)
     {
         abort_if(Gate::denies('user_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-        //dd(Carbon::parse(Carbon::now())->toDateString());
-        //dd(Carbon::parse(Carbon::now())->toDateTimeString());
+
         $data = ['users' => $this->userRepository->getUsersRecords($request)];
 
         return view('admin.users.index', $data);
