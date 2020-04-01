@@ -6,6 +6,7 @@ use App\Http\Requests\MassDestroyUserRequest;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\User\User;
+use Doctrine\DBAL\Query\QueryException;
 use Illuminate\Http\Request;
 
 class UserRepository implements UserRepositoryInterface
@@ -14,18 +15,35 @@ class UserRepository implements UserRepositoryInterface
     /**
      * @param Request $request
      *
-     * @return mixed
+     * @return User[]|\Illuminate\Database\Eloquent\Collection|mixed|mixed[]|null
      */
     public function getUsersRecords(Request $request)
     {
-        $users = User::when($request->role, function ($query) use ($request) {
-            $query->whereHas('roles', function ($query) use ($request) {
-                $query->whereId($request->role);
-            });
-        })
-        ->get();
+        $users = null;
 
-        return $users;
+        //TODO:: Cater for json data for the API side of things
+
+        try {
+
+            $users = User::when($request->role, function ($query) use ($request) {
+                $query->whereHas('roles', function ($query) use ($request) {
+                    $query->whereId($request->role);
+                });
+            })
+            ->get();
+
+            return $users;
+
+        } catch (\Throwable $e) {
+
+            //TODO:: Log the error in a way that alerts Developer
+            report($e);
+
+            //Return NULL
+            return $users;
+
+        }
+
     }
 
     /**
