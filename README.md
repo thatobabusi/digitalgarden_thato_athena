@@ -2,7 +2,7 @@
 
 
 A demo project showing my Laravel skills. This initially started off as 
-a learning process of the new Laravel 6 standards, then Laravel 7.2 came out and 
+a learning process of the new Laravel 6 standards, then Laravel 7.4 came out and 
 I just had to get on to that ASAP. Although they say its not the LTS, it's a good 
 start. The migration from 6-7 showed me a lot... 
 
@@ -46,11 +46,10 @@ Note the user of repositories here.
         - Blog Tags
         - Blog Images
     - Developer Tools
-        - Config
-        - Code Editor
-        - CRUD Generator
+        - Log Viewer
+        - Migration Manager
         - Module Manager
-        - Uploads Manager
+        - Route Browser
         - Telescope
         - Terminal
     - Menu Manager
@@ -58,19 +57,31 @@ Note the user of repositories here.
     - User Management
     
 - 3rd Party Components
-    - beyondcode/laravel-self-diagnosis
-    - laravel/telescope
-    - lorisleiva/laravel-deployer
-    - mad-web/laravel-initializer
-    - orangehill/iseed
-    - rachidlaasri/laravel-installer
-    - recca0120/terminal
-    - spatie/laravel-activitylog
-    - spatie/laravel-backup
-    - spatie/laravel-menu (dont really need this as I am building my own)
-    - xethron/migrations-generator
-    - yajra/laravel-datatables
-    - yajra/laravel-disqus
+    - "arcanedev/log-viewer": "^7.0",
+    - "barryvdh/laravel-ide-helper": "^2.6",
+    - "beyondcode/laravel-self-diagnosis": "^1.4",
+    - "carbon-cli/carbon-cli": "^1.2",
+    - "gguney/rmigration": "dev-master",
+    - "laracasts/flash": "^3.1",
+    - "laravel/passport": "^8.4",
+    - "laravel/socialite": "^4.3",
+    - "laravel/telescope": "^3.2",
+    - "laravel/ui": "^2.0",
+    - "lorisleiva/laravel-deployer": "^0.3.0",
+    - "mad-web/laravel-initializer": "^3.1",
+    - "nunomaduro/larastan": "^0.5.2",
+    - "php-school/cli-menu": "^4.0",
+    - "rachidlaasri/laravel-installer": "^4.0",
+    - "realrashid/sweet-alert": "^3.1",
+    - "recca0120/terminal": "^1.8",
+    - "renatomarinho/laravel-page-speed": "^1.8",
+    - "spatie/laravel-activitylog": "^3.13",
+    - "spatie/laravel-backup": "^6.8",
+    - "yajra/laravel-datatables-buttons": "^4.9",
+    - "yajra/laravel-datatables-editor": "^1.20",
+    - "yajra/laravel-datatables-fractal": "^1.5",
+    - "yajra/laravel-datatables-html": "^4.23",
+    - "yajra/laravel-disqus": "^1.2"
     
 - - - - -
 
