@@ -29,6 +29,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @mixin \Eloquent
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Blog\BlogPostTag disableCache()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Blog\BlogPostTag withCacheCooldownSeconds($seconds = null)
+ * @method static bool|null forceDelete()
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Blog\BlogPostTag onlyTrashed()
+ * @method static bool|null restore()
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Blog\BlogPostTag withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Blog\BlogPostTag withoutTrashed()
  */
 class BlogPostTag extends Model
 {
