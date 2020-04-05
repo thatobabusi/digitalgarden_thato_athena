@@ -167,9 +167,7 @@ class BlogPostsController extends Controller
     {
         abort_if(Gate::denies('user_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $blogPost = $this->blogPostRepository->getBlogPostRecordBySlug($blogPostSlug);
-
-        $data = compact('blogPost');
+        $data = ['blogPost' => $this->blogPostRepository->getBlogPostRecordBySlug($blogPostSlug)];
 
         return view('admin.blog.blog_posts.show', $data);
     }

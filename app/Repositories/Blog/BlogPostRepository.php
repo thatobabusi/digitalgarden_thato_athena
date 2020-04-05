@@ -110,7 +110,7 @@ class BlogPostRepository  implements BlogPostRepositoryInterface
 
         #Get all Blog Posts where they share the same category as this Blog Post OR where they share the same Tag
         return BlogPost::whereBlogPostCategoryId($blogPost->blog_post_category_id)
-                        ->orWhereIn("id", $blogPostsIdsArray)
+                        ->orWhereIn('id', $blogPostsIdsArray)
                         ->orderBy('created_at', 'DESC')
                         ->take((int)$limit)
                         ->get();
@@ -161,7 +161,7 @@ class BlogPostRepository  implements BlogPostRepositoryInterface
      */
     public function getBlogPostRecordById(string $id)
     {
-        return BlogPost::where("id", "=", $id)->first();
+        return BlogPost::whereId($id)->first();
     }
 
     /**
@@ -171,7 +171,7 @@ class BlogPostRepository  implements BlogPostRepositoryInterface
      */
     public function getBlogPostRecordBySlug(string $slug)
     {
-        return BlogPost::where("slug", "=", $slug)->first();
+        return BlogPost::whereSlug($slug)->first();
     }
 
     #Check

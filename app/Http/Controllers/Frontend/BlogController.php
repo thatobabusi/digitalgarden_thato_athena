@@ -193,11 +193,11 @@ class BlogController extends Controller
 
         $data = [
             'blogPost' => $blogPost,
-            'blogPosts' => $this->blogPostRepository->getAllBlogPostsRecords("10"),
-            'blogPostsRelatedBlogPostCategoryOrTag' => $this->blogPostRepository->getAllBlogPostsRecordsRelatedToThisBlogPostByCategoryOrTag($blogPost, "4"),
-            'blogPostCategories' => $this->blogPostCategory->getAllCategoriesWhereHasBlogPosts("10"),
-            'blogPostTags' => $this->blogPostTagRepository->getAllTagsWhereHasBlogPosts("10"),
-            'blogPostDistinctArchiveYearAndMonthsArray' => $this->blogPostRepository->getAllDistinctArchiveYearAndMonthsArray("10"),
+            'blogPosts' => $this->blogPostRepository->getAllBlogPostsRecords('10'),
+            'blogPostsRelatedBlogPostCategoryOrTag' => $this->blogPostRepository->getAllBlogPostsRecordsRelatedToThisBlogPostByCategoryOrTag($blogPost, '4'),
+            'blogPostCategories' => $this->blogPostCategory->getAllCategoriesWhereHasBlogPosts('10'),
+            'blogPostTags' => $this->blogPostTagRepository->getAllTagsWhereHasBlogPosts('10'),
+            'blogPostDistinctArchiveYearAndMonthsArray' => $this->blogPostRepository->getAllDistinctArchiveYearAndMonthsArray('10'),
             'featuredBlogPost' => BlogPost::inRandomOrder()->first()
         ];
 

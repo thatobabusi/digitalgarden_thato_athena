@@ -95,12 +95,12 @@ class HomeController
 
         $data = [
             'blogPostsCountTotal' => $this->blogPostRepository->getBlogPostCountByCriteria(),
-            'blogPostsCountNew' => $this->blogPostRepository->getBlogPostCountByCriteria("blog_post_status_id", "1"),
-            'blogPostsCountDrafts' => $this->blogPostRepository->getBlogPostCountByCriteria("blog_post_status_id", "2"),
-            'blogPostsCountPendingProofReading' => $this->blogPostRepository->getBlogPostCountByCriteria("blog_post_status_id", "3"),
-            'blogPostsCountApproved' => $this->blogPostRepository->getBlogPostCountByCriteria("blog_post_status_id", "4"),
-            'blogPostsCountRejected' => $this->blogPostRepository->getBlogPostCountByCriteria("blog_post_status_id", "5"),
-            'blogPostsCountPublished' => $this->blogPostRepository->getBlogPostCountByCriteria("blog_post_status_id", "6"),
+            'blogPostsCountNew' => $this->blogPostRepository->getBlogPostCountByCriteria('blog_post_status_id', '1'),
+            'blogPostsCountDrafts' => $this->blogPostRepository->getBlogPostCountByCriteria('blog_post_status_id', '2'),
+            'blogPostsCountPendingProofReading' => $this->blogPostRepository->getBlogPostCountByCriteria('blog_post_status_id', '3'),
+            'blogPostsCountApproved' => $this->blogPostRepository->getBlogPostCountByCriteria('blog_post_status_id', '4'),
+            'blogPostsCountRejected' => $this->blogPostRepository->getBlogPostCountByCriteria('blog_post_status_id', '5'),
+            'blogPostsCountPublished' => $this->blogPostRepository->getBlogPostCountByCriteria('blog_post_status_id', '6'),
 
             'usersCountTotal' => $this->userRepository->getUserCountByCriteria(),
             'permissionsCountTotal' => $this->permissionRepository->getPermissionsCountByCriteria(),

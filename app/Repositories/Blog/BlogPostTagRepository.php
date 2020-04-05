@@ -47,7 +47,7 @@ class BlogPostTagRepository  implements BlogPostTagRepositoryInterface
      */
     public function getBlogPostTagRecordById(string $id)
     {
-        return BlogPostTag::where("id", "=", $id)->first();
+        return BlogPostTag::whereId($id)->first();
     }
 
     /**
@@ -57,7 +57,7 @@ class BlogPostTagRepository  implements BlogPostTagRepositoryInterface
      */
     public function getBlogPostTagRecordBySlug(string $slug)
     {
-        return BlogPostTag::where("slug", "=", $slug)->first();
+        return BlogPostTag::whereSlug($slug)->first();
     }
 
     #Check

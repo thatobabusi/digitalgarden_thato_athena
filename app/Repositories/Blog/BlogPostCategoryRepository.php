@@ -48,7 +48,7 @@ class BlogPostCategoryRepository  implements BlogPostCategoryRepositoryInterface
      */
     public function getBlogPostCategoryRecordById(string $id)
     {
-        return BlogPostCategory::where("id", "=", $id)->first();
+        return BlogPostCategory::whereId($id)->first();
     }
 
     /**
@@ -58,7 +58,7 @@ class BlogPostCategoryRepository  implements BlogPostCategoryRepositoryInterface
      */
     public function getBlogPostCategoryRecordBySlug(string $slug)
     {
-        return BlogPostCategory::where("slug", "=", $slug)->first();
+        return BlogPostCategory::whereSlug($slug)->first();
     }
     #Check
 
