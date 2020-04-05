@@ -16,7 +16,6 @@
         "davejamesmiller/laravel-breadcrumbs": "^5.3",
         "davejamesmiller/laravel-migrations-ui": "^1.0",
         "davejamesmiller/laravel-route-browser": "^1.1",
-        "dawson/youtube": "^4.3",
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^1.0",
         "genealabs/laravel-model-caching": "^0.8.0",
