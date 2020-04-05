@@ -18,11 +18,11 @@ class BlogPostRepository  implements BlogPostRepositoryInterface
     #Get
 
     /**
-     * @param int|null $limit
+     * @param string|null $limit
      *
-     * @return BlogPost[]|\Illuminate\Database\Eloquent\Collection|mixed
+     * @return BlogPost[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Support\Collection|mixed
      */
-    public function getAllBlogPostsRecords(int $limit = null)
+    public function getAllBlogPostsRecords(string $limit = null)
     {
         if($limit === null) {
             return BlogPost::all();
@@ -34,11 +34,11 @@ class BlogPostRepository  implements BlogPostRepositoryInterface
     /**
      * @param string $criteria
      * @param string $value
-     * @param int    $limit
+     * @param string $limit
      *
      * @return BlogPost[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Support\Collection|mixed|null
      */
-    public function getAllBlogPostsRecordsByCriteria(string $criteria, string $value, int $limit)
+    public function getAllBlogPostsRecordsByCriteria(string $criteria, string $value, string $limit)
     {
 
         $blogPosts = null;
@@ -75,11 +75,11 @@ class BlogPostRepository  implements BlogPostRepositoryInterface
 
     /**
      * @param BlogPost $blogPost
-     * @param int      $limit
+     * @param string   $limit
      *
      * @return BlogPost[]|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Query\Builder[]|\Illuminate\Support\Collection|mixed
      */
-    public function getAllBlogPostsRecordsRelatedToThisBlogPostByCategoryOrTag(BlogPost $blogPost, int $limit)
+    public function getAllBlogPostsRecordsRelatedToThisBlogPostByCategoryOrTag(BlogPost $blogPost, string $limit)
     {
         #Not the cleanest way, but self-explainatory
         $blogPostsIdsArray = [];
@@ -107,12 +107,12 @@ class BlogPostRepository  implements BlogPostRepositoryInterface
 
     }
 
-    /**]
-     * @param int|null $limit
+    /**
+     * @param string|null $limit
      *
-     * @return array
+     * @return array|mixed
      */
-    public function getAllDistinctArchiveYearAndMonthsArray(int $limit = null)
+    public function getAllDistinctArchiveYearAndMonthsArray(string $limit = null)
     {
         $year_months = BlogPost::orderBy('created_at', 'desc')
                             ->get()
@@ -133,7 +133,7 @@ class BlogPostRepository  implements BlogPostRepositoryInterface
      * @param string|null $criteria
      * @param string|null $value
      *
-     * @return BlogPost[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Support\Collection|mixed
+     * @return int|mixed
      */
     public function getBlogPostCountByCriteria(string $criteria = null, string $value = null)
     {
@@ -145,9 +145,19 @@ class BlogPostRepository  implements BlogPostRepositoryInterface
     }
 
     /**
+     * @param string $id
+     *
+     * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Model|mixed|object|null
+     */
+    public function getBlogPostRecordById(string $id)
+    {
+        return BlogPost::where("id", "=", $id)->first();
+    }
+
+    /**
      * @param string $slug
      *
-     * @return mixed
+     * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Model|mixed|object|null
      */
     public function getBlogPostRecordBySlug(string $slug)
     {
@@ -157,6 +167,10 @@ class BlogPostRepository  implements BlogPostRepositoryInterface
     #Check
 
     #List
+
+    /**
+     * @return \Illuminate\Support\Collection
+     */
     public function listAllStatussesByTitleAndId()
     {
         return BlogPostStatus::all()->pluck('title', 'id');
@@ -207,20 +221,22 @@ class BlogPostRepository  implements BlogPostRepositoryInterface
     #Delete
 
     /**
-     * @param BlogPost $blogPost
+     * @param string $blog_post_id
      *
-     * @return bool|null
+     * @return bool|mixed|null
      * @throws \Exception
      */
-    public function destroySingleBlogPostRecord(BlogPost $blogPost)
+    public function destroySingleBlogPostRecord(string $blog_post_id)
     {
+        $blogPost = $this->getBlogPostRecordById($blog_post_id);
+
         return $blogPost->delete();
     }
 
     /**
      * @param MassDestroyBlogPostRequest $request
      *
-     * @return mixed
+     * @return int|mixed
      */
     public function massDestroyBlogPostRecords(MassDestroyBlogPostRequest $request)
     {

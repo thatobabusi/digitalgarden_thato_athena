@@ -5,6 +5,7 @@ namespace App\Models\Blog;
 use App\Models\User\User;
 use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * App\Models\Blog\BlogPost
@@ -46,7 +47,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class BlogPost extends Model
 {
-    use Cachable;
+    use SoftDeletes, Cachable;
 
     protected $table = 'blog_posts';
 
@@ -63,6 +64,7 @@ class BlogPost extends Model
      * @var array
      */
     protected $fillable = [
+        'id',
         'user_id',
         'blog_post_category_id',
         'blog_post_status_id',

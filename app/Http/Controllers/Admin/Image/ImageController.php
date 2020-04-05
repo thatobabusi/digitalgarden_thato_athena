@@ -6,12 +6,15 @@ use App\Http\Controllers\Controller;
 use App\Models\Image\Image;
 use Illuminate\Http\Request;
 
+/**
+ * Class ImageController
+ *
+ * @package App\Http\Controllers\Admin\Image
+ */
 class ImageController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @return void
      */
     public function index()
     {
@@ -19,9 +22,7 @@ class ImageController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @return void
      */
     public function create()
     {
@@ -29,10 +30,8 @@ class ImageController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return void
      */
     public function store(Request $request)
     {
@@ -40,82 +39,47 @@ class ImageController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param string $id
+     * @return void
      */
-    public function show($id)
+    public function show(string $id)
     {
         //
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param string $id
+     * @return void
      */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    public function edit(string $id)
     {
         //
     }
 
     /**
      * @param Request $request
-     *
-     * @return \Illuminate\Http\RedirectResponse
-     * @throws \Illuminate\Validation\ValidationException
+     * @param string  $id
+     * @return void
+     */
+    public function update(Request $request, string $id)
+    {
+        //
+    }
+
+    /**
+     * @param string $id
+     * @return void
+     */
+    public function destroy(string $id)
+    {
+        //
+    }
+
+    /**
+     * @param Request $request
+     * @return void
      */
     public function uploadImages(Request $request) {
-
-        // file validation
-        $this->validate($request, ['images.*' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',]);
-
-        // if validation success
-        $images       =       array();
-
-        if($files     =       $request->file('images')) {
-
-            foreach($files as $file) {
-
-                $name     =    time().'.'.$file->getClientOriginalExtension();
-
-                $destinationPath = public_path('/uploads');
-
-                if($file->move($destinationPath, $name)) {
-
-                    $images[]   =   $name;
-
-                    $saveResult   =   Image::create(['image_name' => $name]);
-                }
-
-            }
-
-            return back()->with("success", "File uploaded successfully");
-        }
+        //
     }
 }

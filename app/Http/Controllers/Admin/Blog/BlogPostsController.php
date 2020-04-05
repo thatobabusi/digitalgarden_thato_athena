@@ -84,7 +84,7 @@ class BlogPostsController extends Controller
 
         $data = ['blogPosts' => $this->blogPostRepository->getAllBlogPostsRecords()];
 
-        return view('admin.blog.blogPosts.index', $data);
+        return view('admin.blog.blog_posts.index', $data);
     }
 
     /**
@@ -101,7 +101,7 @@ class BlogPostsController extends Controller
             'statusses' => $this->blogPostRepository->listAllStatussesByTitleAndId(),
         ];
 
-        return view('admin.blog.blogPosts.create', $data);
+        return view('admin.blog.blog_posts.create', $data);
     }
 
     /**
@@ -133,14 +133,14 @@ class BlogPostsController extends Controller
 
         $data = [
                 'blogPost' => $blogPost,
-                'blogPostsRelatedBlogPostCategoryOrTag' => $this->blogPostRepository->getAllBlogPostsRecordsRelatedToThisBlogPostByCategoryOrTag($blogPost, 10),
+                'blogPostsRelatedBlogPostCategoryOrTag' => $this->blogPostRepository->getAllBlogPostsRecordsRelatedToThisBlogPostByCategoryOrTag($blogPost, "10"),
                 'users' => $this->userRepository->listUsersRecordsByNameAndId(),
                 'tags' => $this->blogPostTagRepository->listAllTagsByTitleAndId(),
                 'categories' => $this->blogPostCategory->listAllCategoriesByTitleAndId(),
                 'statusses' => $this->blogPostRepository->listAllStatussesByTitleAndId(),
                 ];
 
-        return view('admin.blog.blogPosts.edit', $data);
+        return view('admin.blog.blog_posts.edit', $data);
     }
 
     /**
@@ -171,20 +171,20 @@ class BlogPostsController extends Controller
 
         $data = compact('blogPost');
 
-        return view('admin.blog.blogPosts.show', $data);
+        return view('admin.blog.blog_posts.show', $data);
     }
 
     /**
-     * @param BlogPost $blogPost
+     * @param string $blog_post_id
      *
      * @return \Illuminate\Http\RedirectResponse
      * @throws \Exception
      */
-    public function destroy(BlogPost $blogPost)
+    public function destroy(string $blog_post_id)
     {
         abort_if(Gate::denies('user_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $this->blogPostRepository->destroySingleBlogPostRecord($blogPost);
+        $this->blogPostRepository->destroySingleBlogPostRecord($blog_post_id);
 
         alert()->success('Success','Blog Post Deleted Successfully')->timerProgressBar();
 

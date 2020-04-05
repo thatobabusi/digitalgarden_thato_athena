@@ -3,21 +3,12 @@
 @section('content')
 
 @can('user_create')
-    <div style="margin-bottom: 10px;" class="row">
-        <div class="col-lg-12">
-            <a class="btn btn-success" href="{{ route("admin.blog.create") }}">
-                {{ trans('global.add') }} {{ trans('cruds.blogPost.title_singular') }}
-            </a>
-            <a class="btn btn-success" href="{{ route("admin.blog.create") }}?student">
-                {{ trans('global.add') }} {{ trans('cruds.blogPost.new_title') }}
-            </a>
-        </div>
-    </div>
+    @include('partials.backend.buttons.blog_management_top_buttons')
 @endcan
 
 <div class="card">
     <div class="card-header">
-        {{ trans('cruds.blogPost.title_singular') }} {{ trans('global.list') }}
+        {{ trans('cruds.blogPostTag.title_singular') }} {{ trans('global.list') }}
     </div>
 
     <div class="card-body">
@@ -29,28 +20,19 @@
 
                         </th>
                         <th>
-                            {{ trans('cruds.blogPost.fields.id') }}
+                            {{ trans('cruds.blogPostTag.fields.id') }}
                         </th>
                         <th>
-                            {{ trans('cruds.blogPost.fields.title') }}
+                            {{ trans('cruds.blogPostTag.fields.title') }}
                         </th>
                         <th>
-                            {{ trans('cruds.blogPost.fields.author') }}
+                            {{ trans('cruds.blogPostTag.fields.slug') }}
                         </th>
                         <th>
-                            {{ trans('cruds.blogPost.fields.category') }}
+                            {{ trans('cruds.blogPostTag.fields.created_at') }}
                         </th>
                         <th>
-                            {{ trans('cruds.blogPost.fields.blog_post_status_id') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.blogPost.fields.tags') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.blogPost.fields.created_at') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.blogPost.fields.updated_at') }}
+                            {{ trans('cruds.blogPostTag.fields.updated_at') }}
                         </th>
                         <th>
                             &nbsp;Actions
@@ -58,56 +40,45 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($blogPosts as $key => $blogPost)
-                        <tr data-entry-id="{{ $blogPost->id }}">
+                    @foreach($blogPostTags as $key => $tag)
+                        <tr data-entry-id="{{ $tag->id }}">
                             <td>
 
                             </td>
                             <td>
-                                {{ $blogPost->id ?? '' }}
+                                {{ $tag->id ?? '' }}
                             </td>
                             <td>
-                                {{ $blogPost->title ?? '' }}
+                                {{ $tag->title ?? '' }}
                             </td>
                             <td>
-                                {{ $blogPost->blogPostAuthor->name ?? '' }}
+                                {{ $tag->slug ?? '' }}
                             </td>
                             <td>
-                                {{ $blogPost->blogPostCategory->title ?? '' }}
+                                {{ $tag->created_at ?? '' }}
                             </td>
                             <td>
-                                {{ $blogPost->blogPostStatus->title ?? '' }}
-                            </td>
-                            <td>
-                                @foreach($blogPost->blogPostTags as $key => $item)
-                                    <span class="badge badge-info">{{ $item->title }}</span>
-                                @endforeach
-
-                            </td>
-                            <td>
-                                {{ $blogPost->created_at ?? '' }}
-                            </td>
-                            <td>
-                                {{ $blogPost->updated_at ?? '' }}
+                                {{ $tag->updated_at ?? '' }}
                             </td>
                             <td>
                                 <div class="btn-group">
                                     @can('user_show')
-                                        <a class="btn btn-xs btn-primary" href="{{ route('admin.blog.show', $blogPost->slug) }}"
+                                        <a class="btn btn-xs btn-primary" href="{{ route('admin.blog-tag.show', $tag->slug) }}"
                                            type="button">
                                             {{ trans('global.view') }}
                                         </a>
                                     @endcan
                                     @can('user_edit')
-                                        <a class="btn btn-xs btn-info" href="{{ route('admin.blog.edit', $blogPost->slug) }}"
+                                        <a class="btn btn-xs btn-info" href="{{ route('admin.blog-tag.edit', $tag->slug) }}"
                                            type="button">
                                             {{ trans('global.edit') }}
                                         </a>
                                     @endcan
                                     @can('user_delete')
                                         <a class="btn btn-xs btn-danger" href="#" type="button">
-                                            <form action="{{ route('admin.blog.destroy', $blogPost->id) }}"
-                                                  method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                                            <form action="{{ route('admin.blog-tag.destroy', $tag->id) }}"
+                                                  method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');"
+                                                  style="display: inline-block;">
                                                 <input type="hidden" name="_method" value="DELETE">
                                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                                 <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
@@ -138,7 +109,7 @@
 
                 let deleteButton = {
                     text: deleteButtonTrans,
-                    url: "{{ route('admin.blog.massDestroy') }}",
+                    url: "{{ route('admin.blog-tag.massDestroy') }}",
                     className: 'btn-danger',
                     action: function (e, dt, node, config) {
 
@@ -185,6 +156,5 @@
                 .columns.adjust();
         });
     })
-
     </script>
 @endsection

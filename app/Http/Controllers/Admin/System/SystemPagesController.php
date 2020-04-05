@@ -6,6 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Models\System\SystemPage;
 use Illuminate\Http\Request;
 
+/**
+ * Class SystemPagesController
+ *
+ * @package App\Http\Controllers\Admin\System
+ */
 class SystemPagesController extends Controller
 {
     /**

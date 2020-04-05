@@ -48,6 +48,7 @@ class BlogPostStatus extends Model
      * @var array
      */
     protected $fillable = [
+        'id',
         'title',
         'slug',
         'created_at',

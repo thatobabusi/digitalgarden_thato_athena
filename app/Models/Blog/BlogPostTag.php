@@ -4,6 +4,7 @@ namespace App\Models\Blog;
 
 use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * App\Models\Blog\BlogPostTag
@@ -31,7 +32,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class BlogPostTag extends Model
 {
-    use Cachable;
+    use SoftDeletes, Cachable;
 
     protected $table = 'blog_post_tags';
 
@@ -43,6 +44,19 @@ class BlogPostTag extends Model
         'updated_at',
         'deleted_at',
     ];
+
+    /**
+     * @var array
+     */
+    protected $fillable = [
+        'id',
+        'title',
+        'slug',
+        'created_at',
+        'updated_at',
+        'deleted_at',
+    ];
+
 
     /*******************************************************************************************************************
      *############################                  RELATIONS           ################################################

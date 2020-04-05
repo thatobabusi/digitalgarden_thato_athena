@@ -50,11 +50,18 @@ class ImageType extends Model
         'deleted_at',
     ];
 
+    /**
+     * @var array
+     */
     protected $fillable = [
+        'id',
         'title',
         'slug',
     ];
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function images()
     {
         return $this->hasMany(Image::class);

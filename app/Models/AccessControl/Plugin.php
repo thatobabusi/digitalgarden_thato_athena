@@ -56,6 +56,7 @@ class Plugin extends Model
      * @var array
      */
     protected $fillable = [
+        'id',
         'title',
         'backend_frontend',
         'parent_id',

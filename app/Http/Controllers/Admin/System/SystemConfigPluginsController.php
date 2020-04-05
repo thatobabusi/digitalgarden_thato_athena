@@ -6,6 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Models\System\SystemConfigPlugin;
 use Illuminate\Http\Request;
 
+/**
+ * Class SystemConfigPluginsController
+ *
+ * @package App\Http\Controllers\Admin\System
+ */
 class SystemConfigPluginsController extends Controller
 {
     /**

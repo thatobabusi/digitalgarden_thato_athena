@@ -8,6 +8,11 @@ use Spatie\Activitylog\Models\Activity;
 use Yajra\DataTables\DataTables;
 use Yajra\DataTables\Html\Builder;
 
+/**
+ * Class ActivityLogController
+ *
+ * @package App\Http\Controllers\Admin\ActivityLog
+ */
 class ActivityLogController extends Controller
 {
     public function getAllAcitivityLogs()

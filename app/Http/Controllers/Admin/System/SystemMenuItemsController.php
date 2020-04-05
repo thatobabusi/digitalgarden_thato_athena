@@ -6,6 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Models\System\SystemMenuItem;
 use Illuminate\Http\Request;
 
+/**
+ * Class SystemMenuItemsController
+ *
+ * @package App\Http\Controllers\Admin\System
+ */
 class SystemMenuItemsController extends Controller
 {
     /**

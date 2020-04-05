@@ -17,22 +17,11 @@
                 </a>
             </li>
         @endcan
-        @can('blog_post_access')
-            <li class="nav-item">
-                <a href="{{ route("admin.blog.create") }}"
-                   class="nav-link {{ request()->is('admin/blog') || request()->is('admin/blog/*') ? 'active' : '' }}">
-                    <i class="fa-fw fas fa-pencil-square-o nav-icon">
-
-                    </i>
-                    {{ trans('cruds.blogPost.title_create') }}
-                </a>
-            </li>
-        @endcan
 
         @can('blog_post_categories_access')
             <li class="nav-item">
-                <a href="{{ route("admin.blog.index") }}"
-                   class="nav-link {{ request()->is('admin/blog') || request()->is('admin/blog/*') ? 'active' : '' }}">
+                <a href="{{ route("admin.blog-category.index") }}"
+                   class="nav-link {{ request()->is('admin/blog-category') || request()->is('admin/blog-category/*') ? 'active' : '' }}">
                     <i class="fa-fw fas fa-hashtag nav-icon">
 
                     </i>
@@ -42,8 +31,8 @@
         @endcan
         @can('blog_post_tags_access')
             <li class="nav-item">
-                <a href="{{ route("admin.blog.index") }}"
-                   class="nav-link {{ request()->is('admin/blog') || request()->is('admin/blog/*') ? 'active' : '' }}">
+                <a href="{{ route("admin.blog-tag.index") }}"
+                   class="nav-link {{ request()->is('admin/blog-tag') || request()->is('admin/blog-tag/*') ? 'active' : '' }}">
                     <i class="fa-fw fas fa-tags nav-icon">
 
                     </i>

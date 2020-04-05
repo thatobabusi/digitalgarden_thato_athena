@@ -55,6 +55,7 @@ class Permission extends Model
      * @var array
      */
     protected $fillable = [
+        'id',
         'title',
         'created_at',
         'updated_at',

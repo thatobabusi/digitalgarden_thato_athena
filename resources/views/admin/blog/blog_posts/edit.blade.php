@@ -5,15 +5,15 @@
     <div class="card">
 
         <div class="card-header">
-            {{ trans('global.create') }} {{ trans('cruds.blogPost.title_singular') }}
+            {{ trans('global.edit') }} {{ trans('cruds.blogPost.title_singular') }} : {{$blogPost->title}}
         </div>
 
         <div class="card-body">
-            <form method="POST" action="{{ route("admin.blog.store") }}" enctype="multipart/form-data">
-                @method('post')
+            <form method="POST" action="{{ route("admin.blog.update", [$blogPost->id]) }}" enctype="multipart/form-data">
+                @method('PUT')
                 @csrf
 
-               @include('admin.blog.blogPosts._create_form')
+               @include('admin.blog.blog_posts._edit_form')
 
                 <div class="form-group">
                     <button class="btn btn-danger" type="submit">
@@ -25,7 +25,6 @@
     </div>
 
 @endsection
-
 
 @section('scripts')
 

@@ -37,6 +37,15 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     #BlogPosts
     Route::delete('blog/destroy', 'Blog\BlogPostsController@massDestroy')->name('blog.massDestroy');
     Route::resource('blog', 'Blog\BlogPostsController');
+
+    #BlogPostCategories
+    Route::delete('blog-category/destroy', 'Blog\BlogPostCategoriesController@massDestroy')->name('blog-category.massDestroy');
+    Route::resource('blog-category', 'Blog\BlogPostCategoriesController');
+
+    #BlogPosTags
+    Route::delete('blog-tag/destroy', 'Blog\BlogPostTagsController@massDestroy')->name('blog-tag.massDestroy');
+    Route::resource('blog-tag', 'Blog\BlogPostTagsController');
+
     /****************************************************************************************************************/
     #Activity Log
     Route::resource('activity', 'ActivityLog\ActivityLogController');

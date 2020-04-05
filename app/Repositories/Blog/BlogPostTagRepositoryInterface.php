@@ -2,21 +2,40 @@
 
 namespace App\Repositories\Blog;
 
+use App\Http\Requests\StoreBlogPostTagRequest;
+use App\Models\Blog\BlogPostTag;
+
 interface BlogPostTagRepositoryInterface
 {
     #Get
 
     /**
-     * @return mixed
-     */
-    public function getAllTags();
-
-    /**
-     * @param int|null $limit
+     * @param string|null $limit
      *
      * @return mixed
      */
-    public function getAllTagsWhereHasBlogPosts(int $limit = null);
+    public function getAllTags(string $limit = null);
+
+    /**
+     * @param string|null $limit
+     *
+     * @return mixed
+     */
+    public function getAllTagsWhereHasBlogPosts(string $limit = null);
+
+    /**
+     * @param string $id
+     *
+     * @return mixed
+     */
+    public function getBlogPostTagRecordById(string $id);
+
+    /**
+     * @param string $slug
+     *
+     * @return mixed
+     */
+    public function getBlogPostTagRecordBySlug(string $slug);
 
     #Check
 
@@ -29,5 +48,31 @@ interface BlogPostTagRepositoryInterface
 
     #Store
 
+    /**
+     * @param StoreBlogPostTagRequest $request
+     *
+     * @return mixed
+     */
+    public function storeNewBlogPostTagRecord(StoreBlogPostTagRequest $request);
+
     #Update
+
+    /**
+     * @param        $request
+     * @param string $id
+     *
+     * @return mixed
+     */
+    public function updateExistingBlogPostTagRecord($request, string $id);
+
+    #Delete
+
+    /**
+     * @param string $blog_post_tag_id
+     *
+     * @return mixed
+     */
+    public function destroySingleBlogPostTagRecord(string $blog_post_tag_id);
+
+
 }
