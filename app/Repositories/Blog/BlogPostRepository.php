@@ -10,6 +10,7 @@ use App\Models\Blog\BlogPostCategory;
 use App\Models\Blog\BlogPostStatus;
 use App\Models\Blog\BlogPostTag;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
 
@@ -28,7 +29,7 @@ class BlogPostRepository  implements BlogPostRepositoryInterface
             return BlogPost::all();
         }
 
-        return BlogPost::orderBy('created_at', 'DESC')->get()->take($limit);
+        return BlogPost::orderBy('created_at', 'DESC')->get()->take((int)$limit);
     }
 
     /**
@@ -46,23 +47,32 @@ class BlogPostRepository  implements BlogPostRepositoryInterface
 
             case 'archive_date': #Get where year and month matches that of the archive value
                 $archive_date = explode("-",$value);
+
                 $blogPosts = BlogPost::whereYear('created_at', '=', $archive_date[0])
                                 ->whereMonth('created_at', '=', $archive_date[1])
                                 ->orderBy('created_at', 'DESC')
                                 ->get()
-                                ->take($limit);
+                                ->take((int)$limit);
 
                 break;
 
             case 'category': #Get by Category Slug
                 $blogPostCategory = BlogPostCategory::whereSlug($value)->first();
-                $blogPosts =  $blogPostCategory->blogPosts->take($limit);
+
+                $blogPosts = new Collection();
+                if(isset($blogPostCategory->id)) {
+                    $blogPosts =  $blogPostCategory->blogPosts->take((int)$limit);
+                }
 
                 break;
 
             case 'tag': #Get by Tag Slug
                 $blogPostTag = BlogPostTag::whereSlug($value)->first();
-                $blogPosts = $blogPostTag->blogPosts->take($limit);
+
+                $blogPosts = new Collection();
+                if(isset($blogPostTag->id)) {
+                    $blogPosts = $blogPostTag->blogPosts->take((int)$limit);
+                }
 
                 break;
 
@@ -102,7 +112,7 @@ class BlogPostRepository  implements BlogPostRepositoryInterface
         return BlogPost::whereBlogPostCategoryId($blogPost->blog_post_category_id)
                         ->orWhereIn("id", $blogPostsIdsArray)
                         ->orderBy('created_at', 'DESC')
-                        ->take($limit)
+                        ->take((int)$limit)
                         ->get();
 
     }

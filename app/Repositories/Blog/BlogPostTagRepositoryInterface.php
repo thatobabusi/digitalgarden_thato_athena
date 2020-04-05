@@ -3,6 +3,7 @@
 namespace App\Repositories\Blog;
 
 use App\Http\Requests\StoreBlogPostTagRequest;
+use App\Http\Requests\UpdateBlogPostTagRequest;
 use App\Models\Blog\BlogPostTag;
 
 interface BlogPostTagRepositoryInterface
@@ -58,12 +59,12 @@ interface BlogPostTagRepositoryInterface
     #Update
 
     /**
-     * @param        $request
-     * @param string $id
+     * @param UpdateBlogPostTagRequest $request
+     * @param string                   $id
      *
      * @return mixed
      */
-    public function updateExistingBlogPostTagRecord($request, string $id);
+    public function updateExistingBlogPostTagRecord(UpdateBlogPostTagRequest $request, string $id);
 
     #Delete
 

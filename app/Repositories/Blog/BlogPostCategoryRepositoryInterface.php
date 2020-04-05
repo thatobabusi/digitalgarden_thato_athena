@@ -4,6 +4,7 @@ namespace App\Repositories\Blog;
 
 use App\Http\Requests\MassDestroyBlogPostCategoryRequest;
 use App\Http\Requests\StoreBlogPostCategoryRequest;
+use App\Http\Requests\UpdateBlogPostCategoryRequest;
 use App\Models\Blog\BlogPostCategory;
 
 interface BlogPostCategoryRepositoryInterface
@@ -58,12 +59,12 @@ interface BlogPostCategoryRepositoryInterface
     #Update
 
     /**
-     * @param        $request
-     * @param string $id
+     * @param UpdateBlogPostCategoryRequest $request
+     * @param string                        $id
      *
      * @return mixed
      */
-    public function updateExistingBlogPostCategoryRecord($request, string $id);
+    public function updateExistingBlogPostCategoryRecord(UpdateBlogPostCategoryRequest $request, string $id);
 
     #Delete
 

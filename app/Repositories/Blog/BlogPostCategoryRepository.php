@@ -4,6 +4,7 @@ namespace App\Repositories\Blog;
 
 use App\Http\Requests\MassDestroyBlogPostCategoryRequest;
 use App\Http\Requests\StoreBlogPostCategoryRequest;
+use App\Http\Requests\UpdateBlogPostCategoryRequest;
 use App\Models\Blog\BlogPostCategory;
 use Carbon\Carbon;
 
@@ -22,7 +23,7 @@ class BlogPostCategoryRepository  implements BlogPostCategoryRepositoryInterface
             BlogPostCategory::orderBy('title')->get();
         }
 
-        return BlogPostCategory::orderBy('title')->orderBy('created_at', 'DESC')->get()->take($limit);
+        return BlogPostCategory::orderBy('title')->orderBy('created_at', 'DESC')->get()->take((int)$limit);
     }
 
     /**
@@ -36,7 +37,7 @@ class BlogPostCategoryRepository  implements BlogPostCategoryRepositoryInterface
             return BlogPostCategory::whereHas('blogPosts')->orderBy('title')->get();
         }
 
-        return BlogPostCategory::whereHas('blogPosts')->orderBy('title')->get()->take($limit);
+        return BlogPostCategory::whereHas('blogPosts')->orderBy('title')->get()->take((int)$limit);
 
     }
 
@@ -91,12 +92,12 @@ class BlogPostCategoryRepository  implements BlogPostCategoryRepositoryInterface
     #Update
 
     /**
-     * @param        $request
-     * @param string $id
+     * @param UpdateBlogPostCategoryRequest $request
+     * @param string                        $id
      *
-     * @return BlogPostCategory|BlogPostCategory[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|null
+     * @return BlogPostCategory|BlogPostCategory[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|mixed|null
      */
-    public function updateExistingBlogPostCategoryRecord($request, string $id)
+    public function updateExistingBlogPostCategoryRecord(UpdateBlogPostCategoryRequest $request, string $id)
     {
         $blog_post_category = BlogPostCategory::find($id);
         $blog_post_category->update($request->all());

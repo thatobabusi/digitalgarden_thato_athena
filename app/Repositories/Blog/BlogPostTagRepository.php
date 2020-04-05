@@ -4,6 +4,7 @@ namespace App\Repositories\Blog;
 
 use App\Http\Requests\MassDestroyBlogPostTagRequest;
 use App\Http\Requests\StoreBlogPostTagRequest;
+use App\Http\Requests\UpdateBlogPostTagRequest;
 use App\Models\Blog\BlogPostTag;
 
 class BlogPostTagRepository  implements BlogPostTagRepositoryInterface
@@ -21,7 +22,7 @@ class BlogPostTagRepository  implements BlogPostTagRepositoryInterface
             BlogPostTag::orderBy('title')->get();
         }
 
-        return BlogPostTag::orderBy('title')->orderBy('created_at', 'DESC')->get()->take($limit);
+        return BlogPostTag::orderBy('title')->orderBy('created_at', 'DESC')->get()->take((int)$limit);
     }
 
     /**
@@ -36,11 +37,11 @@ class BlogPostTagRepository  implements BlogPostTagRepositoryInterface
             return BlogPostTag::whereHas('blogPosts')->get();
         }
 
-        return BlogPostTag::whereHas('blogPosts')->get()->take($limit);
+        return BlogPostTag::whereHas('blogPosts')->get()->take((int)$limit);
     }
 
     /**
-     * @param int $id
+     * @param string $id
      *
      * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Model|object|null
      */
@@ -90,12 +91,12 @@ class BlogPostTagRepository  implements BlogPostTagRepositoryInterface
     #Update
 
     /**
-     * @param        $request
-     * @param string $id
+     * @param UpdateBlogPostTagRequest $request
+     * @param string                   $id
      *
      * @return BlogPostTag|BlogPostTag[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|mixed|null
      */
-    public function updateExistingBlogPostTagRecord($request, string $id)
+    public function updateExistingBlogPostTagRecord(UpdateBlogPostTagRequest $request, string $id)
     {
         $blog_post_tag = BlogPostTag::find($id);
         $blog_post_tag->update($request->all());
