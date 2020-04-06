@@ -49,7 +49,7 @@ class BlogPostTagsController extends Controller
     protected $userRepository;
 
     /**
-     * BlogPostCategoriesController constructor.
+     * BlogPostTagsController constructor.
      *
      * @param BlogRepository             $blogRepository
      * @param BlogPostRepository         $blogPostRepository

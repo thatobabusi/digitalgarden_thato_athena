@@ -20,7 +20,7 @@ class BlogPostCategoryRepository  implements BlogPostCategoryRepositoryInterface
     public function getAllCategories(string $limit = null)
     {
         if($limit === null) {
-            BlogPostCategory::orderBy('title')->get();
+            return BlogPostCategory::orderBy('title')->get();
         }
 
         return BlogPostCategory::orderBy('title')->orderBy('created_at', 'DESC')->get()->take((int)$limit);

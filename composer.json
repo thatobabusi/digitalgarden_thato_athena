@@ -9,6 +9,7 @@
     "license": "MIT",
     "require": {
         "php": "^7.2.5",
+        "ext-gd": "^7.4",
         "arcanedev/log-viewer": "^7.0",
         "barryvdh/laravel-ide-helper": "^2.6",
         "beyondcode/laravel-self-diagnosis": "^1.4",
@@ -21,6 +22,7 @@
         "genealabs/laravel-model-caching": "^0.8.0",
         "gguney/rmigration": "dev-master",
         "guzzlehttp/guzzle": "^6.3",
+        "intervention/image": "^2.5",
         "laracasts/flash": "^3.1",
         "laravel/framework": "^7.0",
         "laravel/passport": "^8.4",

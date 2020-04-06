@@ -28,6 +28,7 @@ class UpdateBlogPostRequest extends FormRequest
             'user_id'                   => ['required'], //user is going to be author of the blog post
             'blog_post_category_id'     => ['required'],
             'blog_post_status_id'       => ['required'],
+            //'upload'                    => ['required'],
             'title'                     => ['required'],
             'slug '                     => [''], //TODO::check why these dont return valid when actually filled in
             'summary '                  => [''], //TODO::check why these dont return valid when actually filled in

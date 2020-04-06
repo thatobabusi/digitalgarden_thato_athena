@@ -78,10 +78,11 @@ interface BlogPostRepositoryInterface
 
     /**
      * @param StoreBlogPostRequest $request
+     * @param array                $image_id_array
      *
      * @return mixed
      */
-    public function storeNewBlogPostRecord(StoreBlogPostRequest $request);
+    public function storeNewBlogPostRecord(StoreBlogPostRequest $request, array $image_id_array);
 
     #Update
 

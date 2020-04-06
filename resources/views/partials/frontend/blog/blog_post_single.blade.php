@@ -13,10 +13,10 @@
 
         <div class="meta-line">
 
-                    <span class="post-author">
-                        <i class="fa fa-user"></i>
-                        <a href="#">{{$blogPost->blogPostAuthor->name}}</a>
-                    </span>
+            <span class="post-author">
+                <i class="fa fa-user"></i>
+                <a href="#">{{$blogPost->blogPostAuthor->name}}</a>
+            </span>
 
             <span class="post-date">
                 <i class="fa fa-calendar"></i>

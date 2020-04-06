@@ -2,150 +2,111 @@
 
 @section('content')
 
-<div class="card">
-    <div class="card-header">
-        {{ trans('global.show') }} {{ trans('cruds.blogPost.title') }}
-    </div>
+    @include('admin.blog.blog_posts._view_form')
 
-    <div class="card-body">
-        <div class="form-group">
-            <div class="form-group">
-                <a class="btn btn-default" href="{{ route('admin.blog.index') }}">
-                    {{ trans('global.back_to_list') }}
+    <div class="card">
+
+        <div class="card-header">
+            {{ trans('global.relatedData') }}
+        </div>
+
+        <ul class="nav nav-tabs" role="tablist" id="relationship-tabs">
+            <li class="nav-item">
+                <a class="nav-link" href="#blog_post_author" role="tab" data-toggle="tab">
+                    {{ trans('cruds.blogPost.title_singular') }} {{ trans('cruds.user.author') }}
                 </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#blog_post_categories" role="tab" data-toggle="tab">
+                    {{ trans('cruds.blogPostCategory.title') }}
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#blog_post_images" role="tab" data-toggle="tab">
+                    {{ trans('cruds.blogPost.title_singular') }} {{ trans('cruds.image.title') }}
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#blog_post_tags" role="tab" data-toggle="tab">
+                    {{ trans('cruds.blogPostTag.title') }}
+                </a>
+            </li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane" role="tabpanel" id="blog_post_author">
+                @includeIf('admin.users._view_form', ['user' => $blogPost->blogPostAuthor])
             </div>
-            <table class="table table-bordered table-striped">
-                <tbody>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.blogPost.fields.id') }}
-                        </th>
-                        <td>
-                            {{ $blogPost->id }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.blogPost.fields.title') }}
-                        </th>
-                        <td>
-                            {{ $blogPost->title ?? '' }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.blogPost.fields.slug') }}
-                        </th>
-                        <td>
-                            {{ $blogPost->slug ?? '' }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.blogPost.fields.author') }}
-                        </th>
-                        <td>
-                            {{ $blogPost->blogPostAuthor->name ?? '' }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.blogPost.fields.created_at') }}
-                        </th>
-                        <td>
-                            {{ $blogPost->created_at ?? '' }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.blogPost.fields.updated_at') }}
-                        </th>
-                        <td>
-                            {{ $blogPost->updated_at ?? '' }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.blogPost.fields.category') }}
-                        </th>
-                        <td>
-                            {{ $blogPost->blogPostCategory->title ?? '' }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.blogPost.fields.tags') }}
-                        </th>
-                        <td>
-                            @foreach($blogPost->blogPostTags as $key => $item)
-                                {{--<a class="btn btn-xs btn-default" href="#">
-                                    {{ $item->title ?? '' }}
-                                </a>--}}
-                                <span class="badge badge-info">{{ $item->title }}</span>
-                            @endforeach
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.blogPost.fields.summary') }}
-                        </th>
-                        <td>
-                            {!! $blogPost->summary !!}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.blogPost.fields.body') }}
-                        </th>
-                        <td>
-                            {!! $blogPost->body !!}
-                        </td>
-                    </tr>
-                    {{--<tr>
-                        <th>
-                            {{ trans('cruds.blogPost.fields.roles') }}
-                        </th>
-                        <td>
-                            @foreach($blogPost->roles as $key => $roles)
-                                <span class="label label-info">{{ $roles->title }}</span>
-                            @endforeach
-                        </td>
-                    </tr>--}}
-                    {{--<tr>
-                        <th>
-                            {{ trans('cruds.blogPost.fields.class') }}
-                        </th>
-                        <td>
-                            {{ $user->class->name ?? '' }}
-                        </td>
-                    </tr>--}}
-                </tbody>
-            </table>
-            <div class="form-group">
-                <a class="btn btn-default" href="{{ route('admin.blog.index') }}">
-                    {{ trans('global.back_to_list') }}
-                </a>
+            <div class="tab-pane" role="tabpanel" id="blog_post_categories">
+                @includeIf('admin.blog.blog_post_categories._view_form', ['blogPostCategory' => $blogPost->blogPostCategory])
+            </div>
+            <div class="tab-pane" role="tabpanel" id="blog_post_images">
+                @includeIf('admin.image._view_form', ['blogPostImage' => $blogPost->blogPostImages->first()])
+            </div>
+            <div class="tab-pane" role="tabpanel" id="blog_post_tags">
+                @includeIf('admin.blog.blog_post_tags._view_list', ['blogPostTags' => $blogPost->blogPostTags])
             </div>
         </div>
     </div>
-</div>
 
-{{--<div class="card">
-    <div class="card-header">
-        {{ trans('global.relatedData') }}
-    </div>
-    <ul class="nav nav-tabs" role="tablist" id="relationship-tabs">
-        <li class="nav-item">
-            <a class="nav-link" href="#teacher_lessons" role="tab" data-toggle="tab">
-                {{ trans('cruds.lesson.title') }}
-            </a>
-        </li>
-    </ul>
-    <div class="tab-content">
-        <div class="tab-pane" role="tabpanel" id="teacher_lessons">
-            @includeIf('admin.users.relationships.teacherLessons', ['lessons' => $user->teacherLessons])
-        </div>
-    </div>
-</div>--}}
+@endsection
 
+@section('scripts')
+    @parent
+    <script>
+        $(function () {
+            let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons);
+
+            @can('user_delete')
+            let deleteButtonTrans = '{{ trans('global.datatables.delete') }}';
+
+            let deleteButton = {
+                text: deleteButtonTrans,
+                url: "{{ route('admin.blog-tag.massDestroy') }}",
+                className: 'btn-danger',
+                action: function (e, dt, node, config) {
+
+                    var ids = $.map(dt.rows({ selected: true }).nodes(), function (entry) {
+                        return $(entry).data('entry-id');
+                    });
+
+                    if (ids.length === 0) {
+                        alert('{{ trans('global.datatables.zero_selected') }}');
+                        return
+                    }
+
+                    if (confirm('{{ trans('global.areYouSure') }}')) {
+                        $.ajax({
+                            headers: {
+                                'x-csrf-token': _token
+                            },
+                            method: 'POST',
+                            url: config.url,
+                            data: {
+                                ids: ids,
+                                _method: 'DELETE'
+                            }
+                        })
+                            .done(function () { location.reload()
+                            });
+                    }
+                }
+            }
+            dtButtons.push(deleteButton);
+            @endcan
+
+            $.extend(true, $.fn.dataTable.defaults, {
+                order: [[ 1, 'desc' ]],
+                pageLength: 10,
+            });
+
+            $('.datatable-User:not(.ajaxTable)').DataTable({
+                buttons: dtButtons
+            });
+
+            $('a[data-toggle="tab"]').on('shown.bs.tab', function(e){
+                $($.fn.dataTable.tables(true)).DataTable()
+                    .columns.adjust();
+            });
+        })
+    </script>
 @endsection

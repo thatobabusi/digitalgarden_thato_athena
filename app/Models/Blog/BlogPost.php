@@ -2,6 +2,7 @@
 
 namespace App\Models\Blog;
 
+use App\Models\Image\Image;
 use App\Models\User\User;
 use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 use Illuminate\Database\Eloquent\Model;
@@ -49,6 +50,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static bool|null restore()
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Blog\BlogPost withTrashed()
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Blog\BlogPost withoutTrashed()
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Image\Image[] $blogPostImages
+ * @property-read int|null $blog_post_images_count
  */
 class BlogPost extends Model
 {
@@ -103,6 +106,23 @@ class BlogPost extends Model
     }
 
     /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function blogPostImage()
+    {
+        return $this->hasOne(BlogPostImage::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function blogPostImages()
+    {
+        return $this->belongsToMany(Image::class);
+    }
+
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function blogPostTags()
@@ -110,21 +130,12 @@ class BlogPost extends Model
         return $this->belongsToMany(BlogPostTag::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function blogPostStatus()
     {
         return $this->belongsTo(BlogPostStatus::class, 'blog_post_status_id');
     }
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
-     */
-    public function blogPostImage()
-    {
-        return $this->hasOne(BlogPostImage::class, 'blog_post_id');
-    }
-
-    /*public function blogPostImages()
-    {
-        return $this->hasMany(BlogPostImage::class);
-    }*/
 
 }

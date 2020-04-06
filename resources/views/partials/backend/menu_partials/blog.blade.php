@@ -40,10 +40,11 @@
                 </a>
             </li>
         @endcan
+
         @can('blog_post_images_access')
             <li class="nav-item">
-                <a href="{{ route("admin.blog.index") }}"
-                   class="nav-link {{ request()->is('admin/blog') || request()->is('admin/blog/*') ? 'active' : '' }}">
+                <a href="{{ route("admin.image.index") }}"
+                   class="nav-link {{ request()->is('admin/image') || request()->is('admin/image/*') ? 'active' : '' }}">
                     <i class="fa-fw fas fa-file-image-o nav-icon">
 
                     </i>

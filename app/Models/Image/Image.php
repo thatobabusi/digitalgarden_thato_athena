@@ -54,7 +54,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Image extends Model
 {
-    use SoftDeletes, Cachable;
+    use Cachable;
 
     protected $table = 'images';
 
@@ -83,18 +83,27 @@ class Image extends Model
         'alt',
     ];
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function imageType()
     {
         return $this->belongsTo(ImageType::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
     public function blogPost()
     {
         return $this->hasOne(BlogPost::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function blogPosts()
     {
-        return $this->hasMany(BlogPost::class);
+        return $this->belongsToMany(BlogPost::class);
     }
 }

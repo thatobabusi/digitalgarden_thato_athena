@@ -19,7 +19,7 @@ class BlogPostTagRepository  implements BlogPostTagRepositoryInterface
     public function getAllTags(string $limit = null)
     {
         if($limit === null) {
-            BlogPostTag::orderBy('title')->get();
+            return BlogPostTag::orderBy('title')->get();
         }
 
         return BlogPostTag::orderBy('title')->orderBy('created_at', 'DESC')->get()->take((int)$limit);

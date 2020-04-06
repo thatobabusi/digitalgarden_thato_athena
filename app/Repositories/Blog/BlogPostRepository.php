@@ -190,10 +190,11 @@ class BlogPostRepository  implements BlogPostRepositoryInterface
 
     /**
      * @param StoreBlogPostRequest $request
+     * @param array                $image_id_array
      *
      * @return BlogPost|mixed
      */
-    public function storeNewBlogPostRecord(StoreBlogPostRequest $request)
+    public function storeNewBlogPostRecord(StoreBlogPostRequest $request, array $image_id_array)
     {
         $blog_post = new BlogPost();
         $blog_post->user_id = Auth::user()->getId();
@@ -205,7 +206,11 @@ class BlogPostRepository  implements BlogPostRepositoryInterface
         $blog_post->body = $request->input('body');
         $blog_post->save();
 
+        #Sync Tags Associated with this Blog Post
         $blog_post->blogPostTags()->sync($request->tags);
+
+        #Sync Images Associated with this Blog Post
+        $blog_post->blogPostImages()->sync($image_id_array);
 
         return $blog_post;
     }
