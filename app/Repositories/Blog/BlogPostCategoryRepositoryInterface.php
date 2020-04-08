@@ -5,8 +5,12 @@ namespace App\Repositories\Blog;
 use App\Http\Requests\MassDestroyBlogPostCategoryRequest;
 use App\Http\Requests\StoreBlogPostCategoryRequest;
 use App\Http\Requests\UpdateBlogPostCategoryRequest;
-use App\Models\Blog\BlogPostCategory;
 
+/**
+ * Interface BlogPostCategoryRepositoryInterface
+ *
+ * @package App\Repositories\Blog
+ */
 interface BlogPostCategoryRepositoryInterface
 {
     #Get

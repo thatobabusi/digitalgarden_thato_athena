@@ -47,6 +47,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::resource('blog-tag', 'Blog\BlogPostTagsController');
     /****************************************************************************************************************/
     #Images
+    Route::delete('image/destroy', 'Image\ImageController@massDestroy')->name('image.massDestroy');
     Route::resource('image', 'Image\ImageController');
     Route::post('image-upload', 'Image\ImageController@imageUploadPost')->name('image.upload.post');
     /****************************************************************************************************************/

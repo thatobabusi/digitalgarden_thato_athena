@@ -9,6 +9,7 @@ use App\Repositories\Blog\BlogPostImageRepository;
 use App\Repositories\Blog\BlogPostRepository;
 use App\Repositories\Blog\BlogPostTagRepository;
 use App\Repositories\Blog\BlogRepository;
+use App\Repositories\Image\ImageRepository;
 use App\Repositories\User\UserRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -24,11 +25,6 @@ use Spatie\Activitylog\Models\Activity;
  */
 class HomeController
 {
-
-    /**
-     * @var BlogRepository
-     */
-    protected $blogRepository;
     /**
      * @var BlogPostRepository
      */
@@ -42,9 +38,9 @@ class HomeController
      */
     protected $blogPostTagRepository;
     /**
-     * @var BlogPostImageRepository
+     * @var ImageRepository
      */
-    protected $blogPostImageRepository;
+    protected $imageRepository;
     /**
      * @var PermissionRepository
      */
@@ -59,16 +55,25 @@ class HomeController
      */
     protected $userRepository;
 
-    public function __construct(
-        BlogRepository $blogRepository, BlogPostRepository $blogPostRepository, BlogPostCategoryRepository $blogPostCategory,
-        BlogPostTagRepository $blogPostTagRepository, BlogPostImageRepository $blogPostImageRepository,
+    /**
+     * HomeController constructor.
+     *
+     * @param BlogPostRepository         $blogPostRepository
+     * @param BlogPostCategoryRepository $blogPostCategory
+     * @param BlogPostTagRepository      $blogPostTagRepository
+     * @param ImageRepository            $imageRepository
+     * @param PermissionRepository       $permissionRepository
+     * @param RoleRepository             $roleRepository
+     * @param UserRepository             $userRepository
+     */
+    public function __construct(BlogPostRepository $blogPostRepository, BlogPostCategoryRepository $blogPostCategory,
+        BlogPostTagRepository $blogPostTagRepository, ImageRepository $imageRepository,
         PermissionRepository $permissionRepository, RoleRepository $roleRepository, UserRepository $userRepository)
     {
-        $this->blogRepository = $blogRepository;
         $this->blogPostRepository = $blogPostRepository;
         $this->blogPostCategory = $blogPostCategory;
         $this->blogPostTagRepository = $blogPostTagRepository;
-        $this->blogPostImageRepository = $blogPostImageRepository;
+        $this->imageRepository = $imageRepository;
         $this->permissionRepository = $permissionRepository;
         $this->roleRepository = $roleRepository;
         $this->userRepository = $userRepository;

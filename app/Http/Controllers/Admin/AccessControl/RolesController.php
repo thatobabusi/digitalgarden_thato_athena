@@ -21,7 +21,6 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class RolesController extends Controller
 {
-
     /**
      * @var PermissionRepository
      */

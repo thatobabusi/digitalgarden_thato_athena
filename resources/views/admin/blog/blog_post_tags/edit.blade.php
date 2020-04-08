@@ -9,6 +9,13 @@
         </div>
 
         <div class="card-body">
+
+            <div class="form-group">
+                <a class="btn btn-default" href="{{ route('admin.blog-tag.index') }}">
+                    {{ trans('global.back_to_list') }}
+                </a>
+            </div>
+
             <form method="POST" action="{{ route("admin.blog-tag.update", [$blogPostTag->id]) }}" enctype="multipart/form-data">
                 @method('PUT')
                 @csrf
@@ -19,6 +26,12 @@
                     <button class="btn btn-danger" type="submit">
                         {{ trans('global.save') }}
                     </button>
+                </div>
+
+                <div class="form-group">
+                    <a class="btn btn-default" href="{{ route('admin.blog-tag.index') }}">
+                        {{ trans('global.back_to_list') }}
+                    </a>
                 </div>
             </form>
         </div>

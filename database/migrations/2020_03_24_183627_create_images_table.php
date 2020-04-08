@@ -21,7 +21,7 @@ class CreateImagesTable extends Migration
             $table->string('src');
             $table->string('mime_type')->nullable();
             $table->text('description')->nullable();
-            $table->string('base64')->nullable();
+            $table->longText('base64')->nullable();
             $table->string('credits_if_applicable', 191)->nullable();
             $table->string('alt')->nullable();
             $table->timestamps();

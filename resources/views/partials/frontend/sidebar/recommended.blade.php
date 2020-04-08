@@ -5,9 +5,12 @@
         @foreach($blogPosts as $blogPost)
             <li>
                 <div class="post-entry-sidebar clearfix">
-                    @if(isset($blogPost->blogPostImage->blog_post_image_path))
+
+                    @if(isset($blogPost->blogPostImage()->src))
                         <a href="{{ route('frontend.viewBlogSinglePostBySlug', [$blogPost->slug]) }}" class="left">
-                            <img src="{{ URL::asset(''.$blogPost->blogPostImage->blog_post_image_path.'') }}" alt="Post Thumbnail"
+                            <img src="{{ isset($blogPost->blogPostImage()->src) ?
+                                URL::asset(''.$blogPost->blogPostImage()->src.'') : '#' }}"
+                                alt="{{$blogPost->blogPostImage()->alt ?? 'Post Thumbnail'}}"
                             width="80px">
                         </a>
                     @endif

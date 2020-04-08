@@ -35,11 +35,12 @@
                 <div class="entry-post entry-post-fullwidth">
 
                     <figure class="media">
-                        @if(isset($featuredBlogPost->blogPostImage->blog_post_image_path))
+                        @if(isset($featuredBlogPost->blogPostImages->first()->src))
                             <a href="{{ route('frontend.viewBlogSinglePostBySlug', [$featuredBlogPost->slug]) }}">
-                                <img src="{{isset($featuredBlogPost->blogPostImage->blog_post_image_path) ?
-                                URL::asset(''.$featuredBlogPost->blogPostImage->blog_post_image_path.'') : '#'
-                                }}" class="img-responsive" alt="Image Thumbnail" />
+                                <img src="{{isset($featuredBlogPost->blogPostImages->first()->src) ?
+                                URL::asset(''.$featuredBlogPost->blogPostImages->first()->src.'') : '#'}}"
+                                     class="img-responsive col-md-12"
+                                     alt="{{$featuredBlogPost->blogPostImages->first()->alt ?? 'Post Thumbnail'}}" />
                             </a>
                         @endif
                     </figure>
@@ -97,7 +98,10 @@
                 </button>
             </div>
             <div class="ajax-load text-center" style="display:none">
-                <p><img src="http://demo.itsolutionstuff.com/plugin/loader.gif">Loading More post</p>
+                <p>
+                    <img src="http://demo.itsolutionstuff.com/plugin/loader.gif">
+                    Loading More post
+                </p>
             </div>
 
         </section>
@@ -119,7 +123,7 @@
 
         $(".load-more").click(function(){
             page++;
-            loadMoreData(page);
+            //loadMoreData(page);
             alert("Load more was clicked. Fetching " + page);
         });
 

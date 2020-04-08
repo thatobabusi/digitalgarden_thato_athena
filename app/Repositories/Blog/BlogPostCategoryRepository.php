@@ -6,8 +6,12 @@ use App\Http\Requests\MassDestroyBlogPostCategoryRequest;
 use App\Http\Requests\StoreBlogPostCategoryRequest;
 use App\Http\Requests\UpdateBlogPostCategoryRequest;
 use App\Models\Blog\BlogPostCategory;
-use Carbon\Carbon;
 
+/**
+ * Class BlogPostCategoryRepository
+ *
+ * @package App\Repositories\Blog
+ */
 class BlogPostCategoryRepository  implements BlogPostCategoryRepositoryInterface
 {
     #Get

@@ -6,12 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyBlogPostCategoryRequest;
 use App\Http\Requests\StoreBlogPostCategoryRequest;
 use App\Http\Requests\UpdateBlogPostCategoryRequest;
-use App\Models\Blog\BlogPostCategory;
 use App\Repositories\Blog\BlogPostCategoryRepository;
-use App\Repositories\Blog\BlogPostImageRepository;
 use App\Repositories\Blog\BlogPostRepository;
 use App\Repositories\Blog\BlogPostTagRepository;
-use App\Repositories\Blog\BlogRepository;
+use App\Repositories\Image\ImageRepository;
 use App\Repositories\User\UserRepository;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Gate;
@@ -25,11 +23,6 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class BlogPostCategoriesController extends Controller
 {
-
-    /**
-     * @var BlogRepository
-     */
-    protected $blogRepository;
     /**
      * @var BlogPostRepository
      */
@@ -43,9 +36,9 @@ class BlogPostCategoriesController extends Controller
      */
     protected $blogPostTagRepository;
     /**
-     * @var BlogPostImageRepository
+     * @var ImageRepository
      */
-    protected $blogPostImageRepository;
+    protected $imageRepository;
     /**
      * @var UserRepository
      */
@@ -54,22 +47,20 @@ class BlogPostCategoriesController extends Controller
     /**
      * BlogPostCategoriesController constructor.
      *
-     * @param BlogRepository             $blogRepository
      * @param BlogPostRepository         $blogPostRepository
      * @param BlogPostCategoryRepository $blogPostCategory
      * @param BlogPostTagRepository      $blogPostTagRepository
-     * @param BlogPostImageRepository    $blogPostImageRepository
+     * @param ImageRepository            $imageRepository
      * @param UserRepository             $userRepository
      */
     public function __construct(
-        BlogRepository $blogRepository, BlogPostRepository $blogPostRepository, BlogPostCategoryRepository $blogPostCategory,
-        BlogPostTagRepository $blogPostTagRepository, BlogPostImageRepository $blogPostImageRepository, UserRepository $userRepository)
+        BlogPostRepository $blogPostRepository, BlogPostCategoryRepository $blogPostCategory,
+        BlogPostTagRepository $blogPostTagRepository, ImageRepository $imageRepository,  UserRepository $userRepository)
     {
-        $this->blogRepository = $blogRepository;
         $this->blogPostRepository = $blogPostRepository;
         $this->blogPostCategory = $blogPostCategory;
         $this->blogPostTagRepository = $blogPostTagRepository;
-        $this->blogPostImageRepository = $blogPostImageRepository;
+        $this->imageRepository = $imageRepository;
         $this->userRepository = $userRepository;
     }
 

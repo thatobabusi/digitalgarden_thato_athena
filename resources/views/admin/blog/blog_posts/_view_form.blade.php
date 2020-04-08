@@ -52,10 +52,9 @@
                     <label class="required" for="title">{{ trans('cruds.blogPost.fields.tags') }}</label>
                     <p class="text">
                         @foreach($blogPost->blogPostTags as $key => $item)
-                            {{--<a class="btn btn-xs btn-default" href="#">
+                            <a class="badge badge-info" href="{{ route('admin.blog-tag.show', $item->slug) }}">
                                 {{ $item->title ?? '' }}
-                            </a>--}}
-                            <span class="badge badge-info">{{ $item->title }}</span>
+                            </a>
                         @endforeach
                     </p>
                 </div>

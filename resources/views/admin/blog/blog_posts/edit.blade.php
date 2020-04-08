@@ -59,7 +59,7 @@
                 @method('PUT')
                 @csrf
 
-                @include('admin.image._upload_form2')
+                @include('admin.image._upload_form')
 
                 @include('admin.blog.blog_posts._edit_form')
 
@@ -69,6 +69,50 @@
                     </button>
                 </div>
             </form>
+        </div>
+    </div>
+
+    <div class="card">
+
+        <div class="card-header">
+            {{ trans('global.relatedData') }}
+        </div>
+
+        <ul class="nav nav-tabs" role="tablist" id="relationship-tabs">
+            <li class="nav-item">
+                <a class="nav-link" href="#blog_post_author" role="tab" data-toggle="tab">
+                    {{ trans('cruds.blogPost.title_singular') }} {{ trans('cruds.user.author') }}
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#blog_post_categories" role="tab" data-toggle="tab">
+                    {{ trans('cruds.blogPostCategory.title') }}
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#blog_post_images" role="tab" data-toggle="tab">
+                    {{ trans('cruds.blogPost.title_singular') }} {{ trans('cruds.image.title') }}
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#blog_post_tags" role="tab" data-toggle="tab">
+                    {{ trans('cruds.blogPostTag.title') }}
+                </a>
+            </li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane" role="tabpanel" id="blog_post_author">
+                @includeIf('admin.users._view_form', ['user' => $blogPost->blogPostAuthor])
+            </div>
+            <div class="tab-pane" role="tabpanel" id="blog_post_categories">
+                @includeIf('admin.blog.blog_post_categories._view_form', ['blogPostCategory' => $blogPost->blogPostCategory])
+            </div>
+            <div class="tab-pane" role="tabpanel" id="blog_post_images">
+                @includeIf('admin.image._view_form', ['image' => $blogPost->blogPostImage()])
+            </div>
+            <div class="tab-pane" role="tabpanel" id="blog_post_tags">
+                @includeIf('admin.blog.blog_post_tags._view_list', ['blogPostTags' => $blogPost->blogPostTags])
+            </div>
         </div>
     </div>
 

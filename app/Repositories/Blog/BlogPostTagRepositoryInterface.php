@@ -4,8 +4,12 @@ namespace App\Repositories\Blog;
 
 use App\Http\Requests\StoreBlogPostTagRequest;
 use App\Http\Requests\UpdateBlogPostTagRequest;
-use App\Models\Blog\BlogPostTag;
 
+/**
+ * Interface BlogPostTagRepositoryInterface
+ *
+ * @package App\Repositories\Blog
+ */
 interface BlogPostTagRepositoryInterface
 {
     #Get

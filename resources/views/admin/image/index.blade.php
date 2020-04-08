@@ -59,11 +59,7 @@
 
     <div class="card-body">
 
-        {{--@include('admin.image._upload_form')--}}
-
-        @include('admin.image._upload_form2')
-
-        {{--<div class="table-responsive">
+        <div class="table-responsive">
             <table class=" table table-bordered table-striped table-hover datatable datatable-User">
                 <thead>
                     <tr>
@@ -71,28 +67,25 @@
 
                         </th>
                         <th>
-                            {{ trans('cruds.blogPost.fields.id') }}
+                            {{ trans('cruds.image.fields.id') }}
                         </th>
                         <th>
-                            {{ trans('cruds.blogPost.fields.title') }}
+                            {{ trans('cruds.image.fields.title') }}
                         </th>
                         <th>
-                            {{ trans('cruds.blogPost.fields.author') }}
+                            {{ trans('cruds.image.fields.alt') }}
                         </th>
                         <th>
-                            {{ trans('cruds.blogPost.fields.category') }}
+                            {{ trans('cruds.image.fields.image_type') }}
                         </th>
                         <th>
-                            {{ trans('cruds.blogPost.fields.blog_post_status_id') }}
+                            {{ trans('cruds.image.fields.credits') }}
                         </th>
                         <th>
-                            {{ trans('cruds.blogPost.fields.tags') }}
+                            {{ trans('cruds.image.fields.created_at') }}
                         </th>
                         <th>
-                            {{ trans('cruds.blogPost.fields.created_at') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.blogPost.fields.updated_at') }}
+                            {{ trans('cruds.image.fields.updated_at') }}
                         </th>
                         <th>
                             &nbsp;Actions
@@ -100,56 +93,51 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($blogPosts as $key => $blogPost)
-                        <tr data-entry-id="{{ $blogPost->id }}">
+                    @foreach($images as $key => $image)
+                        <tr data-entry-id="{{ $image->id }}">
                             <td>
 
                             </td>
                             <td>
-                                {{ $blogPost->id ?? '' }}
+                                {{ $image->id ?? '' }}
                             </td>
                             <td>
-                                {{ $blogPost->title ?? '' }}
+                                {{ $image->title ?? '' }}
                             </td>
                             <td>
-                                {{ $blogPost->blogPostAuthor->name ?? '' }}
+                                {{ $image->alt ?? '' }}
                             </td>
                             <td>
-                                {{ $blogPost->blogPostCategory->title ?? '' }}
+                                {{ $image->imageType->title ?? '' }}
                             </td>
                             <td>
-                                {{ $blogPost->blogPostStatus->title ?? '' }}
+                                {{ $image->credits_if_applicable ?? '' }}
                             </td>
                             <td>
-                                @foreach($blogPost->blogPostTags as $key => $item)
-                                    <span class="badge badge-info">{{ $item->title }}</span>
-                                @endforeach
-
+                                {{ $image->created_at ?? '' }}
                             </td>
                             <td>
-                                {{ $blogPost->created_at ?? '' }}
-                            </td>
-                            <td>
-                                {{ $blogPost->updated_at ?? '' }}
+                                {{ $image->updated_at ?? '' }}
                             </td>
                             <td>
                                 <div class="btn-group">
                                     @can('user_show')
-                                        <a class="btn btn-xs btn-primary" href="{{ route('admin.blog.show', $blogPost->slug) }}"
+                                        <a class="btn btn-xs btn-primary" href="{{ route('admin.image.show', $image->slug) }}"
                                            type="button">
                                             {{ trans('global.view') }}
                                         </a>
                                     @endcan
                                     @can('user_edit')
-                                        <a class="btn btn-xs btn-info" href="{{ route('admin.blog.edit', $blogPost->slug) }}"
+                                        <a class="btn btn-xs btn-info" href="{{ route('admin.image.edit', $image->slug) }}"
                                            type="button">
                                             {{ trans('global.edit') }}
                                         </a>
                                     @endcan
                                     @can('user_delete')
                                         <a class="btn btn-xs btn-danger" href="#" type="button">
-                                            <form action="{{ route('admin.blog.destroy', $blogPost->id) }}"
-                                                  method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                                            <form action="{{ route('admin.image.destroy', $image->id) }}"
+                                                  method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');"
+                                                  style="display: inline-block;">
                                                 <input type="hidden" name="_method" value="DELETE">
                                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                                 <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
@@ -163,7 +151,7 @@
                     @endforeach
                 </tbody>
             </table>
-        </div>--}}
+        </div>
     </div>
 </div>
 
@@ -185,7 +173,7 @@
 
                 let deleteButton = {
                     text: deleteButtonTrans,
-                    url: "{{ route('admin.blog.massDestroy') }}",
+                    url: "{{ route('admin.image.massDestroy') }}",
                     className: 'btn-danger',
                     action: function (e, dt, node, config) {
 
@@ -236,8 +224,8 @@
 
     <script>
         /*  ==========================================
-    SHOW UPLOADED IMAGE
-* ========================================== */
+            SHOW UPLOADED IMAGE
+        * ========================================== */
         function readURL(input) {
             if (input.files && input.files[0]) {
                 var reader = new FileReader();

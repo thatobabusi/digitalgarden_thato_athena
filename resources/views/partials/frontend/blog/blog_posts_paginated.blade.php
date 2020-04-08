@@ -4,15 +4,17 @@
 
     @php($blogPostsCount++)
 
-    <div class="col-sm-12">
+    <div class="col-sm-6">
 
         <div class="post-entry-card">
 
-            @if(isset($blogPost->blogPostImage->blog_post_image_path))
+
+            @if(isset($blogPost->blogPostImages->first()->src))
 
                 <a href="{{ route('frontend.viewBlogSinglePostBySlug', [$blogPost->slug]) }}">
-                    <img src="{{ URL::asset(''.$blogPost->blogPostImage->blog_post_image_path.'') }}"
-                         class="img-responsive" alt="Post Thumbnail">
+                    <img src="{{ URL::asset(''.$blogPost->blogPostImages->first()->src.'') }}"
+                         class="img-responsive col-md-12"
+                         alt="{{$blogPost->blogPostImages->first()->alt ?? 'Post Thumbnail'}}">
                 </a>
 
             @endif
@@ -33,7 +35,10 @@
                     {{\Carbon\Carbon::parse($blogPost->created_at)}}
                 </span>
 
-                <a href="{{ route('frontend.viewBlogSinglePostBySlug', [$blogPost->slug]) }}" class="read-more pull-right">Read More</a>
+                <a href="{{ route('frontend.viewBlogSinglePostBySlug', [$blogPost->slug]) }}"
+                   class="read-more pull-right">
+                    Read More
+                </a>
             </div>
 
         </div>
@@ -41,8 +46,8 @@
     </div>
 
     {{--TODO::Messes up formating--}}
-    {{--@if($blogPostsCount % 2 === 0)
+    @if($blogPostsCount % 2 === 0)
         <div class="clearfix"></div>
-    @endif--}}
+    @endif
 
 @endforeach

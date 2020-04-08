@@ -15,9 +15,9 @@
          */
 
         var disqus_config = function () {
-            this.page.url = "/blog/{{$featuredBlogPost->slug}}"; //PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
-            this.page.identifier =  "/blog/{{$featuredBlogPost->slug}}";//PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
-            this.page.title = "/blog/{{$featuredBlogPost->slug}}"; //'a unique title for each page where Disqus is present';
+            this.page.url = "/blog/{{$blogPost->slug}}"; //PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+            this.page.identifier =  "/blog/{{$blogPost->slug}}";//PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+            this.page.title = "/blog/{{$blogPost->slug}}"; //'a unique title for each page where Disqus is present';
         };
 
         (function() { // DON'T EDIT BELOW THIS LINE
@@ -74,6 +74,8 @@
         <!-- author info -->
         {{--@include('partials.frontend.blog.blog_post_author_info')--}}
         <!-- end author info -->
+
+        @include('partials.frontend.legal.policy_comments')
 
         <div id="disqus_thread"></div>
 

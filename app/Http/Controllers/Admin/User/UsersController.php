@@ -6,8 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyUserRequest;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
-use App\Models\AccessControl\Role;
-use App\Models\School\SchoolClass;
 use App\Models\User\User;
 use App\Repositories\AccessControl\RoleRepository;
 use App\Repositories\User\UserRepository;

@@ -59,7 +59,7 @@
                 @method('post')
                 @csrf
 
-                @include('admin.image._upload_form2')
+                @include('admin.image._upload_form')
 
                 @include('admin.blog.blog_posts._create_form')
 

@@ -6,8 +6,12 @@ use App\Http\Requests\MassDestroyBlogPostRequest;
 use App\Http\Requests\StoreBlogPostRequest;
 use App\Http\Requests\UpdateBlogPostRequest;
 use App\Models\Blog\BlogPost;
-use Illuminate\Support\Facades\Request;
 
+/**
+ * Interface BlogPostRepositoryInterface
+ *
+ * @package App\Repositories\Blog
+ */
 interface BlogPostRepositoryInterface
 {
     #Get
@@ -18,6 +22,13 @@ interface BlogPostRepositoryInterface
      * @return mixed
      */
     public function getAllBlogPostsRecords(string $limit = null);
+
+    /**
+     * @param string|null $limit
+     *
+     * @return mixed
+     */
+    public function getAllBlogPostsRecordsWithPagination(string $limit = null);
 
     /**
      * @param string $criteria
@@ -64,6 +75,13 @@ interface BlogPostRepositoryInterface
      * @return mixed
      */
     public function getBlogPostCountByCriteria(string $criteria = null, string $value = null);
+
+    /**
+     * @param string|null $id
+     *
+     * @return mixed
+     */
+    public function getFeaturedBlogPosts(string $id = null);
 
     #Check
 

@@ -56,6 +56,9 @@ class Image extends Model
 {
     use Cachable;
 
+    /**
+     * @var string
+     */
     protected $table = 'images';
 
     /**

@@ -40,7 +40,7 @@
                 @includeIf('admin.blog.blog_post_categories._view_form', ['blogPostCategory' => $blogPost->blogPostCategory])
             </div>
             <div class="tab-pane" role="tabpanel" id="blog_post_images">
-                @includeIf('admin.image._view_form', ['blogPostImage' => $blogPost->blogPostImages->first()])
+                @includeIf('admin.image._view_form', ['image' => $blogPost->blogPostImage()])
             </div>
             <div class="tab-pane" role="tabpanel" id="blog_post_tags">
                 @includeIf('admin.blog.blog_post_tags._view_list', ['blogPostTags' => $blogPost->blogPostTags])

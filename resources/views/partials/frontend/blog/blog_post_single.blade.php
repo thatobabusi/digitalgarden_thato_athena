@@ -27,20 +27,23 @@
     </header>
 
     <figure class="media">
-        @if(isset($blogPost->blogPostImage->blog_post_image_path))
-            <a href="{{ route('frontend.viewBlogSinglePostBySlug', [$blogPost->slug]) }}">
-                <img src="{{isset($blogPost->blogPostImage->blog_post_image_path) ?
-                                URL::asset(''.$blogPost->blogPostImage->blog_post_image_path.'') : '#'
-                                }}" class="img-responsive" alt="Image Thumbnail" />
+
+        @if(isset($blogPost->blogPostImage()->src))
+            <a class="col-md-12" href="{{ route('frontend.viewBlogSinglePostBySlug', [$blogPost->slug]) }}">
+                <img src="{{isset($blogPost->blogPostImage()->src) ?
+                     URL::asset(''.$blogPost->blogPostImage()->src.'') : '#'}}" class="img-responsive col-md-12"
+                     alt="{{$blogPost->blogPostImages()->alt ?? 'Post Thumbnail'}}" />
             </a>
         @endif
 
+        @if(isset($blogPost->blogPostImage()->credits_if_applicable))
         <span class="media-attribution text-muted-2x">
             Illustration by
-            <a href="http://www.unsplash.com" target="_blank">
-                Unsplash
+            <a href="{{$blogPost->blogPostImage()->credits_if_applicable}}" target="_blank">
+                {{$blogPost->blogPostImage()->credits_if_applicable}}
             </a>
         </span>
+        @endif
 
     </figure>
 
@@ -51,3 +54,4 @@
     </div>
 
 </article>
+

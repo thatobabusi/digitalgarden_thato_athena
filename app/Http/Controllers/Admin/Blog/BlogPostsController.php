@@ -6,15 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyBlogPostRequest;
 use App\Http\Requests\StoreBlogPostRequest;
 use App\Http\Requests\UpdateBlogPostRequest;
-use App\Models\Blog\BlogPost;
-use App\Models\User\User;
 use App\Repositories\Image\ImageRepository;
 use RealRashid\SweetAlert\Facades\Alert;
 use App\Repositories\Blog\BlogPostCategoryRepository;
-use App\Repositories\Blog\BlogPostImageRepository;
 use App\Repositories\Blog\BlogPostRepository;
 use App\Repositories\Blog\BlogPostTagRepository;
-use App\Repositories\Blog\BlogRepository;
 use App\Repositories\User\UserRepository;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
@@ -28,10 +24,6 @@ use Symfony\Component\HttpFoundation\Response;
 class BlogPostsController extends Controller
 {
     /**
-     * @var BlogRepository
-     */
-    protected $blogRepository;
-    /**
      * @var BlogPostRepository
      */
     protected $blogPostRepository;
@@ -44,10 +36,6 @@ class BlogPostsController extends Controller
      */
     protected $blogPostTagRepository;
     /**
-     * @var BlogPostImageRepository
-     */
-    protected $blogPostImageRepository;
-    /**
      * @var ImageRepository
      */
     protected $imageRepository;
@@ -59,24 +47,18 @@ class BlogPostsController extends Controller
     /**
      * BlogPostsController constructor.
      *
-     * @param BlogRepository             $blogRepository
      * @param BlogPostRepository         $blogPostRepository
      * @param BlogPostCategoryRepository $blogPostCategory
      * @param BlogPostTagRepository      $blogPostTagRepository
-     * @param BlogPostImageRepository    $blogPostImageRepository
      * @param UserRepository             $userRepository
      * @param ImageRepository            $imageRepository
      */
-    public function __construct(
-        BlogRepository $blogRepository, BlogPostRepository $blogPostRepository, BlogPostCategoryRepository $blogPostCategory,
-        BlogPostTagRepository $blogPostTagRepository, BlogPostImageRepository $blogPostImageRepository,
-        UserRepository $userRepository, ImageRepository $imageRepository)
+    public function __construct(BlogPostRepository $blogPostRepository, BlogPostCategoryRepository $blogPostCategory,
+        BlogPostTagRepository $blogPostTagRepository, UserRepository $userRepository, ImageRepository $imageRepository)
     {
-        $this->blogRepository = $blogRepository;
         $this->blogPostRepository = $blogPostRepository;
         $this->blogPostCategory = $blogPostCategory;
         $this->blogPostTagRepository = $blogPostTagRepository;
-        $this->blogPostImageRepository = $blogPostImageRepository;
         $this->imageRepository = $imageRepository;
         $this->userRepository = $userRepository;
     }
@@ -207,6 +189,7 @@ class BlogPostsController extends Controller
         abort_if(Gate::denies('user_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $blogPost = $this->blogPostRepository->getBlogPostRecordBySlug($blogPostSlug);
+
         $blogPost->load('blogPostAuthor', 'blogPostCategory', 'blogPostImages', 'blogPostTags');
 
         $data = ['blogPost' => $blogPost, 'blogPostImage' => $blogPost->blogPostImages->first()];

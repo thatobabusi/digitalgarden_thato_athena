@@ -12,8 +12,12 @@ use App\Models\Blog\BlogPostTag;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Request;
 
+/**
+ * Class BlogPostRepository
+ *
+ * @package App\Repositories\Blog
+ */
 class BlogPostRepository  implements BlogPostRepositoryInterface
 {
     #Get
@@ -30,6 +34,21 @@ class BlogPostRepository  implements BlogPostRepositoryInterface
         }
 
         return BlogPost::orderBy('created_at', 'DESC')->get()->take((int)$limit);
+    }
+
+    /**
+     * @param string|null $limit
+     *
+     * @return BlogPost[]|\Illuminate\Contracts\Pagination\LengthAwarePaginator|Collection|mixed
+     */
+    public function getAllBlogPostsRecordsWithPagination(string $limit = null)
+    {
+        if($limit === null) {
+            return BlogPost::all();
+        }
+
+        return BlogPost::paginate(4);
+        //return BlogPost::orderBy('created_at', 'DESC')->get()->take((int)$limit);
     }
 
     /**
@@ -157,21 +176,40 @@ class BlogPostRepository  implements BlogPostRepositoryInterface
     /**
      * @param string $id
      *
-     * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Model|mixed|object|null
+     * @return BlogPost|\Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Model|mixed|object|null
      */
     public function getBlogPostRecordById(string $id)
     {
-        return BlogPost::whereId($id)->first();
+        $blogPost = BlogPost::whereId($id)->first();
+        $blogPost->load('blogPostAuthor', 'blogPostImages', 'blogPostCategory', 'blogPostTags');
+
+        return $blogPost;
     }
 
     /**
      * @param string $slug
      *
-     * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Model|mixed|object|null
+     * @return BlogPost|\Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Model|mixed|object|null
      */
     public function getBlogPostRecordBySlug(string $slug)
     {
-        return BlogPost::whereSlug($slug)->first();
+        $blogPost = BlogPost::whereSlug($slug)->first();
+        $blogPost->load('blogPostAuthor', 'blogPostImages', 'blogPostCategory', 'blogPostTags');
+
+        return $blogPost;
+    }
+
+    /**
+     * @param string|null $limit
+     *
+     * @return \Illuminate\Database\Eloquent\Model|\Illuminate\Database\Query\Builder|mixed|object|null
+     */
+    public function getFeaturedBlogPosts(string $limit = null)
+    {
+        $blogPost = BlogPost::inRandomOrder()->first();
+        $blogPost->load('blogPostAuthor', 'blogPostImages', 'blogPostCategory', 'blogPostTags');
+
+        return $blogPost;
     }
 
     #Check

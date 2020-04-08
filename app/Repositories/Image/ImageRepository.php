@@ -5,6 +5,11 @@ namespace App\Repositories\Image;
 use App\Models\Image\Image;
 use Illuminate\Support\Str;
 
+/**
+ * Class ImageRepository
+ *
+ * @package App\Repositories\Image
+ */
 class ImageRepository implements ImageRepositoryInterface
 {
 
@@ -12,7 +17,7 @@ class ImageRepository implements ImageRepositoryInterface
      * @param \Illuminate\Http\UploadedFile $image
      * @param string                        $image_type
      *
-     * @return Image|\Illuminate\Http\UploadedFile
+     * @return Image|\Illuminate\Http\UploadedFile|mixed
      */
     public function uploadImage(\Illuminate\Http\UploadedFile $image, string $image_type)
     {
@@ -46,7 +51,7 @@ class ImageRepository implements ImageRepositoryInterface
     /**
      * @param Image $old_image
      *
-     * @return bool
+     * @return bool|mixed|void
      * @throws \Exception
      */
     public function deleteUploadedImage(Image $old_image)
@@ -61,7 +66,8 @@ class ImageRepository implements ImageRepositoryInterface
 
             return true;
         }
-        dd("Doesnt delete");
+
+        return dd("Doesnt delete");
 
     }
 
@@ -83,6 +89,26 @@ class ImageRepository implements ImageRepositoryInterface
     public function getImageRecordBySlug(string $slug)
     {
         return Image::whereSlug($slug)->first();
+    }
+
+    /**
+     * @param string|null $limit
+     *
+     * @return Image[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Support\Collection
+     */
+    public function getAllImageRecords(string $limit = null)
+    {
+        if($limit === null) {
+            return Image::all();
+        }
+
+        return Image::orderBy('created_at', 'DESC')->get()->take((int)$limit);
+    }
+
+
+    //TODO::Complete
+    public function massDestroyImageRecords(){
+        //
     }
 
 }

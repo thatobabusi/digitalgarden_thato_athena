@@ -34,6 +34,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Image\ImageType withTrashed()
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Image\ImageType withoutTrashed()
  * @mixin \Eloquent
+ * @property string $folder
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Image\ImageType whereFolder($value)
  */
 class ImageType extends Model
 {

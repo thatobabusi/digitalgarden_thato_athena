@@ -7,6 +7,11 @@ use App\Http\Requests\StoreBlogPostTagRequest;
 use App\Http\Requests\UpdateBlogPostTagRequest;
 use App\Models\Blog\BlogPostTag;
 
+/**
+ * Class BlogPostTagRepository
+ *
+ * @package App\Repositories\Blog
+ */
 class BlogPostTagRepository  implements BlogPostTagRepositoryInterface
 {
     #Get

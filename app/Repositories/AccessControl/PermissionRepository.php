@@ -6,9 +6,12 @@ use App\Http\Requests\MassDestroyPermissionRequest;
 use App\Http\Requests\StorePermissionRequest;
 use App\Http\Requests\UpdatePermissionRequest;
 use App\Models\AccessControl\Permission;
-use App\Models\User\User;
-use Illuminate\Support\Facades\Request;
 
+/**
+ * Class PermissionRepository
+ *
+ * @package App\Repositories\AccessControl
+ */
 class PermissionRepository implements PermissionRepositoryInterface
 {
     #Get

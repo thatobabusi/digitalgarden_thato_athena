@@ -17,6 +17,7 @@ class CreateImageTypesTable extends Migration
             $table->bigInteger('id', true)->unsigned();
             $table->string('title', 191);
             $table->string('slug', 191);
+            $table->string('folder', 191);
             $table->timestamps();
             $table->softDeletes();
         });

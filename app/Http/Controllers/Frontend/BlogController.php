@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers\Frontend;
 
-use App\Models\Blog\BlogPost;
 use App\Repositories\Blog\BlogPostCategoryRepository;
-use App\Repositories\Blog\BlogPostImageRepository;
 use App\Repositories\Blog\BlogPostRepository;
 use App\Repositories\Blog\BlogPostTagRepository;
-use App\Repositories\Blog\BlogRepository;
+use App\Repositories\Image\ImageRepository;
 use App\Repositories\User\UserRepository;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -26,10 +24,6 @@ class BlogController extends Controller
 {
 
     /**
-     * @var BlogRepository
-     */
-    protected $blogRepository;
-    /**
      * @var BlogPostRepository
      */
     protected $blogPostRepository;
@@ -41,34 +35,37 @@ class BlogController extends Controller
      * @var BlogPostTagRepository
      */
     protected $blogPostTagRepository;
+    /**
+     * @var ImageRepository
+     */
+    protected $imageRepository;
 
     /**
-     * BlogPostsController constructor.
+     * BlogController constructor.
      *
-     * @param BlogRepository             $blogRepository
      * @param BlogPostRepository         $blogPostRepository
      * @param BlogPostCategoryRepository $blogPostCategory
      * @param BlogPostTagRepository      $blogPostTagRepository
+     * @param ImageRepository            $imageRepository
      */
-    public function __construct( BlogRepository $blogRepository, BlogPostRepository $blogPostRepository,
-        BlogPostCategoryRepository $blogPostCategory, BlogPostTagRepository $blogPostTagRepository)
+    public function __construct( BlogPostRepository $blogPostRepository, BlogPostCategoryRepository $blogPostCategory,
+        BlogPostTagRepository $blogPostTagRepository, ImageRepository $imageRepository)
     {
-        $this->blogRepository = $blogRepository;
         $this->blogPostRepository = $blogPostRepository;
         $this->blogPostCategory = $blogPostCategory;
         $this->blogPostTagRepository = $blogPostTagRepository;
+        $this->imageRepository = $imageRepository;
     }
 
     public function getMoreByAjax(Request $request)
     {
 
         $data = [
-            //'blogPosts' => $this->blogPostRepository->getAllBlogPostsRecords(10),
-            'blogPosts' => BlogPost::paginate(4),
-            'blogPostCategories' => $this->blogPostCategory->getAllCategoriesWhereHasBlogPosts("10"),
-            'blogPostTags' => $this->blogPostTagRepository->getAllTagsWhereHasBlogPosts("10"),
-            'blogPostDistinctArchiveYearAndMonthsArray' => $this->blogPostRepository->getAllDistinctArchiveYearAndMonthsArray("10"),
-            'featuredBlogPost' => BlogPost::inRandomOrder()->first()
+            'blogPosts' => $this->blogPostRepository->getAllBlogPostsRecordsWithPagination('4'),
+            'blogPostCategories' => $this->blogPostCategory->getAllCategoriesWhereHasBlogPosts('10'),
+            'blogPostTags' => $this->blogPostTagRepository->getAllTagsWhereHasBlogPosts('10'),
+            'blogPostDistinctArchiveYearAndMonthsArray' => $this->blogPostRepository->getAllDistinctArchiveYearAndMonthsArray('10'),
+            'featuredBlogPost' => $this->blogPostRepository->getFeaturedBlogPosts('1')
         ];
 
         if ($request->ajax()) {
@@ -86,14 +83,12 @@ class BlogController extends Controller
     public function index()
     {
         $data = [
-            //'blogPosts' => $this->blogPostRepository->getAllBlogPostsRecords(10),
-            'blogPosts' => BlogPost::paginate(4),
-            'blogPostCategories' => $this->blogPostCategory->getAllCategoriesWhereHasBlogPosts("15"),
-            'blogPostTags' => $this->blogPostTagRepository->getAllTagsWhereHasBlogPosts("10"),
-            'blogPostDistinctArchiveYearAndMonthsArray' => $this->blogPostRepository->getAllDistinctArchiveYearAndMonthsArray("10"),
-            'featuredBlogPost' => BlogPost::inRandomOrder()->first()
+            'blogPosts' => $this->blogPostRepository->getAllBlogPostsRecordsWithPagination('4'),
+            'blogPostCategories' => $this->blogPostCategory->getAllCategoriesWhereHasBlogPosts('15'),
+            'blogPostTags' => $this->blogPostTagRepository->getAllTagsWhereHasBlogPosts('10'),
+            'blogPostDistinctArchiveYearAndMonthsArray' => $this->blogPostRepository->getAllDistinctArchiveYearAndMonthsArray('10'),
+            'featuredBlogPost' => $this->blogPostRepository->getFeaturedBlogPosts('1'),
         ];
-
 
         activity('front-end')
             ->withProperties(['ip_address' => get_user_ip_address_via_helper()])
@@ -113,13 +108,12 @@ class BlogController extends Controller
         $data = [
             'page_header' => 'Archive ' . $archive_date,
             'page_title' => 'Archive ' . $archive_date,
-            'blogPosts' => $this->blogPostRepository->getAllBlogPostsRecordsByCriteria('archive_date', $archive_date,"10"),
-            'blogPostCategories' => $this->blogPostCategory->getAllCategoriesWhereHasBlogPosts("15"),
-            'blogPostTags' => $this->blogPostTagRepository->getAllTagsWhereHasBlogPosts("10"),
-            'blogPostDistinctArchiveYearAndMonthsArray' => $this->blogPostRepository->getAllDistinctArchiveYearAndMonthsArray("10"),
-            'featuredBlogPost' => BlogPost::inRandomOrder()->first()
+            'blogPosts' => $this->blogPostRepository->getAllBlogPostsRecordsByCriteria('archive_date', $archive_date,'10'),
+            'blogPostCategories' => $this->blogPostCategory->getAllCategoriesWhereHasBlogPosts('15'),
+            'blogPostTags' => $this->blogPostTagRepository->getAllTagsWhereHasBlogPosts('10'),
+            'blogPostDistinctArchiveYearAndMonthsArray' => $this->blogPostRepository->getAllDistinctArchiveYearAndMonthsArray('10'),
+            'featuredBlogPost' => $this->blogPostRepository->getFeaturedBlogPosts('1')
         ];
-
 
         activity('front-end')
             ->withProperties(['ip_address' => get_user_ip_address_via_helper()])
@@ -139,17 +133,16 @@ class BlogController extends Controller
         $data = [
             'page_header' => \Str::title('Category ' . $category_slug),
             'page_title' => \Str::title($category_slug),
-            'blogPosts' => $this->blogPostRepository->getAllBlogPostsRecordsByCriteria('category', $category_slug,"10"),
-            'blogPostCategories' => $this->blogPostCategory->getAllCategoriesWhereHasBlogPosts("15"),
-            'blogPostTags' => $this->blogPostTagRepository->getAllTagsWhereHasBlogPosts("10"),
-            'blogPostDistinctArchiveYearAndMonthsArray' => $this->blogPostRepository->getAllDistinctArchiveYearAndMonthsArray("10"),
-            'featuredBlogPost' => BlogPost::inRandomOrder()->first()
+            'blogPosts' => $this->blogPostRepository->getAllBlogPostsRecordsByCriteria('category', $category_slug,'4'),
+            'blogPostCategories' => $this->blogPostCategory->getAllCategoriesWhereHasBlogPosts('15'),
+            'blogPostTags' => $this->blogPostTagRepository->getAllTagsWhereHasBlogPosts('10'),
+            'blogPostDistinctArchiveYearAndMonthsArray' => $this->blogPostRepository->getAllDistinctArchiveYearAndMonthsArray('10'),
+            'featuredBlogPost' => $this->blogPostRepository->getFeaturedBlogPosts('1')
         ];
-
 
         activity('front-end')
             ->withProperties(['ip_address' => get_user_ip_address_via_helper()])
-            ->log('User landed on the Blog Tag Page using tag slug '.$category_slug.'.');
+            ->log('User landed on the Blog Category Page using category slug '.$category_slug.'.');
 
         return view('frontend.blog.blog_index', $data);
 
@@ -165,11 +158,11 @@ class BlogController extends Controller
         $data = [
             'page_header' => \Str::title('Tag ' . $tag_slug),
             'page_title' => \Str::title($tag_slug),
-            'blogPosts' => $this->blogPostRepository->getAllBlogPostsRecordsByCriteria('tag', $tag_slug,"10"),
-            'blogPostCategories' => $this->blogPostCategory->getAllCategoriesWhereHasBlogPosts("15"),
-            'blogPostTags' => $this->blogPostTagRepository->getAllTagsWhereHasBlogPosts("10"),
-            'blogPostDistinctArchiveYearAndMonthsArray' => $this->blogPostRepository->getAllDistinctArchiveYearAndMonthsArray("10"),
-            'featuredBlogPost' => BlogPost::inRandomOrder()->first()
+            'blogPosts' => $this->blogPostRepository->getAllBlogPostsRecordsByCriteria('tag', $tag_slug,'10'),
+            'blogPostCategories' => $this->blogPostCategory->getAllCategoriesWhereHasBlogPosts('15'),
+            'blogPostTags' => $this->blogPostTagRepository->getAllTagsWhereHasBlogPosts('10'),
+            'blogPostDistinctArchiveYearAndMonthsArray' => $this->blogPostRepository->getAllDistinctArchiveYearAndMonthsArray('10'),
+            'featuredBlogPost' => $this->blogPostRepository->getFeaturedBlogPosts('1')
         ];
 
         activity('front-end')
@@ -189,8 +182,6 @@ class BlogController extends Controller
     {
         $blogPost = $this->blogPostRepository->getBlogPostRecordBySlug($slug);
 
-        $blogPost->load('blogPostAuthor', 'blogPostTags', 'blogPostCategory'); //load these relations for use on the blade
-
         $data = [
             'blogPost' => $blogPost,
             'blogPosts' => $this->blogPostRepository->getAllBlogPostsRecords('10'),
@@ -198,7 +189,7 @@ class BlogController extends Controller
             'blogPostCategories' => $this->blogPostCategory->getAllCategoriesWhereHasBlogPosts('10'),
             'blogPostTags' => $this->blogPostTagRepository->getAllTagsWhereHasBlogPosts('10'),
             'blogPostDistinctArchiveYearAndMonthsArray' => $this->blogPostRepository->getAllDistinctArchiveYearAndMonthsArray('10'),
-            'featuredBlogPost' => BlogPost::inRandomOrder()->first()
+            'featuredBlogPost' => $this->blogPostRepository->getFeaturedBlogPosts('1')
         ];
 
         activity('front-end | view single blog post')

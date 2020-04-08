@@ -5,15 +5,16 @@
         @foreach($blogPostsRelatedBlogPostCategoryOrTag as $related)
         <li class="col-md-6">
 
-            @if(isset($related->blogPostImage->blog_post_image_path))
-                <a href="{{ route('frontend.viewBlogSinglePostBySlug', [$related->slug]) }}">
-                    <img src="{{isset($related->blogPostImage->blog_post_image_path) ?
-                                URL::asset(''.$related->blogPostImage->blog_post_image_path.'') : '#'
-                                }}" class="img-responsive" alt="Related Post" />
+            @if(isset($blogPost->blogPostImage()->src))
+                <a class="col-md-12" href="{{ route('frontend.viewBlogSinglePostBySlug', [$related->slug]) }}">
+                    <img src="{{isset($blogPost->blogPostImage()->src) ?
+                         URL::asset(''.$blogPost->blogPostImage()->src.'') : '#'}}" class="img-responsive col-md-12"
+                         alt="{{ $blogPost->blogPostImage()->alt ?? 'Related Post' }}"
+                    />
                 </a>
             @endif
 
-            <a href="{{ route('frontend.viewBlogSinglePostBySlug', [$related->slug]) }}" class="post-title">
+            <a href="{{ route('frontend.viewBlogSinglePostBySlug', [$related->slug]) }}" class="post-title col-md-12">
                 {{$related->title}}
             </a>
         </li>

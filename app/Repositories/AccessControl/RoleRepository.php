@@ -6,8 +6,12 @@ use App\Http\Requests\MassDestroyRoleRequest;
 use App\Http\Requests\StoreRoleRequest;
 use App\Http\Requests\UpdateRoleRequest;
 use App\Models\AccessControl\Role;
-use Illuminate\Support\Facades\Request;
 
+/**
+ * Class RoleRepository
+ *
+ * @package App\Repositories\AccessControl
+ */
 class RoleRepository implements RoleRepositoryInterface
 {
     #Get

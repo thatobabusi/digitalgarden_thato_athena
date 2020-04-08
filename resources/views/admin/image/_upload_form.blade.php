@@ -1,196 +1,51 @@
-<div class="row">
-    <div class="col-md-6 row">
-        <div class="form-group col-md-6">
 
-            <label class="required" for="title">{{ trans('cruds.image.fields.title') }}</label>
+<div class="col-md-12">
 
-            <input class="form-control {{ $errors->has('title') ? 'is-invalid' : '' }}"
-                   type="text" name="title" id="title" value="{{ old('title') }}" required>
+    <div class="col-lg-12 mx-auto rounded-bottom rounded-top" style="border: solid 1px #e4e7ea !important;">
 
-            @if($errors->has('title'))
+        <label class="required" for="title">{{ trans('cruds.image.title_create') }}</label>
+
+        <!-- Upload image input-->
+        <div class="input-group mb-3 px-2 py-2 rounded-pill bg-white shadow-sm">
+
+            <input name="upload" id="upload" type="file" onchange="readURL(this);" class="form-control border-0"
+                   value="{{isset($blogPostImage->id) ?$blogPostImage : null}}">
+
+            @if($errors->has('upload'))
                 <div class="invalid-feedback">
-                    {{ $errors->first('title') }}
+                    {{ $errors->first('upload') }}
                 </div>
             @endif
 
-            <span class="help-block">{{ trans('cruds.image.fields.title_helper') }}</span>
-        </div>
-
-        <div class="form-group col-md-6">
-
-            <label class="required" for="title">{{ trans('cruds.image.fields.image_type') }}</label>
-
-            <input class="form-control {{ $errors->has('image_type') ? 'is-invalid' : '' }}"
-                   type="text" name="title" id="title" value="{{ old('image_type') }}" required>
-
-            @if($errors->has('image_type'))
-                <div class="invalid-feedback">
-                    {{ $errors->first('image_type') }}
-                </div>
-            @endif
-
-            <span class="help-block">{{ trans('cruds.image.fields.image_type_helper') }}</span>
-        </div>
-
-        <div class="form-group col-md-6">
-
-            <label class="required" for="title">{{ trans('cruds.image.fields.src') }}</label>
-
-            <input class="form-control {{ $errors->has('src') ? 'is-invalid' : '' }}"
-                   type="text" name="title" id="title" value="{{ old('src') }}" required>
-
-            @if($errors->has('src'))
-                <div class="invalid-feedback">
-                    {{ $errors->first('src') }}
-                </div>
-            @endif
-
-            <span class="help-block">{{ trans('cruds.image.fields.src_helper') }}</span>
-        </div>
-
-        <div class="form-group col-md-6">
-
-            <label class="required" for="title">{{ trans('cruds.image.fields.alt') }}</label>
-
-            <input class="form-control {{ $errors->has('src') ? 'is-invalid' : '' }}"
-                   type="text" name="title" id="title" value="{{ old('alt') }}" required>
-
-            @if($errors->has('alt'))
-                <div class="invalid-feedback">
-                    {{ $errors->first('alt') }}
-                </div>
-            @endif
-
-            <span class="help-block">{{ trans('cruds.image.fields.alt_helper') }}</span>
-        </div>
-
-        <div class="form-group col-md-6">
-
-            <label class="required" for="title">{{ trans('cruds.image.fields.mime_type') }}</label>
-
-            <input class="form-control {{ $errors->has('mime_type') ? 'is-invalid' : '' }}"
-                   type="text" name="title" id="title" value="{{ old('mime_type') }}" required>
-
-            @if($errors->has('mime_type'))
-                <div class="invalid-feedback">
-                    {{ $errors->first('mime_type') }}
-                </div>
-            @endif
-
-            <span class="help-block">{{ trans('cruds.image.fields.mime_type_helper') }}</span>
-        </div>
-
-        <div class="form-group col-md-6">
-
-            <label class="required" for="title">{{ trans('cruds.image.fields.description') }}</label>
-
-            <input class="form-control {{ $errors->has('description') ? 'is-invalid' : '' }}"
-                   type="text" name="title" id="title" value="{{ old('description') }}" required>
-
-            @if($errors->has('description'))
-                <div class="invalid-feedback">
-                    {{ $errors->first('description') }}
-                </div>
-            @endif
-
-            <span class="help-block">{{ trans('cruds.image.fields.description_helper') }}</span>
-        </div>
-
-        <div class="form-group col-md-6">
-
-            <label class="required" for="title">{{ trans('cruds.image.fields.base64') }}</label>
-
-            <input class="form-control {{ $errors->has('base64') ? 'is-invalid' : '' }}"
-                   type="text" name="title" id="title" value="{{ old('base64') }}" required>
-
-            @if($errors->has('base64'))
-                <div class="invalid-feedback">
-                    {{ $errors->first('base64') }}
-                </div>
-            @endif
-
-            <span class="help-block">{{ trans('cruds.image.fields.base64_helper') }}</span>
-        </div>
-
-        <div class="form-group col-md-6">
-
-            <label class="required" for="title">{{ trans('cruds.image.fields.credits') }}</label>
-
-            <input class="form-control {{ $errors->has('credits') ? 'is-invalid' : '' }}"
-                   type="text" name="title" id="title" value="{{ old('credits') }}" required>
-
-            @if($errors->has('credits'))
-                <div class="invalid-feedback">
-                    {{ $errors->first('credits') }}
-                </div>
-            @endif
-
-            <span class="help-block">{{ trans('cruds.image.fields.credits_helper') }}</span>
-        </div>
-
-    </div>
-    <div class="col-md-6">
-
-        <div class="form-group">
-            <label>Upload Image</label>
-            <div class="input-group">
-            <span class="input-group-btn">
-                <span class="btn btn-default btn-file">
-                    Browse… <input type="file" id="imgInp">
-                </span>
+            <span class="help-block">
+                {{ trans('cruds.blogPost.fields.title_helper') }}
             </span>
-                <input type="text" class="form-control" readonly>
+
+            <label id="upload-label" for="upload" class="font-weight-light text-muted">
+                {{ trans('cruds.image.choose_file') }}
+            </label>
+
+            <div class="input-group-append">
+                <label for="upload" class="btn btn-light m-0 rounded-pill px-4">
+                    <i class="fa fa-cloud-upload mr-2 text-muted"></i>
+                    <small class="text-uppercase font-weight-bold text-muted">
+                        {{ trans('cruds.image.choose_file') }}
+                    </small>
+                </label>
             </div>
-            <img id='img-upload'/>
+
+        </div>
+
+        <!-- Uploaded image area-->
+        <p class="font-italic text-black text-center">
+            {{ trans('cruds.image.choose_file_helper') }}
+        </p>
+
+        <div class="image-area mt-4">
+            <img id="imageResult" src="{{isset($blogPostImage->src) ? URL::asset(''.$blogPostImage->src.'') : '#'}}"
+                 alt="{{$blogPostImage->alt ?? 'Image Thumbnail'}}" class="img-fluid rounded shadow-sm mx-auto d-block">
         </div>
 
     </div>
+
 </div>
-
-{{--<div class="row col-md-12">
-
-    <div class="panel panel-primary">
-        <div class="panel-heading">
-            <h2>Image upload example</h2>
-        </div>
-
-        <div class="panel-body">
-
-            @if ($message = Session::get('success'))
-                <div class="alert alert-success alert-block">
-                    <button type="button" class="close" data-dismiss="alert">×</button>
-                    <strong>{{ $message }}</strong>
-                </div>
-                <img src="images/{{ Session::get('image') }}">
-            @endif
-
-            @if (count($errors) > 0)
-                <div class="alert alert-danger">
-                    <strong>Whoops!</strong> There were some problems with your input.
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-
-            <form action="{{ route('admin.image.upload.post') }}" method="POST" enctype="multipart/form-data">
-                @csrf
-                <div class="row">
-
-                    <div class="col-md-6">
-                        <input type="file" name="image" class="form-control">
-                    </div>
-
-                    <div class="col-md-6">
-                        <button type="submit" class="btn btn-success">Upload</button>
-                    </div>
-
-                </div>
-            </form>
-
-        </div>
-    </div>
-
-</div>--}}

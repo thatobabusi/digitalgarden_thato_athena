@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Image;
 
 use App\Http\Controllers\Controller;
+use App\Repositories\Image\ImageRepository;
 use Illuminate\Http\Request;
 
 /**
@@ -12,6 +13,20 @@ use Illuminate\Http\Request;
  */
 class ImageTypeController extends Controller
 {
+    /**
+     * @var ImageRepository
+     */
+    protected $imageRepository;
+
+    /**
+     * ImageTypeController constructor.
+     *
+     * @param ImageRepository $imageRepository
+     */
+    public function __construct(ImageRepository $imageRepository)
+    {
+        $this->imageRepository = $imageRepository;
+    }
     /**
      * @return void
      */

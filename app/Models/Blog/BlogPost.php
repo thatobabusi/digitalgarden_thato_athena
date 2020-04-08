@@ -106,11 +106,11 @@ class BlogPost extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return mixed
      */
     public function blogPostImage()
     {
-        return $this->hasOne(BlogPostImage::class);
+        return $this->blogPostImages()->first();
     }
 
     /**
@@ -120,7 +120,6 @@ class BlogPost extends Model
     {
         return $this->belongsToMany(Image::class);
     }
-
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany

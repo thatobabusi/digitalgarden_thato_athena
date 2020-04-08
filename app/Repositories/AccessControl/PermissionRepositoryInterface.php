@@ -7,6 +7,11 @@ use App\Http\Requests\StorePermissionRequest;
 use App\Http\Requests\UpdatePermissionRequest;
 use App\Models\AccessControl\Permission;
 
+/**
+ * Interface PermissionRepositoryInterface
+ *
+ * @package App\Repositories\AccessControl
+ */
 interface PermissionRepositoryInterface
 {
     /**

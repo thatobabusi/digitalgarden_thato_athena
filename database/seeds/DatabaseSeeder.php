@@ -9,8 +9,8 @@ class DatabaseSeeder extends Seeder
         Schema::disableForeignKeyConstraints();
 
         //$this->call([BlogPostBlogPostTagTableSeeder::class]);
-        //$this->call([BlogPostImagesTableSeeder::class]);
 
+        $this->call([ImageTypesTableSeeder::class]);
 
         $this->call([
             PermissionsTableSeeder::class,

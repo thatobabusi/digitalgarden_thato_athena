@@ -7,6 +7,11 @@ use App\Http\Requests\StoreRoleRequest;
 use App\Http\Requests\UpdateRoleRequest;
 use App\Models\AccessControl\Role;
 
+/**
+ * Interface RoleRepositoryInterface
+ *
+ * @package App\Repositories\AccessControl
+ */
 interface RoleRepositoryInterface
 {
     /**

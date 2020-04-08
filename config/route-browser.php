@@ -43,7 +43,7 @@ return [
         '/oauth', '/oauth/*',
 
         //'/admin', '/admin/*', //Hide these to prevent people from knowing too much
-        '/admin/activity', '/admin/activity/*', //Hide these to prevent people from knowing too much
+        //'/admin/activity', '/admin/activity/*', //Hide these to prevent people from knowing too much
         '/admin/permissions', '/admin/permissions/*', //Hide these to prevent people from knowing too much
         '/admin/roles', '/admin/roles/*', //Hide these to prevent people from knowing too much
         '/admin/system-config-plugins', '/admin/system-config-plugins/*', //Hide these to prevent people from knowing too much

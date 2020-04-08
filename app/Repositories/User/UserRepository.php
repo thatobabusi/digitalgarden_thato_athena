@@ -6,9 +6,13 @@ use App\Http\Requests\MassDestroyUserRequest;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\User\User;
-use Doctrine\DBAL\Query\QueryException;
 use Illuminate\Http\Request;
 
+/**
+ * Class UserRepository
+ *
+ * @package App\Repositories\User
+ */
 class UserRepository implements UserRepositoryInterface
 {
     #Get

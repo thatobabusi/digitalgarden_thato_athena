@@ -6,8 +6,12 @@ use App\Http\Requests\MassDestroyUserRequest;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\User\User;
-use Illuminate\Support\Facades\Request;
 
+/**
+ * Interface UserRepositoryInterface
+ *
+ * @package App\Repositories\User
+ */
 interface UserRepositoryInterface
 {
     /**
