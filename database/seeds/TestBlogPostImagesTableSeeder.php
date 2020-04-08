@@ -7,8 +7,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Str;
 
-
-class BlogPostImagesTableSeeder extends Seeder
+class TestBlogPostImagesTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -87,7 +86,5 @@ class BlogPostImagesTableSeeder extends Seeder
 
             $blog->blogPostImages()->sync([$image->id]);
         }
-
     }
-
 }

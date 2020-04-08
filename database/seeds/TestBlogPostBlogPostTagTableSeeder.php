@@ -6,7 +6,7 @@ use Faker\Factory as Faker;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class BlogPostBlogPostTagTableSeeder extends Seeder
+class TestBlogPostBlogPostTagTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
