@@ -6,6 +6,8 @@ use App\Http\Requests\MassDestroyRoleRequest;
 use App\Http\Requests\StoreRoleRequest;
 use App\Http\Requests\UpdateRoleRequest;
 use App\Models\AccessControl\Role;
+use Exception;
+use Illuminate\Database\Eloquent\Collection;
 
 /**
  * Class RoleRepository
@@ -16,7 +18,7 @@ class RoleRepository implements RoleRepositoryInterface
 {
     #Get
     /**
-     * @return Role[]|\Illuminate\Database\Eloquent\Collection
+     * @return Role[]|Collection
      */
     public function getAllRoles()
     {
@@ -29,7 +31,7 @@ class RoleRepository implements RoleRepositoryInterface
      *
      * @return int
      */
-    public function getRolesCountByCriteria(string $criteria = null, string $value = null)
+    public function getRolesCountByCriteria(string $criteria = null, string $value = null) :int
     {
         if($criteria === null) {
             return Role::all()->count();
@@ -41,7 +43,7 @@ class RoleRepository implements RoleRepositoryInterface
 
     #List
     /**
-     * @return \Illuminate\Support\Collection
+     * @return \Illuminate\Support\Collection|mixed
      */
     public function listAllRolesByTitleAndId()
     {
@@ -85,7 +87,7 @@ class RoleRepository implements RoleRepositoryInterface
      * @param Role $role
      *
      * @return bool|null
-     * @throws \Exception
+     * @throws Exception
      */
     public function destroySingleRoleRecord(Role $role)
     {

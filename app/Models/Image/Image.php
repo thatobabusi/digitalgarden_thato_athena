@@ -5,6 +5,9 @@ namespace App\Models\Image;
 use App\Models\Blog\BlogPost;
 use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -87,25 +90,25 @@ class Image extends Model
     ];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
-    public function imageType()
+    public function imageType(): BelongsTo
     {
         return $this->belongsTo(ImageType::class);
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return HasOne
      */
-    public function blogPost()
+    public function blogPost(): HasOne
     {
         return $this->hasOne(BlogPost::class);
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return BelongsToMany
      */
-    public function blogPosts()
+    public function blogPosts(): BelongsToMany
     {
         return $this->belongsToMany(BlogPost::class);
     }

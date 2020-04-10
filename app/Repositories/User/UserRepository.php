@@ -6,6 +6,8 @@ use App\Http\Requests\MassDestroyUserRequest;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\User\User;
+use Exception;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 
 /**
@@ -19,7 +21,7 @@ class UserRepository implements UserRepositoryInterface
     /**
      * @param Request $request
      *
-     * @return User[]|\Illuminate\Database\Eloquent\Collection|mixed|mixed[]|null
+     * @return User[]|Collection|mixed|mixed[]|null
      */
     public function getUsersRecords(Request $request)
     {
@@ -127,7 +129,7 @@ class UserRepository implements UserRepositoryInterface
      * @param User $user
      *
      * @return bool|mixed|null
-     * @throws \Exception
+     * @throws Exception
      */
     public function destroySingleUserRecord(User $user)
     {

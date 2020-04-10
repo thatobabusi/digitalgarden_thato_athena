@@ -4,6 +4,7 @@ namespace App\Models\AccessControl;
 
 use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -67,9 +68,9 @@ class Permission extends Model
      ******************************************************************************************************************/
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return BelongsToMany
      */
-    public function permissionsRoles()
+    public function permissionsRoles(): BelongsToMany
     {
         return $this->belongsToMany(Role::class);
     }

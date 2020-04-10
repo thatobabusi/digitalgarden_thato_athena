@@ -1,6 +1,12 @@
 @extends('layouts.backend.app_layout_backend_admin')
 
+@section('breadcrumbs')
+    {{ Breadcrumbs::render('admin.blog-category.edit', $blogPostCategory) }}
+@endsection
+
 @section('content')
+
+    @yield('breadcrumbs')
 
     <div class="card">
 

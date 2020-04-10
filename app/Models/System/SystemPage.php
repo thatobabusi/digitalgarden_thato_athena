@@ -4,6 +4,7 @@ namespace App\Models\System;
 
 use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -55,7 +56,10 @@ class SystemPage extends Model
         'deleted_at',
     ];
 
-    public function systemPageCategory()
+    /**
+     * @return BelongsTo
+     */
+    public function systemPageCategory(): BelongsTo
     {
         return $this->belongsTo(SystemPageCategory::class);
     }

@@ -3,6 +3,7 @@
 namespace App\Repositories\Image;
 
 use App\Models\Image\Image;
+use Illuminate\Http\UploadedFile;
 
 /**
  * Interface ImageRepositoryInterface
@@ -13,12 +14,12 @@ interface ImageRepositoryInterface
 {
 
     /**
-     * @param \Illuminate\Http\UploadedFile $image
+     * @param UploadedFile $image
      * @param string                        $image_type
      *
      * @return mixed
      */
-    public function uploadImage(\Illuminate\Http\UploadedFile $image, string $image_type);
+    public function uploadImage(UploadedFile $image, string $image_type);
 
     /**
      * @param Image $old_image

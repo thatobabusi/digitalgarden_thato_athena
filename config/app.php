@@ -197,6 +197,7 @@ return [
         Arcanedev\LogViewer\LogViewerServiceProvider::class,
         RealRashid\SweetAlert\SweetAlertServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
+        \DaveJamesMiller\Breadcrumbs\BreadcrumbsServiceProvider::class,
 
         /*
          * My Personal Service Providers...

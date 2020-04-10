@@ -1,21 +1,25 @@
 <?php
 
-namespace App\Http\Controllers\Admin\AccessControl;
+namespace App\Http\Controllers\Backend\Admin\AccessControl;
 
 use App\Http\Controllers\Controller;
+use Exception;
+use Illuminate\Contracts\Routing\ResponseFactory;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\MassDestroyPermissionRequest;
 use App\Http\Requests\StorePermissionRequest;
 use App\Http\Requests\UpdatePermissionRequest;
 use App\Models\AccessControl\Permission;
 use App\Repositories\AccessControl\PermissionRepository;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Http\Request;
+use Illuminate\View\View;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class PermissionsController
  *
- * @package App\Http\Controllers\Admin
+ * @package App\Http\Controllers\Backend\Admin\AccessControl
  */
 class PermissionsController extends Controller
 {
@@ -35,7 +39,7 @@ class PermissionsController extends Controller
     }
 
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function index()
     {
@@ -43,15 +47,23 @@ class PermissionsController extends Controller
 
         $data = ['permissions' => $this->permissionRepository->getAllPermissions()];
 
+        activity('back-end | admin | permissions')
+            ->withProperties(['ip_address' => get_user_ip_address_via_helper()])
+            ->log('User landed on the Permissions Page.');
+
         return view('admin.permissions.index', $data);
     }
 
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function create()
     {
         abort_if(Gate::denies('permission_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        activity('back-end | admin | permissions')
+            ->withProperties(['ip_address' => get_user_ip_address_via_helper()])
+            ->log('User landed on the Create Permissions Page.');
 
         return view('admin.permissions.create');
     }
@@ -59,11 +71,15 @@ class PermissionsController extends Controller
     /**
      * @param StorePermissionRequest $request
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
-    public function store(StorePermissionRequest $request)
+    public function store(StorePermissionRequest $request): RedirectResponse
     {
         $this->permissionRepository->storeNewPermissionRecord($request);
+
+        activity('back-end | admin | permissions')
+            ->withProperties(['ip_address' => get_user_ip_address_via_helper()])
+            ->log('User created a new Permission.');
 
         return redirect()->route('admin.permissions.index');
     }
@@ -71,13 +87,17 @@ class PermissionsController extends Controller
     /**
      * @param Permission $permission
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function edit(Permission $permission)
     {
         abort_if(Gate::denies('permission_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $data = ['permission' =>$permission];
+
+        activity('back-end | admin | permissions')
+            ->withProperties(['ip_address' => get_user_ip_address_via_helper()])
+            ->log('User landed on the Edit Permissions Page.');
 
         return view('admin.permissions.edit', $data);
     }
@@ -86,11 +106,15 @@ class PermissionsController extends Controller
      * @param UpdatePermissionRequest $request
      * @param Permission              $permission
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
-    public function update(UpdatePermissionRequest $request, Permission $permission)
+    public function update(UpdatePermissionRequest $request, Permission $permission): RedirectResponse
     {
         $this->permissionRepository->updateExistingPermissionRecord($request, $permission);
+
+        activity('back-end | admin | permissions')
+            ->withProperties(['ip_address' => get_user_ip_address_via_helper()])
+            ->log('User updated an existing Permission.');
 
         return redirect()->route('admin.permissions.index');
     }
@@ -98,7 +122,7 @@ class PermissionsController extends Controller
     /**
      * @param Permission $permission
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function show(Permission $permission)
     {
@@ -108,19 +132,28 @@ class PermissionsController extends Controller
 
         $data = ['permission' => $permission];
 
+        activity('back-end | admin | permissions')
+            ->withProperties(['ip_address' => get_user_ip_address_via_helper()])
+            ->log('User landed on the Show Permission Page.');
+
         return view('admin.permissions.show', $data);
     }
 
     /**
      * @param Permission $permission
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
+     * @throws Exception
      */
-    public function destroy(Permission $permission)
+    public function destroy(Permission $permission): RedirectResponse
     {
         abort_if(Gate::denies('permission_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $this->permissionRepository->destroySinglePermissionRecord($permission);
+
+        activity('back-end | admin | permissions')
+            ->withProperties(['ip_address' => get_user_ip_address_via_helper()])
+            ->log('User delete an existing Permission.');
 
         return back();
     }
@@ -128,7 +161,7 @@ class PermissionsController extends Controller
     /**
      * @param MassDestroyPermissionRequest $request
      *
-     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+     * @return ResponseFactory|\Illuminate\Http\Response
      */
     public function massDestroy(MassDestroyPermissionRequest $request)
     {

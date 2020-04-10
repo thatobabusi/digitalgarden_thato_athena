@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Image;
+namespace App\Http\Controllers\Backend\Admin\Image;
 
 use App\Http\Controllers\Controller;
 use App\Repositories\Image\ImageRepository;
@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 /**
  * Class ImageTypeController
  *
- * @package App\Http\Controllers\Admin\Image
+ * @package App\Http\Controllers\Backend\Admin\Image
  */
 class ImageTypeController extends Controller
 {
@@ -27,10 +27,11 @@ class ImageTypeController extends Controller
     {
         $this->imageRepository = $imageRepository;
     }
+
     /**
      * @return void
      */
-    public function index()
+    public function index(): void
     {
         //
     }
@@ -38,7 +39,7 @@ class ImageTypeController extends Controller
     /**
      * @return void
      */
-    public function create()
+    public function create(): void
     {
         //
     }
@@ -47,7 +48,7 @@ class ImageTypeController extends Controller
      * @param Request $request
      * @return void
      */
-    public function store(Request $request)
+    public function store(Request $request): void
     {
         //
     }
@@ -56,7 +57,7 @@ class ImageTypeController extends Controller
      * @param string $id
      * @return void
      */
-    public function show(string $id)
+    public function show(string $id): void
     {
         //
     }
@@ -65,7 +66,7 @@ class ImageTypeController extends Controller
      * @param string $id
      * @return void
      */
-    public function edit(string $id)
+    public function edit(string $id): void
     {
         //
     }
@@ -75,7 +76,7 @@ class ImageTypeController extends Controller
      * @param string  $id
      * @return void
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $id): void
     {
         //
     }
@@ -84,7 +85,7 @@ class ImageTypeController extends Controller
      * @param string $id
      * @return void
      */
-    public function destroy(string $id)
+    public function destroy(string $id): void
     {
         //
     }

@@ -12,7 +12,7 @@ class UpdateBlogPostRequest extends FormRequest
     /**
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         abort_if(Gate::denies('user_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
@@ -22,7 +22,7 @@ class UpdateBlogPostRequest extends FormRequest
     /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             'user_id'                   => ['required'], //user is going to be author of the blog post

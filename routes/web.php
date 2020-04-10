@@ -1,7 +1,5 @@
 <?php
 
-//use Illuminate\Support\Facades\Route;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,93 +11,39 @@
 |
 */
 
+#Redirects authenticated users to the correct home page
+require_once 'routes_separated/redirects.php';
 
-//TODO::Going to break these routes down between front and back and perhaps by entity as well
+/*****************************************BACKEND**********************************************************************/
+Route::group(['middleware' => ['auth']], function ()
+{
+    #For Admin Users and Admin Functionality
+    Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Backend\Admin'], function ()
+    {
 
-/*****************************************BACKEND*********************************************************************/
-#Admin
-Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'middleware' => ['auth']], function () {
+        Route::get('/', 'HomeController@index')->name('home');
 
-    Route::get('/', 'HomeController@index')->name('home');
-    /****************************************************************************************************************/
-    #Permissions
-    Route::delete('permissions/destroy', 'AccessControl\PermissionsController@massDestroy')->name('permissions.massDestroy');
-    Route::resource('permissions', 'AccessControl\PermissionsController');
-    /****************************************************************************************************************/
-    #Roles
-    Route::delete('roles/destroy', 'AccessControl\RolesController@massDestroy')->name('roles.massDestroy');
-    Route::resource('roles', 'AccessControl\RolesController');
-    /****************************************************************************************************************/
-    #Users
-    Route::delete('users/destroy', 'User\UsersController@massDestroy')->name('users.massDestroy');
-    Route::resource('users', 'User\UsersController');
-    /****************************************************************************************************************/
-    #BlogPosts
-    Route::delete('blog/destroy', 'Blog\BlogPostsController@massDestroy')->name('blog.massDestroy');
-    Route::resource('blog', 'Blog\BlogPostsController');
-    /****************************************************************************************************************/
-    #BlogPostCategories
-    Route::delete('blog-category/destroy', 'Blog\BlogPostCategoriesController@massDestroy')->name('blog-category.massDestroy');
-    Route::resource('blog-category', 'Blog\BlogPostCategoriesController');
-    /****************************************************************************************************************/
-    #BlogPostTags
-    Route::delete('blog-tag/destroy', 'Blog\BlogPostTagsController@massDestroy')->name('blog-tag.massDestroy');
-    Route::resource('blog-tag', 'Blog\BlogPostTagsController');
-    /****************************************************************************************************************/
-    #Images
-    Route::delete('image/destroy', 'Image\ImageController@massDestroy')->name('image.massDestroy');
-    Route::resource('image', 'Image\ImageController');
-    Route::post('image-upload', 'Image\ImageController@imageUploadPost')->name('image.upload.post');
-    /****************************************************************************************************************/
-    #Activity Log
-    Route::resource('activity', 'ActivityLog\ActivityLogController');
-    Route::get('/get-activity',
-        'ActivityLog\ActivityLogController@getAllAcitivityLogs')->name('activity.getAllAcitivityLogsByAjax');
-    /****************************************************************************************************************/
-    #System Config/Plugins/Menu Items/Page Management
-    Route::resource('system-config-plugins', 'System\SystemConfigPluginsController');
-    Route::resource('system-menu-items', 'System\SystemMenuItemsController');
-    Route::resource('system-page-categories', 'System\SystemPageCategoriesController');
-    Route::resource('system-pages', 'System\SystemPagesController');
-    /****************************************************************************************************************/
-    Route::get('crud', 'CRUD\CrudController@index')->name('crud.index');
+        require_once 'routes_separated/admin.php';
+    });
 
+    #For Other Users and General Backend Functionality
+    Route::group(['prefix' => 'admin', 'as' => 'user.', 'namespace' => 'Backend\AuthorizedUser'], function ()
+    {
+        //
+    });
 });
 
-
-/*****************************************FRONTEND*******************************************************************/
-#Landing Page
-Route::get('/', 'Frontend\GenericFrontendPagesController@index')->name('frontend.home');
-
-#Blog Pages
-Route::get('/blog', 'Frontend\BlogController@index')->name('frontend.viewBlogHome');
-Route::get('/blog-get-more-by-ajax', 'Frontend\BlogController@getMoreByAjax')->name('frontend.getMorePostsByAjax');
-Route::get('/blog/{slug}', 'Frontend\BlogController@showBlogPostBySlug')->name('frontend.viewBlogSinglePostBySlug');
-Route::get('/blog-archives/{archiveDate}', 'Frontend\BlogController@indexArchive')->name('frontend.viewAllBlogPostsByArchive');
-Route::get('/blog-category/{categorySlug}', 'Frontend\BlogController@indexCategory')->name('frontend.viewAllBlogPostsByCategory');
-Route::get('/blog-tag/{tagSlug}', 'Frontend\BlogController@indexTag')->name('frontend.viewAllBlogPostsByTag');
-
-/*****************************************REDIRECTS*****************************************************************/
-
-//TODO::Not sure I really need these here.
-#Home Redirects
-Route::get('/home', function () {
-
-    $routeName = auth()->user() && (auth()->user()->is_student || auth()->user()->is_teacher) ? 'admin.calendar.index' : 'admin.home';
-    if (session('status')) {
-        return redirect()->route($routeName)->with('status', session('status'));
-    }
-
-    return redirect()->route($routeName);
+/*****************************************FRONTEND*********************************************************************/
+Route::group(['namespace' => 'Frontend'], function ()
+{
+    require_once 'routes_separated/frontend.php';
 });
 
-
-/*****************************************AUTH ROUTES***************************************************************/
+/*****************************************AUTH ROUTES******************************************************************/
 #Add all Auth Routes but prevent the register one because that would allow anyone access into the system.
+#TODO::Maybe allow register for regular users who wont get access to admin section
 Auth::routes(['register' => false]);
 
 /*****************************************STATIC FRONTEND PAGES ROUTES**********************************************/
 #Include these last because the wild card messes with most of my other routes
 Route::get('/{page?}', 'Frontend\GenericFrontendPagesController@index');
-
-

@@ -20,8 +20,8 @@ class CreateBlogPostsTable extends Migration {
 			$table->integer('blog_post_status_id')->default(1);
 			$table->string('title', 191);
 			$table->string('slug', 191);
-			$table->text('summary', 65535);
-			$table->text('body', 65535);
+			$table->longText('summary');
+			$table->longText('body');
 			$table->timestamps();
 			$table->softDeletes();
 		});

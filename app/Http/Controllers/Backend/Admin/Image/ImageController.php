@@ -1,17 +1,21 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Image;
+namespace App\Http\Controllers\Backend\Admin\Image;
 
 use App\Http\Controllers\Controller;
 use App\Repositories\Image\ImageRepository;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\View\View;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class ImageController
  *
- * @package App\Http\Controllers\Admin\Image
+ * @package App\Http\Controllers\Backend\Admin\Image
  */
 class ImageController extends Controller
 {
@@ -32,12 +36,12 @@ class ImageController extends Controller
     }
 
     /**
-     * @param \Illuminate\Http\UploadedFile $request
+     * @param UploadedFile $request
      * @param string                        $image_type
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
-    public function imageUploadPost(\Illuminate\Http\UploadedFile $request, string $image_type)
+    public function imageUploadPost(UploadedFile $request, string $image_type): RedirectResponse
     {
         abort_if(Gate::denies('user_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
@@ -50,7 +54,7 @@ class ImageController extends Controller
     }
 
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function index()
     {
@@ -64,9 +68,9 @@ class ImageController extends Controller
     }
 
     /**
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
-    public function create()
+    public function create(): RedirectResponse
     {
         alert()->success('404: ', 'Redirected back: To edit the image you must do so
         from within the Blog Post or Entity it is related to')->timerProgressBar();
@@ -77,9 +81,9 @@ class ImageController extends Controller
     /**
      * @param Request $request
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         alert()->success('404: ', 'Redirected back: To edit the image you must do so
         from within the Blog Post or Entity it is related to')->timerProgressBar();
@@ -90,7 +94,7 @@ class ImageController extends Controller
     /**
      * @param string $slug
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function show(string $slug)
     {
@@ -107,9 +111,9 @@ class ImageController extends Controller
     /**
      * @param string $slug
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
-    public function edit(string $slug)
+    public function edit(string $slug): RedirectResponse
     {
         alert()->success('404: ', 'Redirected back: To edit the image you must do so
         from within the Blog Post or Entity it is related to')->timerProgressBar();
@@ -121,9 +125,9 @@ class ImageController extends Controller
      * @param Request $request
      * @param string  $id
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $id): RedirectResponse
     {
         alert()->success('404: ', 'Redirected back: To edit the image you must do so
         from within the Blog Post or Entity it is related to')->timerProgressBar();
@@ -134,9 +138,9 @@ class ImageController extends Controller
     /**
      * @param string $id
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
-    public function destroy(string $id)
+    public function destroy(string $id): RedirectResponse
     {
         alert()->success('404: ', 'Redirected back: To edit the image you must do so
         from within the Blog Post or Entity it is related to')->timerProgressBar();
@@ -147,9 +151,9 @@ class ImageController extends Controller
     /**
      * @param Request $request
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
-    public function massDestroy(Request $request)
+    public function massDestroy(Request $request): RedirectResponse
     {
         alert()->success('404: ', 'Redirected back: To edit the image you must do so
         from within the Blog Post or Entity it is related to')->timerProgressBar();

@@ -6,6 +6,8 @@ use App\Models\Image\Image;
 use App\Models\User\User;
 use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -90,17 +92,17 @@ class BlogPost extends Model
      ******************************************************************************************************************/
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
-    public function blogPostAuthor()
+    public function blogPostAuthor(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
-    public function blogPostCategory()
+    public function blogPostCategory(): BelongsTo
     {
         return $this->belongsTo(BlogPostCategory::class);
     }
@@ -114,25 +116,25 @@ class BlogPost extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return BelongsToMany
      */
-    public function blogPostImages()
+    public function blogPostImages(): BelongsToMany
     {
         return $this->belongsToMany(Image::class);
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return BelongsToMany
      */
-    public function blogPostTags()
+    public function blogPostTags(): BelongsToMany
     {
         return $this->belongsToMany(BlogPostTag::class);
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
-    public function blogPostStatus()
+    public function blogPostStatus(): BelongsTo
     {
         return $this->belongsTo(BlogPostStatus::class, 'blog_post_status_id');
     }

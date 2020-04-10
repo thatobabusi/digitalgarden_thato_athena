@@ -1,30 +1,36 @@
 @extends('layouts.backend.app_layout_backend_admin')
 
+@section('breadcrumbs')
+    {{ Breadcrumbs::render('admin.image.show', $image) }}
+@endsection
+
 @section('content')
 
-<div class="card">
-    <div class="card-header">
-        {{ trans('global.show') }} {{ trans('cruds.image.title') }}
-    </div>
+    @yield('breadcrumbs')
 
-    <div class="card-body">
-        <div class="form-group">
+    <div class="card">
+        <div class="card-header">
+            {{ trans('global.show') }} {{ trans('cruds.image.title') }}
+        </div>
+
+        <div class="card-body">
             <div class="form-group">
-                <a class="btn btn-default" href="{{ route('admin.image.index') }}">
-                    {{ trans('global.back_to_list') }}
-                </a>
-            </div>
+                <div class="form-group">
+                    <a class="btn btn-default" href="{{ route('admin.image.index') }}">
+                        {{ trans('global.back_to_list') }}
+                    </a>
+                </div>
 
-            @include('admin.image._view_form')
+                @include('admin.image._view_form')
 
-            <div class="form-group">
-                <a class="btn btn-default" href="{{ route('admin.image.index') }}">
-                    {{ trans('global.back_to_list') }}
-                </a>
+                <div class="form-group">
+                    <a class="btn btn-default" href="{{ route('admin.image.index') }}">
+                        {{ trans('global.back_to_list') }}
+                    </a>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
 {{--<div class="card">
     <div class="card-header">

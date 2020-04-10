@@ -1,26 +1,28 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Blog;
+namespace App\Http\Controllers\Backend\Admin\Blog;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyBlogPostTagRequest;
 use App\Http\Requests\StoreBlogPostTagRequest;
 use App\Http\Requests\UpdateBlogPostTagRequest;
 use App\Repositories\Blog\BlogPostCategoryRepository;
-use App\Repositories\Blog\BlogPostImageRepository;
 use App\Repositories\Blog\BlogPostRepository;
 use App\Repositories\Blog\BlogPostTagRepository;
-use App\Repositories\Blog\BlogRepository;
 use App\Repositories\Image\ImageRepository;
 use App\Repositories\User\UserRepository;
+use Exception;
+use Illuminate\Contracts\Routing\ResponseFactory;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Http\Request;
+use Illuminate\View\View;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class BlogPostTagsController
  *
- * @package App\Http\Controllers\Admin\Blog
+ * @package App\Http\Controllers\Backend\Admin\Blog
  */
 class BlogPostTagsController extends Controller
 {
@@ -65,7 +67,7 @@ class BlogPostTagsController extends Controller
     }
 
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function index()
     {
@@ -77,7 +79,7 @@ class BlogPostTagsController extends Controller
     }
 
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function create()
     {
@@ -91,9 +93,9 @@ class BlogPostTagsController extends Controller
     /**
      * @param StoreBlogPostTagRequest $request
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
-    public function store(StoreBlogPostTagRequest $request)
+    public function store(StoreBlogPostTagRequest $request): RedirectResponse
     {
         $this->blogPostTagRepository->storeNewBlogPostTagRecord($request);
 
@@ -105,7 +107,7 @@ class BlogPostTagsController extends Controller
     /**
      * @param string $blogPostTagSlug
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function show(string $blogPostTagSlug)
     {
@@ -119,7 +121,7 @@ class BlogPostTagsController extends Controller
     /**
      * @param string $blogPostTagSlug
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function edit(string $blogPostTagSlug)
     {
@@ -134,9 +136,9 @@ class BlogPostTagsController extends Controller
      * @param UpdateBlogPostTagRequest $request
      * @param string                   $blogPostTag_id
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
-    public function update(UpdateBlogPostTagRequest $request, string $blogPostTag_id)
+    public function update(UpdateBlogPostTagRequest $request, string $blogPostTag_id): RedirectResponse
     {
         $this->blogPostTagRepository->updateExistingBlogPostTagRecord($request,  $blogPostTag_id);
 
@@ -148,10 +150,10 @@ class BlogPostTagsController extends Controller
     /**
      * @param string $blog_post_tag_id
      *
-     * @return \Illuminate\Http\RedirectResponse
-     * @throws \Exception
+     * @return RedirectResponse
+     * @throws Exception
      */
-    public function destroy(string $blog_post_tag_id)
+    public function destroy(string $blog_post_tag_id): RedirectResponse
     {
         abort_if(Gate::denies('user_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
@@ -165,7 +167,7 @@ class BlogPostTagsController extends Controller
     /**
      * @param MassDestroyBlogPostTagRequest $request
      *
-     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+     * @return ResponseFactory|\Illuminate\Http\Response
      */
     public function massDestroy(MassDestroyBlogPostTagRequest $request)
     {

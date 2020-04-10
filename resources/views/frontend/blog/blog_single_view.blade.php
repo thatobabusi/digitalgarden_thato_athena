@@ -2,8 +2,7 @@
 
 {{--@extends('layouts.frontend.header')--}}
 @section('breadcrumbs')
-    {{--{{ \DaveJamesMiller\Breadcrumbs\Facades\Breadcrumbs::render('frontend.home') }}--}}
-    {{ \DaveJamesMiller\Breadcrumbs\Facades\Breadcrumbs::render('frontend.blog.slug', \Str::title($blogPost->blogPostCategory->slug), $blogPost) }}
+    {{ Breadcrumbs::render('frontend.blog.slug', \Str::title($blogPost->blogPostCategory->slug), $blogPost) }}
 @endsection
 
 @section('disqus_plugin')

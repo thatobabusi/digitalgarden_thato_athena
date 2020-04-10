@@ -31,13 +31,13 @@ interface BlogPostRepositoryInterface
     public function getAllBlogPostsRecordsWithPagination(string $limit = null);
 
     /**
-     * @param string $criteria
-     * @param string $value
-     * @param string $limit
+     * @param string|null $criteria
+     * @param string|null $value
+     * @param string|null $limit
      *
      * @return mixed
      */
-    public function getAllBlogPostsRecordsByCriteria(string $criteria, string $value, string $limit);
+    public function getAllBlogPostsRecordsByCriteria(string $criteria = null, string $value = null, string $limit = null);
 
     /**
      * @param BlogPost $blogPost

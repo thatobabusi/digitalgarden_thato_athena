@@ -3,6 +3,11 @@
 namespace App\Repositories\Image;
 
 use App\Models\Image\Image;
+use Exception;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Str;
 
 /**
@@ -14,12 +19,12 @@ class ImageRepository implements ImageRepositoryInterface
 {
 
     /**
-     * @param \Illuminate\Http\UploadedFile $image
+     * @param UploadedFile $image
      * @param string                        $image_type
      *
-     * @return Image|\Illuminate\Http\UploadedFile|mixed
+     * @return Image|UploadedFile|mixed
      */
-    public function uploadImage(\Illuminate\Http\UploadedFile $image, string $image_type)
+    public function uploadImage(UploadedFile $image, string $image_type)
     {
 
         #Generate image unique name
@@ -52,7 +57,7 @@ class ImageRepository implements ImageRepositoryInterface
      * @param Image $old_image
      *
      * @return bool|mixed|void
-     * @throws \Exception
+     * @throws Exception
      */
     public function deleteUploadedImage(Image $old_image)
     {
@@ -74,7 +79,7 @@ class ImageRepository implements ImageRepositoryInterface
     /**
      * @param string $id
      *
-     * @return Image|\Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Model|object|null
+     * @return Image|Builder|Model|object|null
      */
     public function getImageRecordById(string $id)
     {
@@ -84,7 +89,7 @@ class ImageRepository implements ImageRepositoryInterface
     /**
      * @param string $slug
      *
-     * @return Image|\Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Model|object|null
+     * @return Image|Builder|Model|object|null
      */
     public function getImageRecordBySlug(string $slug)
     {
@@ -94,7 +99,7 @@ class ImageRepository implements ImageRepositoryInterface
     /**
      * @param string|null $limit
      *
-     * @return Image[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Support\Collection
+     * @return Image[]|Collection|\Illuminate\Support\Collection
      */
     public function getAllImageRecords(string $limit = null)
     {
@@ -107,7 +112,12 @@ class ImageRepository implements ImageRepositoryInterface
 
 
     //TODO::Complete
-    public function massDestroyImageRecords(){
+
+    /**
+     * @return void
+     */
+    public function massDestroyImageRecords() :void
+    {
         //
     }
 

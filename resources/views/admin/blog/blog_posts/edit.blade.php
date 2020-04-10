@@ -1,52 +1,20 @@
 @extends('layouts.backend.app_layout_backend_admin')
 
 @section('styles')
-    <style>
-        /*
-        *
-        * ==========================================
-        * CUSTOM UTIL CLASSES
-        * ==========================================
-        *
-        */
-        #upload {
-            opacity: 0;
-        }
+    <link href="{{ asset('css/stylesbytype/uploadstyles.css') }}" rel="stylesheet" />
+@endsection
 
-        #upload-label {
-            position: absolute;
-            top: 50%;
-            left: 1rem;
-            transform: translateY(-50%);
-        }
-
-        .image-area {
-            border: 2px dashed rgba(255, 255, 255, 0.7);
-            padding: 1rem;
-            position: relative;
-        }
-
-        .image-area::before {
-            content: 'Uploaded image result';
-            color: #fff;
-            font-weight: bold;
-            text-transform: uppercase;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 0.8rem;
-            z-index: 1;
-        }
-
-        .image-area img {
-            z-index: 2;
-            position: relative;
-        }
-    </style>
+@section('breadcrumbs')
+    {{ Breadcrumbs::render('admin.blog.edit', $blogPost) }}
 @endsection
 
 @section('content')
+
+    @yield('breadcrumbs')
+
+    @can('user_create')
+        @include('partials.backend.buttons.blog_management_top_buttons')
+    @endcan
 
     <div class="card">
 
@@ -122,65 +90,8 @@
 
     <script type="text/javascript" src="{{ URL::asset('vendor/tinymce/tinymce.min.js') }}"></script>
 
-    <script>
-        tinymce.init({
-            selector: "textarea",
-            plugins: [
-                "autoresize", "advlist autolink lists charmap print preview", "searchreplace visualblocks code",
-                "table contextmenu paste searchreplace preview", "image imagetools", "anchor", "link", "media",
-                "visualblocks", "fullpage", "fullscreen",  "hr", "code", "emoticons", "insertdatetime", "wordcount", "imagetools"
-            ],
+    <script type="text/javascript" src="{{ URL::asset('js/scriptsbytype/tinymce.js') }}"></script>
 
-            external_plugins: {"nanospell": "{{ URL::asset('vendor/nanospell/plugin.js') }}"},
+    <script type="text/javascript" src="{{ URL::asset('js/scriptsbytype/imageupload.js') }}"></script>
 
-            toolbar: "nanospell | searchreplace | preview | undo redo | styleselect | formatselect | " +
-                "bold italic strikethrough forecolor backcolor| " +
-                "alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | " +
-                "anchor | link | image | media | visualblocks | wordcount | fullpage | fullscreen | hr | code | " +
-                "emoticons | contextmenu | insertdatetime | layer | removeformat",
-
-            height: 400,
-            autoresize_min_height: 500,
-            paste_data_images: true,
-
-            statusbar:  true,
-
-            nanospell_server: "php",
-            nanospell_dictionary: "af, en, en_uk, en_us, fr, pt, pt_br, se",
-            nanospell_compact_menu: false,
-        });
-    </script>
-
-    <script>
-        function readURL(input) {
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-
-                reader.onload = function (e) {
-                    $('#imageResult').attr('src', e.target.result);
-                };
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-
-        $(function () {
-            $('#upload').on('change', function () {
-                readURL(input);
-            });
-            $('#upload').load( function () {
-                readURL(input);
-            });
-        });
-
-        var input = document.getElementById( 'upload' );
-
-        var infoArea = document.getElementById( 'upload-label' );
-
-        input.addEventListener( 'change', showFileName );
-        function showFileName( event ) {
-            var input = event.srcElement;
-            var fileName = input.files[0].name;
-            infoArea.textContent = 'File name: ' + fileName;
-        }
-    </script>
 @endsection

@@ -2,9 +2,7 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
-    <title>
-        {{ config('app.name', 'Laravel') }}
-    </title>
+    <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -24,7 +22,7 @@
     <!-- GOOGLE FONTS -->
     @include('partials.frontend.app.app_fonts')
 
-    <!-- FAVICONS -->
+    <!-- FAV ICONS -->
     @include('partials.frontend.app.app_favicons')
 </head>
 
@@ -37,7 +35,6 @@
 
         <!-- NAVBAR -->
         @include('layouts.frontend.menu')
-
         <!-- END NAVBAR -->
 
         <div class="page-content col-md-offset-1">
@@ -79,7 +76,6 @@
         $('#flash-overlay-modal').modal();
 
         $('div.alert').not('.alert-important').delay(3000).fadeOut(350);
-
     </script>
 </body>
 

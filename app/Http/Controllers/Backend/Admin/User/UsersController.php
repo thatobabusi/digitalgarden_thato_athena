@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin\User;
+namespace App\Http\Controllers\Backend\Admin\User;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyUserRequest;
@@ -9,15 +9,18 @@ use App\Http\Requests\UpdateUserRequest;
 use App\Models\User\User;
 use App\Repositories\AccessControl\RoleRepository;
 use App\Repositories\User\UserRepository;
-use Carbon\Carbon;
+use Illuminate\Contracts\Routing\ResponseFactory;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class UsersController
  *
- * @package App\Http\Controllers\Admin
+ * @package App\Http\Controllers\Backend\Admin\User
  */
 class UsersController extends Controller
 {
@@ -45,7 +48,7 @@ class UsersController extends Controller
     /**
      * @param Request $request
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function index(Request $request)
     {
@@ -57,7 +60,7 @@ class UsersController extends Controller
     }
 
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function create()
     {
@@ -71,9 +74,9 @@ class UsersController extends Controller
     /**
      * @param StoreUserRequest $request
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
-    public function store(StoreUserRequest $request)
+    public function store(StoreUserRequest $request): RedirectResponse
     {
         $this->userRepository->storeNewUserRecord($request);
 
@@ -83,7 +86,7 @@ class UsersController extends Controller
     /**
      * @param User $user
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function edit(User $user)
     {
@@ -100,9 +103,9 @@ class UsersController extends Controller
      * @param UpdateUserRequest $request
      * @param User              $user
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
-    public function update(UpdateUserRequest $request, User $user)
+    public function update(UpdateUserRequest $request, User $user): RedirectResponse
     {
         $this->userRepository->updateExistingUserRecord($request,  $user);
 
@@ -112,7 +115,7 @@ class UsersController extends Controller
     /**
      * @param User $user
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function show(User $user)
     {
@@ -128,10 +131,10 @@ class UsersController extends Controller
     /**
      * @param User $user
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      * @throws \Exception
      */
-    public function destroy(User $user)
+    public function destroy(User $user): RedirectResponse
     {
         abort_if(Gate::denies('user_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
@@ -143,7 +146,7 @@ class UsersController extends Controller
     /**
      * @param MassDestroyUserRequest $request
      *
-     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+     * @return ResponseFactory|\Illuminate\Http\Response
      */
     public function massDestroy(MassDestroyUserRequest $request)
     {

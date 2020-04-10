@@ -13,7 +13,8 @@ class CreateImagesTable extends Migration
      */
     public function up()
     {
-        Schema::create('images', function (Blueprint $table) {
+        Schema::create('images', function (Blueprint $table)
+        {
             $table->bigInteger('id', true)->unsigned();
             $table->integer('image_type_id')->nullable()->default(1);
             $table->string('title');

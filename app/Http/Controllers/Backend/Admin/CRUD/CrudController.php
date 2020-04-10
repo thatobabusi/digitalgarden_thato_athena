@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin\CRUD;
+namespace App\Http\Controllers\Backend\Admin\CRUD;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -8,14 +8,14 @@ use Illuminate\Http\Request;
 /**
  * Class CrudController
  *
- * @package App\Http\Controllers\Admin\CRUD
+ * @package App\Http\Controllers\Backend\Admin\CRUD
  */
 class CrudController extends Controller
 {
     /**
      * @return void
      */
-    public function index()
+    public function index(): void
     {
         dd("Crud Feature pending..");
     }
@@ -23,7 +23,7 @@ class CrudController extends Controller
     /**
      * @return void
      */
-    public function create()
+    public function create(): void
     {
         //
     }
@@ -31,7 +31,7 @@ class CrudController extends Controller
     /**
      * @return void
      */
-    public function store(Request $request)
+    public function store(Request $request): void
     {
         //
     }
@@ -49,7 +49,7 @@ class CrudController extends Controller
      * @param string $id
      * @return void
      */
-    public function edit(string $id)
+    public function edit(string $id): void
     {
         //
     }
@@ -58,7 +58,7 @@ class CrudController extends Controller
      * @param string $id
      * @return void
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $id): void
     {
         //
     }
@@ -67,7 +67,7 @@ class CrudController extends Controller
      * @param string $id
      * @return void
      */
-    public function destroy(string $id)
+    public function destroy(string $id): void
     {
         //
     }

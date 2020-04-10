@@ -6,6 +6,7 @@ use App\Http\Requests\MassDestroyUserRequest;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\User\User;
+use Illuminate\Http\Request;
 
 /**
  * Interface UserRepositoryInterface
@@ -15,11 +16,11 @@ use App\Models\User\User;
 interface UserRepositoryInterface
 {
     /**
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      *
      * @return mixed
      */
-    public function getUsersRecords(\Illuminate\Http\Request $request);
+    public function getUsersRecords(Request $request);
 
     /**
      * @param string|null $criteria
@@ -36,7 +37,12 @@ interface UserRepositoryInterface
      */
     public function storeNewUserRecord(StoreUserRequest $request);
 
-    public function listUsersRecordsByNameAndId(\Illuminate\Http\Request $request = null);
+    /**
+     * @param Request|null $request
+     *
+     * @return mixed
+     */
+    public function listUsersRecordsByNameAndId(Request $request = null);
 
     /**
      * @param UpdateUserRequest $request

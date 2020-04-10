@@ -6,6 +6,8 @@ use App\Http\Requests\MassDestroyPermissionRequest;
 use App\Http\Requests\StorePermissionRequest;
 use App\Http\Requests\UpdatePermissionRequest;
 use App\Models\AccessControl\Permission;
+use Exception;
+use Illuminate\Support\Collection;
 
 /**
  * Class PermissionRepository
@@ -29,7 +31,7 @@ class PermissionRepository implements PermissionRepositoryInterface
      *
      * @return int
      */
-    public function getPermissionsCountByCriteria(string $criteria = null, string $value = null)
+    public function getPermissionsCountByCriteria(string $criteria = null, string $value = null) :int
     {
         if($criteria === null) {
             return Permission::all()->count();
@@ -42,9 +44,9 @@ class PermissionRepository implements PermissionRepositoryInterface
 
     #List
     /**
-     * @return \Illuminate\Support\Collection
+     * @return Collection
      */
-    public function listAllPermissionsByTitleAndId()
+    public function listAllPermissionsByTitleAndId() :Collection
     {
         return Permission::all()->pluck('title', 'id');
     }
@@ -69,7 +71,7 @@ class PermissionRepository implements PermissionRepositoryInterface
      *
      * @return bool
      */
-    public function updateExistingPermissionRecord(UpdatePermissionRequest $request, Permission $permission)
+    public function updateExistingPermissionRecord(UpdatePermissionRequest $request, Permission $permission) :bool
     {
         return $permission->update($request->all());
     }
@@ -79,8 +81,8 @@ class PermissionRepository implements PermissionRepositoryInterface
     /**
      * @param Permission $permission
      *
-     * @return bool|null
-     * @throws \Exception
+     * @return bool|mixed|null
+     * @throws Exception
      */
     public function destroySinglePermissionRecord(Permission $permission)
     {

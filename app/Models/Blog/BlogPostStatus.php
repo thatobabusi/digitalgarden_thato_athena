@@ -4,6 +4,7 @@ namespace App\Models\Blog;
 
 use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * App\Models\Blog\BlogPostStatus
@@ -56,7 +57,10 @@ class BlogPostStatus extends Model
         'deleted_at',
     ];
 
-    public function blogPost()
+    /**
+     * @return HasMany
+     */
+    public function blogPost(): HasMany
     {
         return $this->hasMany(BlogPost::class);
     }

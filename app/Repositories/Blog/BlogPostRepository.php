@@ -10,7 +10,11 @@ use App\Models\Blog\BlogPostCategory;
 use App\Models\Blog\BlogPostStatus;
 use App\Models\Blog\BlogPostTag;
 use Carbon\Carbon;
+use Exception;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 
 /**
@@ -25,7 +29,7 @@ class BlogPostRepository  implements BlogPostRepositoryInterface
     /**
      * @param string|null $limit
      *
-     * @return BlogPost[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Support\Collection|mixed
+     * @return BlogPost[]|Collection|\Illuminate\Support\Collection|mixed
      */
     public function getAllBlogPostsRecords(string $limit = null)
     {
@@ -39,7 +43,7 @@ class BlogPostRepository  implements BlogPostRepositoryInterface
     /**
      * @param string|null $limit
      *
-     * @return BlogPost[]|\Illuminate\Contracts\Pagination\LengthAwarePaginator|Collection|mixed
+     * @return BlogPost[]|LengthAwarePaginator|Collection|mixed
      */
     public function getAllBlogPostsRecordsWithPagination(string $limit = null)
     {
@@ -52,45 +56,51 @@ class BlogPostRepository  implements BlogPostRepositoryInterface
     }
 
     /**
-     * @param string $criteria
-     * @param string $value
-     * @param string $limit
+     * @param string|null $criteria
+     * @param string|null $value
+     * @param string|null $limit
      *
-     * @return BlogPost[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Support\Collection|mixed|null
+     * @return BlogPost[]|Collection|\Illuminate\Support\Collection|mixed|null
      */
-    public function getAllBlogPostsRecordsByCriteria(string $criteria, string $value, string $limit)
+    public function getAllBlogPostsRecordsByCriteria(string $criteria = null, string $value = null, string $limit = null)
     {
 
         $blogPosts = null;
         switch ($criteria) {
 
             case 'archive_date': #Get where year and month matches that of the archive value
-                $archive_date = explode("-",$value);
+                if(isset($value)) {
+                    $archive_date = explode('-', $value);
 
-                $blogPosts = BlogPost::whereYear('created_at', '=', $archive_date[0])
-                                ->whereMonth('created_at', '=', $archive_date[1])
-                                ->orderBy('created_at', 'DESC')
-                                ->get()
-                                ->take((int)$limit);
+                    $blogPosts = BlogPost::whereYear('created_at', '=', $archive_date[0])
+                        ->whereMonth('created_at', '=', $archive_date[1])
+                        ->orderBy('created_at', 'DESC')
+                        ->get()
+                        ->take((int)$limit);
+                }
 
                 break;
 
             case 'category': #Get by Category Slug
-                $blogPostCategory = BlogPostCategory::whereSlug($value)->first();
+                if(isset($value)) {
+                    $blogPostCategory = BlogPostCategory::whereSlug($value)->first();
 
-                $blogPosts = new Collection();
-                if(isset($blogPostCategory->id)) {
-                    $blogPosts =  $blogPostCategory->blogPosts->take((int)$limit);
+                    $blogPosts = new Collection();
+                    if (isset($blogPostCategory->id)) {
+                        $blogPosts = $blogPostCategory->blogPosts->take((int)$limit);
+                    }
                 }
 
                 break;
 
             case 'tag': #Get by Tag Slug
-                $blogPostTag = BlogPostTag::whereSlug($value)->first();
+                if(isset($value)) {
+                    $blogPostTag = BlogPostTag::whereSlug($value)->first();
 
-                $blogPosts = new Collection();
-                if(isset($blogPostTag->id)) {
-                    $blogPosts = $blogPostTag->blogPosts->take((int)$limit);
+                    $blogPosts = new Collection();
+                    if (isset($blogPostTag->id)) {
+                        $blogPosts = $blogPostTag->blogPosts->take((int)$limit);
+                    }
                 }
 
                 break;
@@ -102,11 +112,12 @@ class BlogPostRepository  implements BlogPostRepositoryInterface
         return $blogPosts;
     }
 
+
     /**
      * @param BlogPost $blogPost
      * @param string   $limit
      *
-     * @return BlogPost[]|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Query\Builder[]|\Illuminate\Support\Collection|mixed
+     * @return BlogPost[]|Builder[]|Collection|\Illuminate\Database\Query\Builder[]|\Illuminate\Support\Collection|mixed
      */
     public function getAllBlogPostsRecordsRelatedToThisBlogPostByCategoryOrTag(BlogPost $blogPost, string $limit)
     {
@@ -176,7 +187,7 @@ class BlogPostRepository  implements BlogPostRepositoryInterface
     /**
      * @param string $id
      *
-     * @return BlogPost|\Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Model|mixed|object|null
+     * @return BlogPost|Builder|Model|mixed|object|null
      */
     public function getBlogPostRecordById(string $id)
     {
@@ -189,7 +200,7 @@ class BlogPostRepository  implements BlogPostRepositoryInterface
     /**
      * @param string $slug
      *
-     * @return BlogPost|\Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Model|mixed|object|null
+     * @return BlogPost|Builder|Model|mixed|object|null
      */
     public function getBlogPostRecordBySlug(string $slug)
     {
@@ -202,7 +213,7 @@ class BlogPostRepository  implements BlogPostRepositoryInterface
     /**
      * @param string|null $limit
      *
-     * @return \Illuminate\Database\Eloquent\Model|\Illuminate\Database\Query\Builder|mixed|object|null
+     * @return Model|\Illuminate\Database\Query\Builder|mixed|object|null
      */
     public function getFeaturedBlogPosts(string $limit = null)
     {
@@ -217,7 +228,7 @@ class BlogPostRepository  implements BlogPostRepositoryInterface
     #List
 
     /**
-     * @return \Illuminate\Support\Collection
+     * @return \Illuminate\Support\Collection|mixed
      */
     public function listAllStatussesByTitleAndId()
     {
@@ -277,7 +288,7 @@ class BlogPostRepository  implements BlogPostRepositoryInterface
      * @param string $blog_post_id
      *
      * @return bool|mixed|null
-     * @throws \Exception
+     * @throws Exception
      */
     public function destroySingleBlogPostRecord(string $blog_post_id)
     {

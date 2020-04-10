@@ -1,27 +1,25 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Backend\Admin;
 
 use App\Repositories\AccessControl\PermissionRepository;
 use App\Repositories\AccessControl\RoleRepository;
 use App\Repositories\Blog\BlogPostCategoryRepository;
-use App\Repositories\Blog\BlogPostImageRepository;
 use App\Repositories\Blog\BlogPostRepository;
 use App\Repositories\Blog\BlogPostTagRepository;
-use App\Repositories\Blog\BlogRepository;
 use App\Repositories\Image\ImageRepository;
 use App\Repositories\User\UserRepository;
-use Illuminate\Http\Request;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
-use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\View\View;
 use Spatie\Activitylog\Models\Activity;
 
 /**
  * Class HomeController
  *
- * @package App\Http\Controllers\Admin
+ * @package App\Http\Controllers\Backend\Admin
  */
 class HomeController
 {
@@ -80,7 +78,7 @@ class HomeController
     }
 
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function index()
     {
@@ -88,13 +86,15 @@ class HomeController
         if( Str::contains(URL::previous(), 'login') === true ) {
 
             $user_roles = '';
-            foreach(Auth::user()->roles()->get() as $role) {
-                $user_roles .= $role->title . ' |';
+            if(Auth::user()) {
+                foreach (Auth::user()->roles()->get() as $role) {
+                    $user_roles .= $role->title . ' |';
+                }
+                $user_roles = substr($user_roles, 0, -2);
+
+                alert()->success('Welcome Back, ' . Auth::user()->getFullName(),
+                    'Logged in as ' . $user_roles)->timerProgressBar();
             }
-            $user_roles = substr($user_roles, 0, -2);
-
-            alert()->success('Welcome Back, ' . Auth::user()->getFullName(), 'Logged in as ' .  $user_roles)->timerProgressBar();
-
         }
 
 

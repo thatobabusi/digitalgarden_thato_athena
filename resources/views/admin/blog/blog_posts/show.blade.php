@@ -1,6 +1,16 @@
 @extends('layouts.backend.app_layout_backend_admin')
 
+@section('breadcrumbs')
+    {{ Breadcrumbs::render('admin.blog.show', $blogPost) }}
+@endsection
+
 @section('content')
+
+    @yield('breadcrumbs')
+
+    @can('user_create')
+        @include('partials.backend.buttons.blog_management_top_buttons')
+    @endcan
 
     @include('admin.blog.blog_posts._view_form')
 

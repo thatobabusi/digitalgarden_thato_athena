@@ -1,37 +1,43 @@
 @extends('layouts.backend.app_layout_backend_admin')
 
+@section('breadcrumbs')
+    {{ Breadcrumbs::render('admin.activity.index', \Str::title('Activity Logs')) }}
+@endsection
+
 @section('content')
 
-<div class="card">
-    <div class="card-header">
-        Activity Logs
-    </div>
+    @yield('breadcrumbs')
 
-    <div class="card-body">
-        <div class="table-responsive">
-            <table class=" table table-bordered table-striped table-hover datatable datatable-ActivityLog" name="datatable-ActivityLog" id="datatable-ActivityLog">
-                <thead>
-                    <tr>
-                        <th width="10"></th>
-                        {{--<th>ID</th>--}}
-                        <th>log_name</th>
-                        <th>description</th>
-                        <th>subject_id</th>
-                        <th>subject_type</th>
-                        <th>causer_id</th>
-                        <th>causer_type</th>
-                        {{--<th>properties</th>--}}
-                        <th>created_at</th>
-                        <th>updated_at</th>
-                        {{--<th>&nbsp;Actions</th>--}}
-                    </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
+    <div class="card">
+        <div class="card-header">
+            Activity Logs
+        </div>
+
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class=" table table-bordered table-striped table-hover datatable datatable-ActivityLog" name="datatable-ActivityLog" id="datatable-ActivityLog">
+                    <thead>
+                        <tr>
+                            <th width="10"></th>
+                            {{--<th>ID</th>--}}
+                            <th>log_name</th>
+                            <th>description</th>
+                            <th>subject_id</th>
+                            <th>subject_type</th>
+                            <th>causer_id</th>
+                            <th>causer_type</th>
+                            {{--<th>properties</th>--}}
+                            <th>created_at</th>
+                            <th>updated_at</th>
+                            {{--<th>&nbsp;Actions</th>--}}
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-</div>
 
 @endsection
 

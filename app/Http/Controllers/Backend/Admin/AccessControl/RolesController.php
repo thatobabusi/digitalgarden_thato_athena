@@ -1,23 +1,26 @@
 <?php
 
-namespace App\Http\Controllers\Admin\AccessControl;
+namespace App\Http\Controllers\Backend\Admin\AccessControl;
 
 use App\Http\Controllers\Controller;
+use Exception;
+use Illuminate\Contracts\Routing\ResponseFactory;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\MassDestroyRoleRequest;
 use App\Http\Requests\StoreRoleRequest;
 use App\Http\Requests\UpdateRoleRequest;
-use App\Models\AccessControl\Permission;
 use App\Models\AccessControl\Role;
 use App\Repositories\AccessControl\PermissionRepository;
 use App\Repositories\AccessControl\RoleRepository;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Http\Request;
+use Illuminate\View\View;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class RolesController
  *
- * @package App\Http\Controllers\Admin
+ * @package App\Http\Controllers\Backend\Admin\AccessControl
  */
 class RolesController extends Controller
 {
@@ -43,7 +46,7 @@ class RolesController extends Controller
     }
 
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function index()
     {
@@ -51,11 +54,15 @@ class RolesController extends Controller
 
         $data = ['roles' => $this->roleRepository->getAllRoles()];
 
+        activity('back-end | admin | roles')
+            ->withProperties(['ip_address' => get_user_ip_address_via_helper()])
+            ->log('User landed on the Roles Page.');
+
         return view('admin.roles.index', $data);
     }
 
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function create()
     {
@@ -63,17 +70,25 @@ class RolesController extends Controller
 
         $data = ['permissions' => $this->permissionRepository->listAllPermissionsByTitleAndId()];
 
+        activity('back-end | admin | roles')
+            ->withProperties(['ip_address' => get_user_ip_address_via_helper()])
+            ->log('User landed on the Create Roles Page.');
+
         return view('admin.roles.create', $data);
     }
 
     /**
      * @param StoreRoleRequest $request
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
-    public function store(StoreRoleRequest $request)
+    public function store(StoreRoleRequest $request): RedirectResponse
     {
         $this->roleRepository->storeNewRoleRecord($request);
+
+        activity('back-end | admin | roles')
+            ->withProperties(['ip_address' => get_user_ip_address_via_helper()])
+            ->log('User created a new Role.');
 
         return redirect()->route('admin.roles.index');
     }
@@ -81,7 +96,7 @@ class RolesController extends Controller
     /**
      * @param Role $role
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function edit(Role $role)
     {
@@ -91,6 +106,10 @@ class RolesController extends Controller
 
         $data = ['role' => $role,  'permissions' => $this->permissionRepository->listAllPermissionsByTitleAndId()];
 
+        activity('back-end | admin | roles')
+            ->withProperties(['ip_address' => get_user_ip_address_via_helper()])
+            ->log('User landed on the Edit Roles Page.');
+
         return view('admin.roles.edit', $data);
     }
 
@@ -98,11 +117,15 @@ class RolesController extends Controller
      * @param UpdateRoleRequest $request
      * @param Role              $role
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
-    public function update(UpdateRoleRequest $request, Role $role)
+    public function update(UpdateRoleRequest $request, Role $role): RedirectResponse
     {
         $this->roleRepository->updateExistingRoleRecord($request, $role);
+
+        activity('back-end | admin | roles')
+            ->withProperties(['ip_address' => get_user_ip_address_via_helper()])
+            ->log('User updated an existing Role.');
 
         return redirect()->route('admin.roles.index');
     }
@@ -110,7 +133,7 @@ class RolesController extends Controller
     /**
      * @param Role $role
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function show(Role $role)
     {
@@ -120,15 +143,20 @@ class RolesController extends Controller
 
         $data = ['role' => $role];
 
+        activity('back-end | admin | roles')
+            ->withProperties(['ip_address' => get_user_ip_address_via_helper()])
+            ->log('User landed on the Roles Page.');
+
         return view('admin.roles.show', $data);
     }
 
     /**
      * @param Role $role
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
+     * @throws Exception
      */
-    public function destroy(Role $role)
+    public function destroy(Role $role): RedirectResponse
     {
         abort_if(Gate::denies('role_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
@@ -140,7 +168,7 @@ class RolesController extends Controller
     /**
      * @param MassDestroyRoleRequest $request
      *
-     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+     * @return ResponseFactory|\Illuminate\Http\Response
      */
     public function massDestroy(MassDestroyRoleRequest $request)
     {

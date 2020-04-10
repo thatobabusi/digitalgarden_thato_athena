@@ -1,25 +1,31 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Blog;
+namespace App\Http\Controllers\Backend\Admin\Blog;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyBlogPostRequest;
 use App\Http\Requests\StoreBlogPostRequest;
 use App\Http\Requests\UpdateBlogPostRequest;
 use App\Repositories\Image\ImageRepository;
-use RealRashid\SweetAlert\Facades\Alert;
 use App\Repositories\Blog\BlogPostCategoryRepository;
 use App\Repositories\Blog\BlogPostRepository;
 use App\Repositories\Blog\BlogPostTagRepository;
 use App\Repositories\User\UserRepository;
+use Exception;
+use Illuminate\Contracts\Routing\ResponseFactory;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
+use Spatie\Activitylog\Models\Activity;
 use Symfony\Component\HttpFoundation\Response;
+use Yajra\DataTables\DataTables;
 
 /**
  * Class BlogPostsController
  *
- * @package App\Http\Controllers\Admin\Blog
+ * @package App\Http\Controllers\Backend\Admin\Blog
  */
 class BlogPostsController extends Controller
 {
@@ -64,14 +70,30 @@ class BlogPostsController extends Controller
     }
 
     /**
+     * @return mixed
+     * @throws Exception
+     */
+    public function getAllForDatatableByAjax()
+    {
+        $data = $this->blogPostRepository->getAllBlogPostsRecords();
+
+        return Datatables::of($data)->make(true);
+    }
+
+    /**
      * @param Request $request
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function index(Request $request)
     {
-
         abort_if(Gate::denies('user_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        /*
+        TODO::We will use the ajax datables later, causing too much confusion now
+        $dataTable = $this->getAllForDatatableByAjax();
+        $data = ['dataTable'=>$dataTable];
+        */
 
         $data = ['blogPosts' => $this->blogPostRepository->getAllBlogPostsRecords()];
 
@@ -79,7 +101,7 @@ class BlogPostsController extends Controller
     }
 
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function create()
     {
@@ -98,15 +120,17 @@ class BlogPostsController extends Controller
     /**
      * @param StoreBlogPostRequest $request
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function store(StoreBlogPostRequest $request)
     {
         $new_image = $this->imageRepository->uploadImage($request->upload, 'blog_post_images');
 
-        $this->blogPostRepository->storeNewBlogPostRecord($request, [$new_image->id]);
+        $blogPost = $this->blogPostRepository->storeNewBlogPostRecord($request, [$new_image->id]);
 
-        alert()->success('Success','Blog Post Created Successfully')->timerProgressBar();
+        if($blogPost) {
+            alert()->success('Success', 'Blog Post Created Successfully')->timerProgressBar();
+        }
 
         return redirect()->route('admin.blog.index');
     }
@@ -114,7 +138,7 @@ class BlogPostsController extends Controller
     /**
      * @param string $blogPostSlug
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function edit(string $blogPostSlug)
     {
@@ -141,9 +165,10 @@ class BlogPostsController extends Controller
      * @param UpdateBlogPostRequest $request
      * @param string                $blog_post_id
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
+     * @throws Exception
      */
-    public function update(UpdateBlogPostRequest $request, string $blog_post_id)
+    public function update(UpdateBlogPostRequest $request, string $blog_post_id): RedirectResponse
     {
         $new_image = null;
         $old_image = null;
@@ -182,7 +207,7 @@ class BlogPostsController extends Controller
     /**
      * @param string $blogPostSlug
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function show(string $blogPostSlug)
     {
@@ -200,10 +225,10 @@ class BlogPostsController extends Controller
     /**
      * @param string $blog_post_id
      *
-     * @return \Illuminate\Http\RedirectResponse
-     * @throws \Exception
+     * @return RedirectResponse
+     * @throws Exception
      */
-    public function destroy(string $blog_post_id)
+    public function destroy(string $blog_post_id): RedirectResponse
     {
         abort_if(Gate::denies('user_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
@@ -217,7 +242,7 @@ class BlogPostsController extends Controller
     /**
      * @param MassDestroyBlogPostRequest $request
      *
-     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+     * @return ResponseFactory|\Illuminate\Http\Response
      */
     public function massDestroy(MassDestroyBlogPostRequest $request)
     {

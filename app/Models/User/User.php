@@ -6,6 +6,8 @@ use App\Models\AccessControl\Role;
 use App\Models\Blog\BlogPost;
 use Carbon\Carbon;
 use GeneaLabs\LaravelModelCaching\Traits\Cachable;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -107,17 +109,17 @@ class User extends Authenticatable
      ******************************************************************************************************************/
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return BelongsToMany
      */
-    public function roles()
+    public function roles(): BelongsToMany
     {
         return $this->belongsToMany(Role::class);
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
-    public function blogPosts()
+    public function blogPosts(): HasMany
     {
         return $this->hasMany(BlogPost::class);
     }
@@ -129,7 +131,7 @@ class User extends Authenticatable
     /**
      * @return int
      */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
@@ -137,7 +139,7 @@ class User extends Authenticatable
     /**
      * @return string
      */
-    public function getFullName()
+    public function getFullName(): string
     {
         return  Str::title($this->name);
     }
@@ -145,7 +147,7 @@ class User extends Authenticatable
     /**
      * @return bool
      */
-    public function getIsAdminAttribute()
+    public function getIsAdminAttribute(): bool
     {
         return $this->roles()->where('id', 1)->exists();
     }
@@ -153,7 +155,7 @@ class User extends Authenticatable
     /**
      * @return bool
      */
-    public function getIsTeacherAttribute()
+    public function getIsTeacherAttribute(): bool
     {
         return $this->roles()->where('id', 3)->exists();
     }
@@ -161,7 +163,7 @@ class User extends Authenticatable
     /**
      * @return bool
      */
-    public function getIsStudentAttribute()
+    public function getIsStudentAttribute(): bool
     {
         return $this->roles()->where('id', 4)->exists();
     }
@@ -171,7 +173,7 @@ class User extends Authenticatable
      *
      * @return string|null
      */
-    public function getCreatedAtAttribute(string $value = null)
+    public function getCreatedAtAttribute(string $value = null): ?string
     {
         return $this->attributes['created_at'] = Carbon::parse($value)->toDateTimeString() ?? null;
     }
@@ -181,7 +183,7 @@ class User extends Authenticatable
      *
      * @return string|null
      */
-    public function getUpdatedAtAttribute(string $value = null)
+    public function getUpdatedAtAttribute(string $value = null): ?string
     {
         return $this->attributes['updated_at'] = Carbon::parse($value)->toDateTimeString() ?? null;
     }
@@ -191,7 +193,7 @@ class User extends Authenticatable
      *
      * @return string|null
      */
-    public function getDeletedAtAttribute(string $value = null)
+    public function getDeletedAtAttribute(string $value = null): ?string
     {
         return $this->attributes['deleted_at'] = Carbon::parse($value)->toDateTimeString() ?? null;
     }
@@ -201,7 +203,7 @@ class User extends Authenticatable
      *
      * @return string|null
      */
-    public function getEmailVerifiedAtAttribute(string $value = null)
+    public function getEmailVerifiedAtAttribute(string $value = null): ?string
     {
         //$value ? Carbon::createFromFormat('Y-m-d H:i:s', $value)->format(config('panel.date_format') . ' ' . config('panel.time_format')) : null;
 
@@ -225,7 +227,7 @@ class User extends Authenticatable
      *
      * @return string|null
      */
-    public function setPasswordAttribute(string $input)
+    public function setPasswordAttribute(string $input): ?string
     {
         if ($input) {
             return $this->attributes['password'] = app('hash')->needsRehash($input) ? Hash::make($input) : $input;
@@ -251,7 +253,7 @@ class User extends Authenticatable
      *
      * @return string|null
      */
-    public function setCreatedAtAttribute(string $value)
+    public function setCreatedAtAttribute(string $value): ?string
     {
         return $this->attributes['created_at'] = Carbon::parse($value)->toDateTimeString() ?? null;
     }
@@ -261,7 +263,7 @@ class User extends Authenticatable
      *
      * @return string|null
      */
-    public function setUpdatedAtAttribute(string $value)
+    public function setUpdatedAtAttribute(string $value): ?string
     {
         return $this->attributes['updated_at'] = Carbon::parse($value)->toDateTimeString() ?? null;
     }
@@ -271,7 +273,7 @@ class User extends Authenticatable
      *
      * @return string|null
      */
-    public function setDeletedAtAttribute(string $value)
+    public function setDeletedAtAttribute(string $value): ?string
     {
         return $this->attributes['deleted_at'] = Carbon::parse($value)->toDateTimeString() ?? null;
     }
@@ -281,7 +283,7 @@ class User extends Authenticatable
      *
      * @return string|null
      */
-    public function setEmailVerifiedAtAttribute(string $value)
+    public function setEmailVerifiedAtAttribute(string $value): ?string
     {
         //$this->attributes['email_verified_at'] = $value ? Carbon::createFromFormat(config('panel.date_format') . ' ' . config('panel.time_format'), $value)->format('Y-m-d H:i:s') : null;
 

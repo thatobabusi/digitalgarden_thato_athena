@@ -6,14 +6,13 @@ use App\Repositories\Blog\BlogPostCategoryRepository;
 use App\Repositories\Blog\BlogPostRepository;
 use App\Repositories\Blog\BlogPostTagRepository;
 use App\Repositories\Image\ImageRepository;
-use App\Repositories\User\UserRepository;
-use Carbon\Carbon;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\DB;
-use Spatie\Activitylog\Models\Activity;
-use Spatie\Menu\Link;
-use Spatie\Menu\Menu;
+use Illuminate\Support\Str;
+use Illuminate\View\View;
+use Throwable;
 
 /**
  * Class BlogController
@@ -57,9 +56,14 @@ class BlogController extends Controller
         $this->imageRepository = $imageRepository;
     }
 
+    /**
+     * @param Request $request
+     *
+     * @return Factory|JsonResponse|View
+     * @throws Throwable
+     */
     public function getMoreByAjax(Request $request)
     {
-
         $data = [
             'blogPosts' => $this->blogPostRepository->getAllBlogPostsRecordsWithPagination('4'),
             'blogPostCategories' => $this->blogPostCategory->getAllCategoriesWhereHasBlogPosts('10'),
@@ -69,7 +73,6 @@ class BlogController extends Controller
         ];
 
         if ($request->ajax()) {
-
             $view = view('partials.frontend.blog.blog_posts_paginated',$data)->render();
             return response()->json(['html'=>$view]);
         }
@@ -78,20 +81,13 @@ class BlogController extends Controller
     }
 
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function index()
     {
-        $data = [
-            'blogPosts' => $this->blogPostRepository->getAllBlogPostsRecordsWithPagination('4'),
-            'blogPostCategories' => $this->blogPostCategory->getAllCategoriesWhereHasBlogPosts('15'),
-            'blogPostTags' => $this->blogPostTagRepository->getAllTagsWhereHasBlogPosts('10'),
-            'blogPostDistinctArchiveYearAndMonthsArray' => $this->blogPostRepository->getAllDistinctArchiveYearAndMonthsArray('10'),
-            'featuredBlogPost' => $this->blogPostRepository->getFeaturedBlogPosts('1'),
-        ];
+        $data = $this->getDynamicIndexContent();
 
-        activity('front-end')
-            ->withProperties(['ip_address' => get_user_ip_address_via_helper()])
+        activity('front-end')->withProperties(['ip_address' => get_user_ip_address_via_helper()])
             ->log('User landed on the Blog Index Page.');
 
         return view('frontend.blog.blog_index', $data);
@@ -101,22 +97,14 @@ class BlogController extends Controller
     /**
      * @param string $archive_date
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function indexArchive(string $archive_date)
     {
-        $data = [
-            'page_header' => 'Archive ' . $archive_date,
-            'page_title' => 'Archive ' . $archive_date,
-            'blogPosts' => $this->blogPostRepository->getAllBlogPostsRecordsByCriteria('archive_date', $archive_date,'10'),
-            'blogPostCategories' => $this->blogPostCategory->getAllCategoriesWhereHasBlogPosts('15'),
-            'blogPostTags' => $this->blogPostTagRepository->getAllTagsWhereHasBlogPosts('10'),
-            'blogPostDistinctArchiveYearAndMonthsArray' => $this->blogPostRepository->getAllDistinctArchiveYearAndMonthsArray('10'),
-            'featuredBlogPost' => $this->blogPostRepository->getFeaturedBlogPosts('1')
-        ];
 
-        activity('front-end')
-            ->withProperties(['ip_address' => get_user_ip_address_via_helper()])
+        $data = $this->getDynamicIndexContent('archive_date', $archive_date);
+
+        activity('front-end')->withProperties(['ip_address' => get_user_ip_address_via_helper()])
             ->log('User landed on the Blog Archive Page using archive date '.$archive_date.'.');
 
         return view('frontend.blog.blog_index', $data);
@@ -126,22 +114,13 @@ class BlogController extends Controller
     /**
      * @param string $category_slug
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function indexCategory(string $category_slug)
     {
-        $data = [
-            'page_header' => \Str::title('Category ' . $category_slug),
-            'page_title' => \Str::title($category_slug),
-            'blogPosts' => $this->blogPostRepository->getAllBlogPostsRecordsByCriteria('category', $category_slug,'4'),
-            'blogPostCategories' => $this->blogPostCategory->getAllCategoriesWhereHasBlogPosts('15'),
-            'blogPostTags' => $this->blogPostTagRepository->getAllTagsWhereHasBlogPosts('10'),
-            'blogPostDistinctArchiveYearAndMonthsArray' => $this->blogPostRepository->getAllDistinctArchiveYearAndMonthsArray('10'),
-            'featuredBlogPost' => $this->blogPostRepository->getFeaturedBlogPosts('1')
-        ];
+        $data = $this->getDynamicIndexContent('category', $category_slug);
 
-        activity('front-end')
-            ->withProperties(['ip_address' => get_user_ip_address_via_helper()])
+        activity('front-end')->withProperties(['ip_address' => get_user_ip_address_via_helper()])
             ->log('User landed on the Blog Category Page using category slug '.$category_slug.'.');
 
         return view('frontend.blog.blog_index', $data);
@@ -151,22 +130,13 @@ class BlogController extends Controller
     /**
      * @param string $tag_slug
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function indexTag(string $tag_slug)
     {
-        $data = [
-            'page_header' => \Str::title('Tag ' . $tag_slug),
-            'page_title' => \Str::title($tag_slug),
-            'blogPosts' => $this->blogPostRepository->getAllBlogPostsRecordsByCriteria('tag', $tag_slug,'10'),
-            'blogPostCategories' => $this->blogPostCategory->getAllCategoriesWhereHasBlogPosts('15'),
-            'blogPostTags' => $this->blogPostTagRepository->getAllTagsWhereHasBlogPosts('10'),
-            'blogPostDistinctArchiveYearAndMonthsArray' => $this->blogPostRepository->getAllDistinctArchiveYearAndMonthsArray('10'),
-            'featuredBlogPost' => $this->blogPostRepository->getFeaturedBlogPosts('1')
-        ];
+        $data = $this->getDynamicIndexContent('tag', $tag_slug);
 
-        activity('front-end')
-            ->withProperties(['ip_address' => get_user_ip_address_via_helper()])
+        activity('front-end')->withProperties(['ip_address' => get_user_ip_address_via_helper()])
             ->log('User landed on the Blog Tag Page using tag slug '.$tag_slug.'.');
 
         return view('frontend.blog.blog_index', $data);
@@ -174,9 +144,36 @@ class BlogController extends Controller
     }
 
     /**
+     * @param string|null $criteria
+     * @param string|null $criteria_value
+     *
+     * @return array
+     */
+    public function getDynamicIndexContent(string $criteria = null, string $criteria_value = null): array
+    {
+        $page_header = $criteria;
+        if(isset($criteria)) {
+            if(Str::contains($criteria, '_')){
+                $page_header = Str::replaceFirst('_', ' ',$criteria);
+            }
+        }
+
+        return [
+            'page_header' => Str::title( $page_header ?? 'Blog'),
+            'page_title' => Str::title($criteria_value ?? 'Blog'),
+            'blogPosts' => $this->blogPostRepository->getAllBlogPostsRecordsByCriteria($criteria, $criteria_value, '20'),
+            'blogPostCategories' => $this->blogPostCategory->getAllCategoriesWhereHasBlogPosts('15'),
+            'blogPostTags' => $this->blogPostTagRepository->getAllTagsWhereHasBlogPosts('10'),
+            'blogPostDistinctArchiveYearAndMonthsArray' => $this->blogPostRepository->getAllDistinctArchiveYearAndMonthsArray('10'),
+            'featuredBlogPost' => $this->blogPostRepository->getFeaturedBlogPosts('1')
+        ];
+
+    }
+
+    /**
      * @param string $slug
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function showBlogPostBySlug(string $slug)
     {

@@ -6,6 +6,10 @@ use App\Http\Requests\MassDestroyBlogPostTagRequest;
 use App\Http\Requests\StoreBlogPostTagRequest;
 use App\Http\Requests\UpdateBlogPostTagRequest;
 use App\Models\Blog\BlogPostTag;
+use Exception;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 
 /**
  * Class BlogPostTagRepository
@@ -19,7 +23,7 @@ class BlogPostTagRepository  implements BlogPostTagRepositoryInterface
     /**
      * @param string|null $limit
      *
-     * @return \Illuminate\Support\Collection|mixed
+     * @return Collection|mixed
      */
     public function getAllTags(string $limit = null)
     {
@@ -33,7 +37,7 @@ class BlogPostTagRepository  implements BlogPostTagRepositoryInterface
     /**
      * @param string|null $limit
      *
-     * @return BlogPostTag[]|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection|mixed
+     * @return BlogPostTag[]|Builder[]|\Illuminate\Database\Eloquent\Collection|mixed
      */
     public function getAllTagsWhereHasBlogPosts(string $limit = null)
     {
@@ -48,7 +52,7 @@ class BlogPostTagRepository  implements BlogPostTagRepositoryInterface
     /**
      * @param string $id
      *
-     * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Model|object|null
+     * @return Builder|Model|object|null
      */
     public function getBlogPostTagRecordById(string $id)
     {
@@ -58,7 +62,7 @@ class BlogPostTagRepository  implements BlogPostTagRepositoryInterface
     /**
      * @param string $slug
      *
-     * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Model|mixed|object|null
+     * @return Builder|Model|mixed|object|null
      */
     public function getBlogPostTagRecordBySlug(string $slug)
     {
@@ -70,9 +74,9 @@ class BlogPostTagRepository  implements BlogPostTagRepositoryInterface
     #List
 
     /**
-     * @return \Illuminate\Support\Collection
+     * @return Collection
      */
-    public function listAllTagsByTitleAndId()
+    public function listAllTagsByTitleAndId() :Collection
     {
         return BlogPostTag::orderBy('title')->get()->pluck('title', 'id');
     }
@@ -83,7 +87,7 @@ class BlogPostTagRepository  implements BlogPostTagRepositoryInterface
      *
      * @return BlogPostTag
      */
-    public function storeNewBlogPostTagRecord(StoreBlogPostTagRequest $request)
+    public function storeNewBlogPostTagRecord(StoreBlogPostTagRequest $request) :BlogPostTag
     {
         $blog_post_tag = new BlogPostTag();
         $blog_post_tag->title = $request->input('title');
@@ -99,7 +103,7 @@ class BlogPostTagRepository  implements BlogPostTagRepositoryInterface
      * @param UpdateBlogPostTagRequest $request
      * @param string                   $id
      *
-     * @return BlogPostTag|BlogPostTag[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|mixed|null
+     * @return BlogPostTag|BlogPostTag[]|\Illuminate\Database\Eloquent\Collection|Model|mixed|null
      */
     public function updateExistingBlogPostTagRecord(UpdateBlogPostTagRequest $request, string $id)
     {
@@ -116,7 +120,7 @@ class BlogPostTagRepository  implements BlogPostTagRepositoryInterface
      * @param string $blog_post_tag_id
      *
      * @return bool|mixed
-     * @throws \Exception
+     * @throws Exception
      */
     public function destroySingleBlogPostTagRecord(string $blog_post_tag_id)
     {
@@ -131,7 +135,7 @@ class BlogPostTagRepository  implements BlogPostTagRepositoryInterface
      *
      * @return int
      */
-    public function massDestroyBlogPostTagRecords(MassDestroyBlogPostTagRequest $request)
+    public function massDestroyBlogPostTagRecords(MassDestroyBlogPostTagRequest $request): int
     {
         return BlogPostTag::whereIn('id', request('ids'))->delete();
     }

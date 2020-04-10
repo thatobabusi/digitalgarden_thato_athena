@@ -1,15 +1,34 @@
 @extends('layouts.frontend.app_frontend_layout')
 
 @section('breadcrumbs')
-    {{ \DaveJamesMiller\Breadcrumbs\Facades\Breadcrumbs::render('frontend.blog.category', \Str::title($page_title ?? 'All')) }}
+
+    @switch($page_header)
+
+        @case('Archive Date')
+            {{ Breadcrumbs::render('frontend.blog.archive', \Str::title($page_title ?? 'All')) }}
+        @break
+
+        @case('Category')
+        {{ Breadcrumbs::render('frontend.blog.category', \Str::title($page_title ?? 'All')) }}
+        @break
+
+        @case('Tag')
+            {{ Breadcrumbs::render('frontend.blog.tag', \Str::title($page_title ?? 'All')) }}
+        @break
+
+        @default
+        {{ Breadcrumbs::render('frontend.home', \Str::title($page_header ?? 'All')) }}
+
+    @endswitch
+
 @endsection
 
 @section('content')
 
     <!-- PAGE HEADER TITLE -->
     <div class="text-center">
-        @if(isset($page_header))
-            <h1>Blog Posts by {{$page_header}}</h1>
+        @if(isset($page_title) && $page_title !== 'Blog')
+            <h1>Blog Posts by {{$page_header}} {{$page_title ?? ''}}</h1>
         @else
             <h1>Blog</h1>
         @endif

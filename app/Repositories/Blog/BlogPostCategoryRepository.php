@@ -6,6 +6,10 @@ use App\Http\Requests\MassDestroyBlogPostCategoryRequest;
 use App\Http\Requests\StoreBlogPostCategoryRequest;
 use App\Http\Requests\UpdateBlogPostCategoryRequest;
 use App\Models\Blog\BlogPostCategory;
+use Exception;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 
 /**
  * Class BlogPostCategoryRepository
@@ -19,7 +23,7 @@ class BlogPostCategoryRepository  implements BlogPostCategoryRepositoryInterface
     /**
      * @param string|null $limit
      *
-     * @return \Illuminate\Support\Collection|mixed
+     * @return Collection|mixed
      */
     public function getAllCategories(string $limit = null)
     {
@@ -33,7 +37,7 @@ class BlogPostCategoryRepository  implements BlogPostCategoryRepositoryInterface
     /**
      * @param string|null $limit
      *
-     * @return BlogPostCategory[]|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Query\Builder[]|\Illuminate\Support\Collection|mixed
+     * @return BlogPostCategory[]|Builder[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Query\Builder[]|Collection|mixed
      */
     public function getAllCategoriesWhereHasBlogPosts(string $limit = null)
     {
@@ -48,7 +52,7 @@ class BlogPostCategoryRepository  implements BlogPostCategoryRepositoryInterface
     /**
      * @param string $id
      *
-     * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Model|mixed|object|null
+     * @return Builder|Model|mixed|object|null
      */
     public function getBlogPostCategoryRecordById(string $id)
     {
@@ -58,7 +62,7 @@ class BlogPostCategoryRepository  implements BlogPostCategoryRepositoryInterface
     /**
      * @param string $slug
      *
-     * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Model|mixed|object|null
+     * @return Builder|Model|mixed|object|null
      */
     public function getBlogPostCategoryRecordBySlug(string $slug)
     {
@@ -69,7 +73,7 @@ class BlogPostCategoryRepository  implements BlogPostCategoryRepositoryInterface
     #List
 
     /**
-     * @return \Illuminate\Support\Collection
+     * @return Collection|mixed
      */
     public function listAllCategoriesByTitleAndId()
     {
@@ -81,7 +85,7 @@ class BlogPostCategoryRepository  implements BlogPostCategoryRepositoryInterface
     /**
      * @param StoreBlogPostCategoryRequest $request
      *
-     * @return BlogPostCategory
+     * @return BlogPostCategory|mixed
      */
     public function storeNewBlogPostCategoryRecord(StoreBlogPostCategoryRequest $request)
     {
@@ -99,7 +103,7 @@ class BlogPostCategoryRepository  implements BlogPostCategoryRepositoryInterface
      * @param UpdateBlogPostCategoryRequest $request
      * @param string                        $id
      *
-     * @return BlogPostCategory|BlogPostCategory[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|mixed|null
+     * @return BlogPostCategory|BlogPostCategory[]|\Illuminate\Database\Eloquent\Collection|Model|mixed|null
      */
     public function updateExistingBlogPostCategoryRecord(UpdateBlogPostCategoryRequest $request, string $id)
     {
@@ -116,7 +120,7 @@ class BlogPostCategoryRepository  implements BlogPostCategoryRepositoryInterface
      * @param string $blog_post_category_id
      *
      * @return bool|mixed|null
-     * @throws \Exception
+     * @throws Exception
      */
     public function destroySingleBlogPostCategoryRecord(string $blog_post_category_id)
     {
@@ -130,7 +134,7 @@ class BlogPostCategoryRepository  implements BlogPostCategoryRepositoryInterface
      *
      * @return int
      */
-    public function massDestroyBlogPostCategoryRecords(MassDestroyBlogPostCategoryRequest $request)
+    public function massDestroyBlogPostCategoryRecords(MassDestroyBlogPostCategoryRequest $request) :int
     {
         return BlogPostCategory::whereIn('id', request('ids'))->delete();
     }

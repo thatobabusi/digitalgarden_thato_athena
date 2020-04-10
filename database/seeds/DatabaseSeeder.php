@@ -6,7 +6,6 @@ class DatabaseSeeder extends Seeder
 {
     public function run()
     {
-
         Schema::disableForeignKeyConstraints();
 
         #Get default stuff that is needed regardless
@@ -19,12 +18,11 @@ class DatabaseSeeder extends Seeder
 
             SystemConfigPluginsTableSeeder::class,
             SystemPageCategoriesTableSeeder::class,
-            SystemMenuItemsTableSeeder::class
+            SystemMenuItemsTableSeeder::class,
         ]);
 
         #Invoke Test Data Seeders
         if(app()->environment() === 'local') {
-
             $this->call([
                 TestUsersTableSeeder::class,
                 TestRoleUserTableSeeder::class,
@@ -35,13 +33,12 @@ class DatabaseSeeder extends Seeder
                 TestBlogPostsTableSeeder::class,
                 TestBlogPostImagesTableSeeder::class,
                 TestBlogPostTagsTableSeeder::class,
-                TestBlogPostBlogPostTagTableSeeder::class
+                TestBlogPostBlogPostTagTableSeeder::class,
             ]);
         }
 
         #Invoke Real Data Seeders
         if(app()->environment() === 'production') {
-
             $this->call([
                 UsersTableSeeder::class,
                 RoleUserTableSeeder::class,
@@ -52,7 +49,7 @@ class DatabaseSeeder extends Seeder
                 BlogPostsTableSeeder::class,
                 BlogPostImagesTableSeeder::class,
                 BlogPostTagsTableSeeder::class,
-                BlogPostBlogPostTagTableSeeder::class
+                BlogPostBlogPostTagTableSeeder::class,
             ]);
         }
 

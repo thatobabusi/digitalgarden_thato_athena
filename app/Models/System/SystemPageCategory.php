@@ -4,6 +4,7 @@ namespace App\Models\System;
 
 use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -53,7 +54,10 @@ class SystemPageCategory extends Model
         'deleted_at',
     ];
 
-    public function systemPages()
+    /**
+     * @return HasMany
+     */
+    public function systemPages(): HasMany
     {
         return $this->hasMany(SystemPage::class);
     }
