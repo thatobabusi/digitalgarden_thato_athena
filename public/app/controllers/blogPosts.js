@@ -1,4 +1,8 @@
 app.controller('blogPostsController', function ($scope, $http, API_URL) {
+
+    let slug = $('#hidden_category_slug').val();
+    //console.log(slug);
+
     //fetch blogPosts listing from
     $http({
         method: 'GET',
@@ -11,45 +15,11 @@ app.controller('blogPostsController', function ($scope, $http, API_URL) {
         $scope.blogPostCategories = response.data.blogPostCategories;
         $scope.blogPostTags = response.data.blogPostTags;
         $scope.blogPostDistinctArchiveYearAndMonthsArray = response.data.blogPostDistinctArchiveYearAndMonthsArray;
-        console.log(response);
+        //console.log(response);
     }, function (error) {
-        console.log(error);
+        //console.log(error);
         alert('An error has occurred. Please check the log for details 1');
     });
-
-    /*$http({
-        method: 'GET',
-        url: API_URL + "blogPostCategories/category"
-    }).then(function (response) {
-        $scope.page_header = response.data.page_header;
-        $scope.page_title = response.data.page_title;
-        $scope.featuredBlogPost = response.data.featuredBlogPost;
-        $scope.blogPosts = response.data.blogPosts;
-        $scope.blogPostCategories = response.data.blogPostCategories;
-        $scope.blogPostTags = response.data.blogPostTags;
-        $scope.blogPostDistinctArchiveYearAndMonthsArray = response.data.blogPostDistinctArchiveYearAndMonthsArray;
-        console.log(response);
-    }, function (error) {
-        console.log(error);
-        alert('An error has occurred. Please check the log for details 2');
-    });
-
-    $http({
-        method: 'GET',
-        url: API_URL + "blogPostTags/tag"
-    }).then(function (response) {
-        $scope.page_header = response.data.page_header;
-        $scope.page_title = response.data.page_title;
-        $scope.featuredBlogPost = response.data.featuredBlogPost;
-        $scope.blogPosts = response.data.blogPosts;
-        $scope.blogPostCategories = response.data.blogPostCategories;
-        $scope.blogPostTags = response.data.blogPostTags;
-        $scope.blogPostDistinctArchiveYearAndMonthsArray = response.data.blogPostDistinctArchiveYearAndMonthsArray;
-        console.log(response);
-    }, function (error) {
-        console.log(error);
-        alert('An error has occurred. Please check the log for details 3');
-    });*/
 
     //show modal form
     $scope.toggle = function (modalstate, id) {

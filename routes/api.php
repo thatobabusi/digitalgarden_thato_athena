@@ -16,7 +16,8 @@ use Illuminate\Http\Request;
 
 Route::group(['prefix' => 'v1','namespace' => 'API'], function(){
     Route::apiResource('blogPosts', 'BlogPostsController');
-    Route::get('blogPostCategories/{career}', 'BlogPostsController@indexCategory');
+    Route::get('blogPostCategories/category/{category_slug}', 'BlogPostsController@indexCategory')->name('blogPosts.getByCategorySlug');
+    Route::get('blogPostTags/tag/{tag_slug}', 'BlogPostsController@indexTag')->name('blogPosts.getByTagSlug');
     //Route::get('blogPostTags/{tag}', 'BlogPostsController@indexTag');
     //Route::get('blogPostTags/archive/{slug}', 'BlogPostsController@index');
 });

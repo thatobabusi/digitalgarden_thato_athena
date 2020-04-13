@@ -87,25 +87,14 @@ class BlogPostRepository  implements BlogPostRepositoryInterface
             case 'category': #Get by Category Slug
                 if(isset($value)) {
                     $blogPostCategory = BlogPostCategory::whereSlug($value)->first();
-
-                    $blogPosts = new Collection();
-                    if (isset($blogPostCategory->id)) {
-                        $blogPosts = $blogPostCategory->blogPosts->take((int)$limit);
-                    }
+                    $blogPosts = $this->getAllBlogPostsRecordsByCategoryId($blogPostCategory->id, (int)$limit);
                 }
-
                 break;
 
             case 'tag': #Get by Tag Slug
                 if(isset($value)) {
-                    $blogPostTag = BlogPostTag::whereSlug($value)->first();
-
-                    $blogPosts = new Collection();
-                    if (isset($blogPostTag->id)) {
-                        $blogPosts = $blogPostTag->blogPosts->take((int)$limit);
-                    }
+                    $blogPosts = $this->getAllBlogPostsRecordsByTagSlug($value, (int)$limit);
                 }
-
                 break;
 
             default:
@@ -115,6 +104,51 @@ class BlogPostRepository  implements BlogPostRepositoryInterface
         return $blogPosts;
     }
 
+    /**
+     * @param string      $blog_post_category_id
+     * @param string|null $limit
+     *
+     * @return BlogPost[]|Builder[]|Collection|\Illuminate\Database\Query\Builder[]|\Illuminate\Support\Collection
+     */
+    public function getAllBlogPostsRecordsByCategoryId(string $blog_post_category_id, string $limit = null)
+    {
+        return BlogPost::whereBlogPostCategoryId($blog_post_category_id)
+            ->with('blogPostImages')
+            ->orderBy('created_at', 'DESC')
+            ->get()
+            ->take((int)$limit);
+    }
+
+    /**
+     * @param string      $blog_post_tag_slug
+     * @param string|null $limit
+     *
+     * @return mixed
+     */
+    public function getAllBlogPostsRecordsByTagSlug(string $blog_post_tag_slug, string $limit = null)
+    {
+        $blogPostTag = BlogPostTag::whereSlug($blog_post_tag_slug)->first();
+
+        #Not the cleanest way, but self-explainatory
+        $blogPostsIdsArray = [];
+
+        #Foreach Blog Post that belongs to this Tag
+        foreach($blogPostTag->blogPosts as $post) {
+
+            #Push the Blog Post ID into the array if it is not in there already
+            if (!in_array($post->id, $blogPostsIdsArray, true)) {
+                $blogPostsIdsArray[] = $post->id;
+            }
+
+        }
+
+        return BlogPost::WhereIn('id', $blogPostsIdsArray)
+            ->with('blogPostImages')
+            ->orderBy('created_at', 'DESC')
+            ->take((int)$limit)
+            ->get();
+
+    }
 
     /**
      * @param BlogPost $blogPost
@@ -134,7 +168,7 @@ class BlogPostRepository  implements BlogPostRepositoryInterface
             foreach($tag->blogPosts as $post) {
 
                 #Push the Blog Post ID into the array if it is not in there already
-                if (!in_array($post->id, $blogPostsIdsArray)) {
+                if (!in_array($post->id, $blogPostsIdsArray, true)) {
                     $blogPostsIdsArray[] = $post->id;
                 }
 

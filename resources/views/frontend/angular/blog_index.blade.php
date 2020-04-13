@@ -19,7 +19,7 @@
         @break
 
         @case('Tag')
-            {{ Breadcrumbs::render('frontend.blog.tag', \Str::title($page_header ?? 'All')) }}
+            {{ Breadcrumbs::render('frontend.blog.tag', \Str::title($page_title ?? 'All')) }}
         @break
 
         @default

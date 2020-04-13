@@ -19,7 +19,7 @@
         @break
 
         @case('Tag')
-            {{ Breadcrumbs::render('frontend.blog.tag', \Str::title($page_header ?? 'All')) }}
+            {{ Breadcrumbs::render('frontend.blog.tag', \Str::title($page_title ?? 'All')) }}
         @break
 
         @default
@@ -48,6 +48,11 @@
         <div class="page-header breadcrumbs-only hide-while-angular-is-loading" ng-cloak style="display:none">
             <div class="container">
                 @yield('breadcrumbs')
+                <input class="form-control hidden_slug"
+                       type="hidden"
+                       name="hidden_slug"
+                       id="hidden_slug"
+                       value="{{\Str::slug($page_title, '-')}}">
             </div>
         </div>
 

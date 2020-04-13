@@ -4,14 +4,14 @@
 
 @section('angular_page_controller') ng-controller="blogPostsController" @endsection
 
-@section('what_is_loading') Getting Blog Posts @endsection
+@section('what_is_loading') Getting Blog Posts by {{$page_header ?? ''}} {{$page_title ?? ''}} @endsection
 
 @section('breadcrumbs')
 
     @switch($page_header)
 
         @case('Archive Date')
-            {{ Breadcrumbs::render('frontend.blog.archive', \Str::title($page_title ?? 'All')) }}
+        {{ Breadcrumbs::render('frontend.blog.archive', \Str::title($page_title ?? 'All')) }}
         @break
 
         @case('Category')
@@ -19,7 +19,7 @@
         @break
 
         @case('Tag')
-            {{ Breadcrumbs::render('frontend.blog.tag', \Str::title($page_header ?? 'All')) }}
+        {{ Breadcrumbs::render('frontend.blog.tag', \Str::title($page_title ?? 'All')) }}
         @break
 
         @default
@@ -42,12 +42,17 @@
 
     <app-root>
 
-        @include('partials.frontend_angular.blog.blog_post_page_header')
+    @include('partials.frontend_angular.blog.blog_post_page_header')
 
-        <!-- BREADCRUMBS -->
+    <!-- BREADCRUMBS -->
         <div class="page-header breadcrumbs-only hide-while-angular-is-loading" ng-cloak style="display:none">
             <div class="container">
                 @yield('breadcrumbs')
+                <input class="form-control hidden_slug"
+                       type="hidden"
+                       name="hidden_slug"
+                       id="hidden_slug"
+                       value="{{\Str::slug($page_title, '-')}}">
             </div>
         </div>
 
@@ -80,7 +85,7 @@
     <!-- AngularJS Application Scripts -->
     <script src="{{ URL::asset('app/app.js') }}"></script>
     <script src="{{ URL::asset('app/components/ifLoading.directive.js') }}"></script>
-    <script src="{{ URL::asset('app/controllers/blogPosts.js') }}"></script>
+    <script src="{{ URL::asset('app/controllers/blogPostsByTag.js') }}"></script>
     <script>
         //
     </script>

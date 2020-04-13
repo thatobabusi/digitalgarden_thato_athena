@@ -2,11 +2,11 @@ app.controller('blogPostsController', function ($scope, $http, API_URL) {
     //fetch blogPosts listing from
 
     let slug = $('#hidden_slug').val();
-    //console.log('blogPosts by category ' + slug);
+    console.log('blogPosts by tag ' + slug);
 
     $http({
         method: 'GET',
-        url: API_URL + "blogPostCategories/category/"+slug,
+        url: API_URL + "blogPostTags/tag/"+slug,
     }).then(function (response) {
         $scope.testdata = response.data.testdata;
         $scope.page_header = response.data.page_header;
