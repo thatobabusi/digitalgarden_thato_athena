@@ -85,15 +85,18 @@ class BlogPostsController extends Controller
     public function indexCategory(/*string $criteria = null,string $criteria_value = null*/): JsonResponse
     {
         $hack_to_get_url_array = explode('/',url()->current());
-        $criteria_value = end($hack_to_get_url_array);
-        $criteria = prev($hack_to_get_url_array);
+        $criteria = null;
+        $criteria_value = null;
+        if($hack_to_get_url_array) {
+            $criteria_value = end($hack_to_get_url_array);
+            $criteria = prev($hack_to_get_url_array);
+        }
 
         return response()->json([
             'error' => false,
-            'wheres_it_coming_from'  => 'indexCategory method with criteria ' . $criteria . ' value of ' . $criteria_value ,
+            'wheres_it_coming_from'  => 'indexCategory method with criteria ' . $criteria ?? '' . ' value of ' . $criteria_value ?? '' ,
             'page_header' => Str::title( $criteria ?? 'Blog'),
             'page_title' => Str::title($criteria_value ?? 'Blog'),
-            //'blogPosts'  => $this->blogPostRepository->getAllBlogPostsRecords(10),
             'blogPosts'  => $this->blogPostRepository->getAllBlogPostsRecordsByCriteria($criteria,$criteria_value, '10'),
             'blogPostCategories' => $this->blogPostCategory->getAllCategoriesWhereHasBlogPosts(),
             'blogPostTags' => $this->blogPostTagRepository->getAllTagsWhereHasBlogPosts(),
@@ -103,18 +106,24 @@ class BlogPostsController extends Controller
 
     }
 
+    /**
+     * @return JsonResponse
+     */
     public function indexTag(/*string $criteria = null,string $criteria_value = null*/): JsonResponse
     {
         $hack_to_get_url_array = explode('/',url()->current());
-        $criteria_value = end($hack_to_get_url_array);
-        $criteria = prev($hack_to_get_url_array);
+        $criteria = null;
+        $criteria_value = null;
+        if($hack_to_get_url_array) {
+            $criteria_value = end($hack_to_get_url_array);
+            $criteria = prev($hack_to_get_url_array);
+        }
 
         return response()->json([
             'error' => false,
-            'wheres_it_coming_from'  => 'indexTag method with tag ' . $criteria . ' value of ' . $criteria_value ,
+            'wheres_it_coming_from'  => 'indexTag method with criteria ' . $criteria ?? '' . ' value of ' . $criteria_value ?? '' ,
             'page_header' => Str::title( $criteria ?? 'Blog'),
             'page_title' => Str::title($criteria_value ?? 'Blog'),
-            //'blogPosts'  => $this->blogPostRepository->getAllBlogPostsRecords(10),
             'blogPosts'  => $this->blogPostRepository->getAllBlogPostsRecordsByCriteria($criteria,$criteria_value, '10'),
             'blogPostCategories' => $this->blogPostCategory->getAllCategoriesWhereHasBlogPosts(),
             'blogPostTags' => $this->blogPostTagRepository->getAllTagsWhereHasBlogPosts(),
