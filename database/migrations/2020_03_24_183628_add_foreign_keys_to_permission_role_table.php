@@ -12,11 +12,15 @@ class AddForeignKeysToPermissionRoleTable extends Migration {
 	 */
 	public function up()
 	{
+        Schema::disableForeignKeyConstraints();
+
 		Schema::table('permission_role', function(Blueprint $table)
 		{
-			$table->foreign('permission_id', 'permission_id_fk_1001475')->references('id')->on('permissions')->onUpdate('RESTRICT')->onDelete('CASCADE');
-			$table->foreign('role_id', 'role_id_fk_1001475')->references('id')->on('roles')->onUpdate('RESTRICT')->onDelete('CASCADE');
+			//$table->foreign('permission_id', 'permission_id_fk_1001475')->references('id')->on('permissions')->onUpdate('RESTRICT')->onDelete('CASCADE');
+			//$table->foreign('role_id', 'role_id_fk_1001475')->references('id')->on('roles')->onUpdate('RESTRICT')->onDelete('CASCADE');
 		});
+
+        Schema::enableForeignKeyConstraints();
 	}
 
 

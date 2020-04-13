@@ -4,6 +4,7 @@ namespace App\Models\Blog;
 
 use App\Models\Image\Image;
 use App\Models\User\User;
+use Carbon\Carbon;
 use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -85,6 +86,7 @@ class BlogPost extends Model
         'created_at',
         'updated_at',
         'deleted_at',
+        'route',
     ];
 
     /*******************************************************************************************************************
@@ -138,5 +140,37 @@ class BlogPost extends Model
     {
         return $this->belongsTo(BlogPostStatus::class, 'blog_post_status_id');
     }
+
+    /**
+     * @param string|null $value
+     *
+     * @return string|null
+     */
+    public function getCreatedAtAttribute(string $value = null): ?string
+    {
+        return $this->attributes['created_at'] = Carbon::parse($value)->toDateTimeString() ?? null;
+    }
+
+    /**
+     * @param string|null $value
+     *
+     * @return string|null
+     */
+    public function getUpdatedAtAttribute(string $value = null): ?string
+    {
+        return $this->attributes['updated_at'] = Carbon::parse($value)->toDateTimeString() ?? null;
+    }
+
+    /**
+     * @param string|null $value
+     *
+     * @return string|null
+     */
+    public function getDeletedAtAttribute(string $value = null): ?string
+    {
+        return $this->attributes['deleted_at'] = Carbon::parse($value)->toDateTimeString() ?? null;
+    }
+
+
 
 }

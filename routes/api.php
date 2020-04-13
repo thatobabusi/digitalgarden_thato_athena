@@ -16,6 +16,9 @@ use Illuminate\Http\Request;
 
 Route::group(['prefix' => 'v1','namespace' => 'API'], function(){
     Route::apiResource('blogPosts', 'BlogPostsController');
+    Route::get('blogPostCategories/{career}', 'BlogPostsController@indexCategory');
+    //Route::get('blogPostTags/{tag}', 'BlogPostsController@indexTag');
+    //Route::get('blogPostTags/archive/{slug}', 'BlogPostsController@index');
 });
 
 #Commented out because its just filling up space when i havent even started this dev yet
@@ -28,12 +31,6 @@ Route::group(['prefix' => 'v1','namespace' => 'API'], function(){
 
     // Users
     Route::apiResource('users', 'UsersApiController');
-
-    // Lessons
-    Route::apiResource('lessons', 'LessonsApiController');
-
-    // School Classes
-    Route::apiResource('school-classes', 'SchoolClassesApiController');
 });
 
 //Work in progress...

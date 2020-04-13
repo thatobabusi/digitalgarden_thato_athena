@@ -205,17 +205,7 @@ class User extends Authenticatable
      */
     public function getEmailVerifiedAtAttribute(string $value = null): ?string
     {
-        //$value ? Carbon::createFromFormat('Y-m-d H:i:s', $value)->format(config('panel.date_format') . ' ' . config('panel.time_format')) : null;
-
-        $return = null;
-
-        if($value) {
-            $val = Carbon::createFromFormat('Y-m-d H:i:s', $value);
-            if($val) {
-                $return = $val->format(config('panel.date_format') . ' ' . config('panel.time_format'));
-            }
-        }
-        return $return;
+        return $this->attributes['email_verified_at'] = Carbon::parse($value)->toDateTimeString() ?? null;
     }
 
     /*******************************************************************************************************************

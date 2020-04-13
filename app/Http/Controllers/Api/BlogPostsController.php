@@ -13,6 +13,7 @@ use App\Repositories\User\UserRepository;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class BlogPostsController extends Controller
 {
@@ -58,14 +59,57 @@ class BlogPostsController extends Controller
     }
 
     /**
+     * @param string|null $criteria
+     * @param string|null $criteria_value
+     *
      * @return JsonResponse
      */
-    public function index(): JsonResponse
+    public function index(string $criteria = null,string $criteria_value = null): JsonResponse
     {
         return response()->json([
             'error' => false,
-            'blogPosts'  => $this->blogPostRepository->getAllBlogPostsRecords(),
+            'wheres_it_coming_from'  => 'index method',
+            'page_header' => Str::title( $criteria ?? 'Blog'),
+            'page_title' => Str::title($criteria_value ?? 'Blog'),
+            'blogPosts'  => $this->blogPostRepository->getAllBlogPostsRecords(10),
+            'blogPostCategories' => $this->blogPostCategory->getAllCategoriesWhereHasBlogPosts(),
+            'blogPostTags' => $this->blogPostTagRepository->getAllTagsWhereHasBlogPosts(),
+            'blogPostDistinctArchiveYearAndMonthsArray' => $this->blogPostRepository->getAllDistinctArchiveYearAndMonthsArray(),
+            'featuredBlogPost' => $this->blogPostRepository->getFeaturedBlogPosts('1')
         ], 200);
+    }
+
+    public function indexCategory(string $criteria_value = null): JsonResponse
+    {
+        $criteria = 'Category';
+        return response()->json([
+            'error' => false,
+            'wheres_it_coming_from'  => 'indexCategory method',
+            'page_header' => Str::title( $criteria ?? 'Blog'),
+            'page_title' => Str::title($criteria_value ?? 'Blog'),
+            'blogPosts'  => $this->blogPostRepository->getAllBlogPostsRecords(10),
+            'blogPostCategories' => $this->blogPostCategory->getAllCategoriesWhereHasBlogPosts(),
+            'blogPostTags' => $this->blogPostTagRepository->getAllTagsWhereHasBlogPosts(),
+            'blogPostDistinctArchiveYearAndMonthsArray' => $this->blogPostRepository->getAllDistinctArchiveYearAndMonthsArray(),
+            'featuredBlogPost' => $this->blogPostRepository->getFeaturedBlogPosts('1')
+        ], 200);
+
+    }
+
+    public function indexTag(string $criteria = null,string $criteria_value = null): JsonResponse
+    {
+        return response()->json([
+            'error' => false,
+            'wheres_it_coming_from'  => 'indexTag method',
+            'page_header' => Str::title( $criteria ?? 'Blog'),
+            'page_title' => Str::title($criteria_value ?? 'Blog'),
+            'blogPosts'  => $this->blogPostRepository->getAllBlogPostsRecords(10),
+            'blogPostCategories' => $this->blogPostCategory->getAllCategoriesWhereHasBlogPosts(),
+            'blogPostTags' => $this->blogPostTagRepository->getAllTagsWhereHasBlogPosts(),
+            'blogPostDistinctArchiveYearAndMonthsArray' => $this->blogPostRepository->getAllDistinctArchiveYearAndMonthsArray(),
+            'featuredBlogPost' => $this->blogPostRepository->getFeaturedBlogPosts('1')
+        ], 200);
+
     }
 
     /**
@@ -101,7 +145,7 @@ class BlogPostsController extends Controller
     public function show(string $blogPostSlug): JsonResponse
     {
         $blogPost = $this->blogPostRepository->getBlogPostRecordBySlug($blogPostSlug);
-        $blogPost->load('blogPostAuthor', 'blogPostCategory', 'blogPostImages', 'blogPostTags');
+        //$blogPost->load('blogPostAuthor', 'blogPostCategory', 'blogPostImages', 'blogPostTags');
 
         if($blogPost === null){
             return response()->json([
@@ -113,10 +157,10 @@ class BlogPostsController extends Controller
         return response()->json([
             'error' => false,
             'blogPost'  => $blogPost,
-            'blogPostAuthor'  => $blogPost->blogPostAuthor,
-            'blogPostCategory'  => $blogPost->blogPostCategory,
-            'blogPostImage'  => $blogPost->blogPostImages->first(),
-            'blogPostTags'  => $blogPost->blogPostTags,
+            //'blogPostAuthor'  => $blogPost->blogPostAuthor,
+            //'blogPostCategory'  => $blogPost->blogPostCategory,
+            //'blogPostImage'  => $blogPost->blogPostImages->first(),
+            //'blogPostTags'  => $blogPost->blogPostTags,
         ], 200);
     }
 

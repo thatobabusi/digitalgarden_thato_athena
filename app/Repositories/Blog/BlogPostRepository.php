@@ -34,10 +34,13 @@ class BlogPostRepository  implements BlogPostRepositoryInterface
     public function getAllBlogPostsRecords(string $limit = null)
     {
         if($limit === null) {
-            return BlogPost::all();
+            return BlogPost::with('blogPostImages')->all();
         }
 
-        return BlogPost::orderBy('created_at', 'DESC')->get()->take((int)$limit);
+        return BlogPost::with('blogPostImages')
+                        ->orderBy('created_at', 'DESC')
+                        ->get()
+                        ->take((int)$limit);
     }
 
     /**
@@ -218,7 +221,7 @@ class BlogPostRepository  implements BlogPostRepositoryInterface
     public function getFeaturedBlogPosts(string $limit = null)
     {
         $blogPost = BlogPost::inRandomOrder()->first();
-        $blogPost->load('blogPostAuthor', 'blogPostImages', 'blogPostCategory', 'blogPostTags');
+        $blogPost->load(/*'blogPostAuthor',*/ 'blogPostImages', 'blogPostCategory', 'blogPostTags');
 
         return $blogPost;
     }

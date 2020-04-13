@@ -3,6 +3,7 @@
 namespace App\Models\Image;
 
 use App\Models\Blog\BlogPost;
+use Carbon\Carbon;
 use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -111,5 +112,35 @@ class Image extends Model
     public function blogPosts(): BelongsToMany
     {
         return $this->belongsToMany(BlogPost::class);
+    }
+
+    /**
+     * @param string|null $value
+     *
+     * @return string|null
+     */
+    public function getCreatedAtAttribute(string $value = null): ?string
+    {
+        return $this->attributes['created_at'] = Carbon::parse($value)->toDateTimeString() ?? null;
+    }
+
+    /**
+     * @param string|null $value
+     *
+     * @return string|null
+     */
+    public function getUpdatedAtAttribute(string $value = null): ?string
+    {
+        return $this->attributes['updated_at'] = Carbon::parse($value)->toDateTimeString() ?? null;
+    }
+
+    /**
+     * @param string|null $value
+     *
+     * @return string|null
+     */
+    public function getDeletedAtAttribute(string $value = null): ?string
+    {
+        return $this->attributes['deleted_at'] = Carbon::parse($value)->toDateTimeString() ?? null;
     }
 }

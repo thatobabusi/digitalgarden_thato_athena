@@ -87,10 +87,11 @@ class BlogController extends Controller
     {
         $data = $this->getDynamicIndexContent();
 
-        activity('front-end')->withProperties(['ip_address' => get_user_ip_address_via_helper()])
-            ->log('User landed on the Blog Index Page.');
+        /*activity('front-end')->withProperties(['ip_address' => get_user_ip_address_via_helper()])
+            ->log('User landed on the Blog Index Page.');*/
 
-        return view('frontend.blog.blog_index', $data);
+        return view('frontend.angular.blog_index', $data);
+        //return view('frontend.blog.blog_index', $data);
 
     }
 
@@ -107,7 +108,7 @@ class BlogController extends Controller
         activity('front-end')->withProperties(['ip_address' => get_user_ip_address_via_helper()])
             ->log('User landed on the Blog Archive Page using archive date '.$archive_date.'.');
 
-        return view('frontend.blog.blog_index', $data);
+        return view('frontend.angular.blog_index', $data);
 
     }
 
@@ -120,10 +121,11 @@ class BlogController extends Controller
     {
         $data = $this->getDynamicIndexContent('category', $category_slug);
 
-        activity('front-end')->withProperties(['ip_address' => get_user_ip_address_via_helper()])
-            ->log('User landed on the Blog Category Page using category slug '.$category_slug.'.');
+        /*activity('front-end')->withProperties(['ip_address' => get_user_ip_address_via_helper()])
+            ->log('User landed on the Blog Category Page using category slug '.$category_slug.'.');*/
 
-        return view('frontend.blog.blog_index', $data);
+        return view('frontend.angular.blog_index_category', $data);
+        //return view('frontend.blog.blog_index', $data);
 
     }
 
@@ -136,10 +138,11 @@ class BlogController extends Controller
     {
         $data = $this->getDynamicIndexContent('tag', $tag_slug);
 
-        activity('front-end')->withProperties(['ip_address' => get_user_ip_address_via_helper()])
-            ->log('User landed on the Blog Tag Page using tag slug '.$tag_slug.'.');
+        /*activity('front-end')->withProperties(['ip_address' => get_user_ip_address_via_helper()])
+            ->log('User landed on the Blog Tag Page using tag slug '.$tag_slug.'.');*/
 
-        return view('frontend.blog.blog_index', $data);
+        return view('frontend.angular.blog_index', $data);
+        //return view('frontend.blog.blog_index', $data);
 
     }
 
@@ -157,7 +160,6 @@ class BlogController extends Controller
                 $page_header = Str::replaceFirst('_', ' ',$criteria);
             }
         }
-
         return [
             'page_header' => Str::title( $page_header ?? 'Blog'),
             'page_title' => Str::title($criteria_value ?? 'Blog'),

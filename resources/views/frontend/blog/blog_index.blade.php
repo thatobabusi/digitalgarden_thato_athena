@@ -25,15 +25,7 @@
 
 @section('content')
 
-    <!-- PAGE HEADER TITLE -->
-    <div class="text-center">
-        @if(isset($page_title) && $page_title !== 'Blog')
-            <h1>Blog Posts by {{$page_header}} {{$page_title ?? ''}}</h1>
-        @else
-            <h1>Blog</h1>
-        @endif
-    </div>
-    <!-- END PAGE HEADER TITLE -->
+    @include('partials.frontend.blog.blog_post_page_header')
 
     <!-- BREADCRUMBS -->
     <div class="page-header breadcrumbs-only">
@@ -45,66 +37,10 @@
     <!-- END BREADCRUMBS -->
 
     <div class="col-md-9 col-lg-9 col-md-offset-0 col-lg-offset-0">
-        <!-- latest posts -->
 
         <section class="no-padding-top">
 
-            @if(isset($featuredBlogPost->title))
-
-                <div class="entry-post entry-post-fullwidth">
-
-                    <figure class="media">
-                        @if(isset($featuredBlogPost->blogPostImages->first()->src))
-                            <a href="{{ route('frontend.viewBlogSinglePostBySlug', [$featuredBlogPost->slug]) }}">
-                                <img src="{{isset($featuredBlogPost->blogPostImages->first()->src) ?
-                                URL::asset(''.$featuredBlogPost->blogPostImages->first()->src.'') : '#'}}"
-                                     class="img-responsive col-md-12"
-                                     alt="{{$featuredBlogPost->blogPostImages->first()->alt ?? 'Post Thumbnail'}}" />
-                            </a>
-                        @endif
-                    </figure>
-
-                    <div class="entry-content">
-
-                        <div class="entry-header">
-                            <h2 class="entry-title">
-                                <a href="{{ route('frontend.viewBlogSinglePostBySlug', [$featuredBlogPost->slug]) }}">
-                                    {{$featuredBlogPost->title}}
-                                </a>
-                            </h2>
-                            <div class="meta-line">
-
-                                <span class="post-date">
-                                    <i class="fa fa-calendar"></i>
-                                    {{\Carbon\Carbon::parse($featuredBlogPost->created_at)}}
-                                </span>
-
-                                <span class="post-comment">
-                                    <i class="fa fa-comments"></i>
-                                    <a href="#">35 Comments</a>
-                                </span>
-
-                            </div>
-                        </div>
-
-                        <div class="excerpt">
-                            <p>
-                                {!! $featuredBlogPost->summary !!}
-                            </p>
-                            <p class="read-more">
-                                <a href="{{ route('frontend.viewBlogSinglePostBySlug', [$featuredBlogPost->slug]) }}"
-                                   class="read-more">Read More
-                                </a>
-                            </p>
-                        </div>
-
-                    </div>
-
-                </div>
-            @endif
-
-
-            <div class="clearfix margin-top-30 margin-bottom-30"></div>
+            @include('partials.frontend.blog.blog_post_featured')
 
             <div class="row" id="post-data">
                 @include('partials.frontend.blog.blog_posts_paginated')
