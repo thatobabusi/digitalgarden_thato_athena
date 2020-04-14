@@ -14,6 +14,11 @@
 #Redirects authenticated users to the correct home page
 require_once 'routes_separated/redirects.php';
 
+Route::get('/vue', function() {
+    //return File::get(resource_path('views/frontend/vuejs/index.html'));
+    return view('welcome');
+});
+
 /*****************************************BACKEND**********************************************************************/
 Route::group(['middleware' => ['auth']], function ()
 {

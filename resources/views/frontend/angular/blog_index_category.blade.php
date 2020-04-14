@@ -83,9 +83,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular-animate.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular-route.min.js"></script>
     <!-- AngularJS Application Scripts -->
-    <script src="{{ URL::asset('app/app.js') }}"></script>
-    <script src="{{ URL::asset('app/components/ifLoading.directive.js') }}"></script>
-    <script src="{{ URL::asset('app/controllers/blogPostsByCategory.js') }}"></script>
+    <script src="{{ URL::asset('app-angularjs/app.js') }}"></script>
+    <script src="{{ URL::asset('app-angularjs/components/ifLoading.directive.js') }}"></script>
+    <script src="{{ URL::asset('app-angularjs/controllers/blogPostsByCategory.js') }}"></script>
     <script>
         //
     </script>
