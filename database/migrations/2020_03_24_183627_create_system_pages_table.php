@@ -14,8 +14,8 @@ class CreateSystemPagesTable extends Migration {
 	{
 		Schema::create('system_pages', function(Blueprint $table)
 		{
-			$table->bigInteger('id', true)->unsigned();
-			$table->integer('page_category_id');
+			$table->unsignedBigInteger('id', true);
+			$table->unsignedBigInteger('page_category_id');
 			$table->string('title', 191);
 			$table->string('slug', 191);
 			$table->longText('description');

@@ -15,8 +15,8 @@ class CreateBlogPostImage extends Migration
     {
         Schema::create('blog_post_image', function (Blueprint $table)
         {
-            $table->integer('blog_post_id')->unsigned()->index('blog_post_id_fk_1001484');
-            $table->integer('image_id')->unsigned()->index('image_id_fk_1001484');
+            $table->unsignedBigInteger('blog_post_id')->index('blog_post_id_fk_1001484');
+            $table->unsignedBigInteger('image_id')->index('image_id_fk_1001484');
 
         });
     }

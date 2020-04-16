@@ -139,22 +139,26 @@ ART;
                 $this->call('nubian:self-diagnosis');
                 $this->warn('Finished. Click up to return to menu');
             })
-            ->addItem('7 [7] - Force Logout; Logs out all users', function (CliMenu $menu) {
+            ->addItem('7 [7] - Diagnose Composer; Checks composer', function (CliMenu $menu) {
+                $this->call('nubian:composer-diagnose');
+                $this->warn('Finished. Click up to return to menu');
+            })
+            ->addItem('8 [8] - Force Logout; Logs out all users', function (CliMenu $menu) {
                 $this->call('key:generate');
                 $this->warn('Finished. Click up to return to menu');
             })
-            ->addItem('8 [8] - Update Models Ide-Helper; Updates all phpDoc blocks in Models', function (CliMenu $menu) {
+            ->addItem('9 [9] - Update Models Ide-Helper; Updates all phpDoc blocks in Models', function (CliMenu $menu) {
                 $this->call('ide-helper:models');
                 $this->warn('Finished. Click up to return to menu');
             })
 
-            ->addItem('9 [9] - Reverse Engineer MySQL tables to Laravel migrations', function (CliMenu $menu) {
+            ->addItem('10 [10] - Reverse Engineer MySQL tables to Laravel migrations', function (CliMenu $menu) {
                 $this->call('migrate:generate');
                 $this->warn('Finished. Click up to return to menu');
             })
 
             ->addLineBreak('-')
-            ->addItem('10 [i] - App Install; Run the app::install command', function (CliMenu $menu) {
+            ->addItem('11 [i] - App Install; Run the app::install command', function (CliMenu $menu) {
                 $this->call('app:install');
             })
             ->addItem('11 [u] - App Update; Run the app::update command', function (CliMenu $menu) {

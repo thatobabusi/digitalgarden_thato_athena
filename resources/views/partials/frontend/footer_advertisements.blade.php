@@ -1,26 +1,22 @@
-@if(isset($page_title) && isset($blogPostsRelatedBlogPostCategoryOrTag))
-<section class="related-posts">
+<section class="related-posts text-center">
     <h3 class="section-heading text-center">Advertisements</h3>
     <p class="text-center">
         Show some support to some of my affiliates below..
     </p>
-    <ul class="list-unstyled related-post-list row">
-        @foreach($blogPostsRelatedBlogPostCategoryOrTag as $related)
+    <div class="text-center col-md-offset-4">
+        <ul class="list-unstyled related-post-list row">
             <li class="col-md-3">
-
-                @if(isset($related->blogPostImage->blog_post_image_path))
-                    <a href="{{ route('frontend.viewBlogSinglePostBySlug', [$related->slug]) }}">
-                        <img src="{{isset($related->blogPostImage->blog_post_image_path) ?
-                                URL::asset(''.$related->blogPostImage->blog_post_image_path.'') : '#'
-                                }}" class="img-responsive" alt="Related Post" />
-                    </a>
-                @endif
-
-                <a href="{{ route('frontend.viewBlogSinglePostBySlug', [$related->slug]) }}" class="post-title">
-                    {{$related->title}}
+                <a href="https://www.facebook.com/ssupportbw" target="_blank">
+                    <img src="{{URL::asset('images/advertised_brand_images/soul-support-logo.jpg')}}"
+                         class="img-responsive" alt="Advertisement" />
                 </a>
             </li>
-        @endforeach
-    </ul>
+            <li class="col-md-3">
+                <a href="https://www.facebook.com/SoulDesignAgency" target="_blank">
+                    <img src="{{URL::asset('images/advertised_brand_images/soul-design-logo.png')}}"
+                         class="img-responsive" alt="Advertisement" />
+                </a>
+            </li>
+        </ul>
+    </div>
 </section>
-@endif

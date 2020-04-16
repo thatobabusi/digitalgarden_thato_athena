@@ -14,10 +14,10 @@ class CreateBlogPostsTable extends Migration {
 	{
 		Schema::create('blog_posts', function(Blueprint $table)
 		{
-			$table->bigInteger('id', true)->unsigned();
-			$table->integer('user_id')->nullable()->default(1);
-			$table->integer('blog_post_category_id');
-			$table->integer('blog_post_status_id')->default(1);
+			$table->unsignedBigInteger('id', true);
+			$table->unsignedBigInteger('user_id')->nullable()->default(1);
+			$table->unsignedBigInteger('blog_post_category_id');
+			$table->unsignedBigInteger('blog_post_status_id')->default(1);
 			$table->string('title', 191);
 			$table->string('slug', 191);
 			$table->longText('summary');

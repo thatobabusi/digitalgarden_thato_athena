@@ -14,7 +14,7 @@ class CreateImageTypesTable extends Migration
     public function up()
     {
         Schema::create('image_types', function (Blueprint $table) {
-            $table->bigInteger('id', true)->unsigned();
+            $table->unsignedBigInteger('id', true)->unsigned();
             $table->string('title', 191);
             $table->string('slug', 191);
             $table->string('folder', 191);

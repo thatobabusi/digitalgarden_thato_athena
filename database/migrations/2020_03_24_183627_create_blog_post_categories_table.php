@@ -14,7 +14,7 @@ class CreateBlogPostCategoriesTable extends Migration {
 	{
 		Schema::create('blog_post_categories', function(Blueprint $table)
 		{
-			$table->bigInteger('id', true)->unsigned();
+			$table->unsignedBigInteger('id', true);
 			$table->string('title', 191);
 			$table->string('slug', 191);
 			$table->timestamps();

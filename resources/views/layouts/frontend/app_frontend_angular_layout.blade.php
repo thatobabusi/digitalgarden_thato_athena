@@ -29,7 +29,17 @@
 
 <body @yield('angular_page_controller') ng-cloak>
 
-<p class="text-center text-muted" if-loading style="padding-top: 10% !important;">
+<div class="text-center text-muted" if-loading style="padding-top: 10% !important; color:black !important;">
+
+    <span class="col-md-4 col-md-offset-4 text-center">
+        <a href="https://www.facebook.com/SoulDesignAgency/" target="_blank" class="col-md-6 col-md-offset-3">
+        <img src="{{URL::asset('images/advertised_brand_images/soul-design-logo.png')}}"
+             class="img-responsive col-md-12" alt="Advertisement" />
+        </a>
+    </span>
+    <br /><br />
+    <div class="clearfix"></div>
+
     <span class="fa fa-spinner fa-spin fa-5x"></span>
     <br /><br />
     Loading page {{$page_header ?? ''}} {{$page_title ?? ''}} content...
@@ -37,7 +47,9 @@
     @yield('what_is_loading')...
     <br /><br />
     please wait...
-</p>
+    <br /><br />
+
+</div>
 
     @include('partials.frontend.app.app_menu_styles')
 

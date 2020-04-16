@@ -14,12 +14,12 @@ class CreateActivityLogTable extends Migration {
 	{
 		Schema::create('activity_log', function(Blueprint $table)
 		{
-			$table->bigInteger('id', true)->unsigned();
+			$table->unsignedBigInteger('id', true);
 			$table->string('log_name', 191)->nullable()->index();
 			$table->longText('description');
-			$table->bigInteger('subject_id')->unsigned()->nullable();
+			$table->unsignedBigInteger('subject_id')->nullable();
 			$table->string('subject_type', 191)->nullable();
-			$table->bigInteger('causer_id')->unsigned()->nullable();
+			$table->unsignedBigInteger('causer_id')->nullable();
 			$table->string('causer_type', 191)->nullable();
 			$table->text('properties')->nullable();
 			$table->timestamps();

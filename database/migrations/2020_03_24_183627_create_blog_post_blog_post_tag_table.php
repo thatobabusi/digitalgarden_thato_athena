@@ -14,9 +14,9 @@ class CreateBlogPostBlogPostTagTable extends Migration {
 	{
 		Schema::create('blog_post_blog_post_tag', function(Blueprint $table)
 		{
-			$table->bigInteger('id', true)->unsigned();
-			$table->integer('blog_post_id');
-			$table->integer('blog_post_tag_id');
+			$table->unsignedBigInteger('id', true);
+			$table->unsignedBigInteger('blog_post_id');
+			$table->unsignedBigInteger('blog_post_tag_id');
 			$table->timestamps();
 		});
 	}

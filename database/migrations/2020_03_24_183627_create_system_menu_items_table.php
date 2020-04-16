@@ -14,11 +14,11 @@ class CreateSystemMenuItemsTable extends Migration {
 	{
 		Schema::create('system_menu_items', function(Blueprint $table)
 		{
-			$table->bigInteger('id', true)->unsigned();
-			$table->bigInteger('order')->nullable();
+			$table->unsignedBigInteger('id', true);
+			$table->unsignedBigInteger('order')->nullable();
 			$table->string('title', 191);
 			$table->string('url_link', 191);
-			$table->integer('page_id')->nullable();
+			$table->unsignedBigInteger('page_id')->nullable();
 			$table->string('type', 191);
 			$table->string('route', 191);
 			$table->string('icon', 191);

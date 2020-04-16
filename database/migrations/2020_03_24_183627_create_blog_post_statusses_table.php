@@ -14,7 +14,7 @@ class CreateBlogPostStatussesTable extends Migration
     public function up()
     {
         Schema::create('blog_post_statusses', function (Blueprint $table) {
-            $table->bigInteger('id', true)->unsigned();
+            $table->unsignedBigInteger('id', true);
             $table->string('title');
             $table->string('slug');
             $table->timestamps();
