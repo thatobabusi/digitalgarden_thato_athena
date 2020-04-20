@@ -16,20 +16,9 @@ class TestBlogPostImagesTableSeeder extends Seeder
      */
     public function run()
     {
-        Schema::create('blog_post_images', function(Blueprint $table)
-        {
-            $table->bigInteger('id', true)->unsigned();
-            $table->integer('blog_post_id');
-            $table->string('title', 191);
-            $table->string('slug', 191);
-            $table->string('blog_post_image_path', 191);
-            $table->string('blog_post_image_caption', 191);
-            $table->string('credits_if_applicable', 191)->nullable();
-            $table->timestamps();
-            $table->softDeletes();
-        });
+        //\DB::table('blog_post_images')->truncate();
 
-        \DB::table('blog_post_images')->truncate();
+        core_helper_extend_timeout_time();
 
         #Deletes all existing files in the folders
         #This will only delete test seeder stuff

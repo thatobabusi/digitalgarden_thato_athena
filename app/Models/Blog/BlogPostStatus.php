@@ -35,6 +35,9 @@ class BlogPostStatus extends Model
 {
     use Cachable;
 
+    /**
+     * @var string
+     */
     protected $table = 'blog_post_statusses';
 
     /**

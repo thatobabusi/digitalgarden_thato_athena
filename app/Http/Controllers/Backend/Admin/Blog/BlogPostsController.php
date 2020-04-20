@@ -6,11 +6,14 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyBlogPostRequest;
 use App\Http\Requests\StoreBlogPostRequest;
 use App\Http\Requests\UpdateBlogPostRequest;
+use App\Http\Resources\BlogPostResource;
+use App\Models\Blog\BlogPost;
 use App\Repositories\Image\ImageRepository;
 use App\Repositories\Blog\BlogPostCategoryRepository;
 use App\Repositories\Blog\BlogPostRepository;
 use App\Repositories\Blog\BlogPostTagRepository;
 use App\Repositories\User\UserRepository;
+use App\Transformers\BlogPostTransformer;
 use Exception;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Contracts\View\Factory;
@@ -70,32 +73,39 @@ class BlogPostsController extends Controller
     }
 
     /**
+     * @param $collection
+     *
      * @return mixed
      * @throws Exception
      */
-    public function getAllForDatatableByAjax()
+    public function convertCollectionToDataTableFormat($collection)
     {
-        $data = $this->blogPostRepository->getAllBlogPostsRecords();
+        return Datatables::of($collection)->make(true);
+    }
 
-        return Datatables::of($data)->make(true);
+    /**
+     * @return mixed
+     * @throws Exception
+     */
+    public function getAllBlogPostsByAjax()
+    {
+        return  $this->blogPostRepository->getAllBlogPostsByAjaxAndBuildDatatable('300');
     }
 
     /**
      * @param Request $request
      *
      * @return Factory|View
+     * @throws Exception
      */
     public function index(Request $request)
     {
         abort_if(Gate::denies('user_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        /*
-        TODO::We will use the ajax datables later, causing too much confusion now
-        $dataTable = $this->getAllForDatatableByAjax();
-        $data = ['dataTable'=>$dataTable];
-        */
-
-        $data = ['blogPosts' => $this->blogPostRepository->getAllBlogPostsRecords()];
+        $data = [
+            'dataTable' => $this->getAllBlogPostsByAjax(),
+            //'blogPosts' => $this->blogPostRepository->getAllBlogPostsRecords()
+        ];
 
         return view('admin.blog.blog_posts.index', $data);
     }

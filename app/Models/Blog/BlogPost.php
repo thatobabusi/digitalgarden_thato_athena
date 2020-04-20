@@ -60,6 +60,9 @@ class BlogPost extends Model
 {
     use SoftDeletes, Cachable;
 
+    /**
+     * @var string
+     */
     protected $table = 'blog_posts';
 
     /**

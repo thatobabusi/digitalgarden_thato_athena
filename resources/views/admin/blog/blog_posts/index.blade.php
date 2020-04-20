@@ -19,12 +19,12 @@
 
         <div class="card-body">
             <div class="table-responsive">
-                <table class=" table table-bordered table-striped table-hover datatable datatable-User">
+                <table class=" table table-bordered table-striped table-hover datatable datatable-BlogPost"
+                       name="datatable-BlogPost"
+                       id="datatable-BlogPost">
                     <thead>
                         <tr>
-                            <th width="10">
-
-                            </th>
+                            {{--<th width="10"></th>--}}
                             <th>
                                 {{ trans('cruds.blogPost.fields.id') }}
                             </th>
@@ -55,67 +55,6 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($blogPosts as $key => $blogPost)
-                            <tr data-entry-id="{{ $blogPost->id }}">
-                                <td>
-
-                                </td>
-                                <td>
-                                    {{ $blogPost->id ?? '' }}
-                                </td>
-                                <td>
-                                    {{ $blogPost->title ?? '' }}
-                                </td>
-                                <td>
-                                    {{ $blogPost->blogPostAuthor->name ?? '' }}
-                                </td>
-                                <td>
-                                    {{ $blogPost->blogPostCategory->title ?? '' }}
-                                </td>
-                                <td>
-                                    {{ $blogPost->blogPostStatus->title ?? '' }}
-                                </td>
-                                <td>
-                                    @foreach($blogPost->blogPostTags as $key => $item)
-                                        <span class="badge badge-info">{{ $item->title }}</span>
-                                    @endforeach
-
-                                </td>
-                                <td>
-                                    {{ $blogPost->created_at ?? '' }}
-                                </td>
-                                <td>
-                                    {{ $blogPost->updated_at ?? '' }}
-                                </td>
-                                <td>
-                                    <div class="btn-group">
-                                        @can('user_show')
-                                            <a class="btn btn-xs btn-primary" href="{{ route('admin.blog.show', $blogPost->slug) }}"
-                                               type="button">
-                                                {{ trans('global.view') }}
-                                            </a>
-                                        @endcan
-                                        @can('user_edit')
-                                            <a class="btn btn-xs btn-info" href="{{ route('admin.blog.edit', $blogPost->slug) }}"
-                                               type="button">
-                                                {{ trans('global.edit') }}
-                                            </a>
-                                        @endcan
-                                        @can('user_delete')
-                                            <a class="btn btn-xs btn-danger" href="#" type="button">
-                                                <form action="{{ route('admin.blog.destroy', $blogPost->id) }}"
-                                                      method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
-                                                    <input type="hidden" name="_method" value="DELETE">
-                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                                    <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
-                                                </form>
-                                            </a>
-                                        @endcan
-                                    </div>
-                                </td>
-
-                            </tr>
-                        @endforeach
                     </tbody>
                 </table>
             </div>
@@ -127,6 +66,43 @@
 @section('scripts')
 @parent
     <script>
+        $(function () {
+
+            var table = $('#datatable-BlogPost').DataTable({
+                processing: true,
+                serverSide: true,
+                pageLength: 5,
+                async: true,
+                ajax: "{{route('admin.blog.getAllBlogPostsByAjax')}}",
+                select: {
+                    style:    'single',
+                    selector: ':not(:first-child)'
+                },
+                responsive: true,
+                lengthMenu: [
+                    [5, 10, 25, 50, 100, 500, -1],
+                    ['5 rows', '10 rows', '25 rows', '50 rows', '100 rows', '500 rows', 'Show all']
+                ],
+                columns: [
+                    {data: 'id', name: 'DT_RowIndex',  visible: false},
+                    {data: 'title', name: 'title'},
+                    {data: 'author', name: 'author'},
+                    {data: 'category', name: 'category'},
+                    {data: 'status', name: 'status'},
+                    {data: 'tags', name: 'tags'},
+                    {data: 'created_at', name: 'created_at'},
+                    {data: 'updated_at', name: 'updated_at'},
+                    {data: 'actions', name: 'actions'},
+                    /*{data: 'action', name: 'action',
+                        orderable: false,
+                        searchable: false
+                    },*/
+                ]
+            });
+
+        });
+
+        /*
         $(function () {
             let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons);
 
@@ -168,19 +144,20 @@
                 dtButtons.push(deleteButton);
             @endcan
 
-        $.extend(true, $.fn.dataTable.defaults, {
-            order: [[ 1, 'desc' ]],
-            pageLength: 10,
-        });
+            $.extend(true, $.fn.dataTable.defaults, {
+                order: [[ 1, 'desc' ]],
+                pageLength: 10,
+            });
 
-        $('.datatable-User:not(.ajaxTable)').DataTable({
-            buttons: dtButtons
-        });
+            $('.datatable-BlogPost:not(.ajaxTable)').DataTable({
+                buttons: dtButtons
+            });
 
-        $('a[data-toggle="tab"]').on('shown.bs.tab', function(e){
-            $($.fn.dataTable.tables(true)).DataTable()
-                .columns.adjust();
+            $('a[data-toggle="tab"]').on('shown.bs.tab', function(e){
+                $($.fn.dataTable.tables(true)).DataTable()
+                    .columns.adjust();
+            });
         });
-    })
+        */
     </script>
 @endsection

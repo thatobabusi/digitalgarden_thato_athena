@@ -6,6 +6,7 @@ use App\Repositories\Blog\BlogPostCategoryRepository;
 use App\Repositories\Blog\BlogPostRepository;
 use App\Repositories\Blog\BlogPostTagRepository;
 use App\Repositories\Image\ImageRepository;
+use App\Transformers\BlogPostTransformer;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -158,6 +159,11 @@ class BlogController extends Controller
      */
     public function getDynamicIndexContent(string $criteria = null, string $criteria_value = null): array
     {
+        #$transformer = new BlogPostTransformer;
+        #$bp = $this->blogPostRepository->getAllBlogPostsRecords('5');
+        #$transformed = $transformer->transformCollection($bp);
+        #dd($transformed);
+
         $page_header = $criteria;
         if(isset($criteria)) {
             if(Str::contains($criteria, '_')){

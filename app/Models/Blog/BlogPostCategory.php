@@ -41,6 +41,9 @@ class BlogPostCategory extends Model
 {
     use SoftDeletes, Cachable;
 
+    /**
+     * @var string
+     */
     protected $table = 'blog_post_categories';
 
     /**

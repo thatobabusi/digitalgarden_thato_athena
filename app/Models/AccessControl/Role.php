@@ -41,6 +41,9 @@ class Role extends Model
 {
     use SoftDeletes, Cachable;
 
+    /**
+     * @var string
+     */
     public $table = 'roles';
 
     /**

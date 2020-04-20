@@ -9,6 +9,7 @@ use App\Models\Blog\BlogPost;
 use App\Models\Blog\BlogPostCategory;
 use App\Models\Blog\BlogPostStatus;
 use App\Models\Blog\BlogPostTag;
+use App\Transformers\BlogPostTransformer;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
@@ -16,6 +17,8 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
+use Yajra\DataTables\DataTables;
 
 /**
  * Class BlogPostRepository
@@ -29,10 +32,84 @@ class BlogPostRepository  implements BlogPostRepositoryInterface
     /**
      * @param string|null $limit
      *
+     * @return mixed
+     * @throws Exception
+     */
+    public function getAllBlogPostsByAjaxAndBuildDatatable(string $limit = null)
+    {
+        core_helper_extend_timeout_time();
+
+        return Datatables::of(
+            BlogPost::with('blogPostAuthor', 'blogPostCategory', 'blogPostStatus', 'blogPostTags')
+                ->select('*')->take($limit)
+        )
+            ->editColumn('author', function($blogPost) {
+                return $blogPost->blogPostAuthor->name;
+            })
+            ->editColumn('category', function($blogPost) {
+                return $blogPost->blogPostCategory->title;
+            })
+            ->editColumn('status', function($blogPost) {
+                return $blogPost->blogPostStatus->title;
+            })
+            ->editColumn('tags', function($blogPost) {
+                $tags = '';
+                $count = 0;
+                foreach($blogPost->blogPostTags as $tag) {
+                    $count++;
+                    if ($count === 1) {
+                        $tags .= $tag->title;
+                    }
+                    else {
+                        $tags .= ' | ' . $tag->title;
+                    }
+                }
+                return $tags;
+            })
+            ->editColumn('actions',  function($blogPost) {
+                $btn = '<div class="btn-group">';
+
+                if(Gate::allows('blog_post_access')) {
+                    $btn .= '<a class="btn btn-xs btn-primary" href="' . route("admin.blog.show", $blogPost->slug) . '" type="button">
+                            ' . trans("global.view") . '
+                        </a>';
+                }
+
+                if(Gate::allows('blog_post_access')) {
+                    $btn .= '<a class="btn btn-xs btn-info" href="' . route("admin.blog.edit", $blogPost->slug) . '" type="button">
+                            ' . trans("global.edit") . '
+                        </a>';
+                }
+
+                if(Gate::allows('blog_post_access')) {
+                    $btn .= '<a class="btn btn-xs btn-danger" href="#" type="button">
+                            <form action="' . route("admin.blog.destroy", $blogPost->id) . '"
+                                  method="POST" onsubmit="return confirm(\'' . trans("global.areYouSure") . '\');" style="display: inline-block;">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <input type="hidden" name="_token" value="' . csrf_token() . '">
+                                <input type="submit" class="btn btn-xs btn-danger" value="' . trans("global.delete") . '">
+                            </form>
+                        </a>';
+                }
+
+
+                $btn .= '<div class="btn-group">';
+
+                return $btn;
+                //return view('partials.backend.buttons.blog_management_crud_buttons', $blogPost);
+            })
+            ->rawColumns(['actions'])
+            ->make(true);
+    }
+    /**
+     * @param string|null $limit
+     *
      * @return BlogPost[]|Collection|\Illuminate\Support\Collection|mixed
      */
     public function getAllBlogPostsRecords(string $limit = null)
     {
+        //return BlogPost::first();
+
         if($limit === null) {
             return BlogPost::with('blogPostImages')->all();
         }

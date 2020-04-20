@@ -27,17 +27,15 @@ class UserRepository implements UserRepositoryInterface
     {
         $users = null;
 
-        //TODO:: Cater for json data for the API side of things
-
         try {
 
-            $users = User::when($request->role, function ($query) use ($request) {
+            $users = User::withCount(['blogPosts', 'roles'])
+                ->when($request->role, function ($query) use ($request) {
                 $query->whereHas('roles', function ($query) use ($request) {
                     $query->whereId($request->role);
                 });
             })
             ->get();
-
             return $users;
 
         } catch (\Throwable $e) {
@@ -45,7 +43,6 @@ class UserRepository implements UserRepositoryInterface
             //TODO:: Log the error in a way that alerts Developer
             report($e);
 
-            //Return NULL
             return $users;
 
         }

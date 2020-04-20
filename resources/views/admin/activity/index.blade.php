@@ -15,21 +15,20 @@
 
         <div class="card-body">
             <div class="table-responsive">
-                <table class=" table table-bordered table-striped table-hover datatable datatable-ActivityLog" name="datatable-ActivityLog" id="datatable-ActivityLog">
+                <table class="table table-bordered table-striped table-hover datatable datatable-ActivityLog"
+                       name="datatable-ActivityLog"
+                       id="datatable-ActivityLog">
                     <thead>
                         <tr>
                             <th width="10"></th>
-                            {{--<th>ID</th>--}}
                             <th>log_name</th>
                             <th>description</th>
                             <th>subject_id</th>
                             <th>subject_type</th>
                             <th>causer_id</th>
                             <th>causer_type</th>
-                            {{--<th>properties</th>--}}
                             <th>created_at</th>
                             <th>updated_at</th>
-                            {{--<th>&nbsp;Actions</th>--}}
                         </tr>
                     </thead>
                     <tbody>
@@ -61,7 +60,6 @@
                ],
                columns: [
                    {data: 'id', name: 'DT_RowIndex',  visible: false},
-                   /*{data: 'id', name: 'id'},*/
                    {data: 'log_name', name: 'log_name'},
                    {data: 'description', name: 'description'},
                    {data: 'subject_id', name: 'subject_id'},

@@ -1,6 +1,15 @@
 <div class="{{--visible-md visible-lg visible-xl--}} col-md-4 col-lg-3">
     <div class="sidebar">
 
+
+        <div class="widget hide-while-angular-is-loading">
+            <h4 class="sr-only">ADS</h4>
+            <a href="https://www.facebook.com/SoulDesignAgency/" target="_blank" class="col-md-12">
+            <img src="{{URL::asset(random_pic())}}"
+                 class="img-responsive col-md-12" alt="Advertisement" />
+            </a>
+        </div>
+
         @if(plugin_is_enabled('Blog Search'))
             <!-- search widget -->
             @include('partials.frontend.sidebar.search')

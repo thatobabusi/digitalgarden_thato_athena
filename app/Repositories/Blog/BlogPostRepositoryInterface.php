@@ -21,6 +21,13 @@ interface BlogPostRepositoryInterface
      *
      * @return mixed
      */
+    public function getAllBlogPostsByAjaxAndBuildDatatable(string $limit = null);
+
+    /**
+     * @param string|null $limit
+     *
+     * @return mixed
+     */
     public function getAllBlogPostsRecords(string $limit = null);
 
     /**

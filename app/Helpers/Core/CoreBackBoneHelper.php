@@ -102,6 +102,34 @@ if (! function_exists('myDecryptFunction')) {
     }
 }
 
+if (! function_exists('core_helper_extend_timeout_time')) {
+    function core_helper_extend_timeout_time()
+    {
+        # Override default php.ini max excution time
+        set_time_limit(180);
+
+        ini_set('max_execution_time', 0);
+        ini_set('max_input_time ', 0);
+        ini_set('memory_limit', '1024M');
+        ini_set('post_max_size', '1024M');
+        ini_set('upload_max_filesize', '1024M');
+        ini_set('client_max_body_size', '1024M');
+    }
+}
+
+if (! function_exists('random_pic')) {
+    /**
+     * @return mixed
+     */
+    function random_pic()
+    {
+        $dir = 'images/advertised_brand_images';
+        $files = glob($dir . '/*.*');
+        $file = array_rand($files);
+        return $files[$file];
+    }
+}
+
 /*
 $base64String = "R0lGODdhAQABAPAAAP8AAAAAACwAAAAAAQABAAACAkQBADs";
 $image = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '',$base64String));

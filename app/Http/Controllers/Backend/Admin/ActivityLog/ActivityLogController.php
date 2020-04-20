@@ -20,7 +20,7 @@ class ActivityLogController extends Controller
      * @return mixed
      * @throws \Exception
      */
-    public function getAllAcitivityLogs()
+    public function getAllActivityLogs()
     {
         $data = \App\Models\ActivityLog::latest()->get();
         //$data = Activity::latest()->get();
@@ -35,7 +35,7 @@ class ActivityLogController extends Controller
     public function index()
     {
 
-        $dataTable = $this->getAllAcitivityLogs();
+        $dataTable = $this->getAllActivityLogs();
 
         activity('back-end | admin | activity log')
             ->withProperties(['ip_address' => get_user_ip_address_via_helper()])

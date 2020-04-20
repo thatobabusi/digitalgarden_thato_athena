@@ -42,6 +42,9 @@ class Plugin extends Model
 {
     use Cachable;
 
+    /**
+     * @var string
+     */
     public $table = 'system_config_plugins';
 
     /**

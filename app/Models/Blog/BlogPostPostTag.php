@@ -19,6 +19,9 @@ class BlogPostPostTag extends Model
 {
     use Cachable;
 
+    /**
+     * @var string
+     */
     protected $table = 'blog_post_post_tags';
 
     /*******************************************************************************************************************

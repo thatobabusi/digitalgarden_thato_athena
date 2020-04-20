@@ -56,7 +56,7 @@ class ImageRepository implements ImageRepositoryInterface
     /**
      * @param Image $old_image
      *
-     * @return bool|mixed|void
+     * @return bool|mixed
      * @throws Exception
      */
     public function deleteUploadedImage(Image $old_image)
@@ -71,9 +71,6 @@ class ImageRepository implements ImageRepositoryInterface
 
             return true;
         }
-
-        return dd("Doesnt delete");
-
     }
 
     /**

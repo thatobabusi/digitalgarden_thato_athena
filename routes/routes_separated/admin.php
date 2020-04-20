@@ -16,6 +16,7 @@ Route::resource('users', 'User\UsersController');
 #BlogPosts
 Route::delete('blog/destroy', 'Blog\BlogPostsController@massDestroy')->name('blog.massDestroy');
 Route::resource('blog', 'Blog\BlogPostsController');
+Route::get('/get-blog-posts','Blog\BlogPostsController@getAllBlogPostsByAjax')->name('blog.getAllBlogPostsByAjax');
 /****************************************************************************************************************/
 #BlogPostCategories
 Route::delete('blog-category/destroy', 'Blog\BlogPostCategoriesController@massDestroy')->name('blog-category.massDestroy');
@@ -33,7 +34,7 @@ Route::post('image-upload', 'Image\ImageController@imageUploadPost')->name('imag
 #Activity Log
 Route::resource('activity', 'ActivityLog\ActivityLogController');
 Route::get('/get-activity',
-    'ActivityLog\ActivityLogController@getAllAcitivityLogs')->name('activity.getAllAcitivityLogsByAjax');
+    'ActivityLog\ActivityLogController@getAllActivityLogs')->name('activity.getAllAcitivityLogsByAjax');
 /****************************************************************************************************************/
 #System Config/Plugins/Menu Items/Page Management
 Route::resource('system-config-plugins', 'System\SystemConfigPluginsController');
