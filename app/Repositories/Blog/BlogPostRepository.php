@@ -39,64 +39,37 @@ class BlogPostRepository  implements BlogPostRepositoryInterface
     {
         core_helper_extend_timeout_time();
 
-        return Datatables::of(
-            BlogPost::with('blogPostAuthor', 'blogPostCategory', 'blogPostStatus', 'blogPostTags')
-                ->select('*')->take($limit)
-        )
-            ->editColumn('author', function($blogPost) {
-                return $blogPost->blogPostAuthor->name;
+        /*return Datatables::of(BlogPost::select(['*'])->take($limit) )*/
+
+        /**
+         * TODO::This works but is very very very slow.
+        $transformer = new BlogPostTransformer;
+        $blogPosts_from_transformer = $this->getAllBlogPostsRecords($limit);
+        $blogPosts = $transformer->transformCollection($blogPosts_from_transformer);
+        */
+
+        #This works except when user searches by the additional columns
+        $blogPosts = BlogPost::select([
+            'id', 'title', 'slug', 'created_at', 'updated_at',
+            'user_id', 'blog_post_category_id', 'blog_post_status_id',
+            'user_id as author', 'blog_post_category_id as category', 'blog_post_status_id as status',
+        ])->take($limit);
+
+        return Datatables::of($blogPosts)
+            ->editColumn('author', static function($blogPost) {
+                return $blogPost->getAuthor();
             })
-            ->editColumn('category', function($blogPost) {
-                return $blogPost->blogPostCategory->title;
+            ->editColumn('category', static function($blogPost) {
+                return $blogPost->getCategory();
             })
-            ->editColumn('status', function($blogPost) {
-                return $blogPost->blogPostStatus->title;
+            ->editColumn('status',static function($blogPost) {
+                return $blogPost->getStatus();
             })
-            ->editColumn('tags', function($blogPost) {
-                $tags = '';
-                $count = 0;
-                foreach($blogPost->blogPostTags as $tag) {
-                    $count++;
-                    if ($count === 1) {
-                        $tags .= $tag->title;
-                    }
-                    else {
-                        $tags .= ' | ' . $tag->title;
-                    }
-                }
-                return $tags;
-            })
+            /*->editColumn('tags', static function($blogPost) {
+                return $blogPost->getTags();
+            })*/
             ->editColumn('actions',  function($blogPost) {
-                $btn = '<div class="btn-group">';
-
-                if(Gate::allows('blog_post_access')) {
-                    $btn .= '<a class="btn btn-xs btn-primary" href="' . route("admin.blog.show", $blogPost->slug) . '" type="button">
-                            ' . trans("global.view") . '
-                        </a>';
-                }
-
-                if(Gate::allows('blog_post_access')) {
-                    $btn .= '<a class="btn btn-xs btn-info" href="' . route("admin.blog.edit", $blogPost->slug) . '" type="button">
-                            ' . trans("global.edit") . '
-                        </a>';
-                }
-
-                if(Gate::allows('blog_post_access')) {
-                    $btn .= '<a class="btn btn-xs btn-danger" href="#" type="button">
-                            <form action="' . route("admin.blog.destroy", $blogPost->id) . '"
-                                  method="POST" onsubmit="return confirm(\'' . trans("global.areYouSure") . '\');" style="display: inline-block;">
-                                <input type="hidden" name="_method" value="DELETE">
-                                <input type="hidden" name="_token" value="' . csrf_token() . '">
-                                <input type="submit" class="btn btn-xs btn-danger" value="' . trans("global.delete") . '">
-                            </form>
-                        </a>';
-                }
-
-
-                $btn .= '<div class="btn-group">';
-
-                return $btn;
-                //return view('partials.backend.buttons.blog_management_crud_buttons', $blogPost);
+                return $blogPost->getCrudButtonsWithGateChecks();
             })
             ->rawColumns(['actions'])
             ->make(true);
@@ -108,8 +81,6 @@ class BlogPostRepository  implements BlogPostRepositoryInterface
      */
     public function getAllBlogPostsRecords(string $limit = null)
     {
-        //return BlogPost::first();
-
         if($limit === null) {
             return BlogPost::with('blogPostImages')->all();
         }

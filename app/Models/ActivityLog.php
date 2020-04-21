@@ -10,6 +10,35 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Spatie\Activitylog\Contracts\Activity as ActivityContract;
 
+/**
+ * App\Models\ActivityLog
+ *
+ * @property int $id
+ * @property string|null $log_name
+ * @property string $description
+ * @property int|null $subject_id
+ * @property string|null $subject_type
+ * @property int|null $causer_id
+ * @property string|null $causer_type
+ * @property string|null $properties
+ * @property string|null $created_at
+ * @property string|null $updated_at
+ * @property-read mixed $causer_id_at
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ActivityLog newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ActivityLog newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ActivityLog query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ActivityLog whereCauserId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ActivityLog whereCauserType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ActivityLog whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ActivityLog whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ActivityLog whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ActivityLog whereLogName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ActivityLog whereProperties($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ActivityLog whereSubjectId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ActivityLog whereSubjectType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ActivityLog whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class ActivityLog extends Model
 {
     /**

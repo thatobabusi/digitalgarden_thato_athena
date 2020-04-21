@@ -38,6 +38,7 @@
         "nunomaduro/laravel-desktop-notifier": "^2.3",
         "php-school/cli-menu": "^4.0",
         "rachidlaasri/laravel-installer": "^4.0",
+        "ramsey/uuid": "^4.0",
         "realrashid/sweet-alert": "^3.1",
         "recca0120/terminal": "^1.8",
         "renatomarinho/laravel-page-speed": "^1.8",
@@ -54,7 +55,6 @@
         "yajra/laravel-disqus": "^1.2"
     },
     "require-dev": {
-        "barryvdh/laravel-debugbar": "^3.3",
         "facade/ignition": "^2.0",
         "fzaninotto/faker": "^1.9.1",
         "kitloong/laravel-migrations-generator": "^3.0",

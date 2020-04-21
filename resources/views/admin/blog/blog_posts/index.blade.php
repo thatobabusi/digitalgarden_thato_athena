@@ -40,9 +40,9 @@
                             <th>
                                 {{ trans('cruds.blogPost.fields.blog_post_status_id') }}
                             </th>
-                            <th>
+                            {{--<th>
                                 {{ trans('cruds.blogPost.fields.tags') }}
-                            </th>
+                            </th>--}}
                             <th>
                                 {{ trans('cruds.blogPost.fields.created_at') }}
                             </th>
@@ -56,6 +56,38 @@
                     </thead>
                     <tbody>
                     </tbody>
+                    <tfoot>
+                    <tr>
+                        {{--<th width="10"></th>--}}
+                        <th>
+                            {{ trans('cruds.blogPost.fields.id') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.blogPost.fields.title') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.blogPost.fields.author') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.blogPost.fields.category') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.blogPost.fields.blog_post_status_id') }}
+                        </th>
+                        {{--<th>
+                            {{ trans('cruds.blogPost.fields.tags') }}
+                        </th>--}}
+                        <th>
+                            {{ trans('cruds.blogPost.fields.created_at') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.blogPost.fields.updated_at') }}
+                        </th>
+                        <th>
+                            &nbsp;Actions
+                        </th>
+                    </tr>
+                    </tfoot>
                 </table>
             </div>
         </div>
@@ -71,9 +103,17 @@
             var table = $('#datatable-BlogPost').DataTable({
                 processing: true,
                 serverSide: true,
-                pageLength: 5,
-                async: true,
-                ajax: "{{route('admin.blog.getAllBlogPostsByAjax')}}",
+                pageLength: 10,
+                ajax: {
+                    url: "{{route('admin.blog.getAllBlogPostsByAjax')}}",
+                    beforeSend: function () {
+                        displayOverlay('Please Wait...');
+                    },
+                    complete: function (data) {
+                        $("#overlay").remove();
+                    }
+                },
+
                 select: {
                     style:    'single',
                     selector: ':not(:first-child)'
@@ -84,19 +124,15 @@
                     ['5 rows', '10 rows', '25 rows', '50 rows', '100 rows', '500 rows', 'Show all']
                 ],
                 columns: [
-                    {data: 'id', name: 'DT_RowIndex',  visible: false},
+                    {data: 'id', name: 'DT_RowIndex', visible: false, searchable: false},
                     {data: 'title', name: 'title'},
-                    {data: 'author', name: 'author'},
-                    {data: 'category', name: 'category'},
-                    {data: 'status', name: 'status'},
-                    {data: 'tags', name: 'tags'},
+                    {data: 'author', name: 'author', searchable: false},
+                    {data: 'category', name: 'category', searchable: false},
+                    {data: 'status', name: 'status', searchable: false},
+                    /*{data: 'tags', name: 'tags'},*/
                     {data: 'created_at', name: 'created_at'},
                     {data: 'updated_at', name: 'updated_at'},
-                    {data: 'actions', name: 'actions'},
-                    /*{data: 'action', name: 'action',
-                        orderable: false,
-                        searchable: false
-                    },*/
+                    {data: 'actions', name: 'actions', orderable: false, searchable: false},
                 ]
             });
 

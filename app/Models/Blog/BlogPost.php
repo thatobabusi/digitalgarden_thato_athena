@@ -10,6 +10,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Gate;
+
 
 /**
  * App\Models\Blog\BlogPost
@@ -17,22 +19,30 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property int $id
  * @property int|null $user_id
  * @property int $blog_post_category_id
+ * @property int $blog_post_status_id
  * @property string $title
  * @property string $slug
  * @property string $summary
  * @property string $body
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property string|null $created_at
+ * @property string|null $updated_at
  * @property string|null $deleted_at
  * @property-read \App\Models\User\User|null $blogPostAuthor
  * @property-read \App\Models\Blog\BlogPostCategory $blogPostCategory
- * @property-read \App\Models\Blog\BlogPostImage $blogPostImage
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Image\Image[] $blogPostImages
+ * @property-read int|null $blog_post_images_count
+ * @property-read \App\Models\Blog\BlogPostStatus $blogPostStatus
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Blog\BlogPostTag[] $blogPostTags
  * @property-read int|null $blog_post_tags_count
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Blog\BlogPost newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Blog\BlogPost newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Blog\BlogPost query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Blog\BlogPost disableCache()
+ * @method static bool|null forceDelete()
+ * @method static \GeneaLabs\LaravelModelCaching\CachedBuilder|\App\Models\Blog\BlogPost newModelQuery()
+ * @method static \GeneaLabs\LaravelModelCaching\CachedBuilder|\App\Models\Blog\BlogPost newQuery()
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Blog\BlogPost onlyTrashed()
+ * @method static \GeneaLabs\LaravelModelCaching\CachedBuilder|\App\Models\Blog\BlogPost query()
+ * @method static bool|null restore()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Blog\BlogPost whereBlogPostCategoryId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Blog\BlogPost whereBlogPostStatusId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Blog\BlogPost whereBody($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Blog\BlogPost whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Blog\BlogPost whereDeletedAt($value)
@@ -42,19 +52,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Blog\BlogPost whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Blog\BlogPost whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Blog\BlogPost whereUserId($value)
- * @mixin \Eloquent
- * @property int|null $blog_post_status_id
- * @property-read \App\Models\Blog\BlogPostStatus|null $blogPostStatus
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Blog\BlogPost whereBlogPostStatusId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Blog\BlogPost disableCache()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Blog\BlogPost withCacheCooldownSeconds($seconds = null)
- * @method static bool|null forceDelete()
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Blog\BlogPost onlyTrashed()
- * @method static bool|null restore()
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Blog\BlogPost withTrashed()
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Blog\BlogPost withoutTrashed()
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Image\Image[] $blogPostImages
- * @property-read int|null $blog_post_images_count
+ * @mixin \Eloquent
  */
 class BlogPost extends Model
 {
@@ -90,6 +91,11 @@ class BlogPost extends Model
         'updated_at',
         'deleted_at',
         'route',
+
+        'author',
+        'category',
+        'status',
+        'actions',
     ];
 
     /*******************************************************************************************************************
@@ -142,6 +148,92 @@ class BlogPost extends Model
     public function blogPostStatus(): BelongsTo
     {
         return $this->belongsTo(BlogPostStatus::class, 'blog_post_status_id');
+    }
+
+    /**
+     * @return string
+     */
+    public function blogPostTagsString(): string
+    {
+        $tags = '';
+        $count = 0;
+        foreach($this->blogPostTags as $tag) {
+            $count++;
+            if ($count === 1) {
+                $tags .= $tag->title;
+            }
+            else {
+                $tags .= ' | ' . $tag->title;
+            }
+        }
+        return $tags;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCrudButtonsWithGateChecks(): string
+    {
+        $btn = '<div class="btn-group">';
+
+        if(Gate::allows('blog_post_access')) {
+            $btn .= '<a class="btn btn-xs btn-primary" href="' . route("admin.blog.show", $this->slug) . '" type="button">
+                            ' . trans("global.view") . '
+                        </a>';
+        }
+
+        if(Gate::allows('blog_post_access')) {
+            $btn .= '<a class="btn btn-xs btn-info" href="' . route("admin.blog.edit", $this->slug) . '" type="button">
+                            ' . trans("global.edit") . '
+                        </a>';
+        }
+
+        if(Gate::allows('blog_post_access')) {
+            $btn .= '<a class="btn btn-xs btn-danger" href="#" type="button">
+                            <form action="' . route("admin.blog.destroy", $this->id) . '"
+                                  method="POST" onsubmit="return confirm(\'' . trans("global.areYouSure") . '\');" style="display: inline-block;">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <input type="hidden" name="_token" value="' . csrf_token() . '">
+                                <input type="submit" class="btn btn-xs btn-danger" value="' . trans("global.delete") . '">
+                            </form>
+                        </a>';
+        }
+
+        $btn .= '<div class="btn-group">';
+
+        return $btn;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getAuthor(): ?string
+    {
+        return $this->attributes['author'] = $this->blogPostAuthor->name;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getCategory(): ?string
+    {
+        return $this->attributes['category'] = $this->blogPostCategory->title;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getStatus(): ?string
+    {
+        return $this->attributes['status'] = $this->blogPostStatus->title;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getTags(): ?string
+    {
+        return $this->attributes['tags'] = $this->blogPostTagsString();
     }
 
     /**

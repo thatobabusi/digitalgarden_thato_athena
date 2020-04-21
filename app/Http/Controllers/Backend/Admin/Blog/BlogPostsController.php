@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyBlogPostRequest;
 use App\Http\Requests\StoreBlogPostRequest;
 use App\Http\Requests\UpdateBlogPostRequest;
-use App\Http\Resources\BlogPostResource;
 use App\Models\Blog\BlogPost;
 use App\Repositories\Image\ImageRepository;
 use App\Repositories\Blog\BlogPostCategoryRepository;
@@ -21,7 +20,6 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
-use Spatie\Activitylog\Models\Activity;
 use Symfony\Component\HttpFoundation\Response;
 use Yajra\DataTables\DataTables;
 
@@ -73,23 +71,16 @@ class BlogPostsController extends Controller
     }
 
     /**
-     * @param $collection
+     * @param string|null $limit
      *
      * @return mixed
      * @throws Exception
      */
-    public function convertCollectionToDataTableFormat($collection)
+    public function getAllBlogPostsByAjax(string $limit = null)
     {
-        return Datatables::of($collection)->make(true);
-    }
-
-    /**
-     * @return mixed
-     * @throws Exception
-     */
-    public function getAllBlogPostsByAjax()
-    {
-        return  $this->blogPostRepository->getAllBlogPostsByAjaxAndBuildDatatable('300');
+        //TODO::Figure out why this one doesnt get desired response
+        //return \datatables( (new BlogPostTransformer())->transformCollection(BlogPost::get()->take($limit)))->toJson();
+        return  $this->blogPostRepository->getAllBlogPostsByAjaxAndBuildDatatable($limit);
     }
 
     /**
@@ -102,8 +93,10 @@ class BlogPostsController extends Controller
     {
         abort_if(Gate::denies('user_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
+        $limit = 10;
+
         $data = [
-            'dataTable' => $this->getAllBlogPostsByAjax(),
+            'dataTable' => $this->getAllBlogPostsByAjax($limit),
             //'blogPosts' => $this->blogPostRepository->getAllBlogPostsRecords()
         ];
 
