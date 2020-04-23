@@ -4,14 +4,9 @@ namespace App\Console\Commands;
 
 use Carbon\Carbon;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Artisan;
 use PhpSchool\CliMenu\CliMenu;
 use PhpSchool\CliMenu\Builder\CliMenuBuilder;
 use PhpSchool\CliMenu\MenuItem\AsciiArtItem;
-use PhpSchool\CliMenu\Style\CheckboxStyle;
-use PhpSchool\CliMenu\Style\RadioStyle;
-
-use PhpSchool\CliMenu\Style\SelectableStyle;
 
 require_once(__DIR__ . '/../../../vendor/autoload.php');
 

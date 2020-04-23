@@ -55,7 +55,7 @@
             <div class="ajax-load text-center" style="display:none">
                 <p>
                     <img src="http://demo.itsolutionstuff.com/plugin/loader.gif">
-                    Loading More post
+                    Loading More posts
                 </p>
             </div>
 
@@ -67,25 +67,33 @@
 @section('js_bottom_scripts')
 
     <script type="text/javascript">
+        //infinite scroll function
         var page = 1;
-        /*TODO::Discuss with Sisko why this works only sometimes...*/
-        /*$(window).scroll(function() {
-            if($(window).scrollTop() + $(window).height() >= $(document).height()) {
+
+        //Load more on scroll down
+        $(window).scroll(function()
+        {
+            if($(window).scrollTop() + $(window).height() >= $(document).height())
+            {
                 page++;
                 loadMoreData(page);
             }
-        });*/
-
-        $(".load-more").click(function(){
-            page++;
-            //loadMoreData(page);
-            alert("Load more was clicked. Fetching " + page);
         });
 
-        function loadMoreData(page){
+        //Load more on load more button click
+        $(".load-more").click(function()
+        {
+            page++;
+            $(".load-more").hide();
+            loadMoreData(page);
+        });
+
+        //Load more function
+        function loadMoreData(page)
+        {
             $.ajax(
                 {
-                    url: "{{route('frontend.getMorePostsByAjax')}}?page=" + page,
+                    url: '?page=' + page,
                     type: "get",
                     beforeSend: function()
                     {
@@ -94,19 +102,16 @@
                 })
                 .done(function(data)
                 {
-                    if(data.html === ""){
-                        $('.ajax-load').html("No more records found");
-                        return;
-                    }
-
+                    $(".load-more").show();
                     $('.ajax-load').hide();
                     $("#post-data").append(data.html);
-
                 })
                 .fail(function(jqXHR, ajaxOptions, thrownError)
                 {
-                    // alert('server not responding...');
-                });
+                    console.log('server not responding...');
+                }
+            );
         }
+
     </script>
 @endsection

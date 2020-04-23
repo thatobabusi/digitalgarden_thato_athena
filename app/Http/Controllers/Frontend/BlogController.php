@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\Models\Blog\BlogPost;
 use App\Repositories\Blog\BlogPostCategoryRepository;
 use App\Repositories\Blog\BlogPostRepository;
 use App\Repositories\Blog\BlogPostTagRepository;
@@ -57,16 +58,22 @@ class BlogController extends Controller
         $this->imageRepository = $imageRepository;
     }
 
+
     /**
      * @param Request $request
      *
      * @return Factory|JsonResponse|View
      * @throws Throwable
      */
-    public function getMoreByAjax(Request $request)
+    public function index(Request $request)
     {
+        $blogPosts =  BlogPost::orderBy('created_at','desc')->paginate(18);
+
         $data = [
-            'blogPosts' => $this->blogPostRepository->getAllBlogPostsRecordsWithPagination('4'),
+            'page_header' => Str::title( 'Blog'),
+            'page_title' => Str::title('Blog'),
+            //'blogPosts' => $this->blogPostRepository->getAllBlogPostsRecordsWithPagination('4'),
+            'blogPosts' => $blogPosts,
             'blogPostCategories' => $this->blogPostCategory->getAllCategoriesWhereHasBlogPosts('10'),
             'blogPostTags' => $this->blogPostTagRepository->getAllTagsWhereHasBlogPosts('10'),
             'blogPostDistinctArchiveYearAndMonthsArray' => $this->blogPostRepository->getAllDistinctArchiveYearAndMonthsArray('10'),
@@ -78,15 +85,7 @@ class BlogController extends Controller
             return response()->json(['html'=>$view]);
         }
 
-        return view('frontend.blog.blog_index', $data);
-    }
-
-    /**
-     * @return Factory|View
-     */
-    public function index()
-    {
-        $data = $this->getDynamicIndexContent();
+        //$data = $this->getDynamicIndexContent();
 
         activity('front-end')
             ->withProperties(['ip_address' => get_user_ip_address_via_helper()])
