@@ -1,29 +1,28 @@
-<div class="widget hide-while-angular-is-loading">
-    <h4 class="widget-title">RECOMMENDED READS...</h4>
-    <ul class="list-unstyled recommended-posts">
-        @php($blogPostsCount = 0)
-        @foreach($blogPosts as $blogPost)
-            <li>
-                <div class="post-entry-sidebar clearfix">
-
-                    @if(isset($blogPost->blogPostImage()->src))
-                        <a href="{{ route('frontend.viewBlogSinglePostBySlug', [$blogPost->slug]) }}" class="left">
-                            <img src="{{ isset($blogPost->blogPostImage()->src) ? URL::asset(''.$blogPost->blogPostImage()->src.'') : '#' }}" alt="{{$blogPost->blogPostImage()->alt ?? 'Post Thumbnail'}}"
-                            width="80px">
-                        </a>
-                    @endif
-                    <div class="right">
-                        <h4 class="media-heading post-title">
-                            <a href="{{ route('frontend.viewBlogSinglePostBySlug', [$blogPost->slug]) }}">
-                                {{$blogPost->title}}
-                            </a>
-                        </h4>
-                        <span class="timestamp">{{ \Carbon\Carbon::parse($blogPost->created_at)->diffForHumans() }}</span>
+<div class="sidebar-widget">
+    <h6 class="widget-title">RECOMMENDED READS</h6>
+    @php($blogPostsCount = 0)
+    @foreach($blogPostsRecommended as $blogPost)
+        <p class="category-widget">
+            <div class="recent-posts first">
+                @if(isset($blogPost->blogPostImage()->src))
+                    <div class="recent-post-image">
+                        <img src="{{ isset($blogPost->blogPostImage()->src) ? URL::asset(''.$blogPost->blogPostImage()->src.'') : '#' }}" alt="">
                     </div>
-                </div>
-            </li>
-        @endforeach
-    </ul>
-</div>
+                @endif
 
+                <!-- / recent-post-image -->
+                <div class="recent-post-content">
+                    <a href="{{ route('frontend.viewBlogSinglePostBySlug', [$blogPost->slug]) }}">
+                        {{Str::words($blogPost->title, 8, '...')}}
+                    </a>
+                    <p>{{ \Carbon\Carbon::parse($blogPost->created_at)->diffForHumans() }}</p>
+                </div>
+                <!-- / recent-post-content -->
+            </div>
+        </p>
+    @endforeach
+    <!-- / recent-posts -->
+    <!-- / recent-posts-widget -->
+</div>
+<!-- / sidebar-widget -->
 

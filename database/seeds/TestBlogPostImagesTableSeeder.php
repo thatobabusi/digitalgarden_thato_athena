@@ -47,7 +47,7 @@ class TestBlogPostImagesTableSeeder extends Seeder
 
         foreach($blogs as $blog) {
 
-            if($y > 9) {
+            if($y > 10) {
                 $y = 0;
             }
 
@@ -56,7 +56,7 @@ class TestBlogPostImagesTableSeeder extends Seeder
 
             $image_type = 'blog_post_images';
 
-            $source = public_path("template/assets/img/blog/blog-med-img$y.jpg");
+            $source = public_path("images/default_dummy_images/$y.jpg");
             $new_name = 'testseeder-'.time().str_pad( $x, 7, "0", STR_PAD_LEFT ).'.jpg';
 
             copy($source, public_path('images/blog_post_images/'.$new_name));

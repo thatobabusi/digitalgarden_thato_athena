@@ -124,17 +124,37 @@ Breadcrumbs::for('admin.users.show', function ($trail, $user) {
 });
 
 /******************************************************************************************************************** */
-// Home > Users
+// Home > Images
 Breadcrumbs::for('admin.image.index', function ($trail) {
     $trail->push('Admin Dashboard', route('admin.home'));
     $trail->push('Images', route('admin.image.index'));
 });
 
-// Home > Users > Show
+// Home > Images > Show
 Breadcrumbs::for('admin.image.show', function ($trail, $image) {
     $trail->push('Admin Dashboard', route('admin.home'));
     $trail->push('Images', route('admin.image.index'));
     $trail->push('Show - ' . $image->title, route('admin.image.show', $image->slug));
+});
+
+/******************************************************************************************************************** */
+
+// Home > Menu
+Breadcrumbs::for('admin.system-menu-items.index', function ($trail) {
+    $trail->push('Admin Dashboard', route('admin.home'));
+    $trail->push('Menu Manager', route('admin.system-menu-items.index'));
+});
+
+// Home > Pages
+Breadcrumbs::for('admin.system-pages.index', function ($trail) {
+    $trail->push('Admin Dashboard', route('admin.home'));
+    $trail->push('Pages Manager', route('admin.system-pages.index'));
+});
+
+// Home > Plugins
+Breadcrumbs::for('admin.system-config-plugins.index', function ($trail) {
+    $trail->push('Admin Dashboard', route('admin.home'));
+    $trail->push('Plugins Manager', route('admin.system-config-plugins.index'));
 });
 
 /*// Home

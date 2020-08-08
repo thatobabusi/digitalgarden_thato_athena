@@ -5,6 +5,11 @@ namespace App\Console\Commands;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 
+/**
+ * Class NubianLaravelUnusedPackages
+ *
+ * @package App\Console\Commands
+ */
 class NubianLaravelUnusedPackages extends Command
 {
     /**

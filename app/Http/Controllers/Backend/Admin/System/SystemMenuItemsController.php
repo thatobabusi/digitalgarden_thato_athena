@@ -4,8 +4,11 @@ namespace App\Http\Controllers\Backend\Admin\System;
 
 use App\Http\Controllers\Controller;
 use App\Models\System\SystemMenuItem;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\View\View;
 
 /**
  * Class SystemMenuItemsController
@@ -15,12 +18,16 @@ use Illuminate\Http\Response;
 class SystemMenuItemsController extends Controller
 {
     /**
-     * @return Response|null
+     * @return Application|Factory|View
      */
-    public function index(): ?Response
+    public function index()
     {
-        $systemMenuItems = SystemMenuItem::all();
-        dd($systemMenuItems);
+        $system_menu_items = SystemMenuItem::all();
+
+        $data = compact('system_menu_items');
+
+        return view("admin.system_menu_items.index", $data);
+
     }
 
     /**

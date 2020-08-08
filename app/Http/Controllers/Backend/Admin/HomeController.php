@@ -7,7 +7,7 @@ use App\Repositories\AccessControl\RoleRepository;
 use App\Repositories\Blog\BlogPostCategoryRepository;
 use App\Repositories\Blog\BlogPostRepository;
 use App\Repositories\Blog\BlogPostTagRepository;
-use App\Repositories\Image\ImageRepository;
+use App\Repositories\System\SystemImageRepository;
 use App\Repositories\User\UserRepository;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Support\Facades\Auth;
@@ -36,9 +36,9 @@ class HomeController
      */
     protected $blogPostTagRepository;
     /**
-     * @var ImageRepository
+     * @var SystemImageRepository
      */
-    protected $imageRepository;
+    protected $systemImageRepository;
     /**
      * @var PermissionRepository
      */
@@ -47,7 +47,6 @@ class HomeController
      * @var RoleRepository
      */
     protected $roleRepository;
-
     /**
      * @var UserRepository
      */
@@ -59,19 +58,19 @@ class HomeController
      * @param BlogPostRepository         $blogPostRepository
      * @param BlogPostCategoryRepository $blogPostCategory
      * @param BlogPostTagRepository      $blogPostTagRepository
-     * @param ImageRepository            $imageRepository
+     * @param SystemImageRepository      $systemImageRepository
      * @param PermissionRepository       $permissionRepository
      * @param RoleRepository             $roleRepository
      * @param UserRepository             $userRepository
      */
     public function __construct(BlogPostRepository $blogPostRepository, BlogPostCategoryRepository $blogPostCategory,
-        BlogPostTagRepository $blogPostTagRepository, ImageRepository $imageRepository,
+        BlogPostTagRepository $blogPostTagRepository, SystemImageRepository $systemImageRepository,
         PermissionRepository $permissionRepository, RoleRepository $roleRepository, UserRepository $userRepository)
     {
         $this->blogPostRepository = $blogPostRepository;
         $this->blogPostCategory = $blogPostCategory;
         $this->blogPostTagRepository = $blogPostTagRepository;
-        $this->imageRepository = $imageRepository;
+        $this->systemImageRepository = $systemImageRepository;
         $this->permissionRepository = $permissionRepository;
         $this->roleRepository = $roleRepository;
         $this->userRepository = $userRepository;

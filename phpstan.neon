@@ -7,13 +7,19 @@ parameters:
         - app
 
     # The level 8 is the highest level
-    level: 8
+    level: 5
+
+    reportUnmatchedIgnoredErrors: false
 
     ignoreErrors:
         #- '#Unsafe usage of new static#'
         #- '#has no return typehint specified.#'
         - '#on mixed.#'
-        - '#Cannot call method.#'
+        - '#Cannot call method#'
+        - '#formatMetaData#'
+        - '#Call to an undefined method Illuminate\Database\Eloquent\Model#'
+        - '#Called \''count\'' on Laravel collection,#'
+        - '#Called \''take\'' on Laravel collection,#'
 
     excludes_analyse:
         - ./.phpstorm.meta.php
@@ -36,6 +42,7 @@ parameters:
         - ./app/Http/Middleware/AuthGates.php
         - ./app/Http/Middleware/SetLocale.php
         - ./app/Models/User/User.php
+        - ./app/Models/AccessControl/Plugin.php
         - ./*/*/FileToBeExcluded.php
 
     checkMissingIterableValueType: false

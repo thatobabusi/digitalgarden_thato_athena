@@ -14,13 +14,14 @@ use Illuminate\Http\Response;
  */
 class SystemConfigPluginsController extends Controller
 {
-    /**
-     * @return Response|null
-     */
-    public function index(): ?Response
+
+    public function index()
     {
-        $systemConfigPlugins = SystemConfigPlugin::all();
-        dd($systemConfigPlugins);
+        $system_config_plugins = SystemConfigPlugin::all();
+
+        $data = compact('system_config_plugins');
+
+        return view("admin.system_config_plugins.index", $data);
     }
 
     /**

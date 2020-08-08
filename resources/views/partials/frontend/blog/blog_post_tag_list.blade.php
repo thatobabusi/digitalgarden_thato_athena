@@ -1,14 +1,12 @@
-<div class="col-md-12">
-    <ul class="list-inline tag-list">
-
-        <li>
-            <a href="/blog-category/{{$blogPost->blogPostCategory->slug}}">
-                Category: {{$blogPost->blogPostCategory->title}}
-            </a>
-        </li>
-
+<div class="sidebar-widget">
+    <h6 class="widget-title mb-3">TAGS</h6>
+    <div class="tag-cloud">
         @foreach($blogPost->blogPostTags as $tag)
-            <li><a href="/blog-tag/{{$tag->slug}}">{{$tag->title}}</a></li>
+            <a href="/blog-tag/{{$tag->slug}}" class="btn btn-sm btn-outline-primary rectangle">
+                {{$tag->title}}
+            </a>
         @endforeach
-    </ul>
+    </div>
+    <!-- / tag-cloud -->
+    <!-- / tags-widget -->
 </div>

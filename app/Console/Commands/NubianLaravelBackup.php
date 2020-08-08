@@ -5,6 +5,11 @@ namespace App\Console\Commands;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 
+/**
+ * Class NubianLaravelBackup
+ *
+ * @package App\Console\Commands
+ */
 class NubianLaravelBackup extends Command
 {
     /**

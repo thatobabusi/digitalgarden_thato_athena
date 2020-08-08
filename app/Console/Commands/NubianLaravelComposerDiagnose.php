@@ -4,6 +4,11 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 
+/**
+ * Class NubianLaravelComposerDiagnose
+ *
+ * @package App\Console\Commands
+ */
 class NubianLaravelComposerDiagnose extends Command
 {
     /**
@@ -30,12 +35,7 @@ class NubianLaravelComposerDiagnose extends Command
         parent::__construct();
     }
 
-    /**
-     * Execute the console command.
-     *
-     * @return mixed
-     */
-    public function handle()
+    public function handle(): void
     {
         $this->warn('Starting Composer Environment Diagnosis');
         $this->warn('');

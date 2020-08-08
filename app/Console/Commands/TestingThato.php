@@ -4,6 +4,11 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 
+/**
+ * Class TestingThato
+ *
+ * @package App\Console\Commands
+ */
 class TestingThato extends Command
 {
     /**

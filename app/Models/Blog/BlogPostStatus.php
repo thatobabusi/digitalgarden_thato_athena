@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * App\Models\Blog\BlogPostStatus
@@ -33,7 +34,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  */
 class BlogPostStatus extends Model
 {
-    use Cachable;
+    use SoftDeletes, Cachable;
 
     /**
      * @var string

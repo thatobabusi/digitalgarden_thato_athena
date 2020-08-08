@@ -76,6 +76,21 @@ interface BlogPostRepositoryInterface
     public function getBlogPostRecordBySlug(string $slug);
 
     /**
+     * @param BlogPost $blogPost
+     *
+     * @return mixed
+     */
+    public function getBlogPostKeywords(BlogPost $blogPost);
+
+    /**
+     * @param string|null $criteria
+     * @param string|null $criteria_value
+     *
+     * @return mixed
+     */
+    public function getDynamicIndexContent(string $criteria = null, string $criteria_value = null);
+
+    /**
      * @param string|null $criteria
      * @param string|null $value
      *
@@ -134,4 +149,12 @@ interface BlogPostRepositoryInterface
      * @return mixed
      */
     public function massDestroyBlogPostRecords(MassDestroyBlogPostRequest $request);
+
+    #Format
+    /**
+     * @param BlogPost $blogPost
+     *
+     * @return array
+     */
+    public function formatBlogPostDataDetailsForDisplay(BlogPost $blogPost): array;
 }

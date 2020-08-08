@@ -7,12 +7,11 @@ use App\Http\Requests\MassDestroyBlogPostRequest;
 use App\Http\Requests\StoreBlogPostRequest;
 use App\Http\Requests\UpdateBlogPostRequest;
 use App\Models\Blog\BlogPost;
-use App\Repositories\Image\ImageRepository;
 use App\Repositories\Blog\BlogPostCategoryRepository;
 use App\Repositories\Blog\BlogPostRepository;
 use App\Repositories\Blog\BlogPostTagRepository;
+use App\Repositories\System\SystemImageRepository;
 use App\Repositories\User\UserRepository;
-use App\Transformers\BlogPostTransformer;
 use Exception;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Contracts\View\Factory;
@@ -43,9 +42,9 @@ class BlogPostsController extends Controller
      */
     protected $blogPostTagRepository;
     /**
-     * @var ImageRepository
+     * @var SystemImageRepository
      */
-    protected $imageRepository;
+    protected $systemImageRepository;
     /**
      * @var UserRepository
      */
@@ -58,15 +57,15 @@ class BlogPostsController extends Controller
      * @param BlogPostCategoryRepository $blogPostCategory
      * @param BlogPostTagRepository      $blogPostTagRepository
      * @param UserRepository             $userRepository
-     * @param ImageRepository            $imageRepository
+     * @param SystemImageRepository      $systemImageRepository
      */
     public function __construct(BlogPostRepository $blogPostRepository, BlogPostCategoryRepository $blogPostCategory,
-        BlogPostTagRepository $blogPostTagRepository, UserRepository $userRepository, ImageRepository $imageRepository)
+        BlogPostTagRepository $blogPostTagRepository, UserRepository $userRepository, SystemImageRepository $systemImageRepository)
     {
         $this->blogPostRepository = $blogPostRepository;
         $this->blogPostCategory = $blogPostCategory;
         $this->blogPostTagRepository = $blogPostTagRepository;
-        $this->imageRepository = $imageRepository;
+        $this->systemImageRepository = $systemImageRepository;
         $this->userRepository = $userRepository;
     }
 
@@ -78,8 +77,6 @@ class BlogPostsController extends Controller
      */
     public function getAllBlogPostsByAjax(string $limit = null)
     {
-        //TODO::Figure out why this one doesnt get desired response
-        //return \datatables( (new BlogPostTransformer())->transformCollection(BlogPost::get()->take($limit)))->toJson();
         return  $this->blogPostRepository->getAllBlogPostsByAjaxAndBuildDatatable($limit);
     }
 
@@ -97,7 +94,6 @@ class BlogPostsController extends Controller
 
         $data = [
             'dataTable' => $this->getAllBlogPostsByAjax($limit),
-            //'blogPosts' => $this->blogPostRepository->getAllBlogPostsRecords()
         ];
 
         return view('admin.blog.blog_posts.index', $data);
@@ -127,7 +123,7 @@ class BlogPostsController extends Controller
      */
     public function store(StoreBlogPostRequest $request)
     {
-        $new_image = $this->imageRepository->uploadImage($request->upload, 'blog_post_images');
+        $new_image = $this->systemImageRepository->uploadImage($request->upload, 'blog_post_images');
 
         $blogPost = $this->blogPostRepository->storeNewBlogPostRecord($request, [$new_image->id]);
 
@@ -189,11 +185,11 @@ class BlogPostsController extends Controller
                 $blogPost->blogPostImages()->detach();
 
                 #Delete the old image
-                $this->imageRepository->deleteUploadedImage($old_image);
+                $this->systemImageRepository->deleteUploadedImage($old_image);
             }
 
             #Upload the new image
-            $new_image = $this->imageRepository->uploadImage($request->upload, 'blog_post_images');
+            $new_image = $this->systemImageRepository->uploadImage($request->upload, 'blog_post_images');
         }
 
         $blogPost = $this->blogPostRepository->updateExistingBlogPostRecord($request,  $blog_post_id);

@@ -1,30 +1,34 @@
-<nav class="navbar navbar-default navbar-fixed-top sticky">
+<nav class="navbar navbar-expand-lg navbar-light fixed-top bg-white custom-menu">
     <div class="container">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-nav-collapse">
-            <span class="sr-only">Toggle Navigation</span>
-            <i class="fa fa-bars"></i>
-        </button>
-        <a href="{{config('app.app_url')}}" class="navbar-brand">
-            {{ config('app.name', 'Laravel') }}
+        <a class="navbar-brand" href="{{route('frontend.home')}}">
+            {{config('app.name')}}
         </a>
-        <div id="main-nav-collapse" class="collapse navbar-collapse">
-            <ul class="nav navbar-nav main-navbar-nav">
-                {{--Building menu--}}
+
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbar-toggle" aria-controls="navbar-toggle" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button><!-- / navbar-toggler -->
+
+        <div class="collapse navbar-collapse" id="navbar-toggle">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('frontend.home') }}">Home</a>
+                </li>
                 <?php
-                if( (auth()->guest()) ) {
-                    $main_nagivation_menu_items = \App\Models\System\SystemMenuItem::where("type","=","frontend_main_navigation")
-                                                                                    ->where("title","<>","View Dashboard")
-                                                                                    ->orderBy("order", "asc")
-                                                                                    ->get();
-                }
-                else {
-                    $main_nagivation_menu_items = \App\Models\System\SystemMenuItem::where("type","=","frontend_main_navigation")
-                                                                                    ->orderBy("order", "asc")
-                                                                                    ->get();
-                }
+                $cms_pages = \App\Models\System\SystemPage::all();
+                ?>
+                @foreach($cms_pages as $cms_page)
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{$cms_page->slug}}">{{$cms_page->title}}</a>
+                    </li>
+                @endforeach
+
+                <?php
+                $main_nagivation_menu_items = \App\Models\System\SystemMenuItem::where("type","=","frontend_main_navigation")
+                    ->whereParentId(null)
+                    ->orderBy("order", "asc")
+                    ->get();
 
                 foreach($main_nagivation_menu_items as $menu_item) {
-
                     $dropdown_toggle = true;
                     $dropdown = true;
 
@@ -36,93 +40,134 @@
                     $permissions = $menu_item['permissions'] ?? null;
                     $has_children = $menu_item['has_children'] ?? null;
                     $children = $menu_item['children'] ?? null;
-                    //dd($title);
-                    ?>
-                    @if($menu_item['has_children'] !== false)
+                ?>
+                    @if($menu_item['has_children'] === 'blog_post_categories')
 
-                        @if($menu_item['has_children'] === 'blog_post_categories')
-                            <li class="dropdown ">
-                                <a href="#"
-                                   class="toggle"
-                                   data-toggle="dropdown">
-                                    {{$title}}
-                                </a>
-                                <ul class="dropdown-menu" role="menu">
-
-                                    <li class="dropdown">
-                                        <a href="{{$url_link}}">All Blog Posts</a>
-                                    </li>
-
-                                    @foreach($blogPostCategories as $category)
-                                        <li><a href="/blog-category/{{$category->slug}}">{{$category->title}}</a></li>
-                                    @endforeach
-                                </ul>
-                            </li>
-                        @else
-                            <li class="dropdown">
-                                <a href="{{$url_link}}">{{$title}}</a>
-                            </li>
-                        @endif
-                        {{--<li class="dropdown @if($is_active) active @endif">
-                            <a href="#"
-                               class="@if($dropdown_toggle) toggle @endif"
-                               data-toggle="@if($dropdown) dropdown @endif">
-                                @if($title) @endif{{$title}}
-                                    <i class="{{$icon}}"></i>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#x" id="dropdown2" data-toggle="dropdown"
+                               aria-haspopup="true" aria-expanded="false">
+                                {{$title}}
                             </a>
-                            <ul class="dropdown-menu" role="menu">
-                                @foreach($children as $child)
-                                    @if(is_array($child))
-                                        <li><a href="{{$child['title']}}">{{$child['title']}}</a></li>
-                                    @else
-                                        <li><a href="{{$child}}">{{$child}}</a></li>
-                                    @endif
+                            <div class="dropdown-menu animated zoomIn fast" aria-labelledby="dropdown2">
+                                <a class="dropdown-item" href="{{$url_link}}">All Blog Posts</a>
+                                <a class="dropdown-item active" href="{{$url_link}}">Blog Posts by Category</a>
+                                <div class="dropdown-divider"></div>
+                                @foreach($blogPostCategories as $category)
+                                    <a class="dropdown-item" href="/blog-category/{{$category->slug}}">{{$category->title}}</a>
                                 @endforeach
-                            </ul>
-                        </li>--}}
+                            </div><!-- / dropdown-menu -->
+                        </li>
+                        <!-- / dropdown -->
+
+                    @elseif($menu_item['has_children'] === "true")
+
+                        <?php
+                        $main_nagivation_menu_child_items = \App\Models\System\SystemMenuItem::where("type","=","frontend_main_navigation")
+                            ->whereParentId($menu_item['id'])
+                            ->orderBy("order", "asc")
+                            ->get();
+                        ?>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#x" id="dropdown2" data-toggle="dropdown"
+                               aria-haspopup="true" aria-expanded="false">
+                                {{$title}}
+                            </a>
+                            <div class="dropdown-menu animated zoomIn fast" aria-labelledby="dropdown2">
+                                <a class="dropdown-item active" href="{{$url_link}}">View by Criteria</a>
+                                <div class="dropdown-divider"></div>
+                                @foreach($main_nagivation_menu_child_items as $menu_item_child)
+
+                                    <?php
+                                    $dropdown_toggle = true;
+                                    $dropdown = true;
+                                    $is_active = $menu_item_child['is_active'] ?? null;
+                                    $title = $menu_item_child['title'] ?? null;
+                                    $url_link = $menu_item_child['url_link'] ?? null;
+                                    $route = $menu_item_child['route'] ?? null;
+                                    $icon = "fa fa-angle-down" ?? null;
+                                    $permissions = $menu_item_child['permissions'] ?? null;
+                                    $has_children = $menu_item_child['has_children'] ?? null;
+                                    $children = $menu_item_child['children'] ?? null;
+                                    ?>
+
+                                    <a class="dropdown-item" href="{{$url_link}}">{{$title}}</a>
+                                @endforeach
+                            </div><!-- / dropdown-menu -->
+                        </li>
+                        <!-- / dropdown -->
+
                     @else
-                        <li class="dropdown">
-                            <a href="{{$url_link}}">{{$title}}</a>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{$url_link}}">{{$title}}</a>
                         </li>
                     @endif
+
                 <?php
                 }
                 ?>
 
+                @if(config('social.social_media'))
+
+                    @foreach(config('social.social_media') as $key => $value)
+                        <li class="nav-item" style="padding-right: 0px !important;">
+                            <a class="nav-link" href="{{$value['link']}}" target="_blank">
+                                <i class="nav-icon {{$value['icon']}}"></i>
+                            </a>
+                        </li>
+                    @endforeach
+
+                @endif
+
                 @if (auth()->guest())
                     <li class="nav-item">
-                        <a href="{{ route('login') }}" class="nav-link">
-                            <i class="nav-icon fas fa-fw fa-sign-out-alt">
-
-                            </i>
+                        <a class="nav-link" href="{{ route('login') }}">
+                            <i class="nav-icon fa fa-sign-in"></i>
                             Login
                         </a>
                     </li>
                 @else
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon fas fa-fw fa-sign-out-alt">
 
-                            </i>
+                    <li class="nav-item dropdown">
+
+                        <a class="nav-link dropdown-toggle" href="#x" id="dropdown2" data-toggle="dropdown"
+                           aria-haspopup="true" aria-expanded="false">
+                            <i class="nav-icon fa fa-user-circle-o"></i>
                             Logged in as {{ Auth::user()->name }}
                         </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link" onclick="event.preventDefault(); document.getElementById('logoutform').submit();">
-                            <i class="nav-icon fas fa-fw fa-sign-out-alt">
 
-                            </i>
-                            {{ trans('global.logout') }}
-                        </a>
-                        <form id="logoutform" action="{{ route('logout') }}" method="POST" style="display: none;">
-                            {{ csrf_field() }}
-                        </form>
+                        <div class="dropdown-menu animated zoomIn fast" aria-labelledby="dropdown2">
+
+                            <a class="dropdown-item active" href="{{$url_link}}">
+                                <i class="nav-icon fa fa-id-card-o"></i>
+                                {{ Auth::user()->name }}
+                            </a>
+                            <div class="dropdown-divider"></div>
+
+                            <a class="nav-link" href="{{ route("admin.home") }}">
+                                <i class="nav-icon fa fa-cogs"></i>
+                                Dashboard
+                            </a>
+
+                            <div class="dropdown-divider"></div>
+                            <a class="nav-link" href="#" onclick="event.preventDefault(); document.getElementById('logoutform').submit();">
+                                <i class="nav-icon fa fa-sign-out"></i>
+                                {{ trans('global.logout') }}
+                            </a>
+                            <form id="logoutform" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                {{ csrf_field() }}
+                            </form>
+                        </div><!-- / dropdown-menu -->
                     </li>
+                    <!-- / dropdown -->
+
                 @endif
 
             </ul>
-
+            <!-- / navbar-nav -->
         </div>
-        <!-- END MAIN NAVIGATION -->
+        <!-- / navbar-collapse -->
     </div>
+    <!-- / container -->
 </nav>
+<!-- / custom-menu -->

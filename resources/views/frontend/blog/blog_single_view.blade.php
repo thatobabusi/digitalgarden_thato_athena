@@ -1,6 +1,5 @@
 @extends('layouts.frontend.app_frontend_layout')
 
-{{--@extends('layouts.frontend.header')--}}
 @section('breadcrumbs')
     {{ Breadcrumbs::render('frontend.blog.slug', \Str::title($blogPost->blogPostCategory->slug), $blogPost) }}
 @endsection
@@ -34,55 +33,32 @@
 
 @section('content')
 
-    <!-- PAGE HEADER TITLE -->
-    <div class="text-center">
-        @if(isset($page_header))
-            <h1>Blog Posts by {{$page_header}}</h1>
-        @else
-            <h1>Blog</h1>
-        @endif
-    </div>
-    <!-- END PAGE HEADER TITLE -->
+    <!-- blog post -->
+    @include('partials.frontend.blog.blog_post_single')
+    <!-- end blog post -->
 
-    <!-- BREADCRUMBS -->
-    <div class="page-header breadcrumbs-only">
-        <div class="container">
-            @yield('breadcrumbs')
-        </div>
-    </div>
-    <div class="clearfix margin-top-30 margin-bottom-30"></div>
-    <!-- END BREADCRUMBS -->
+    <!-- tag list -->
+    @include('partials.frontend.blog.blog_post_tag_list')
+    <!-- end tag list -->
 
-    <!-- PAGE CONTENT -->
-    <div class="col-md-9 col-lg-9 col-md-offset-0 col-lg-offset-0">
+    {{--<div class="spacer">&nbsp;</div>
+    {!!
+        Share::page( url()->current(), $blogPost->title, ['title' => 'Share this post'], '<ul>', '</ul>' )
+            ->facebook()
+            ->twitter()
+            ->linkedin($blogPost->summary)
+            ->whatsapp()
+            ->telegram()
+    !!}--}}
 
-        <!-- blog post -->
-        @include('partials.frontend.blog.blog_post_single')
-        <!-- end blog post -->
+    <!-- comments legal policy -->
+    @include('partials.frontend.legal.policy_comments')
+    <!-- end comments legal policy -->
 
-        <div class="row">
-            <!-- tag list -->
-            @include('partials.frontend.blog.blog_post_tag_list')
-            <!-- end tag list -->
+    <div id="disqus_thread"></div>
 
-            <!-- social sharing -->
-            {{--@include('partials.frontend.blog.blog_post_social_share')--}}
-            <!-- end social sharing -->
-        </div>
-
-        <!-- author info -->
-        {{--@include('partials.frontend.blog.blog_post_author_info')--}}
-        <!-- end author info -->
-
-        @include('partials.frontend.legal.policy_comments')
-
-        <div id="disqus_thread"></div>
-
-        <!-- related post -->
-        @include('partials.frontend.blog.blog_post_related')
-        <!-- end related post -->
-
-    </div>
-    <!-- END PAGE CONTENT -->
+    <!-- related post -->
+    {{--@include('partials.frontend.blog.blog_post_related')--}}
+    <!-- end related post -->
 
 @endsection

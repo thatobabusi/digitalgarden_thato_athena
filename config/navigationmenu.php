@@ -143,6 +143,17 @@ return [
             ]
 
         ],
+        'Contact' => [
+            'is_active' => true,
+            'title' => "Contact",
+            'url_link' => "#",
+            'route' => "#",
+            'icon' => "#",
+            'permissions' => true,
+            'has_children' => false,
+            'children' => [],
+
+        ],
     ],
 
     /*

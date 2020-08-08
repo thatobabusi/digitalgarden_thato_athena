@@ -28,6 +28,6 @@ class AuthServiceProvider extends ServiceProvider
 
         if (!app()->runningInConsole()) {
             Passport::routes();
-        };
+        }
     }
 }

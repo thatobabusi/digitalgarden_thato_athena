@@ -1,33 +1,49 @@
-<script src="{{ URL::asset('template/assets/js/jquery-2.1.1.min.js') }}"></script>
-<script src="{{ URL::asset('template/assets/js/bootstrap.min.js') }}"></script>
-<script src="{{ URL::asset('template/assets/js/plugins/easing/jquery.easing.min.js') }}"></script>
-<script src="{{ URL::asset('template/assets/js/plugins/twitter/twitterFetcher.min.js') }}"></script>
-<script src="{{ URL::asset('template/assets/js/bravana-lite.js') }}"></script>
-<script src="{{ URL::asset('js/lightwidget.js') }}"></script>
+<!-- Core JavaScript -->
+<script src="{{ URL::asset('frontend_theme/basix/js/jquery.min.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="{{ URL::asset('frontend_theme/basix/js/bootstrap.min.js') }}"></script>
+<!-- / Core JavaScript -->
+
+<!-- preloader -->
+<script src="{{ URL::asset('frontend_theme/basix/js/preloader.js') }}"></script>
+<!-- / preloader -->
+
+<!-- Smooth Scrolling -->
+<script src="{{ URL::asset('frontend_theme/basix/js/jquery.easing.min.js') }}"></script>
+<script src="{{ URL::asset('frontend_theme/basix/js/smooth-scroll.js') }}"></script>
+<!-- / Smooth Scrolling -->
+
+<!-- Tooltips -->
 <script>
-    //Get the button:
-    mybutton = document.getElementById("scrollToTopButton");
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+</script>
+<!-- / Tooltips -->
 
-    // When the user scrolls down 20px from the top of the document, show the button
-    window.onscroll = function() {
-        scrollFunction()
-    };
+<!-- Owl Carousel -->
+<script src="{{ URL::asset('frontend_theme/basix/js/owl.carousel.min.js') }}"></script>
+<script>
+    $('#slider-post').owlCarousel({
+        loop:true,
+        margin:0,
+        nav:true,
+        dots:false,
+        navText:["<i class='fa fa-angle-left'></i>","<i class='fa fa-angle-right'></i>"],
+        items:1,
+        animateIn: 'slideInRight',
+        animateOut: 'slideOutLeft'
+    })
+</script>
+<!-- / Owl Carousel -->
 
-    function scrollFunction() {
-        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-            mybutton.style.display = "block";
-        } else {
-            mybutton.style.display = "none";
-        }
-    }
+<!-- Hide Nav -->
+<script src="{{ URL::asset('frontend_theme/basix/js/hide-nav.js') }}"></script>
+<!-- / Hide Nav -->
 
-    // When the user clicks on the button, scroll to the top of the document
-    function topFunction() {
-        document.body.scrollTop = 0; // For Safari
-        document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
-    }
+<script>
+    /*Overlays*/
+    $('#flash-overlay-modal').modal();
 
-    function scrollWinTop() {
-        window.scrollTo(0, 0);
-    }
+    $('div.alert').not('.alert-important').delay(3000).fadeOut(350);
 </script>

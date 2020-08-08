@@ -1,7 +1,7 @@
-# DigitalGarden Project Atlas
+# DigitalGarden Project Athena
 
 A demo project showing my Laravel skills. This initially started off as 
-a learning process of the new Laravel 6 standards, then Laravel 7.6 came out and 
+a learning process of the new Laravel 6 standards, then Laravel 7.9.2 came out and 
 I just had to get on to that ASAP. Although they say its not the LTS, it's a good 
 start. The migration from 6-7 showed me a lot... 
 
@@ -33,8 +33,10 @@ Note the use of repositories here.
         - Blog Tags
         - Blog Archives
         - Blog Recommended
+        - Blog Search
         - Blog Disqus Commenting
     - Embedded Twitter feed
+    - Embedded Instagram feed
 - Backend
     - Admin Dashboard
     - Access Control

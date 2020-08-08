@@ -9,7 +9,6 @@ use App\Models\Blog\BlogPost;
 use App\Models\Blog\BlogPostCategory;
 use App\Models\Blog\BlogPostStatus;
 use App\Models\Blog\BlogPostTag;
-use App\Transformers\BlogPostTransformer;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
@@ -18,6 +17,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Str;
 use Yajra\DataTables\DataTables;
 
 /**
@@ -27,6 +27,28 @@ use Yajra\DataTables\DataTables;
  */
 class BlogPostRepository  implements BlogPostRepositoryInterface
 {
+
+    /**
+     * @var BlogPostCategoryRepository
+     */
+    protected $blogPostCategory;
+    /**
+     * @var BlogPostTagRepository
+     */
+    protected $blogPostTagRepository;
+
+    /**
+     * BlogPostRepository constructor.
+     *
+     * @param BlogPostCategoryRepository $blogPostCategory
+     * @param BlogPostTagRepository      $blogPostTagRepository
+     */
+    public function __construct(BlogPostCategoryRepository $blogPostCategory, BlogPostTagRepository $blogPostTagRepository)
+    {
+        $this->blogPostCategory = $blogPostCategory;
+        $this->blogPostTagRepository = $blogPostTagRepository;
+    }
+
     #Get
 
     /**
@@ -39,23 +61,8 @@ class BlogPostRepository  implements BlogPostRepositoryInterface
     {
         core_helper_extend_timeout_time();
 
-        /*return Datatables::of(BlogPost::select(['*'])->take($limit) )*/
-
-        /**
-         * TODO::This works but is very very very slow.
-        $transformer = new BlogPostTransformer;
-        $blogPosts_from_transformer = $this->getAllBlogPostsRecords($limit);
-        $blogPosts = $transformer->transformCollection($blogPosts_from_transformer);
-        */
-
-        #This works except when user searches by the additional columns
-        $blogPosts = BlogPost::select([
-            'id', 'title', 'slug', 'created_at', 'updated_at',
-            'user_id', 'blog_post_category_id', 'blog_post_status_id',
-            'user_id as author', 'blog_post_category_id as category', 'blog_post_status_id as status',
-        ])->take($limit);
-
-        return Datatables::of($blogPosts)
+        #TODO:: (1)Speed this up, (2)Search doesnt work on other columns
+        return (new \Yajra\DataTables\DataTables)->eloquent(BlogPost::query())
             ->editColumn('author', static function($blogPost) {
                 return $blogPost->getAuthor();
             })
@@ -65,15 +72,51 @@ class BlogPostRepository  implements BlogPostRepositoryInterface
             ->editColumn('status',static function($blogPost) {
                 return $blogPost->getStatus();
             })
-            /*->editColumn('tags', static function($blogPost) {
-                return $blogPost->getTags();
-            })*/
+            ->addColumn('actions', function($row) {
+                return '<div class="btn-group">
+                        <a class="btn btn-xs btn-primary" href="' . route("admin.blog.show", $row->slug) . '" type="button">
+                            ' . trans("global.view") . '
+                        </a>
+                        <a class="btn btn-xs btn-info" href="' . route("admin.blog.edit", $row->slug) . '" type="button">
+                            ' . trans("global.edit") . '
+                        </a>
+                        <a class="btn btn-xs btn-danger" href="#" type="button">
+                            <form action="' . route("admin.blog.destroy", $row->id) . '"
+                                  method="POST" onsubmit="return confirm(\'' . trans("global.areYouSure") . '\');" style="display: inline-block;">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <input type="hidden" name="_token" value="' . csrf_token() . '">
+                                <input type="submit" class="btn btn-xs btn-danger" value="' . trans("global.delete") . '">
+                            </form>
+                        </a>
+                        </div>';
+            })
+            ->rawColumns(['actions' => 'actions'])
+            ->make(true);
+
+        #This works except when user searches by the additional columns
+        /*$blogPosts = BlogPost::select([
+            'id', 'title', 'slug', 'created_at', 'updated_at',
+            'user_id', 'blog_post_category_id', 'blog_post_status_id',
+            'user_id as author', 'blog_post_category_id as category', 'blog_post_status_id as status',
+        ])->take((int)$limit);
+
+        return Datatables::of($blogPosts)
+            ->editColumn('user_id', static function($blogPost) {
+                return $blogPost->getAuthor();
+            })
+            ->editColumn('blog_post_category_id', static function($blogPost) {
+                return $blogPost->getCategory();
+            })
+            ->editColumn('blog_post_status_id',static function($blogPost) {
+                return $blogPost->getStatus();
+            })
             ->editColumn('actions',  function($blogPost) {
                 return $blogPost->getCrudButtonsWithGateChecks();
             })
             ->rawColumns(['actions'])
-            ->make(true);
+            ->make(true);*/
     }
+
     /**
      * @param string|null $limit
      *
@@ -223,17 +266,21 @@ class BlogPostRepository  implements BlogPostRepositoryInterface
 
                 #Push the Blog Post ID into the array if it is not in there already
                 if (!in_array($post->id, $blogPostsIdsArray, true)) {
-                    $blogPostsIdsArray[] = $post->id;
+                    if($post->id !== $blogPost->id) {
+                        $blogPostsIdsArray[] = $post->id;
+                    }
                 }
 
             }
         }
 
         #Get all Blog Posts where they share the same category as this Blog Post OR where they share the same Tag
-        return BlogPost::whereBlogPostCategoryId($blogPost->blog_post_category_id)
+        return BlogPost::where('id', '<>', $blogPost->id)
+                        ->whereBlogPostCategoryId($blogPost->blog_post_category_id)
                         ->orWhereIn('id', $blogPostsIdsArray)
                         ->orderBy('created_at', 'DESC')
                         ->take((int)$limit)
+                        ->with('blogPostImages')
                         ->get();
 
     }
@@ -245,11 +292,11 @@ class BlogPostRepository  implements BlogPostRepositoryInterface
      */
     public function getAllDistinctArchiveYearAndMonthsArray(string $limit = null)
     {
-        $year_months = BlogPost::orderBy('created_at', 'desc')
-                            ->get()
+        $year_months = BlogPost::orderBy('created_at', 'desc')->get()
                             ->groupBy(function ($val) {
                                 return Carbon::parse($val->created_at)->format('Y-m');
-                            });
+                            })
+                            ->take((int)$limit);
 
         $distinct_year_months = [];
 
@@ -299,6 +346,85 @@ class BlogPostRepository  implements BlogPostRepositoryInterface
         $blogPost->load('blogPostAuthor', 'blogPostImages', 'blogPostCategory', 'blogPostTags');
 
         return $blogPost;
+    }
+
+    /**
+     * @param BlogPost $blogPost
+     *
+     * @return string
+     */
+    public function getBlogPostKeywords(BlogPost $blogPost) :string
+    {
+        $keywords = "";
+
+        $author = $blogPost->blogPostAuthor->name;
+        if($author) {
+            $keywords .= $author;
+        }
+
+        $category = $blogPost->blogPostCategory->title;
+        if($category) {
+            $keywords .= ", ". Str::of($category)->replace('-', ' ');
+        }
+
+        $tags = $blogPost->blogPostTags;
+
+        foreach($tags as $tag) {
+            $keywords .= ", ". Str::of($tag->title)->replace('-', ' ');
+        }
+
+        return $keywords;
+    }
+
+    /**
+     * @param string|null $criteria
+     * @param string|null $criteria_value
+     *
+     * @return array
+     */
+    public function getDynamicIndexContent(string $criteria = null, string $criteria_value = null): array
+    {
+        if( is_null($criteria) && is_null($criteria_value)) {
+
+            $blogPosts =  BlogPost::orderBy('created_at','desc')->paginate(5);
+            $blogPostsRecommended =  BlogPost::inRandomOrder()->paginate(8);
+
+            $data = [
+                'page_header' =>  'BLOG',
+                'page_title' => Str::title('Blog'),
+                'blogPosts' => $blogPosts,
+                'blogPostsRecommended' => $blogPostsRecommended,
+                'blogPostCategories' => $this->blogPostCategory->getAllCategoriesWhereHasBlogPosts('15'),
+                'blogPostTags' => $this->blogPostTagRepository->getAllTagsWhereHasBlogPosts('10'),
+                'blogPostDistinctArchiveYearAndMonthsArray' => $this->getAllDistinctArchiveYearAndMonthsArray('15'),
+                'featuredBlogPost' => $this->getFeaturedBlogPosts('1')
+            ];
+        }
+
+        else {
+            $page_header = strtoupper($criteria);
+
+            if (isset($criteria)) {
+                if (Str::contains($criteria, '_')) {
+                    $page_header = strtoupper(Str::replaceFirst('_', ' ', $criteria));
+                }
+            }
+
+            $blogPostsRecommended = BlogPost::inRandomOrder()->paginate(8);
+
+            $data = [
+                'page_header' => $page_header ?? 'BLOG',
+                'page_title' => Str::title($criteria_value ?? 'Blog'),
+                'blogPosts' => $this->getAllBlogPostsRecordsByCriteria($criteria, $criteria_value, '5'),
+                'blogPostsRecommended' => $blogPostsRecommended,
+                'blogPostCategories' => $this->blogPostCategory->getAllCategoriesWhereHasBlogPosts('15'),
+                'blogPostTags' => $this->blogPostTagRepository->getAllTagsWhereHasBlogPosts('10'),
+                'blogPostDistinctArchiveYearAndMonthsArray' => $this->getAllDistinctArchiveYearAndMonthsArray('15'),
+                'featuredBlogPost' => $this->getFeaturedBlogPosts('1')
+            ];
+        }
+
+        return $data;
     }
 
     /**
@@ -397,4 +523,28 @@ class BlogPostRepository  implements BlogPostRepositoryInterface
     {
         return BlogPost::whereIn('id', request('ids'))->delete();
     }
+
+    #Format
+    /**
+     * @param BlogPost $blogPost
+     *
+     * @return array
+     */
+    public function formatBlogPostDataDetailsForDisplay(BlogPost $blogPost): array
+    {
+        $data = [
+            'page_header' => Str::title($blogPost->title ?? 'Blog'),
+            'page_title' => Str::title($blogPost->title ?? 'Blog'),
+            'blogPost' => $blogPost,
+            'blogPosts' => $this->getAllBlogPostsRecords('5'),
+            'blogPostsRecommended' => $this->getAllBlogPostsRecordsRelatedToThisBlogPostByCategoryOrTag($blogPost, '6'),
+            'blogPostCategories' => $this->blogPostCategory->getAllCategoriesWhereHasBlogPosts('15'),
+            'blogPostTags' => $this->blogPostTagRepository->getAllTagsWhereHasBlogPosts('10'),
+            'blogPostDistinctArchiveYearAndMonthsArray' => $this->getAllDistinctArchiveYearAndMonthsArray('15'),
+            'featuredBlogPost' => $this->getFeaturedBlogPosts('1')
+        ];
+
+        return $data;
+    }
+
 }

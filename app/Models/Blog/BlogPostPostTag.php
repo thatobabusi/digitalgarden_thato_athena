@@ -4,6 +4,7 @@ namespace App\Models\Blog;
 
 use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * App\Models\Blog\BlogPostPostTag
@@ -22,7 +23,7 @@ class BlogPostPostTag extends Model
     /**
      * @var string
      */
-    protected $table = 'blog_post_post_tags';
+    protected $table = 'blog_post_blog_post_tag';
 
     /*******************************************************************************************************************
      *############################                  RELATIONS           ################################################

@@ -1,10 +1,15 @@
 @if(count($blogPostTags) > 0)
-    <div class="widget hide-while-angular-is-loading">
-        <h3 class="widget-title">TAGS</h3>
-        <ul class="list-inline tag-list">
+    <div class="sidebar-widget">
+        <h6 class="widget-title mb-3">TAGS</h6>
+        <div class="tag-cloud">
             @foreach($blogPostTags as $tag)
-            <li><a href="/blog-tag/{{$tag->slug}}">{{$tag->title}}</a></li>
+                <a href="/blog-tag/{{$tag->slug}}" class="btn btn-sm btn-outline-primary rectangle">
+                    {{$tag->title}}
+                </a>
             @endforeach
-        </ul>
+        </div>
+        <!-- / tag-cloud -->
+        <!-- / tags-widget -->
     </div>
+    <!-- / sidebar-widget -->
 @endif

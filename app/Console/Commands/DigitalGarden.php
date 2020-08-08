@@ -10,6 +10,11 @@ use PhpSchool\CliMenu\MenuItem\AsciiArtItem;
 
 require_once(__DIR__ . '/../../../vendor/autoload.php');
 
+/**
+ * Class DigitalGarden
+ *
+ * @package App\Console\Commands
+ */
 class DigitalGarden extends Command
 {
     /**

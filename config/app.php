@@ -191,12 +191,14 @@ return [
         /*
          * Package Service Providers...
          */
-        DaveJamesMiller\Breadcrumbs\BreadcrumbsServiceProvider::class,
-        GGuney\RMigration\RMigrationServiceProvider::class,
-        RenatoMarinho\LaravelPageSpeed\ServiceProvider::class,
         Arcanedev\LogViewer\LogViewerServiceProvider::class,
-        RealRashid\SweetAlert\SweetAlertServiceProvider::class,
+        DaveJamesMiller\Breadcrumbs\BreadcrumbsServiceProvider::class,
+        Eusonlito\LaravelMeta\MetaServiceProvider::class,
+        GGuney\RMigration\RMigrationServiceProvider::class,
+        Igoshev\Captcha\Providers\CaptchaServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
+        RenatoMarinho\LaravelPageSpeed\ServiceProvider::class,
+        RealRashid\SweetAlert\SweetAlertServiceProvider::class,
         \DaveJamesMiller\Breadcrumbs\BreadcrumbsServiceProvider::class,
 
         /*
@@ -271,11 +273,28 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-
+        'Meta'    => Eusonlito\LaravelMeta\Facade::class,
+        'Share' => Jorenvh\Share\ShareFacade::class,
     ],
 
     'calendar' => [
         'start_time'    => '08:00',
         'end_time'      => '18:00',
+    ],
+
+    'static_statusses' => [
+        '1'    => 'New',
+        '2'    => 'Active',
+        '3'    => 'Archive',
+    ],
+
+    'static_meta_robots' => [
+        ''    => 'Select',
+        'index,,nofollow'    => 'Index, No Follow',
+        'index,follow'    => 'Index, Follow',
+        'noindex,,nofollow'    => 'No Index,No Follow',
+        'noindex,,follow'    => 'No Index,Follow',
+        'none'    => 'None',
+        'all'    => 'All',
     ],
 ];

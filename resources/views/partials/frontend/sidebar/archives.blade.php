@@ -1,10 +1,14 @@
 @if(count($blogPostDistinctArchiveYearAndMonthsArray) > 0)
-    <div class="widget hide-while-angular-is-loading">
-        <h4 class="widget-title">ARCHIVES</h4>
-        <ul class="list-unstyled category-list">
-            @foreach($blogPostDistinctArchiveYearAndMonthsArray as $archive)
-                <li><a href="/blog-archives/{{$archive}}">{{\Carbon\Carbon::parse($archive)->format('Y F')}}</a></li>
-            @endforeach
-        </ul>
+    <div class="sidebar-widget">
+        <h6 class="widget-title">ARCHIVES</h6>
+        @foreach($blogPostDistinctArchiveYearAndMonthsArray as $archive)
+            <p class="category-widget">
+                <a href="/blog-archives/{{$archive}}">
+                    {{\Carbon\Carbon::parse($archive)->format('Y F')}}
+                </a>
+            </p>
+        @endforeach
+        <!-- / archive-widget -->
     </div>
+    <!-- / sidebar-widget -->
 @endif

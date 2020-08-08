@@ -5,6 +5,11 @@ namespace App\Console;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
+/**
+ * Class Kernel
+ *
+ * @package App\Console
+ */
 class Kernel extends ConsoleKernel
 {
     /**
@@ -24,8 +29,14 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+        #TODO:: Remember to run crontab -e to activate
+        $schedule->command('nubian:backup')->dailyAt('06:00');
+        $schedule->command('nubian:backup')->dailyAt('09:00');
+        $schedule->command('nubian:backup')->dailyAt('12:00');
+        $schedule->command('nubian:backup')->dailyAt('15:00');
+        $schedule->command('nubian:backup')->dailyAt('18:00');
+        $schedule->command('nubian:backup')->dailyAt('21:00');
+        $schedule->command('nubian:backup')->dailyAt('00:00');
     }
 
     /**

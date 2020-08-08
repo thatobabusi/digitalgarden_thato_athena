@@ -23,7 +23,8 @@ return [
     |
     */
 
-    'view' => 'breadcrumbs::bootstrap4',
+    'view' => 'partials.breadcrumbs',
+    //'view' => 'breadcrumbs::bootstrap4',
 
     /*
     |--------------------------------------------------------------------------

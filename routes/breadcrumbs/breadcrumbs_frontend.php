@@ -34,13 +34,21 @@ Breadcrumbs::for('frontend.blog.slug', function ($trail, $category, $post) {
     $trail->push('Home', route('frontend.home'));
     $trail->push('Blog', route('frontend.home'));
     $trail->push('Category - ' . $category, route('frontend.viewAllBlogPostsByCategory', $category));
-    $trail->push($post->title, route('frontend.viewBlogSinglePostBySlug', $post->slug));
+    $trail->push(Str::words($post->title, 3, '...'), route('frontend.viewBlogSinglePostBySlug', $post->slug));
+});
+
+//Home > Contact
+Breadcrumbs::for('frontend.contact', function ($trail) {
+    $trail->push('Home', route('frontend.home'));
+    $trail->push('Contact', route('frontend.contact'));
 });
 
 // Home
 Breadcrumbs::for('home', function ($trail) {
     $trail->push('Home', route('home'));
 });
+
+
 
 /*// Home > About
 Breadcrumbs::for('about', function ($trail) {

@@ -170,38 +170,11 @@ class BlogPost extends Model
     }
 
     /**
-     * @return string
+     * @return int|null
      */
-    public function getCrudButtonsWithGateChecks(): string
+    public function getId(): ?int
     {
-        $btn = '<div class="btn-group">';
-
-        if(Gate::allows('blog_post_access')) {
-            $btn .= '<a class="btn btn-xs btn-primary" href="' . route("admin.blog.show", $this->slug) . '" type="button">
-                            ' . trans("global.view") . '
-                        </a>';
-        }
-
-        if(Gate::allows('blog_post_access')) {
-            $btn .= '<a class="btn btn-xs btn-info" href="' . route("admin.blog.edit", $this->slug) . '" type="button">
-                            ' . trans("global.edit") . '
-                        </a>';
-        }
-
-        if(Gate::allows('blog_post_access')) {
-            $btn .= '<a class="btn btn-xs btn-danger" href="#" type="button">
-                            <form action="' . route("admin.blog.destroy", $this->id) . '"
-                                  method="POST" onsubmit="return confirm(\'' . trans("global.areYouSure") . '\');" style="display: inline-block;">
-                                <input type="hidden" name="_method" value="DELETE">
-                                <input type="hidden" name="_token" value="' . csrf_token() . '">
-                                <input type="submit" class="btn btn-xs btn-danger" value="' . trans("global.delete") . '">
-                            </form>
-                        </a>';
-        }
-
-        $btn .= '<div class="btn-group">';
-
-        return $btn;
+        return $this->attributes['id'] = $this->id;
     }
 
     /**
@@ -266,6 +239,9 @@ class BlogPost extends Model
         return $this->attributes['deleted_at'] = Carbon::parse($value)->toDateTimeString() ?? null;
     }
 
-
+    public function visits()
+    {
+        return visits($this);
+    }
 
 }

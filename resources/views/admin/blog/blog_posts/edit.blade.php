@@ -88,10 +88,15 @@
 
 @section('scripts')
 
-    <script type="text/javascript" src="{{ URL::asset('vendor/tinymce/tinymce.min.js') }}"></script>
-
-    <script type="text/javascript" src="{{ URL::asset('js/scriptsbytype/tinymce.js') }}"></script>
+    {{--<script type="text/javascript" src="{{ URL::asset('vendor/tinymce/tinymce.min.js') }}"></script>--}}
+    {{--<script type="text/javascript" src="{{ URL::asset('js/scriptsbytype/tinymce.js') }}"></script>--}}
 
     <script type="text/javascript" src="{{ URL::asset('js/scriptsbytype/imageupload.js') }}"></script>
+    <script type="text/javascript" src="{{ URL::asset('js/scriptsbytype/ckeditor.js') }}"></script>
+
+    <script>
+        CKEDITOR.replace('summary');
+        CKEDITOR.replace('body');
+    </script>
 
 @endsection

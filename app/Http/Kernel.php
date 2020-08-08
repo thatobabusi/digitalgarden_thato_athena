@@ -2,8 +2,14 @@
 
 namespace App\Http;
 
+use DipeshSukhia\LaravelHtmlMinify\Middleware\LaravelMinifyHtml;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
+/**
+ * Class Kernel
+ *
+ * @package App\Http
+ */
 class Kernel extends HttpKernel
 {
     /**
@@ -33,7 +39,7 @@ class Kernel extends HttpKernel
             'throttle:60,1',
             'bindings',
             \App\Http\Middleware\AuthGates::class,
-	    //\Illuminate\Routing\Middleware\SubstituteBindings::class,
+            //\Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
         'web' => [
             \App\Http\Middleware\EncryptCookies::class,
@@ -45,6 +51,7 @@ class Kernel extends HttpKernel
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             \App\Http\Middleware\AuthGates::class,
             \App\Http\Middleware\SetLocale::class,
+            LaravelMinifyHtml::class,
 
             //Laravel Page Speed | If it breaks stuff, take it out.
             //\RenatoMarinho\LaravelPageSpeed\Middleware\InlineCss::class, //This one messes with the telescope functionality

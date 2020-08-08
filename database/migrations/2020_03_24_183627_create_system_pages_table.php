@@ -18,8 +18,9 @@ class CreateSystemPagesTable extends Migration {
 			$table->unsignedBigInteger('page_category_id');
 			$table->string('title', 191);
 			$table->string('slug', 191);
-			$table->longText('description');
-			$table->longText('body');
+			$table->longText('description')->nullable();
+			$table->longText('body')->nullable();
+			$table->integer('status')->default(1); //1 draft,2 active ,3 archive
 			$table->timestamps();
 			$table->softDeletes();
 		});

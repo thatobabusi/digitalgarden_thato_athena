@@ -42,8 +42,12 @@ return [
         '/update', '/update/*',
         '/oauth', '/oauth/*',
 
-        //'/admin', '/admin/*', //Hide these to prevent people from knowing too much
-        //'/admin/activity', '/admin/activity/*', //Hide these to prevent people from knowing too much
+        '/password', '/password/*',
+        '/api/users', '/api/users/*',
+        '/captcha', '/captcha/*',
+        '/elfinder', '/elfinder/*',
+        '/admin', '/admin/*', //Hide these to prevent people from knowing too much
+        '/admin/activity', '/admin/activity/*', //Hide these to prevent people from knowing too much
         '/admin/permissions', '/admin/permissions/*', //Hide these to prevent people from knowing too much
         '/admin/roles', '/admin/roles/*', //Hide these to prevent people from knowing too much
         '/admin/system-config-plugins', '/admin/system-config-plugins/*', //Hide these to prevent people from knowing too much

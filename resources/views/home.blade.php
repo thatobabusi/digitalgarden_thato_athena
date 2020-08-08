@@ -14,11 +14,13 @@
     </div>
 
     <div class="row">
+
         @can('user_create')
             <div class="col-md-12">
             @include('partials.backend.buttons.blog_management_top_buttons')
             </div>
         @endcan
+
         @include('partials.backend.widgets.blog_posts')
 
         @include('partials.backend.widgets.blog_post_categories')

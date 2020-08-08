@@ -5,6 +5,11 @@ namespace App\Console\Commands;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 
+/**
+ * Class NubianLaravelCodeAnalysis
+ *
+ * @package App\Console\Commands
+ */
 class NubianLaravelCodeAnalysis extends Command
 {
     /**
