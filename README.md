@@ -9,7 +9,7 @@ start. The migration from 6-7 showed me a lot...
 
 ## Laravel 7 Thato Babusi - Project
 
-Currently my company uses L5.1 with very complex sparghetti-code that I am refactoring, 
+Currently my company uses an older version that I am refactoring, 
 leaving very little room for me to learn on implement more up-to-date technologies, 
 therefore this is my personal project to illustrate my understanding of said tech. 
 
