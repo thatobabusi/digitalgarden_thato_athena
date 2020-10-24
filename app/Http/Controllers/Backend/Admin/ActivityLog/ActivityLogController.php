@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Backend\Admin\ActivityLog;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\View\View;
 use Spatie\Activitylog\Models\Activity;
 use Yajra\DataTables\DataTables;
 use Yajra\DataTables\Html\Builder;
@@ -29,7 +31,7 @@ class ActivityLogController extends Controller
     }
 
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      * @throws \Exception
      */
     public function index()
@@ -41,7 +43,7 @@ class ActivityLogController extends Controller
             ->withProperties(['ip_address' => get_user_ip_address_via_helper()])
             ->log('User landed on the Activity Log Page.');
 
-        return view('admin.activity.index', ['dataTable'=>$dataTable]);
+        return view('system_backend.admin.activity.index', ['dataTable'=>$dataTable]);
     }
 
     /**
@@ -57,7 +59,8 @@ class ActivityLogController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
+     *
      * @return Response
      */
     public function store(Request $request): ?Response
@@ -90,8 +93,9 @@ class ActivityLogController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param Request $request
+     * @param  int    $id
+     *
      * @return Response
      */
     public function update(Request $request, $id): ?Response

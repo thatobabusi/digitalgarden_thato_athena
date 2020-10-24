@@ -7,6 +7,7 @@ use App\Http\Requests\StoreBlogPostRequest;
 use App\Http\Requests\UpdateBlogPostRequest;
 use App\Models\Blog\BlogPost;
 use App\Models\Blog\BlogPostCategory;
+use App\Models\Blog\BlogPostPostTag;
 use App\Models\Blog\BlogPostStatus;
 use App\Models\Blog\BlogPostTag;
 use Carbon\Carbon;
@@ -16,6 +17,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
 use Yajra\DataTables\DataTables;
@@ -49,7 +51,7 @@ class BlogPostRepository  implements BlogPostRepositoryInterface
         $this->blogPostTagRepository = $blogPostTagRepository;
     }
 
-    #Get
+    /* Get ********************************************************************************************************** */
 
     /**
      * @param string|null $limit
@@ -92,29 +94,6 @@ class BlogPostRepository  implements BlogPostRepositoryInterface
             })
             ->rawColumns(['actions' => 'actions'])
             ->make(true);
-
-        #This works except when user searches by the additional columns
-        /*$blogPosts = BlogPost::select([
-            'id', 'title', 'slug', 'created_at', 'updated_at',
-            'user_id', 'blog_post_category_id', 'blog_post_status_id',
-            'user_id as author', 'blog_post_category_id as category', 'blog_post_status_id as status',
-        ])->take((int)$limit);
-
-        return Datatables::of($blogPosts)
-            ->editColumn('user_id', static function($blogPost) {
-                return $blogPost->getAuthor();
-            })
-            ->editColumn('blog_post_category_id', static function($blogPost) {
-                return $blogPost->getCategory();
-            })
-            ->editColumn('blog_post_status_id',static function($blogPost) {
-                return $blogPost->getStatus();
-            })
-            ->editColumn('actions',  function($blogPost) {
-                return $blogPost->getCrudButtonsWithGateChecks();
-            })
-            ->rawColumns(['actions'])
-            ->make(true);*/
     }
 
     /**
@@ -357,7 +336,7 @@ class BlogPostRepository  implements BlogPostRepositoryInterface
     {
         $keywords = "";
 
-        $author = $blogPost->blogPostAuthor->name;
+        $author = $blogPost->blogPostAuthor->name ?? null;
         if($author) {
             $keywords .= $author;
         }
@@ -386,7 +365,7 @@ class BlogPostRepository  implements BlogPostRepositoryInterface
     {
         if( is_null($criteria) && is_null($criteria_value)) {
 
-            $blogPosts =  BlogPost::orderBy('created_at','desc')->paginate(5);
+            $blogPosts =  BlogPost::orderBy('created_at','desc')->whereIn('blog_post_status_id', [4,6])->paginate(5);
             $blogPostsRecommended =  BlogPost::inRandomOrder()->paginate(8);
 
             $data = [
@@ -402,7 +381,6 @@ class BlogPostRepository  implements BlogPostRepositoryInterface
         }
 
         else {
-            $page_header = strtoupper($criteria);
 
             if (isset($criteria)) {
                 if (Str::contains($criteria, '_')) {
@@ -440,9 +418,7 @@ class BlogPostRepository  implements BlogPostRepositoryInterface
         return $blogPost;
     }
 
-    #Check
-
-    #List
+    /* List ********************************************************************************************************* */
 
     /**
      * @return \Illuminate\Support\Collection|mixed
@@ -452,7 +428,7 @@ class BlogPostRepository  implements BlogPostRepositoryInterface
         return BlogPostStatus::all()->pluck('title', 'id');
     }
 
-    #Store
+    /* Store ******************************************************************************************************** */
 
     /**
      * @param StoreBlogPostRequest $request
@@ -462,14 +438,7 @@ class BlogPostRepository  implements BlogPostRepositoryInterface
      */
     public function storeNewBlogPostRecord(StoreBlogPostRequest $request, array $image_id_array)
     {
-        $blog_post = new BlogPost();
-        $blog_post->user_id = Auth::user()->getId();
-        $blog_post->blog_post_category_id = $request->input('blog_post_category_id');
-        $blog_post->blog_post_status_id = $request->input('blog_post_status_id');
-        $blog_post->title = $request->input('title');
-        $blog_post->slug = $request->input('slug');
-        $blog_post->summary = $request->input('summary');
-        $blog_post->body = $request->input('body');
+        $blog_post = BlogPost::create($request->all());
         $blog_post->save();
 
         #Sync Tags Associated with this Blog Post
@@ -480,6 +449,8 @@ class BlogPostRepository  implements BlogPostRepositoryInterface
 
         return $blog_post;
     }
+
+    /* Update ******************************************************************************************************* */
 
     /**
      * @param UpdateBlogPostRequest $request
@@ -499,7 +470,7 @@ class BlogPostRepository  implements BlogPostRepositoryInterface
         return $blog_post;
     }
 
-    #Delete
+    /* Delete ******************************************************************************************************* */
 
     /**
      * @param string $blog_post_id
@@ -510,6 +481,18 @@ class BlogPostRepository  implements BlogPostRepositoryInterface
     public function destroySingleBlogPostRecord(string $blog_post_id)
     {
         $blogPost = $this->getBlogPostRecordById($blog_post_id);
+        BlogPostPostTag::where("blog_post_id", $blog_post_id)->delete();
+
+        $blogPostImageFile = $blogPost->blogPostImage();
+
+        if(isset($blogPostImageFile->src)) {
+            //Delete physical copy
+            File::delete(public_path($blogPostImageFile->src));
+            //Delete pivot
+            $blogPost->blogPostImages()->detach();
+            //Delete Image record
+            $blogPostImageFile->delete();
+        }
 
         return $blogPost->delete();
     }
@@ -524,7 +507,8 @@ class BlogPostRepository  implements BlogPostRepositoryInterface
         return BlogPost::whereIn('id', request('ids'))->delete();
     }
 
-    #Format
+    /* Format ******************************************************************************************************* */
+
     /**
      * @param BlogPost $blogPost
      *
@@ -546,5 +530,7 @@ class BlogPostRepository  implements BlogPostRepositoryInterface
 
         return $data;
     }
+
+    /* Sanitize ***************************************************************************************************** */
 
 }

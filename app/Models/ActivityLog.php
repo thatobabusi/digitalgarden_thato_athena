@@ -68,6 +68,8 @@ class ActivityLog extends Model
         'updated_at',
     ];
 
+    /* GETTERS ****************************************************************************************************** */
+
     /**
      * @param string|null $value
      *

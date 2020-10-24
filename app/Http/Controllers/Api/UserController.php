@@ -18,7 +18,7 @@ class UserController extends Controller
      * @param Request $request
      * @return UserCollection
      */
-    public function index(Request $request)
+    public function index(Request $request): UserCollection
     {
         return new UserCollection(User::all());
     }
@@ -29,7 +29,7 @@ class UserController extends Controller
      * @param Request $request
      * @return UserResource
      */
-    public function store(Request $request)
+    public function store(Request $request): UserResource
     {
         $requestData = $request->all();
         $user = User::create($requestData);
@@ -42,7 +42,7 @@ class UserController extends Controller
      * @param User $user
      * @return UserResource
      */
-    public function show(User $user)
+    public function show(User $user): UserResource
     {
         return new UserResource($user);
     }
@@ -54,7 +54,7 @@ class UserController extends Controller
      * @param User $user
      * @return UserResource
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, User $user): UserResource
     {
         $requestData = $request->all();
         $user->update($requestData);
@@ -68,7 +68,7 @@ class UserController extends Controller
      * @return JsonResponse
      * @throws Exception
      */
-    public function destroy(User $user)
+    public function destroy(User $user): JsonResponse
     {
         $user->delete();
         return response()->json([

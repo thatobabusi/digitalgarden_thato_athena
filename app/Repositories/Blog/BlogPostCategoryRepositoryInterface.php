@@ -13,7 +13,7 @@ use App\Http\Requests\UpdateBlogPostCategoryRequest;
  */
 interface BlogPostCategoryRepositoryInterface
 {
-    #Get
+    /* Get ********************************************************************************************************** */
 
     /**
      * @param string|null $limit
@@ -43,15 +43,14 @@ interface BlogPostCategoryRepositoryInterface
      */
     public function getBlogPostCategoryRecordBySlug(string $slug);
 
-    #Check
+    /* List ********************************************************************************************************* */
 
-    #List
     /**
      * @return mixed
      */
     public function listAllCategoriesByTitleAndId();
 
-    #Store
+    /* Store ******************************************************************************************************** */
 
     /**
      * @param StoreBlogPostCategoryRequest $request
@@ -60,7 +59,7 @@ interface BlogPostCategoryRepositoryInterface
      */
     public function storeNewBlogPostCategoryRecord(StoreBlogPostCategoryRequest $request);
 
-    #Update
+    /* Update ******************************************************************************************************* */
 
     /**
      * @param UpdateBlogPostCategoryRequest $request
@@ -70,7 +69,7 @@ interface BlogPostCategoryRepositoryInterface
      */
     public function updateExistingBlogPostCategoryRecord(UpdateBlogPostCategoryRequest $request, string $id);
 
-    #Delete
+    /* Delete ******************************************************************************************************* */
 
     /**
      * @param string $blog_post_category_id
@@ -85,4 +84,7 @@ interface BlogPostCategoryRepositoryInterface
      * @return mixed
      */
     public function massDestroyBlogPostCategoryRecords(MassDestroyBlogPostCategoryRequest $request);
+
+    /* Sanitize ***************************************************************************************************** */
+
 }

@@ -13,13 +13,15 @@ class CreateBlogPostStatussesTable extends Migration
      */
     public function up()
     {
-        Schema::create('blog_post_statusses', function (Blueprint $table) {
-            $table->unsignedBigInteger('id', true);
-            $table->string('title');
-            $table->string('slug');
-            $table->timestamps();
-            $table->softDeletes();
-        });
+        if (!Schema::hasTable('blog_post_statusses')) {
+            Schema::create('blog_post_statusses', function (Blueprint $table) {
+                $table->unsignedBigInteger('id', true);
+                $table->string('title');
+                $table->string('slug');
+                $table->timestamps();
+                $table->softDeletes();
+            });
+        }
     }
 
     /**

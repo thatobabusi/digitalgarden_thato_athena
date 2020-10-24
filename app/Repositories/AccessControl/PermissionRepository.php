@@ -16,7 +16,8 @@ use Illuminate\Support\Collection;
  */
 class PermissionRepository implements PermissionRepositoryInterface
 {
-    #Get
+    /* Get ********************************************************************************************************* */
+
     /**
      * @return Permission[]|\Illuminate\Database\Eloquent\Collection
      */
@@ -40,9 +41,8 @@ class PermissionRepository implements PermissionRepositoryInterface
         return Permission::where("$criteria", "$value")->get()->count();
     }
 
-    #Check
+    /* List ********************************************************************************************************* */
 
-    #List
     /**
      * @return Collection
      */
@@ -51,7 +51,7 @@ class PermissionRepository implements PermissionRepositoryInterface
         return Permission::all()->pluck('title', 'id');
     }
 
-    #Store
+    /* Store ******************************************************************************************************** */
 
     /**
      * @param StorePermissionRequest $request
@@ -63,7 +63,7 @@ class PermissionRepository implements PermissionRepositoryInterface
         return Permission::create($request->all());
     }
 
-    #Update
+    /* Update ******************************************************************************************************* */
 
     /**
      * @param UpdatePermissionRequest $request
@@ -76,7 +76,7 @@ class PermissionRepository implements PermissionRepositoryInterface
         return $permission->update($request->all());
     }
 
-    #Delete
+    /* Delete ******************************************************************************************************* */
 
     /**
      * @param Permission $permission

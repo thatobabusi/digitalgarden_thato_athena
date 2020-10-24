@@ -28,6 +28,6 @@ class UploadsController extends Controller
 
         $data = [];
 
-        return view('admin.uploads.index', $data);
+        return view('system_backend.admin.uploads.index', $data);
     }
 }

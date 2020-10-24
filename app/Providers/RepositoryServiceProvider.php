@@ -24,6 +24,7 @@ use App\Repositories\System\SystemMetaRepository;
 use App\Repositories\System\SystemMetaRepositoryInterface;
 use App\Repositories\System\SystemPageRepository;
 use App\Repositories\System\SystemPageRepositoryInterface;
+use App\Repositories\System\SystemPageSectionRepository;
 use App\Repositories\User\UserRepository;
 use App\Repositories\User\UserRepositoryInterface;
 
@@ -68,6 +69,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(SystemMenuItemRepositoryInterface::class, SystemMenuItemRepository::class);
         $this->app->bind(SystemMetaRepositoryInterface::class, SystemMetaRepository::class);
         $this->app->bind(SystemPageRepositoryInterface::class, SystemPageRepository::class);
+        $this->app->bind(SystemPageSectionRepository::class, SystemPageSectionRepository::class);
 
     }
 

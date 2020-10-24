@@ -13,6 +13,8 @@ use Meta;
 class SystemConfigPluginRepository implements SystemConfigPluginRepositoryInterface
 {
 
+    /* Format ******************************************************************************************************* */
+
     /**
      * @param string      $robots
      * @param string      $title

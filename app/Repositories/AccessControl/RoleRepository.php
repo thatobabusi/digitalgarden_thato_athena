@@ -16,7 +16,8 @@ use Illuminate\Database\Eloquent\Collection;
  */
 class RoleRepository implements RoleRepositoryInterface
 {
-    #Get
+    /* Get ********************************************************************************************************* */
+
     /**
      * @return Role[]|Collection
      */
@@ -39,9 +40,9 @@ class RoleRepository implements RoleRepositoryInterface
 
         return Role::where("$criteria", "$value")->get()->count();
     }
-    #Check
 
-    #List
+    /* List ********************************************************************************************************* */
+
     /**
      * @return \Illuminate\Support\Collection|mixed
      */
@@ -50,7 +51,7 @@ class RoleRepository implements RoleRepositoryInterface
         return Role::all()->pluck('title', 'id');
     }
 
-    #Store
+    /* Store ******************************************************************************************************** */
 
     /**
      * @param StoreRoleRequest $request
@@ -65,7 +66,7 @@ class RoleRepository implements RoleRepositoryInterface
         return true;
     }
 
-    #Update
+    /* Update ******************************************************************************************************* */
 
     /**
      * @param UpdateRoleRequest $request
@@ -81,7 +82,7 @@ class RoleRepository implements RoleRepositoryInterface
         return true;
     }
 
-    #Delete
+    /* Delete ******************************************************************************************************* */
 
     /**
      * @param Role $role

@@ -13,12 +13,13 @@ class CreateBlogPostImage extends Migration
      */
     public function up()
     {
-        Schema::create('blog_post_image', function (Blueprint $table)
-        {
-            $table->unsignedBigInteger('blog_post_id')->index('blog_post_id_fk_1001484');
-            $table->unsignedBigInteger('image_id')->index('image_id_fk_1001484');
+        if (!Schema::hasTable('blog_post_image')) {
+            Schema::create('blog_post_image', function (Blueprint $table) {
+                $table->unsignedBigInteger('blog_post_id')->index('blog_post_id_fk_1001484');
+                $table->unsignedBigInteger('image_id')->index('image_id_fk_1001484');
 
-        });
+            });
+        }
     }
 
     /**

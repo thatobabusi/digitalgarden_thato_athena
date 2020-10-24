@@ -3,6 +3,7 @@
 namespace App\Models\Image;
 
 use App\Models\Blog\BlogPost;
+use App\Models\Resume\Resume;
 use Carbon\Carbon;
 use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 use Illuminate\Database\Eloquent\Model;
@@ -90,6 +91,8 @@ class Image extends Model
         'alt',
     ];
 
+    /* RELATIONS **************************************************************************************************** */
+
     /**
      * @return BelongsTo
      */
@@ -113,6 +116,8 @@ class Image extends Model
     {
         return $this->belongsToMany(BlogPost::class);
     }
+
+    /* GETTERS ****************************************************************************************************** */
 
     /**
      * @param string|null $value

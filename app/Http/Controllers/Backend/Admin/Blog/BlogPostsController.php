@@ -93,10 +93,10 @@ class BlogPostsController extends Controller
         $limit = 10;
 
         $data = [
-            'dataTable' => $this->getAllBlogPostsByAjax($limit),
+            'dataTable' => $this->getAllBlogPostsByAjax("$limit"),
         ];
 
-        return view('admin.blog.blog_posts.index', $data);
+        return view('system_backend.admin.blog.blog_posts.index', $data);
     }
 
     /**
@@ -113,7 +113,7 @@ class BlogPostsController extends Controller
             'statusses' => $this->blogPostRepository->listAllStatussesByTitleAndId(),
         ];
 
-        return view('admin.blog.blog_posts.create', $data);
+        return view('system_backend.admin.blog.blog_posts.create', $data);
     }
 
     /**
@@ -121,7 +121,7 @@ class BlogPostsController extends Controller
      *
      * @return RedirectResponse
      */
-    public function store(StoreBlogPostRequest $request)
+    public function store(StoreBlogPostRequest $request): RedirectResponse
     {
         $new_image = $this->systemImageRepository->uploadImage($request->upload, 'blog_post_images');
 
@@ -157,7 +157,7 @@ class BlogPostsController extends Controller
                 'statusses' => $this->blogPostRepository->listAllStatussesByTitleAndId(),
                 ];
 
-        return view('admin.blog.blog_posts.edit', $data);
+        return view('system_backend.admin.blog.blog_posts.edit', $data);
     }
 
     /**
@@ -218,7 +218,7 @@ class BlogPostsController extends Controller
 
         $data = ['blogPost' => $blogPost, 'blogPostImage' => $blogPost->blogPostImages->first()];
 
-        return view('admin.blog.blog_posts.show', $data);
+        return view('system_backend.admin.blog.blog_posts.show', $data);
     }
 
     /**

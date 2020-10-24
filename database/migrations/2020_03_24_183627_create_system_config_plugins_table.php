@@ -12,18 +12,20 @@ class CreateSystemConfigPluginsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('system_config_plugins', function(Blueprint $table)
-		{
-			$table->unsignedBigInteger('id', true);
-			$table->string('title', 191);
-			$table->string('backend_frontend', 191)->nullable()->comment('Backend or Frontend');
-			$table->unsignedBigInteger('parent_id')->nullable();
-			$table->string('realted_id', 191)->nullable()->default('(NULL)')->comment('List Ids of modules that are related to this so when it gets archived they also get archived');
-			$table->string('core_or_optional', 191)->nullable()->default('Optional');
-			$table->boolean('enabled')->default(0);
-			$table->timestamps();
-            $table->softDeletes();
-		});
+        if (!Schema::hasTable('system_config_plugins')) {
+            Schema::create('system_config_plugins', function (Blueprint $table) {
+                $table->unsignedBigInteger('id', true);
+                $table->string('title', 191);
+                $table->string('backend_frontend', 191)->nullable()->comment('Backend or Frontend');
+                $table->unsignedBigInteger('parent_id')->nullable();
+                $table->string('realted_id',
+                    191)->nullable()->default('(NULL)')->comment('List Ids of modules that are related to this so when it gets archived they also get archived');
+                $table->string('core_or_optional', 191)->nullable()->default('Optional');
+                $table->boolean('enabled')->default(0);
+                $table->timestamps();
+                $table->softDeletes();
+            });
+        }
 	}
 
 

@@ -54,6 +54,8 @@ class SystemPageCategory extends Model
         'deleted_at',
     ];
 
+    /* RELATIONS **************************************************************************************************** */
+
     /**
      * @return HasMany
      */

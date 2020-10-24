@@ -3,6 +3,9 @@
 namespace App\Repositories\System;
 
 use App\Models\Image\Image;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\UploadedFile;
 
 /**
@@ -13,13 +16,40 @@ use Illuminate\Http\UploadedFile;
 interface SystemImageRepositoryInterface
 {
 
+    /* Get ********************************************************************************************************** */
+
+    /**
+     * @param string $id
+     *
+     * @return Image|Builder|Model|object|null
+     */
+    public function getImageRecordById(string $id);
+
+    /**
+     * @param string $slug
+     *
+     * @return Image|Builder|Model|object|null
+     */
+    public function getImageRecordBySlug(string $slug);
+
+    /**
+     * @param string|null $limit
+     *
+     * @return Image[]|Collection|\Illuminate\Support\Collection
+     */
+    public function getAllImageRecords(string $limit = null);
+
+    /* Upload ******************************************************************************************************* */
+
     /**
      * @param UploadedFile $image
      * @param string                        $image_type
      *
-     * @return mixed
+     * @return Image|UploadedFile|mixed
      */
     public function uploadImage(UploadedFile $image, string $image_type);
+
+    /* Delete ******************************************************************************************************* */
 
     /**
      * @param Image $old_image
@@ -28,24 +58,11 @@ interface SystemImageRepositoryInterface
      */
     public function deleteUploadedImage(Image $old_image);
 
-    /**
-     * @param string $id
-     *
-     * @return mixed
-     */
-    public function getImageRecordById(string $id);
+    //TODO::Complete
 
     /**
-     * @param string $slug
-     *
-     * @return mixed
+     * @return void
      */
-    public function getImageRecordBySlug(string $slug);
+    public function massDestroyImageRecords() :void;
 
-    /**
-     * @param string|null $limit
-     *
-     * @return mixed
-     */
-    public function getAllImageRecords(string $limit = null);
 }

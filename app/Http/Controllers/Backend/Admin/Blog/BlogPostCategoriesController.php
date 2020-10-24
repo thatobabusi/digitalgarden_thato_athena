@@ -76,7 +76,7 @@ class BlogPostCategoriesController extends Controller
 
         $data = ['blogPostCategories' => $this->blogPostCategory->getAllCategories()];
 
-        return view('admin.blog.blog_post_categories.index', $data);
+        return view('system_backend.admin.blog.blog_post_categories.index', $data);
     }
 
     /**
@@ -88,7 +88,7 @@ class BlogPostCategoriesController extends Controller
 
         $data = [];
 
-        return view('admin.blog.blog_post_categories.create', $data);
+        return view('system_backend.admin.blog.blog_post_categories.create', $data);
     }
 
     /**
@@ -116,7 +116,7 @@ class BlogPostCategoriesController extends Controller
 
         $data = ['blogPostCategory' => $this->blogPostCategory->getBlogPostCategoryRecordBySlug($blogPostCategorySlug)];
 
-        return view('admin.blog.blog_post_categories.show', $data);
+        return view('system_backend.admin.blog.blog_post_categories.show', $data);
     }
 
     /**
@@ -134,7 +134,7 @@ class BlogPostCategoriesController extends Controller
 
         $data = ['blogPostCategory' => $blogPostCategory];
 
-        return view('admin.blog.blog_post_categories.edit', $data);
+        return view('system_backend.admin.blog.blog_post_categories.edit', $data);
     }
 
     /**

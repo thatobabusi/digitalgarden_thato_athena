@@ -45,12 +45,11 @@ class SendContactFormEmail extends Mailable
      */
     public function __construct(Request $request)
     {
-
-        $this->from_fullname = $request->firstname . " " . $request->surname;
-        $this->from_email = $request->email;
-        $this->from_cellphone = $request->cellphone;
-        $this->subject = $request->subject;
-        $this->message = $request->message;
+        $this->from_fullname    = $request->firstname . " " . $request->surname;
+        $this->from_email       = $request->email;
+        $this->from_cellphone   = $request->cellphone;
+        $this->subject          = $request->subject;
+        $this->message          = $request->message;
     }
 
     /**
@@ -58,7 +57,7 @@ class SendContactFormEmail extends Mailable
      *
      * @return $this
      */
-    public function build()
+    public function build(): self
     {
         return $this->from('thatobabusiofficial@gmail.com')
                     ->markdown('emails.contactform')

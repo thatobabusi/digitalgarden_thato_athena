@@ -18,7 +18,8 @@ use Illuminate\Support\Collection;
  */
 class BlogPostCategoryRepository  implements BlogPostCategoryRepositoryInterface
 {
-    #Get
+
+    /* Get ********************************************************************************************************* */
 
     /**
      * @param string|null $limit
@@ -68,9 +69,8 @@ class BlogPostCategoryRepository  implements BlogPostCategoryRepositoryInterface
     {
         return BlogPostCategory::whereSlug($slug)->first();
     }
-    #Check
 
-    #List
+    /* List ********************************************************************************************************* */
 
     /**
      * @return Collection|mixed
@@ -80,7 +80,7 @@ class BlogPostCategoryRepository  implements BlogPostCategoryRepositoryInterface
         return BlogPostCategory::orderBy('title')->get()->pluck('title', 'id');
     }
 
-    #Store
+    /* Store ******************************************************************************************************** */
 
     /**
      * @param StoreBlogPostCategoryRequest $request
@@ -89,15 +89,13 @@ class BlogPostCategoryRepository  implements BlogPostCategoryRepositoryInterface
      */
     public function storeNewBlogPostCategoryRecord(StoreBlogPostCategoryRequest $request)
     {
-        $blog_post_category = new BlogPostCategory();
-        $blog_post_category->title = $request->input('title');
-        $blog_post_category->slug = $request->input('slug');
+        $blog_post_category = BlogPostCategory::create($request->all());
         $blog_post_category->save();
 
         return $blog_post_category;
     }
 
-    #Update
+    /* Update ******************************************************************************************************* */
 
     /**
      * @param UpdateBlogPostCategoryRequest $request
@@ -114,7 +112,7 @@ class BlogPostCategoryRepository  implements BlogPostCategoryRepositoryInterface
         return $blog_post_category;
     }
 
-    #Delete
+    /* Delete ******************************************************************************************************* */
 
     /**
      * @param string $blog_post_category_id
@@ -138,4 +136,7 @@ class BlogPostCategoryRepository  implements BlogPostCategoryRepositoryInterface
     {
         return BlogPostCategory::whereIn('id', request('ids'))->delete();
     }
+
+    /* Sanitize ***************************************************************************************************** */
+
 }

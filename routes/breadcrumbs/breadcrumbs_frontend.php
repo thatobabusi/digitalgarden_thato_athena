@@ -2,6 +2,11 @@
 
 use DaveJamesMiller\Breadcrumbs\Facades\Breadcrumbs;
 
+// Home
+Breadcrumbs::for('home', function ($trail) {
+    $trail->push('Home', route('home'));
+});
+
 // Home > Blog
 Breadcrumbs::for('frontend.home', function ($trail) {
     $trail->push('Home', route('frontend.home'));
@@ -43,33 +48,15 @@ Breadcrumbs::for('frontend.contact', function ($trail) {
     $trail->push('Contact', route('frontend.contact'));
 });
 
-// Home
-Breadcrumbs::for('home', function ($trail) {
-    $trail->push('Home', route('home'));
+//Home > Music
+Breadcrumbs::for('frontend.music', function ($trail) {
+    $trail->push('Home', route('frontend.home'));
+    $trail->push('Music', route('frontend.music'));
 });
 
-
-
-/*// Home > About
-Breadcrumbs::for('about', function ($trail) {
-    $trail->parent('home');
-    $trail->push('About', route('about'));
+//Home > Dynamic Frontend CMS pages
+Breadcrumbs::for('frontend.dynamic', function ($trail, $page_header) {
+    $trail->push('Home', route('frontend.home'));
+    $trail->push($page_header);
 });
 
-// Home > Blog
-Breadcrumbs::for('blog', function ($trail) {
-    $trail->parent('home');
-    $trail->push('Blog', route('blog'));
-});
-
-// Home > Blog > [Category]
-Breadcrumbs::for('category', function ($trail, $category) {
-    $trail->parent('blog');
-    $trail->push($category->title, route('category', $category->id));
-});
-
-// Home > Blog > [Category] > [Post]
-Breadcrumbs::for('post', function ($trail, $post) {
-    $trail->parent('category', $post->category);
-    $trail->push($post->title, route('post', $post->id));
-});*/

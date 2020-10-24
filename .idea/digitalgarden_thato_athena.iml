@@ -10,13 +10,16 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/arcanedev/support" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/asm89/stack-cors" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/awssat/laravel-visits" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/barryvanveen/lastfm" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/barryvdh/elfinder-flysystem-driver" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/barryvdh/laravel-dompdf" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/barryvdh/laravel-elfinder" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/barryvdh/laravel-ide-helper" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/barryvdh/reflection-docblock" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/beberlei/assert" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/beyondcode/laravel-self-diagnosis" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/bhavingajjar/laravel-api-generator" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/blade-ui-kit/blade-ui-kit" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/bonecms/laravel-captcha" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/brick/math" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/carbon-cli/carbon-cli" />
@@ -30,6 +33,7 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/doctrine/inflector" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/doctrine/instantiator" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/doctrine/lexer" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/dompdf/dompdf" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/dragonmantank/cron-expression" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/egulias/email-validator" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/erusev/parsedown" />
@@ -55,12 +59,14 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/guzzlehttp/psr7" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/hamcrest/hamcrest-php" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/intervention/image" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/jackiedo/dotenv-editor" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/jaybizzle/crawler-detect" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/jenssegers/agent" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/jeroen-g/laravel-packager" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/jolicode/jolinotif" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/jorenvanhocht/laravel-share" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/justinrainbow/json-schema" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/jwilsson/spotify-web-api-php" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/kitloong/laravel-migrations-generator" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/laminas/laminas-diactoros" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/laminas/laminas-zendframework-bridge" />
@@ -79,6 +85,7 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/league/flysystem" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/league/flysystem-cached-adapter" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/league/fractal" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/league/mime-type-detection" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/league/oauth1-client" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/league/oauth2-server" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/maatwebsite/excel" />
@@ -90,6 +97,7 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/mockery/mockery" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/monolog/monolog" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/moontoast/math" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/mtolhuys/laravel-schematics" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/myclabs/deep-copy" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/myclabs/php-enum" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/nesbot/carbon" />
@@ -104,6 +112,8 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/patchwork/utf8" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/phar-io/manifest" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/phar-io/version" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/phenx/php-font-lib" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/phenx/php-svg-lib" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/php-http/message-factory" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/php-school/cli-menu" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/php-school/terminal" />
@@ -142,6 +152,7 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/realrashid/sweet-alert" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/recca0120/terminal" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/renatomarinho/laravel-page-speed" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/sabberworm/php-css-parser" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/scrivo/highlight.php" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/sebastian/code-unit-reverse-lookup" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/sebastian/comparator" />
@@ -206,8 +217,10 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/tijsverkoyen/css-to-inline-styles" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/torann/geoip" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/ua-parser/uap-php" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/ukfast/laravel-health-check" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/vlucas/phpdotenv" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/voku/portable-ascii" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/waavi/sanitizer" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/webmozart/assert" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/webmozart/glob" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/webmozart/path-util" />

@@ -11,6 +11,9 @@ use Illuminate\Http\Request;
  */
 interface SystemEmailRepositoryInterface
 {
+
+    /* Process ****************************************************************************************************** */
+
     /**
      * @param Request $request
      *

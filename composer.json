@@ -8,13 +8,13 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^7.2.5",
+        "php": "^7.3",
         "ext-gd": "^7.4",
         "arcanedev/log-viewer": "^7.0",
         "awssat/laravel-visits": "^2.2",
+        "barryvanveen/lastfm": "^1.2",
         "barryvdh/laravel-elfinder": "^0.4.5",
         "beyondcode/laravel-self-diagnosis": "^1.4",
-        "bhavingajjar/laravel-api-generator": "^2.0",
         "bonecms/laravel-captcha": "^2.2",
         "carbon-cli/carbon-cli": "^1.2",
         "dipeshsukhia/laravel-html-minify": "^1.1",
@@ -27,6 +27,7 @@
         "intervention/image": "^2.5",
         "jeroen-g/laravel-packager": "^2.5",
         "jorenvanhocht/laravel-share": "^3.2",
+        "jwilsson/spotify-web-api-php": "^3.6",
         "laracasts/flash": "^3.1",
         "laravel/framework": "^7.0",
         "laravel/passport": "^8.4",
@@ -35,6 +36,7 @@
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.0",
         "mad-web/laravel-initializer": "^3.1",
+        "mtolhuys/laravel-schematics": "^0.10.3",
         "nunomaduro/larastan": "*",
         "nunomaduro/laravel-desktop-notifier": "^2.3",
         "php-school/cli-menu": "^4.0",
@@ -58,6 +60,7 @@
         "yajra/laravel-disqus": "^1.2"
     },
     "require-dev": {
+        "barryvdh/laravel-ide-helper": "^2.8",
         "facade/ignition": "^2.0",
         "fzaninotto/faker": "^1.9.1",
         "kitloong/laravel-migrations-generator": "^3.0",
@@ -105,6 +108,11 @@
         ],
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
+        ],
+        "post-update-cmd": [
+            "Illuminate\\Foundation\\ComposerScripts::postUpdate",
+            "@php artisan ide-helper:generate",
+            "@php artisan ide-helper:meta"
         ]
     }
 }

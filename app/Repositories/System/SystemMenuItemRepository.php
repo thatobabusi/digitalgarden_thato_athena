@@ -13,6 +13,8 @@ use Meta;
 class SystemMenuItemRepository implements SystemMenuItemRepositoryInterface
 {
 
+    /* Format ******************************************************************************************************* */
+
     /**
      * @param string      $robots
      * @param string      $title

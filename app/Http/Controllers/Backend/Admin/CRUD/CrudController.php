@@ -17,7 +17,7 @@ class CrudController extends Controller
      */
     public function index(): void
     {
-        dd("Crud Feature pending..");
+        //dd("Crud Feature pending..");
     }
 
     /**

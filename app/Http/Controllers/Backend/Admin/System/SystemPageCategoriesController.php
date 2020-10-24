@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend\Admin\System;
 
 use App\Http\Controllers\Controller;
 use App\Models\System\SystemPageCategory;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -15,12 +16,11 @@ use Illuminate\Http\Response;
 class SystemPageCategoriesController extends Controller
 {
     /**
-     * @return Response|null
+     * @return SystemPageCategory[]|Collection|Response|null
      */
-    public function index(): ?Response
+    public function index()
     {
-        $systemPageCategories = SystemPageCategory::all();
-        dd($systemPageCategories);
+        return SystemPageCategory::all();
     }
 
     /**

@@ -51,7 +51,7 @@ class PermissionsController extends Controller
             ->withProperties(['ip_address' => get_user_ip_address_via_helper()])
             ->log('User landed on the Permissions Page.');
 
-        return view('admin.permissions.index', $data);
+        return view('system_backend.admin.permissions.index', $data);
     }
 
     /**
@@ -65,7 +65,7 @@ class PermissionsController extends Controller
             ->withProperties(['ip_address' => get_user_ip_address_via_helper()])
             ->log('User landed on the Create Permissions Page.');
 
-        return view('admin.permissions.create');
+        return view('system_backend.admin.permissions.create');
     }
 
     /**
@@ -99,7 +99,7 @@ class PermissionsController extends Controller
             ->withProperties(['ip_address' => get_user_ip_address_via_helper()])
             ->log('User landed on the Edit Permissions Page.');
 
-        return view('admin.permissions.edit', $data);
+        return view('system_backend.admin.permissions.edit', $data);
     }
 
     /**
@@ -136,7 +136,7 @@ class PermissionsController extends Controller
             ->withProperties(['ip_address' => get_user_ip_address_via_helper()])
             ->log('User landed on the Show Permission Page.');
 
-        return view('admin.permissions.show', $data);
+        return view('system_backend.admin.permissions.show', $data);
     }
 
     /**

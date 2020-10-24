@@ -17,7 +17,8 @@ use Illuminate\Http\Request;
  */
 class UserRepository implements UserRepositoryInterface
 {
-    #Get
+    /* Get ********************************************************************************************************* */
+
     /**
      * @param Request $request
      *
@@ -64,9 +65,8 @@ class UserRepository implements UserRepositoryInterface
         return User::where("$criteria", "$value")->get()->count();
     }
 
-    #Check
+    /* List ********************************************************************************************************* */
 
-    #List
     /**
      * @param Request $request
      *
@@ -89,7 +89,7 @@ class UserRepository implements UserRepositoryInterface
         return $users;
     }
 
-    #Store
+    /* Store ******************************************************************************************************** */
 
     /**
      * @param StoreUserRequest $request
@@ -104,7 +104,7 @@ class UserRepository implements UserRepositoryInterface
         return $user;
     }
 
-    #Update
+    /* Update ******************************************************************************************************* */
 
     /**
      * @param UpdateUserRequest $request
@@ -115,12 +115,13 @@ class UserRepository implements UserRepositoryInterface
     public function updateExistingUserRecord(UpdateUserRequest $request, User $user)
     {
         $user->update($request->all());
+
         $user->roles()->sync($request->input('roles', []));
 
         return $user;
     }
 
-    #Delete
+    /* Delete ******************************************************************************************************* */
 
     /**
      * @param User $user
@@ -136,10 +137,13 @@ class UserRepository implements UserRepositoryInterface
     /**
      * @param MassDestroyUserRequest $request
      *
-     * @return mixed
+     * @return int|mixed
      */
     public function massDestroyUserRecords(MassDestroyUserRequest $request)
     {
         return User::whereIn('id', request('ids'))->delete();
     }
+
+    /* Sanitize ***************************************************************************************************** */
+
 }

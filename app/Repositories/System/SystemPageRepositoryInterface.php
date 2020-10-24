@@ -2,6 +2,10 @@
 
 namespace App\Repositories\System;
 
+use App\Models\System\SystemPage;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
 /**
@@ -11,6 +15,9 @@ use Illuminate\Http\Request;
  */
 interface SystemPageRepositoryInterface
 {
+
+    /* Get ********************************************************************************************************* */
+
     /**
      * @param string|null $limit
      *
@@ -19,18 +26,20 @@ interface SystemPageRepositoryInterface
     public function getAllSystemPageRecords(string $limit = null);
 
     /**
-     * @param $id
+     * @param int $id
      *
      * @return mixed
      */
-    public function getSystemPageById($id);
+    public function getSystemPageById(int $id);
 
     /**
-     * @param $slug
+     * @param string $slug
      *
      * @return mixed
      */
-    public function getSystemPageBySlug($slug);
+    public function getSystemPageBySlug(string $slug);
+
+    /* Store ******************************************************************************************************** */
 
     /**
      * @param Request $request
@@ -39,13 +48,17 @@ interface SystemPageRepositoryInterface
      */
     public function storeSystemPage(Request $request);
 
+    /* Update ******************************************************************************************************* */
+
     /**
      * @param Request $request
-     * @param         $id
+     * @param int     $id
      *
      * @return mixed
      */
-    public function updateSystemPage(Request $request, $id);
+    public function updateSystemPage(Request $request, int $id);
+
+    /* List ********************************************************************************************************* */
 
     /**
      * @return mixed
@@ -57,5 +70,6 @@ interface SystemPageRepositoryInterface
      */
     public function listAllSystemPagesBySlug();
 
+    /* Sanitize ***************************************************************************************************** */
 
 }

@@ -48,10 +48,8 @@ Route::resource('system-menu-items', 'System\SystemMenuItemsController');
 Route::resource('system-page-categories', 'System\SystemPageCategoriesController');
 Route::resource('system-page-fields', 'System\SystemPageFieldsController');
 Route::resource('system-page-metadata', 'System\SystemPageMetaDataController');
-Route::resource('system-page-sections', 'System\SystemPageSectionsController');
-Route::get('system-page-sections-ajaxGetById', 'System\SystemPageSectionsController@ajaxGetById')->name('pages.ajaxGetById');
-Route::get('system-page-sections-ajaxUpdate', 'System\SystemPageSectionsController@ajaxUpdate')->name('pages.ajaxUpdate');
-Route::get('system-page-sections-ajaxStore', 'System\SystemPageSectionsController@ajaxStore')->name('pages.ajaxStore');
+Route::resource('system-page-sections', 'System\SystemPageSectionsController', ['except' => ['create']]);
+Route::get('system-page-sections/create/{system_page}', 'System\SystemPageSectionsController@create')->name('system-page-sections.create');
 Route::resource('system-pages', 'System\SystemPagesController');
 /****************************************************************************************************************/
 #Images

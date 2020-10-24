@@ -51,7 +51,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class SystemMenuItem extends Model
 {
-    use SoftDeletes, Cachable;
+    use SoftDeletes;
 
     public $table = 'system_menu_items';
 

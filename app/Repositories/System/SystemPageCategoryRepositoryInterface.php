@@ -2,7 +2,8 @@
 
 namespace App\Repositories\System;
 
-use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 
 /**
  * Interface SystemPageCategoryRepositoryInterface
@@ -11,15 +12,20 @@ use Illuminate\Http\Request;
  */
 interface SystemPageCategoryRepositoryInterface
 {
+
+    /* Get ********************************************************************************************************* */
+
     /**
      * @param string|null $limit
      *
-     * @return mixed
+     * @return Builder[]|Collection|mixed
      */
     public function getAllSystemPageCategoriesRecords(string $limit = null);
 
+    /* List ********************************************************************************************************* */
+
     /**
-     * @return mixed
+     * @return \Illuminate\Support\Collection|mixed
      */
     public function listAllSystemCategoriesByTitleAndId();
 

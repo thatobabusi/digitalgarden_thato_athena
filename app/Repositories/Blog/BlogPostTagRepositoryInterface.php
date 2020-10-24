@@ -12,7 +12,7 @@ use App\Http\Requests\UpdateBlogPostTagRequest;
  */
 interface BlogPostTagRepositoryInterface
 {
-    #Get
+    /* Get ********************************************************************************************************* */
 
     /**
      * @param string|null $limit
@@ -42,16 +42,14 @@ interface BlogPostTagRepositoryInterface
      */
     public function getBlogPostTagRecordBySlug(string $slug);
 
-    #Check
-
-    #List
+    /* List ********************************************************************************************************* */
 
     /**
      * @return mixed
      */
     public function listAllTagsByTitleAndId();
 
-    #Store
+    /* Store ******************************************************************************************************** */
 
     /**
      * @param StoreBlogPostTagRequest $request
@@ -60,7 +58,7 @@ interface BlogPostTagRepositoryInterface
      */
     public function storeNewBlogPostTagRecord(StoreBlogPostTagRequest $request);
 
-    #Update
+    /* Update ******************************************************************************************************* */
 
     /**
      * @param UpdateBlogPostTagRequest $request
@@ -70,7 +68,7 @@ interface BlogPostTagRepositoryInterface
      */
     public function updateExistingBlogPostTagRecord(UpdateBlogPostTagRequest $request, string $id);
 
-    #Delete
+    /* Delete ******************************************************************************************************* */
 
     /**
      * @param string $blog_post_tag_id
@@ -79,5 +77,6 @@ interface BlogPostTagRepositoryInterface
      */
     public function destroySingleBlogPostTagRecord(string $blog_post_tag_id);
 
+    /* Sanitize ***************************************************************************************************** */
 
 }

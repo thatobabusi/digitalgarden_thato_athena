@@ -75,7 +75,7 @@ class BlogPostTagsController extends Controller
 
         $data = ['blogPostTags' => $this->blogPostTagRepository->getAllTags()];
 
-        return view('admin.blog.blog_post_tags.index', $data);
+        return view('system_backend.admin.blog.blog_post_tags.index', $data);
     }
 
     /**
@@ -87,7 +87,7 @@ class BlogPostTagsController extends Controller
 
         $data = [];
 
-        return view('admin.blog.blog_post_tags.create', $data);
+        return view('system_backend.admin.blog.blog_post_tags.create', $data);
     }
 
     /**
@@ -115,7 +115,7 @@ class BlogPostTagsController extends Controller
 
         $data = ['blogPostTag' => $this->blogPostTagRepository->getBlogPostTagRecordBySlug($blogPostTagSlug)];
 
-        return view('admin.blog.blog_post_tags.show', $data);
+        return view('system_backend.admin.blog.blog_post_tags.show', $data);
     }
 
     /**
@@ -129,7 +129,7 @@ class BlogPostTagsController extends Controller
 
         $data = ['blogPostTag' => $this->blogPostTagRepository->getBlogPostTagRecordBySlug($blogPostTagSlug)];
 
-        return view('admin.blog.blog_post_tags.edit', $data);
+        return view('system_backend.admin.blog.blog_post_tags.edit', $data);
     }
 
     /**

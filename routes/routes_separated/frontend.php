@@ -12,19 +12,12 @@ Route::get('/blog-tag/{tagSlug}', 'BlogController@indexTag')->name('frontend.vie
 
 #Search
 Route::any('/search', 'BlogController@search')->name('frontend.search');
-/*Route::any('/search',function(){
-    $q = Input::get ( 'q' );
-    $user = User::where('name','LIKE','%'.$q.'%')->orWhere('email','LIKE','%'.$q.'%')->get();
-    if(count($user) > 0) {
-        return view('welcome')->withDetails($user)->withQuery($q);
-    } else {
-        return view ('welcome')->withMessage('No Details found. Try to search again !');
-    }
-});*/
 
 #Contact Page
 Route::get('/contact', 'GenericFrontendPagesController@contact')->name('frontend.contact');
-Route::post('/contact', 'GenericFrontendPagesController@contact')->name('frontend.contact.submit');
+Route::post('/contact', 'GenericFrontendPagesController@contactSubmit')->name('frontend.contact.submit');
+
+Route::get('/music', 'GenericFrontendPagesController@music')->name('frontend.music');
 
 #Sitemaps
 Route::get('/sitemap', 'SitemapController@index')->name('frontend.sitemap');

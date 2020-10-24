@@ -60,6 +60,7 @@ return [
         '/_ignition/*', // https://github.com/facade/ignition
         '/horizon', '/horizon/*', // https://laravel.com/docs/horizon
         '/ignition-vendor/*', // https://flareapp.io/docs/ignition-for-laravel/third-party-extensions
+        '/schematics', '/schematics/*', //Hide these to prevent people from knowing too much
         '/telescope', '/telescope/*', // https://laravel.com/docs/telescope
         '/tinker', // https://github.com/spatie/laravel-web-tinker
     ],

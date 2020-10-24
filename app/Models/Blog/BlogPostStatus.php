@@ -31,6 +31,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @mixin \Eloquent
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Blog\BlogPostStatus disableCache()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Blog\BlogPostStatus withCacheCooldownSeconds($seconds = null)
+ * @method static \Illuminate\Database\Query\Builder|BlogPostStatus onlyTrashed()
+ * @method static \Illuminate\Database\Query\Builder|BlogPostStatus withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|BlogPostStatus withoutTrashed()
  */
 class BlogPostStatus extends Model
 {
@@ -62,13 +65,14 @@ class BlogPostStatus extends Model
         'deleted_at',
     ];
 
-    /**
-     * @return HasMany
-     */
+    /* RELATIONS **************************************************************************************************** */
+
     public function blogPost(): HasMany
     {
         return $this->hasMany(BlogPost::class);
     }
+
+    /* GETTERS ****************************************************************************************************** */
 
     /**
      * @param string|null $value

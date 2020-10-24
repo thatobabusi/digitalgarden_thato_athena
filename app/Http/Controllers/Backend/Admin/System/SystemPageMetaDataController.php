@@ -8,6 +8,7 @@ use App\Repositories\System\SystemPageCategoryRepository;
 use App\Repositories\System\SystemPageRepository;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class SystemPageMetaDataController extends Controller
 {
@@ -27,66 +28,48 @@ class SystemPageMetaDataController extends Controller
         $this->systemMetadataRepository = $systemMetadataRepository;
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function index(): void
     {
         //
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        dd("store");
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function create(): void
     {
         //
     }
 
     /**
      * @param Request $request
-     * @param         $id
+     */
+    public function store(Request $request): void
+    {
+        //
+    }
+
+    /**
+     * @param int $id
+     */
+    public function show(int $id): void
+    {
+        //
+    }
+
+    /**
+     * @param int $id
+     */
+    public function edit(int $id): void
+    {
+        //
+    }
+
+    /**
+     * @param Request $request
+     * @param int     $id
      *
      * @return RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, int $id): RedirectResponse
     {
         $system_meta_data = $this->systemMetadataRepository->updateMetaData($request, $id);
 
@@ -98,12 +81,9 @@ class SystemPageMetaDataController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
      */
-    public function destroy($id)
+    public function destroy(int $id): void
     {
         //
     }

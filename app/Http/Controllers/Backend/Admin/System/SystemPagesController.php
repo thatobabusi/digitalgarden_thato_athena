@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Backend\Admin\System;
 
 use App\Http\Controllers\Controller;
+use App\Models\System\SystemPage;
+use App\Models\System\SystemPageMetaData;
+use App\Models\System\SystemPageSection;
 use App\Repositories\System\SystemMetaRepository;
 use App\Repositories\System\SystemPageCategoryRepository;
 use App\Repositories\System\SystemPageRepository;
@@ -58,7 +61,7 @@ class SystemPagesController extends Controller
 
         $data = compact('system_pages');
 
-        return view("admin.system_pages.index", $data);
+        return view("system_backend.admin.system_pages.index", $data);
     }
 
     /**
@@ -71,7 +74,7 @@ class SystemPagesController extends Controller
 
         $data = compact('system_page_categories', 'system_page_categories_list');
 
-        return view("admin.system_pages.create", $data);
+        return view("system_backend.admin.system_pages.create", $data);
     }
 
     /**
@@ -79,7 +82,7 @@ class SystemPagesController extends Controller
      *
      * @return RedirectResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         $system_page = $this->systemPageRepository->storeSystemPage($request);
         $this->systemMetadataRepository->storeMetaData($request, $system_page);
@@ -94,10 +97,8 @@ class SystemPagesController extends Controller
 
     /**
      * @param string $id
-     *
-     * @return Response|null
      */
-    public function show(string $id): ?Response
+    public function show(string $id): void
     {
         //
     }
@@ -112,10 +113,11 @@ class SystemPagesController extends Controller
         $system_page = $this->systemPageRepository->getSystemPageById($id);
         $system_page_categories = $this->systemPageCategoryRepository->getAllSystemPageCategoriesRecords();
         $system_page_categories_list = $this->systemPageCategoryRepository->listAllSystemCategoriesByTitleAndId();
+        $system_page_metadata = $system_page->systemPageMetadata;
 
-        $data = compact('system_page', 'system_page_categories', 'system_page_categories_list');
+        $data = compact('system_page', 'system_page_categories', 'system_page_categories_list', 'system_page_metadata');
 
-        return view("admin.system_pages.edit", $data);
+        return view("system_backend.admin.system_pages.edit", $data);
     }
 
     /**
@@ -124,16 +126,8 @@ class SystemPagesController extends Controller
      *
      * @return RedirectResponse
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $id): RedirectResponse
     {
-        $fields = $request->fields;
-        $new_array = [];
-        foreach($fields as $index => $f) {
-            $new_array[][$index] = $f;
-        }
-        dd($new_array);
-        dd($fields);
-        dd($request->all());
         $system_page = $this->systemPageRepository->updateSystemPage($request, $id);
 
         if($system_page) {
@@ -146,10 +140,30 @@ class SystemPagesController extends Controller
     /**
      * @param string $id
      *
-     * @return Response|null
+     * @return RedirectResponse
+     * @throws \Exception
      */
-    public function destroy(string $id): ?Response
+    public function destroy(string $id): RedirectResponse
     {
-        //
+        $systemPage = SystemPage::whereId($id)->first();
+
+        if(isset($systemPage->id)) {
+            $systemPageMeta = SystemPageMetaData::whereSystemPageId($id)->first();
+            $systemPageSections = SystemPageSection::whereSystemPageId($id)->get();
+
+            if (isset($systemPageMeta->id)) {
+                $systemPageMeta->delete();
+            }
+
+            foreach ($systemPageSections as $s) {
+                $s->delete();
+            }
+
+            $systemPage->delete();
+        }
+
+        alert()->success('Success', 'System Page Deleted Successfully.')->timerProgressBar();
+
+        return redirect()->action('Backend\Admin\System\SystemPagesController@index');
     }
 }

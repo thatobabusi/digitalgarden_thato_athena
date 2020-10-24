@@ -5,7 +5,6 @@ namespace App\Repositories\System;
 use App\Models\System\SystemPageCategory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Str;
 use Meta;
 
 /**
@@ -15,6 +14,8 @@ use Meta;
  */
 class SystemPageCategoryRepository implements SystemPageCategoryRepositoryInterface
 {
+
+    /* Get ********************************************************************************************************* */
 
     /**
      * @param string|null $limit
@@ -33,8 +34,10 @@ class SystemPageCategoryRepository implements SystemPageCategoryRepositoryInterf
             ->take((int)$limit);
     }
 
+    /* List ********************************************************************************************************* */
+
     /**
-     * @return \Illuminate\Support\Collection
+     * @return \Illuminate\Support\Collection|mixed
      */
     public function listAllSystemCategoriesByTitleAndId()
     {

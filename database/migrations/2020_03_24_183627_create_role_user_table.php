@@ -12,11 +12,12 @@ class CreateRoleUserTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('role_user', function(Blueprint $table)
-		{
-			$table->integer('user_id')->unsigned()->index('user_id_fk_1001484');
-			$table->integer('role_id')->unsigned()->index('role_id_fk_1001484');
-		});
+        if (!Schema::hasTable('role_user')) {
+            Schema::create('role_user', function (Blueprint $table) {
+                $table->integer('user_id')->unsigned()->index('user_id_fk_1001484');
+                $table->integer('role_id')->unsigned()->index('role_id_fk_1001484');
+            });
+        }
 	}
 
 

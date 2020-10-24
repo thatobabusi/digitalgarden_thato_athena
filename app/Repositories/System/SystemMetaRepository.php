@@ -15,6 +15,57 @@ use Meta;
  */
 class SystemMetaRepository implements SystemMetaRepositoryInterface
 {
+    /* Store ******************************************************************************************************** */
+
+    /**
+     * @param Request    $request
+     * @param SystemPage $systemPage
+     *
+     * @return mixed
+     */
+    public function storeMetaData(Request $request, SystemPage $systemPage)
+    {
+        $robots = str_replace("-","",$request->meta_robots);
+
+        $system_page_metadata = SystemPageMetaData::create([
+            'system_page_id' => $systemPage->id,
+            'title' => $request->meta_title,
+            'author' => $request->meta_author,
+            'robots' => $robots,
+            'keywords' => $request->meta_keywords,
+            'description' => $request->meta_description,
+        ]);
+
+        return $system_page_metadata;
+    }
+
+    /* Update ******************************************************************************************************* */
+
+    /**
+     * @param Request $request
+     * @param int     $id
+     *
+     * @return mixed
+     */
+    public function updateMetaData(Request $request, int $id)
+    {
+        $system_page_metadata = SystemPageMetaData::whereId($id)->first();
+
+        if(isset($system_page_metadata->id)) {
+
+            $system_page_metadata->title = $request->meta_title;
+            $system_page_metadata->author = $request->meta_author;
+            $system_page_metadata->robots = str_replace("-", "", $request->meta_robots);
+            $system_page_metadata->keywords = $request->meta_keywords;
+            $system_page_metadata->description = $request->meta_description;
+            $system_page_metadata->save();
+
+            return $system_page_metadata;
+        }
+        return null;
+    }
+
+    /* Format ******************************************************************************************************* */
 
     /**
      * @param string      $robots
@@ -43,47 +94,4 @@ class SystemMetaRepository implements SystemMetaRepositoryInterface
         Meta::set('image', asset($image) );
     }
 
-    /**
-     * @param Request    $request
-     * @param SystemPage $systemPage
-     *
-     * @return mixed
-     */
-    public function storeMetaData(Request $request, SystemPage $systemPage)
-    {
-        $robots = str_replace("-","",$request->meta_keywords);
-
-        $system_page_metadata = SystemPageMetaData::create([
-            'system_page_id' => $systemPage->id,
-            'title' => $request->meta_title,
-            'author' => $request->meta_author,
-            'robots' => $robots,
-            'keywords' => $request->meta_keywords,
-            'description' => $request->meta_description,
-        ]);
-
-        return $system_page_metadata;
-    }
-
-    /**
-     * @param Request $request
-     * @param         $id
-     *
-     * @return mixed
-     */
-    public function updateMetaData(Request $request, $id)
-    {
-        $system_page_metadata = SystemPageMetaData::whereId($id)->first();
-
-        $robots = str_replace("-","",$request->meta_robots);
-
-        $system_page_metadata->title = $request->meta_title;
-        $system_page_metadata->author = $request->meta_author;
-        $system_page_metadata->robots = $robots;
-        $system_page_metadata->keywords = $request->meta_keywords;
-        $system_page_metadata->description = $request->meta_description;
-        $system_page_metadata->save();
-
-        return $system_page_metadata;
-    }
 }

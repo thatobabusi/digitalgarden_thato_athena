@@ -14,6 +14,8 @@ use App\Models\AccessControl\Permission;
  */
 interface PermissionRepositoryInterface
 {
+    /* Get ********************************************************************************************************* */
+
     /**
      * @return mixed
      */
@@ -27,10 +29,14 @@ interface PermissionRepositoryInterface
      */
     public function getPermissionsCountByCriteria(string $criteria = null, string $value = null);
 
+    /* List ********************************************************************************************************* */
+
     /**
      * @return mixed
      */
     public function listAllPermissionsByTitleAndId();
+
+    /* Store ******************************************************************************************************** */
 
     /**
      * @param StorePermissionRequest $request
@@ -46,6 +52,8 @@ interface PermissionRepositoryInterface
      * @return mixed
      */
     public function updateExistingPermissionRecord(UpdatePermissionRequest $request, Permission $permission);
+
+    /* Delete ******************************************************************************************************* */
 
     /**
      * @param Permission $permission

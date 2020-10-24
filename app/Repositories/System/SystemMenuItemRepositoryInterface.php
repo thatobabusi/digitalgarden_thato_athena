@@ -11,6 +11,9 @@ use Illuminate\Http\Request;
  */
 interface SystemMenuItemRepositoryInterface
 {
+
+    /* Format ******************************************************************************************************* */
+
     /**
      * @param string      $robots
      * @param string      $title

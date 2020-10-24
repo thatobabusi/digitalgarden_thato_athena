@@ -3,159 +3,171 @@
 namespace App\Http\Controllers\Backend\Admin\System;
 
 use App\Http\Controllers\Controller;
+use App\Models\System\SystemPage;
 use App\Models\System\SystemPageSection;
-use Illuminate\Http\JsonResponse;
+use App\Repositories\System\SystemMetaRepository;
+use App\Repositories\System\SystemPageCategoryRepository;
+use App\Repositories\System\SystemPageRepository;
+use App\Repositories\System\SystemPageSectionRepository;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
+/**
+ * Class SystemPageSectionsController
+ *
+ * @package App\Http\Controllers\Backend\Admin\System
+ */
 class SystemPageSectionsController extends Controller
 {
 
     /**
-     * @param Request $request
-     *
-     * @return JsonResponse
+     * @var SystemMetaRepository
      */
-    public function index(Request $request): JsonResponse
-    {
-        $system_page_sections = SystemPageSection::whereSystemPageId($request->system_page_id)->get();
+    protected $systemMetadataRepository;
+    /**
+     * @var SystemPageRepository
+     */
+    protected $systemPageRepository;
+    /**
+     * @var SystemPageCategoryRepository
+     */
+    protected $systemPageCategoryRepository;
+    /**
+     * @var SystemPageSectionRepository
+     */
+    protected $systemPageSectionRepository;
 
-        return response()->json(['data' => $system_page_sections]);
+    /**
+     * SystemPageSectionsController constructor.
+     *
+     * @param SystemMetaRepository         $systemMetadataRepository
+     * @param SystemPageRepository         $systemPageRepository
+     * @param SystemPageCategoryRepository $systemPageCategoryRepository
+     * @param SystemPageSectionRepository  $systemPageSectionRepository
+     */
+    public function __construct( SystemMetaRepository $systemMetadataRepository, SystemPageRepository $systemPageRepository,
+        SystemPageCategoryRepository $systemPageCategoryRepository, SystemPageSectionRepository $systemPageSectionRepository)
+    {
+        $this->systemMetadataRepository = $systemMetadataRepository;
+        $this->systemPageRepository = $systemPageRepository;
+        $this->systemPageCategoryRepository = $systemPageCategoryRepository;
+        $this->systemPageSectionRepository = $systemPageSectionRepository;
     }
 
     /**
      * @param Request $request
      *
-     * @return JsonResponse
+     * @return mixed
+     * @throws \Exception]
      */
-    public function ajaxGetById(Request $request): JsonResponse
+    public function index(Request $request)
     {
-        $system_page_section = SystemPageSection::whereId($request->id)->first();
+        return $this->systemPageSectionRepository->getAllSystemPageSectionAndBuildTable($request->system_page_id);
+    }
 
-        return response()->json([
-            'success' => true,
-            'data' => $system_page_section,
-        ]);
+    /**
+     * @param SystemPage $systemPage
+     *
+     * @return Application|Factory|View
+     */
+    public function create(SystemPage $systemPage)
+    {
+        $data = compact('systemPage');
+
+        return view("system_backend.admin.system_pages.sections", $data);
     }
 
     /**
      * @param Request $request
      *
-     * @return JsonResponse
-     */
-    public function ajaxUpdate(Request $request): JsonResponse
-    {
-        $system_page_section = SystemPageSection::whereId($request->section_id)->first();
-
-        $system_page_section->title = $request->title;
-        $system_page_section->header = $request->header;
-        $system_page_section->subheader = $request->subheader;
-        $system_page_section->order = $request->order;
-        $system_page_section->body = $request->body;
-        $system_page_section->save();
-
-        return response()->json([
-            'success' => true,
-            'data' => $system_page_section,
-        ]);
-    }
-
-    /**
-     * @param Request $request
-     *
-     * @return JsonResponse
-     */
-    public function ajaxStore(Request $request): JsonResponse
-    {
-        $system_page_section = new SystemPageSection();
-        $system_page_section->system_page_id = $request->input('page_id');
-        $system_page_section->title = $request->input('title');
-        $system_page_section->header = $request->input('header');
-        $system_page_section->subheader = $request->input('subheader');
-        $system_page_section->order = $request->input('order');
-        $system_page_section->body = $request->input('body');
-
-        $system_page_section->save();
-
-        return response()->json([
-            'success' => true,
-            'data' => $system_page_section,
-        ]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return Application|Factory|View
      */
     public function store(Request $request)
     {
-        //
+        $system_page_section = $this->systemPageSectionRepository->storeNew($request);
+        $system_pages = $this->systemPageRepository->getAllSystemPageRecords();
+
+        $data = compact('system_pages');
+
+        alert()->success('Success', 'System Page Section Created Successfully. ')->timerProgressBar();
+
+        return view("system_backend.admin.system_pages.index", $data);
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
      */
-    public function show($id)
+    public function show(int $id): void
     {
         //
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * @param SystemPageSection $systemPageSection
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Application|Factory|View
      */
-    public function edit($id)
+    public function edit(SystemPageSection $systemPageSection )
     {
-        //
+        $systemPage = SystemPage::whereId($systemPageSection->systemPage->id)->first();
+
+        $data = compact('systemPage', 'systemPageSection');
+
+        return view("system_backend.admin.system_pages.sections", $data);
     }
 
     /**
      * @param Request $request
-     * @param         $id
+     * @param int     $id
      *
-     * @return JsonResponse
+     * @return Application|Factory|View
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, int $id)
     {
-        $system_page_section = SystemPageSection::whereId($request->section_id)->first();
+        $system_page_section = $this->systemPageSectionRepository->updateById($request, $id);
+        $system_pages = $this->systemPageRepository->getAllSystemPageRecords();
 
-        $system_page_section->title = $request->title;
-        $system_page_section->header = $request->header;
-        $system_page_section->subheader = $request->subheader;
-        $system_page_section->order = $request->order;
-        $system_page_section->body = $request->body;
-        $system_page_section->save();
+        $data = compact('system_pages');
 
-        return response()->json([
-            'success' => true,
-            'data' => $system_page_section,
-        ]);
+        if($system_page_section) {
+            alert()->success('Success', 'System Page Section Updated Successfully. ')->timerProgressBar();
+        }
+
+        return view("system_backend.admin.system_pages.index", $data);
     }
 
     /**
-     * Remove the specified resource from storage.
+     * @param int $id
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(int $id): RedirectResponse
     {
-        //
+        $systemPageSection = systemPageSection::whereId($id)->first();
+
+        if (isset($systemPageSection->system_page_id)) {
+
+            $system_page_sections = SystemPageSection::orderBy("order", "ASC")
+                ->whereSystemPageId($systemPageSection->system_page_id)
+                ->where("id", "<>", $id)
+                ->get();
+
+            $systemPageSection->delete();
+
+            $count = 1;
+
+            foreach ($system_page_sections as $section) {
+                $section->order = "$count";
+                $section->save();
+                $count++;
+            }
+
+            alert()->success('Success', 'System Page Section Deleted Successfully. ')->timerProgressBar();
+        }
+
+        return back();
     }
 }

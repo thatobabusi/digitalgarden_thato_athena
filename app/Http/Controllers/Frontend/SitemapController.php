@@ -47,12 +47,12 @@ class SitemapController extends Controller
     /**
      * @return Response
      */
-    public function index()
+    public function index(): Response
     {
         $blogPosts = $this->blogPostRepository->getAllBlogPostsRecords();
         $blogPostCategories = $this->blogPostCategory->getAllCategories();
 
-        return response()->view('sitemap.index', [
+        return response()->view('system_frontend.sitemap.index', [
             'blogPosts' => $blogPosts,
             'blogPostCategories' => $blogPostCategories,
         ])->header('Content-Type', 'text/xml');
@@ -64,7 +64,7 @@ class SitemapController extends Controller
     public function blogPosts(): Response
     {
         $blogPosts = $this->blogPostRepository->getAllBlogPostsRecords();
-        return response()->view('sitemap.blogposts', [
+        return response()->view('system_frontend.sitemap.blogposts', [
             'blogPosts' => $blogPosts,
         ])->header('Content-Type', 'text/xml');
     }
@@ -75,7 +75,7 @@ class SitemapController extends Controller
     public function blogPostCategories(): Response
     {
         $blogPostCategories = $this->blogPostCategory->getAllCategories();
-        return response()->view('sitemap.blogcategories', [
+        return response()->view('system_frontend.sitemap.blogcategories', [
             'blogPostCategories' => $blogPostCategories,
         ])->header('Content-Type', 'text/xml');
     }
@@ -86,7 +86,7 @@ class SitemapController extends Controller
     public function blogPostTags(): Response
     {
         $blogPostTags = $this->blogPostTagRepository->getAllTags();
-        return response()->view('sitemap.blogtags', [
+        return response()->view('system_frontend.sitemap.blogtags', [
             'blogPostTags' => $blogPostTags,
         ])->header('Content-Type', 'text/xml');
     }

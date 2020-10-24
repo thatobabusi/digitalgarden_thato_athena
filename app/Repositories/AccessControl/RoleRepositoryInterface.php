@@ -14,6 +14,8 @@ use App\Models\AccessControl\Role;
  */
 interface RoleRepositoryInterface
 {
+    /* Get ********************************************************************************************************* */
+
     /**
      * @return mixed
      */
@@ -27,10 +29,14 @@ interface RoleRepositoryInterface
      */
     public function getRolesCountByCriteria(string $criteria = null, string $value = null);
 
+    /* List ********************************************************************************************************* */
+
     /**
      * @return mixed
      */
     public function listAllRolesByTitleAndId();
+
+    /* Store ******************************************************************************************************** */
 
     /**
      * @param StoreRoleRequest $request
@@ -39,6 +45,8 @@ interface RoleRepositoryInterface
      */
     public function storeNewRoleRecord(StoreRoleRequest $request);
 
+    /* Update ******************************************************************************************************* */
+
     /**
      * @param UpdateRoleRequest $request
      * @param Role              $role
@@ -46,6 +54,8 @@ interface RoleRepositoryInterface
      * @return mixed
      */
     public function updateExistingRoleRecord(UpdateRoleRequest $request, Role $role);
+
+    /* Delete ******************************************************************************************************* */
 
     /**
      * @param Role $role

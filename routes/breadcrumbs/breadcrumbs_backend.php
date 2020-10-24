@@ -151,6 +151,36 @@ Breadcrumbs::for('admin.system-pages.index', function ($trail) {
     $trail->push('Pages Manager', route('admin.system-pages.index'));
 });
 
+// Home > Create
+Breadcrumbs::for('admin.system-pages.create', function ($trail) {
+    $trail->push('Admin Dashboard', route('admin.home'));
+    $trail->push('Pages Manager', route('admin.system-pages.index'));
+    $trail->push('Create Page');
+});
+
+// Home > Edit
+Breadcrumbs::for('admin.system-pages.edit', function ($trail, $page_title) {
+    $trail->push('Admin Dashboard', route('admin.home'));
+    $trail->push('Pages Manager', route('admin.system-pages.index'));
+    $trail->push('Edit Page - ' . $page_title);
+});
+
+// Home > Page > Section > Create
+Breadcrumbs::for('admin.system-pages.section-create', function ($trail, $page_title) {
+    $trail->push('Admin Dashboard', route('admin.home'));
+    $trail->push('Pages Manager', route('admin.system-pages.index'));
+    $trail->push($page_title, url()->previous());
+    $trail->push('Create Section');
+});
+
+// Home > Page > Section > Edit
+Breadcrumbs::for('admin.system-pages.section-edit', function ($trail, $page_title, $section_title) {
+    $trail->push('Admin Dashboard', route('admin.home'));
+    $trail->push('Pages Manager', route('admin.system-pages.index'));
+    $trail->push($page_title, url()->previous());
+    $trail->push('Edit Section - ' . $section_title);
+});
+
 // Home > Plugins
 Breadcrumbs::for('admin.system-config-plugins.index', function ($trail) {
     $trail->push('Admin Dashboard', route('admin.home'));

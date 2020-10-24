@@ -1,4 +1,4 @@
-@extends('layouts.backend.app_layout_backend_developer')
+@extends('system_layouts.backend.app_layout_backend_developer')
 
 @section('content')
 <!doctype html>

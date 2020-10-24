@@ -13,6 +13,9 @@ use App\Repositories\Blog\BlogPostRepository;
 use App\Repositories\Blog\BlogPostTagRepository;
 use App\Repositories\System\SystemImageRepository;
 use App\Repositories\System\SystemMetaRepository;
+use Barryvanveen\Lastfm\Lastfm;
+use GuzzleHttp\Client;
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -81,6 +84,7 @@ class BlogController extends Controller
      */
     public function index(Request $request)
     {
+
         $data = $this->blogPostRepository->getDynamicIndexContent();
 
         $this->systemMetadataRepository->formatMetaData(
@@ -93,14 +97,14 @@ class BlogController extends Controller
 
         if ($request->ajax())
         {
-            $view = view('partials.frontend.blog.blog_posts_paginated',$data)->render();
+            $view = view('system_layouts.frontend.components.blog.blog_posts_paginated',$data)->render();
             return response()->json(['html'=>$view]);
         }
 
         activity('front-end')->withProperties(['ip_address' => get_user_ip_address_via_helper()])
             ->log('User landed on the Blog Index Page.');
 
-        return view('frontend.blog.blog_index', $data);
+        return view('system_frontend.blog.blog_index', $data);
     }
 
     /**
@@ -113,7 +117,7 @@ class BlogController extends Controller
         $data = $this->blogPostRepository->getDynamicIndexContent('archive_date', $archive_date);
 
         $this->systemMetadataRepository->formatMetaData(
-            "index,follow",
+            "noindex,nofollow",
             "Blog Posts Archive | $archive_date",
             "$this->authorDefault",
             "Blog, Archive, $archive_date",
@@ -123,7 +127,7 @@ class BlogController extends Controller
         activity('front-end')->withProperties(['ip_address' => get_user_ip_address_via_helper()])
             ->log('User landed on the Blog Archive Page using archive date '.$archive_date.'.');
 
-        return view('frontend.blog.blog_index', $data);
+        return view('system_frontend.blog.blog_index', $data);
     }
 
     /**
@@ -138,7 +142,7 @@ class BlogController extends Controller
         $category = Str::title($category_slug);
 
         $this->systemMetadataRepository->formatMetaData(
-            "index,follow",
+            "noindex,nofollow",
             "Blog Posts Category | $category",
             "$this->authorDefault",
             "Blog, Archive, $category",
@@ -148,7 +152,7 @@ class BlogController extends Controller
         activity('front-end')->withProperties(['ip_address' => get_user_ip_address_via_helper()])
             ->log('User landed on the Blog Category Page using category slug '.$category_slug.'.');
 
-        return view('frontend.blog.blog_index', $data);
+        return view('system_frontend.blog.blog_index', $data);
     }
 
     /**
@@ -163,7 +167,7 @@ class BlogController extends Controller
         $tag = Str::title(Str::of($tag_slug)->replace('-', ' '));
 
         $this->systemMetadataRepository->formatMetaData(
-            "index,follow",
+            "noindex,nofollow",
             "Blog Posts Tag | $tag",
             "$this->authorDefault",
             "Blog, Tag, $tag",
@@ -173,7 +177,7 @@ class BlogController extends Controller
         activity('front-end')->withProperties(['ip_address' => get_user_ip_address_via_helper()])
             ->log('User landed on the Blog Tag Page using tag slug '.$tag_slug.'.');
 
-        return view('frontend.blog.blog_index', $data);
+        return view('system_frontend.blog.blog_index', $data);
     }
 
     /**
@@ -206,9 +210,14 @@ class BlogController extends Controller
         activity('front-end | view single blog post')->withProperties(['ip_address' => get_user_ip_address_via_helper()])
             ->log('User landed on the Blog Single Page by slug ' . $slug . '.');
 
-        return view('frontend.blog.blog_single_view', $data);
+        return view('system_frontend.blog.blog_single_view', $data);
     }
 
+    /**
+     * @param Request $request
+     *
+     * @return Application|Factory|View
+     */
     public function search(Request $request)
     {
         $search_value = $request->search;
@@ -246,7 +255,7 @@ class BlogController extends Controller
         $data['search_results'] = $search_results ?? null;
 
         $this->systemMetadataRepository->formatMetaData(
-            "index,follow",
+            "noindex,nofollow",
             "Blog",
             "$this->authorDefault",
             "Blog",
@@ -254,9 +263,9 @@ class BlogController extends Controller
         );
 
         if(count($search_results) > 0) {
-            return view('frontend.blog.blog_search', $data);
+            return view('system_frontend.blog.blog_search', $data);
         }
 
-        return view ('frontend.blog.blog_search', $data)->withMessage('No Details found. Try to search again !');
+        return view('system_frontend.blog.blog_search', $data)->withMessage('No Details found. Try to search again !');
     }
 }

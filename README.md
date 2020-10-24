@@ -1,4 +1,4 @@
-# DigitalGarden Project Athena
+# DigitalGarden Project Atlas
 
 A demo project showing my Laravel skills. This initially started off as 
 a learning process of the new Laravel 6 standards, then Laravel 7.9.2 came out and 
@@ -9,7 +9,7 @@ start. The migration from 6-7 showed me a lot...
 
 ## Laravel 7 Thato Babusi - Project
 
-Currently my company uses an older version that I am refactoring, 
+Currently my company uses L5.1 with very complex sparghetti-code that I am refactoring, 
 leaving very little room for me to learn on implement more up-to-date technologies, 
 therefore this is my personal project to illustrate my understanding of said tech. 
 
@@ -33,10 +33,8 @@ Note the use of repositories here.
         - Blog Tags
         - Blog Archives
         - Blog Recommended
-        - Blog Search
         - Blog Disqus Commenting
     - Embedded Twitter feed
-    - Embedded Instagram feed
 - Backend
     - Admin Dashboard
     - Access Control
@@ -87,8 +85,3 @@ Note the use of repositories here.
 Basically, feel free to use and re-use any way you want.
 
 - - - - -
-
-## Credits
-- This was initially forked and based off LaravelDaily Team's School Time Table Calendar project. Removed what I didn't need
-and merged my own code that was already in progress from my Project Atlas.
-- Check out our adminpanel generator [QuickAdminPanel](https://quickadminpanel.com)

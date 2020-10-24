@@ -12,14 +12,15 @@ class CreateBlogPostTagsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('blog_post_tags', function(Blueprint $table)
-		{
-			$table->unsignedBigInteger('id', true);
-			$table->string('title', 191);
-			$table->string('slug', 191);
-			$table->timestamps();
-			$table->softDeletes();
-		});
+        if (!Schema::hasTable('blog_post_tags')) {
+            Schema::create('blog_post_tags', function (Blueprint $table) {
+                $table->unsignedBigInteger('id', true);
+                $table->string('title', 191);
+                $table->string('slug', 191);
+                $table->timestamps();
+                $table->softDeletes();
+            });
+        }
 	}
 
 

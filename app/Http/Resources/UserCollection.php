@@ -4,6 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
+use App\Http\Resources\UserResource;
 
 class UserCollection extends ResourceCollection
 {
@@ -12,7 +13,7 @@ class UserCollection extends ResourceCollection
      *
      * @var string
      */
-    public $collects = 'App\Http\Resources\UserResource';
+    public $collects = UserResource::class;
 
     /**
      * @var null
@@ -20,10 +21,11 @@ class UserCollection extends ResourceCollection
     protected $message = null;
 
     /**
-     * @param $message
+     * @param null $message
+     *
      * @return $this
      */
-    public function setMessage($message)
+    public function setMessage($message = null)
     {
         $this->message = $message;
         return $this;

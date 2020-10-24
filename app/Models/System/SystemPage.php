@@ -6,6 +6,7 @@ use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -42,10 +43,18 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @mixin \Eloquent
  * @method static Builder|\App\Models\System\SystemPage disableCache()
  * @method static Builder|\App\Models\System\SystemPage withCacheCooldownSeconds($seconds = null)
+ * @property int $system_page_category_id
+ * @property int $status
+ * @property-read \App\Models\System\SystemPageMetaData|null $systemPageMetadata
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\System\SystemPageSection[] $systemPageSections
+ * @property-read int|null $system_page_sections_count
+ * @method static Builder|SystemPage whereStatus($value)
+ * @method static Builder|SystemPage whereSystemPageCategoryId($value)
  */
 class SystemPage extends Model
 {
-    use SoftDeletes, Cachable;
+    use SoftDeletes;
+    //use SoftDeletes, Cachable;
 
     public $table = 'system_pages';
 
@@ -71,6 +80,8 @@ class SystemPage extends Model
         'deleted_at',
     ];
 
+    /* RELATIONS **************************************************************************************************** */
+
     /**
      * @return BelongsTo
      */
@@ -82,12 +93,15 @@ class SystemPage extends Model
     /**
      * @return HasOne
      */
-    public function systemPageMetadata()
+    public function systemPageMetadata(): HasOne
     {
         return $this->hasOne(SystemPageMetaData::class);
     }
 
-    public function systemPageSections()
+    /**
+     * @return HasMany
+     */
+    public function systemPageSections(): HasMany
     {
         return $this->hasMany(SystemPageSection::class);
     }

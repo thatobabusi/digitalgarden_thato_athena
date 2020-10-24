@@ -64,7 +64,7 @@ class SystemImageController extends Controller
 
         $data = ['images' => $images];
 
-        return view('admin.image.index', $data);
+        return view('system_backend.admin.image.index', $data);
     }
 
     /**
@@ -105,7 +105,7 @@ class SystemImageController extends Controller
 
         $data = ['image' => $image];
 
-        return view('admin.image.show', $data);
+        return view('system_backend.admin.image.show', $data);
     }
 
     /**

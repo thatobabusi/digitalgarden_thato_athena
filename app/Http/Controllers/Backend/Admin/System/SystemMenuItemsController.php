@@ -26,7 +26,7 @@ class SystemMenuItemsController extends Controller
 
         $data = compact('system_menu_items');
 
-        return view("admin.system_menu_items.index", $data);
+        return view("system_backend.admin.system_menu_items.index", $data);
 
     }
 

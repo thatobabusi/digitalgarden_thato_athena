@@ -12,15 +12,16 @@ class CreateSystemPageCategoriesTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('system_page_categories', function(Blueprint $table)
-		{
-			$table->unsignedBigInteger('id', true);
-			$table->string('title', 191);
-			$table->string('slug', 191);
-			$table->string('type', 191);
-			$table->timestamps();
-			$table->softDeletes();
-		});
+        if (!Schema::hasTable('system_page_categories')) {
+            Schema::create('system_page_categories', function (Blueprint $table) {
+                $table->unsignedBigInteger('id', true);
+                $table->string('title', 191);
+                $table->string('slug', 191);
+                $table->string('type', 191);
+                $table->timestamps();
+                $table->softDeletes();
+            });
+        }
 	}
 
 

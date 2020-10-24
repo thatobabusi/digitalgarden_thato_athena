@@ -21,77 +21,9 @@ class SystemMenuItemsTableSeeder extends Seeder
             array (
                 'id' => 1,
                 'order' => 1,
-                'title' => 'Home',
-                'url_link' => '/',
-                'page_id' => 1,
-                'type' => 'frontend_main_navigation',
-                'route' => 'frontend.home',
-                'icon' => '#',
-                'permissions' => 'true',
-                'parent_id' => NULL,
-                'has_children' => 'false',
-                'created_at' => \Carbon\Carbon::now(),
-                'updated_at' => \Carbon\Carbon::now(),
-                'deleted_at' => NULL,
-            ),
-            1 =>
-            array (
-                'id' => 2,
-                'order' => 6,
-                'title' => 'View Dashboard',
-                'url_link' => '/admin',
-                'page_id' => 1,
-                'type' => 'frontend_main_navigation',
-                'route' => '{{ route("admin.home") }}',
-                'icon' => '#',
-                'permissions' => 'false',
-                'parent_id' => NULL,
-                'has_children' => 'false',
-                'created_at' => \Carbon\Carbon::now(),
-                'updated_at' => \Carbon\Carbon::now(),
-                'deleted_at' => NULL,
-            ),
-            2 =>
-            array (
-                'id' => 3,
-                'order' => 1,
-                'title' => 'Professional',
-                'url_link' => '/about-professional',
-                'page_id' => 2,
-                'type' => 'frontend_main_navigation',
-                'route' => '#',
-                'icon' => '#',
-                'permissions' => 'true',
-                'parent_id' => '6',
-                'has_children' => 'false',
-                'created_at' => \Carbon\Carbon::now(),
-                'updated_at' => \Carbon\Carbon::now(),
-                'deleted_at' => NULL,
-            ),
-            3 =>
-            array (
-                'id' => 4,
-                'order' => 2,
-                'title' => 'Personal',
-                'url_link' => '/about-personal',
-                'page_id' => 3,
-                'type' => 'frontend_main_navigation',
-                'route' => '#',
-                'icon' => '#',
-                'permissions' => 'true',
-                'parent_id' => '6',
-                'has_children' => 'false',
-                'created_at' => \Carbon\Carbon::now(),
-                'updated_at' => \Carbon\Carbon::now(),
-                'deleted_at' => NULL,
-            ),
-            4 =>
-            array (
-                'id' => 5,
-                'order' => 3,
                 'title' => 'Blog',
                 'url_link' => '/blog',
-                'page_id' => 4,
+                'page_id' => NULL,
                 'type' => 'frontend_main_navigation',
                 'route' => '#',
                 'icon' => '#',
@@ -102,60 +34,28 @@ class SystemMenuItemsTableSeeder extends Seeder
                 'updated_at' => \Carbon\Carbon::now(),
                 'deleted_at' => NULL,
             ),
-            5 =>
+
+            1 =>
+                array (
+                    'id' => 2,
+                    'order' => 2,
+                    'title' => 'Contact',
+                    'url_link' => '/contact',
+                    'page_id' => NULL,
+                    'type' => 'frontend_main_navigation',
+                    'route' => '#',
+                    'icon' => '#',
+                    'permissions' => 'true',
+                    'parent_id' => NULL,
+                    'has_children' => 'false',
+                    'created_at' => \Carbon\Carbon::now(),
+                    'updated_at' => \Carbon\Carbon::now(),
+                    'deleted_at' => NULL,
+                ),
+
+            2 =>
             array (
-                'id' => 6,
-                'order' => 2,
-                'title' => 'About',
-                'url_link' => '/about',
-                'page_id' => 5,
-                'type' => 'frontend_main_navigation',
-                'route' => '#',
-                'icon' => '#',
-                'permissions' => 'true',
-                'parent_id' => '1',
-                'has_children' => 'true',
-                'created_at' => \Carbon\Carbon::now(),
-                'updated_at' => \Carbon\Carbon::now(),
-                'deleted_at' => NULL,
-            ),
-            6 =>
-            array (
-                'id' => 7,
-                'order' => 4,
-                'title' => 'Services',
-                'url_link' => '/services',
-                'page_id' => 6,
-                'type' => 'frontend_main_navigation',
-                'route' => '#',
-                'icon' => '#',
-                'permissions' => 'true',
-                'parent_id' => '1',
-                'has_children' => 'true',
-                'created_at' => \Carbon\Carbon::now(),
-                'updated_at' => \Carbon\Carbon::now(),
-                'deleted_at' => \Carbon\Carbon::now(),
-            ),
-            7 =>
-            array (
-                'id' => 8,
-                'order' => 5,
-                'title' => 'Portfolio',
-                'url_link' => '/portfolio',
-                'page_id' => 7,
-                'type' => 'frontend_main_navigation',
-                'route' => '#',
-                'icon' => '#',
-                'permissions' => 'true',
-                'parent_id' => '1',
-                'has_children' => 'false',
-                'created_at' => \Carbon\Carbon::now(),
-                'updated_at' => \Carbon\Carbon::now(),
-                'deleted_at' => \Carbon\Carbon::now(),
-            ),
-            8 =>
-            array (
-                'id' => 9,
+                'id' => 3,
                 'order' => 1,
                 'title' => 'News',
                 'url_link' => '#',
@@ -170,9 +70,10 @@ class SystemMenuItemsTableSeeder extends Seeder
                 'updated_at' => \Carbon\Carbon::now(),
                 'deleted_at' => NULL,
             ),
-            9 =>
+
+            3 =>
             array (
-                'id' => 10,
+                'id' => 4,
                 'order' => 2,
                 'title' => 'Press',
                 'url_link' => '#',
@@ -187,9 +88,10 @@ class SystemMenuItemsTableSeeder extends Seeder
                 'updated_at' => \Carbon\Carbon::now(),
                 'deleted_at' => NULL,
             ),
-            10 =>
+
+            4 =>
             array (
-                'id' => 11,
+                'id' => 5,
                 'order' => 3,
                 'title' => 'Terms & Privacy',
                 'url_link' => '#',
@@ -204,9 +106,10 @@ class SystemMenuItemsTableSeeder extends Seeder
                 'updated_at' => \Carbon\Carbon::now(),
                 'deleted_at' => NULL,
             ),
-            11 =>
+
+            5 =>
             array (
-                'id' => 12,
+                'id' => 6,
                 'order' => 4,
                 'title' => 'We are Hiring',
                 'url_link' => '#',
@@ -221,9 +124,10 @@ class SystemMenuItemsTableSeeder extends Seeder
                 'updated_at' => \Carbon\Carbon::now(),
                 'deleted_at' => NULL,
             ),
-            12 =>
+
+            6 =>
             array (
-                'id' => 13,
+                'id' => 7,
                 'order' => 5,
                 'title' => 'Site Map',
                 'url_link' => '/sitemap',

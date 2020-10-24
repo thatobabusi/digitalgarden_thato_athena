@@ -3,7 +3,7 @@
 
 Hi Thato,
 
-You have recieved a new message from {{$from_fullname}} on the {{ config('app.name') }} platform.<br>
+You have received a new message from {{$from_fullname}} on the {{ config('app.name') }} platform.<br>
 
 Message Contents:<br>
 {{$message}}

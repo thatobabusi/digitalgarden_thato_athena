@@ -63,6 +63,8 @@ class ImageType extends Model
         'slug',
     ];
 
+    /* RELATIONS **************************************************************************************************** */
+
     /**
      * @return HasMany
      */
@@ -70,6 +72,8 @@ class ImageType extends Model
     {
         return $this->hasMany(Image::class);
     }
+
+    /* GETTERS ****************************************************************************************************** */
 
     /**
      * @param string|null $value

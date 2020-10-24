@@ -115,7 +115,7 @@ class HomeController
             'tags' => $this->blogPostTagRepository->listAllTagsByTitleAndId(),
         ];
 
-        return view('home', $data);
+        return view('system_backend.home', $data);
     }
 
 }

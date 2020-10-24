@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use Meta;
 
 /**
@@ -17,6 +16,8 @@ use Meta;
  */
 class SystemPageRepository implements SystemPageRepositoryInterface
 {
+
+    /* Get ********************************************************************************************************* */
 
     /**
      * @param string|null $limit
@@ -36,11 +37,11 @@ class SystemPageRepository implements SystemPageRepositoryInterface
     }
 
     /**
-     * @param $id
+     * @param int $id
      *
      * @return SystemPage|Builder|Model|object|null
      */
-    public function getSystemPageById($id)
+    public function getSystemPageById(int $id)
     {
         $system_page = SystemPage::whereId($id)->first();
         $system_page->load('systemPageMetadata', 'systemPageCategory');
@@ -49,17 +50,19 @@ class SystemPageRepository implements SystemPageRepositoryInterface
     }
 
     /**
-     * @param $slug
+     * @param string $slug
      *
      * @return SystemPage|Builder|Model|object|null
      */
-    public function getSystemPageBySlug($slug)
+    public function getSystemPageBySlug(string $slug)
     {
         $system_page = SystemPage::whereSlug($slug)->first();
-        $system_page->load('systemPageMetadata', 'systemPageCategory', 'systemPageSections');
+        $system_page->load('systemPageMetadata', 'systemPageCategory');
 
         return $system_page;
     }
+
+    /* Store ******************************************************************************************************** */
 
     /**
      * @param Request $request
@@ -68,40 +71,36 @@ class SystemPageRepository implements SystemPageRepositoryInterface
      */
     public function storeSystemPage(Request $request)
     {
-        $system_page = SystemPage::create([
-            'system_page_category_id' => $request->system_page_category_id,
-            'title' => $request->title,
-            'slug' => $request->slug,
-            'description' => $request->description,
-            'status' => $request->status,
-        ]);
+        $system_page = SystemPage::create($request->all());
+        $system_page->save();
 
         return $system_page;
     }
 
+    /* Update ******************************************************************************************************* */
+
     /**
      * @param Request $request
-     * @param         $id
+     * @param int     $id
      *
      * @return SystemPage|Builder|Model|mixed|object|null
      */
-    public function updateSystemPage(Request $request, $id)
+    public function updateSystemPage(Request $request, int $id)
     {
         $system_page = $this->getSystemPageById($id);
+
         if($system_page) {
-            $system_page->system_page_category_id = $request->system_page_category_id;
-            $system_page->title = $request->title;
-            $system_page->slug = $request->slug;
-            $system_page->description = $request->description;
-            $system_page->status = $request->status;
+            $system_page->update($request->all());
             $system_page->save();
         }
 
         return $system_page;
     }
 
+    /* List ********************************************************************************************************* */
+
     /**
-     * @return \Illuminate\Support\Collection
+     * @return \Illuminate\Support\Collection|mixed
      */
     public function listAllSystemPagesByTitleAndId()
     {
@@ -109,11 +108,12 @@ class SystemPageRepository implements SystemPageRepositoryInterface
     }
 
     /**
-     * @return array
+     * @return array|mixed
      */
     public function listAllSystemPagesBySlug()
     {
         return SystemPage::orderBy('title')->get()->pluck('slug')->toArray();
     }
 
+    /* Sanitize ***************************************************************************************************** */
 }

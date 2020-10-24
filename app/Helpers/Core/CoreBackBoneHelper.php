@@ -1,6 +1,8 @@
 <?php
 
 use App\Models\AccessControl\Plugin;
+use Barryvanveen\Lastfm\Lastfm;
+use GuzzleHttp\Client;
 
 if (! function_exists('plugin_is_enabled')) {
     /**
@@ -130,11 +132,37 @@ if (! function_exists('random_pic')) {
     }
 }
 
-/*
-$base64String = "R0lGODdhAQABAPAAAP8AAAAAACwAAAAAAQABAAACAkQBADs";
-$image = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '',$base64String));
-$FILE = time().rand(111111111, 999999999) . '.png';
-*/
+if (! function_exists('get_last_fm_data')) {
+    /**
+     * @return mixed
+     */
+    function get_last_fm_data()
+    {
+        $lastfmData = [];
+        $lastfm = new Lastfm(new Client(), config('app.lastfm_app_key'));
 
-//dd($base64String);
+        $lastfmData['top_albums'] = $lastfm->userTopAlbums(config('app.lastfm_app_username'))
+                                            ->period(Barryvanveen\Lastfm\Constants::PERIOD_MONTH)
+                                            ->limit(10)->get();
+
+        $lastfmData['top_albums_this_week'] = $lastfm->userTopAlbums(config('app.lastfm_app_username'))
+                                                        ->period(Barryvanveen\Lastfm\Constants::PERIOD_MONTH)
+                                                        ->limit(30)
+                                                        ->get();
+
+        $lastfmData['top_artists'] = $lastfm->userTopArtists(config('app.lastfm_app_username'))
+                                    ->period(Barryvanveen\Lastfm\Constants::PERIOD_6_MONTHS)->limit(30)->get();
+
+        $lastfmData['top_artists_this_week'] = $lastfm->userTopArtists(config('app.lastfm_app_username'))
+                                                ->period(Barryvanveen\Lastfm\Constants::PERIOD_WEEK)->limit(30)->get();
+
+        $lastfmData['recent_tracks'] = $lastfm->userRecentTracks(config('app.lastfm_app_username'))->limit(30)->get();
+
+        $lastfmData['current_playing_track'] = $lastfm->nowListening(config('app.lastfm_app_username'));
+
+        //dd($lastfmData);
+
+        return $lastfmData;
+    }
+}
 

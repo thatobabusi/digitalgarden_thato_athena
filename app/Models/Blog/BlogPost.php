@@ -4,6 +4,7 @@ namespace App\Models\Blog;
 
 use App\Models\Image\Image;
 use App\Models\User\User;
+use Awssat\Visits\Visits;
 use Carbon\Carbon;
 use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 use Illuminate\Database\Eloquent\Model;
@@ -98,9 +99,7 @@ class BlogPost extends Model
         'actions',
     ];
 
-    /*******************************************************************************************************************
-     *############################                  RELATIONS           ################################################
-     ******************************************************************************************************************/
+    /* RELATIONS **************************************************************************************************** */
 
     /**
      * @return BelongsTo
@@ -182,7 +181,7 @@ class BlogPost extends Model
      */
     public function getAuthor(): ?string
     {
-        return $this->attributes['author'] = $this->blogPostAuthor->name;
+        return $this->attributes['author'] = $this->blogPostAuthor->name ?? "NA";
     }
 
     /**
@@ -239,7 +238,10 @@ class BlogPost extends Model
         return $this->attributes['deleted_at'] = Carbon::parse($value)->toDateTimeString() ?? null;
     }
 
-    public function visits()
+    /**
+     * @return Visits
+     */
+    public function visits(): Visits
     {
         return visits($this);
     }

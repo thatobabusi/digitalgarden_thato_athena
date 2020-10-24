@@ -13,14 +13,16 @@ class CreateImageTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('image_types', function (Blueprint $table) {
-            $table->unsignedBigInteger('id', true)->unsigned();
-            $table->string('title', 191);
-            $table->string('slug', 191);
-            $table->string('folder', 191);
-            $table->timestamps();
-            $table->softDeletes();
-        });
+        if (!Schema::hasTable('image_types')) {
+            Schema::create('image_types', function (Blueprint $table) {
+                $table->unsignedBigInteger('id', true)->unsigned();
+                $table->string('title', 191);
+                $table->string('slug', 191);
+                $table->string('folder', 191);
+                $table->timestamps();
+                $table->softDeletes();
+            });
+        }
     }
 
     /**

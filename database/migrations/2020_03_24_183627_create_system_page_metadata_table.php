@@ -13,17 +13,19 @@ class CreateSystemPageMetadataTable extends Migration
      */
     public function up()
     {
-        Schema::create('system_page_metadata', function (Blueprint $table) {
-            $table->unsignedBigInteger('id', true);
-            $table->unsignedBigInteger('system_page_id');
-            $table->string('title', 191);
-            $table->string('author', 191);
-            $table->string('robots', 191);
-            $table->longText('keywords');
-            $table->longText('description');
-            $table->timestamps();
-            $table->softDeletes();
-        });
+        if (!Schema::hasTable('system_page_metadata')) {
+            Schema::create('system_page_metadata', function (Blueprint $table) {
+                $table->unsignedBigInteger('id', true);
+                $table->unsignedBigInteger('system_page_id');
+                $table->string('title', 191);
+                $table->string('author', 191);
+                $table->string('robots', 191);
+                $table->longText('keywords');
+                $table->longText('description');
+                $table->timestamps();
+                $table->softDeletes();
+            });
+        }
     }
 
     /**

@@ -56,7 +56,7 @@ class UsersController extends Controller
 
         $data = ['users' => $this->userRepository->getUsersRecords($request)];
 
-        return view('admin.users.index', $data);
+        return view('system_backend.admin.users.index', $data);
     }
 
     /**
@@ -68,7 +68,7 @@ class UsersController extends Controller
 
         $data = ['roles' => $this->roleRepository->listAllRolesByTitleAndId()];
 
-        return view('admin.users.create', $data);
+        return view('system_backend.admin.users.create', $data);
     }
 
     /**
@@ -96,7 +96,7 @@ class UsersController extends Controller
 
         $data = ['user' =>$user, 'roles' => $this->roleRepository->listAllRolesByTitleAndId()];
 
-        return view('admin.users.edit', $data);
+        return view('system_backend.admin.users.edit', $data);
     }
 
     /**
@@ -125,7 +125,7 @@ class UsersController extends Controller
 
         $data = ['user' => $user];
 
-        return view('admin.users.show', $data);
+        return view('system_backend.admin.users.show', $data);
     }
 
     /**

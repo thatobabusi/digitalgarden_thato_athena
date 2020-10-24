@@ -17,9 +17,20 @@ return [
 
     'name' => env('APP_NAME', 'thatobabusi.co.za'),
 
-    'app_host_name' => env('APP_HOST_NAME', 'thatobabusi.co.za'),
+    'app_host_name'                 => env('APP_HOST_NAME', 'thatobabusi.co.za'),
 
-    'app_developer_name' => env('APP_DEVELOPER_NAME', 'Thato Babusi'),
+    'app_domain_name'               => env('APP_DOMAIN', 'thatobabusi.co.za'),
+    'app_domain_name_personal'      => env('APP_DOMAIN_PERSONAL', 'thatobabusi.co.za'),
+    'app_domain_name_professional'  => env('APP_DOMAIN_PROFESSIONAL', 'pro.thatobabusi.co.za'),
+
+    'app_developer_name'            => env('APP_DEVELOPER_NAME', 'Thato Babusi'),
+
+    'google_site_verification'      => env('GOOGLE_SITE_VERIFICATION', 'NA'),
+    'google_tag_manager_async_src'  => env('GOOGLE_TAG_MANAGER_ASYNC_SRC', 'NA'),
+    'google_tag_manager_config'     => env('GOOGLE_TAG_MANAGER_CONFIG', 'NA'),
+    'google_tag_manager'            => env('GOOGLE_TAG_MANAGER', 'NA'),
+    'google_adsense_client'         => env('GOOGLE_ADSENSE_CLIENT', 'NA'),
+    'google_adsense_src'            => env('GOOGLE_ADSENSE_SRC', 'NA'),
 
     /*
     |--------------------------------------------------------------------------
@@ -149,6 +160,15 @@ return [
     'linkedin_account_link' => env('LINKEDIN_ACCOUNT'),
     'soundcloud_account_link' => env('SOUNDCLOUD'),
 
+    'spotify_client_id' => env('SPOTIFY_CLIENT_ID'),
+    'spotify_client_secret' => env('SPOTIFY_CLIENT_SECRET'),
+    'spotify_redirect_uri' => env('SPOTIFY_REDIRECT_URI'),
+
+    'lastfm_app_name' => env('LASTFM_APP_NAME'),
+    'lastfm_app_username' => env('LASTFM_APP_USERNAME'),
+    'lastfm_app_key' => env('LASTFM_API_KEY'),
+    'lastfm_app_shared_secret' => env('LASTFM_SHARED_SECRET'),
+
     /*
     |--------------------------------------------------------------------------
     | Autoloaded Service Providers
@@ -192,6 +212,9 @@ return [
          * Package Service Providers...
          */
         Arcanedev\LogViewer\LogViewerServiceProvider::class,
+        //Barryvdh\DomPDF\ServiceProvider::class,
+        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
+        Barryvanveen\Lastfm\LastfmServiceProvider::class,
         DaveJamesMiller\Breadcrumbs\BreadcrumbsServiceProvider::class,
         Eusonlito\LaravelMeta\MetaServiceProvider::class,
         GGuney\RMigration\RMigrationServiceProvider::class,
@@ -200,6 +223,9 @@ return [
         RenatoMarinho\LaravelPageSpeed\ServiceProvider::class,
         RealRashid\SweetAlert\SweetAlertServiceProvider::class,
         \DaveJamesMiller\Breadcrumbs\BreadcrumbsServiceProvider::class,
+        //UKFast\HealthCheck\HealthCheckServiceProvider::class,
+        //Waavi\Sanitizer\Laravel\SanitizerServiceProvider::class,
+        //Jackiedo\DotenvEditor\DotenvEditorServiceProvider::class,
 
         /*
          * My Personal Service Providers...
@@ -275,6 +301,8 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Meta'    => Eusonlito\LaravelMeta\Facade::class,
         'Share' => Jorenvh\Share\ShareFacade::class,
+        'DotenvEditor' => Jackiedo\DotenvEditor\Facades\DotenvEditor::class,
+        //'PDF' => Barryvdh\DomPDF\Facade::class,
     ],
 
     'calendar' => [
@@ -289,12 +317,12 @@ return [
     ],
 
     'static_meta_robots' => [
-        ''    => 'Select',
-        'index,,nofollow'    => 'Index, No Follow',
-        'index,follow'    => 'Index, Follow',
-        'noindex,,nofollow'    => 'No Index,No Follow',
-        'noindex,,follow'    => 'No Index,Follow',
-        'none'    => 'None',
-        'all'    => 'All',
+        ''                      => 'Select',
+        'index,,nofollow'       => 'Index, No Follow',
+        'index,follow'          => 'Index, Follow',
+        'noindex,,nofollow'     => 'No Index,No Follow',
+        'noindex,,follow'       => 'No Index,Follow',
+        'none'                  => 'None',
+        'all'                   => 'All',
     ],
 ];

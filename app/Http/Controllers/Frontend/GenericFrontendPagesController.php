@@ -3,11 +3,12 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
-use App\Models\System\SystemPage;
+use App\Models\System\SystemPageSection;
 use App\Repositories\Blog\BlogPostCategoryRepository;
 use App\Repositories\System\SystemEmailRepository;
 use App\Repositories\System\SystemMetaRepository;
 use App\Repositories\System\SystemPageRepository;
+use App\User;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
@@ -17,6 +18,9 @@ use Illuminate\Support\Str;
 use Illuminate\View\View;
 use Meta;
 use Symfony\Component\HttpFoundation\Response;
+
+use Barryvanveen\Lastfm\Lastfm;
+use GuzzleHttp\Client;
 
 /**
  * Class GenericFrontendPagesController
@@ -42,12 +46,13 @@ class GenericFrontendPagesController extends Controller
      */
     protected $systemPageRepository;
 
-
     #TODO::For these to work 100% the routes must exist, otherwise 404
-    const ACCEPTED_STATIC_PAGE_ROUTES = [
+    public const ACCEPTED_STATIC_PAGE_ROUTES = [
         '/',
         'test',
         'sitemap',
+        'contact',
+        'music',
     ];
 
     /**
@@ -86,7 +91,7 @@ class GenericFrontendPagesController extends Controller
         #Blog Pages
         if( !$page )
         {
-            return redirect()->action('Frontend\BlogController@index');
+            return redirect()->action('\App\Http\Controllers\Frontend\BlogController@index');
         }
 
         #CMS Pages
@@ -105,7 +110,7 @@ class GenericFrontendPagesController extends Controller
             $this->systemMetadataRepository->formatMetaData('index,follow', $page);
 
             #so long as they are named correctly (lower case) and are in this folder it should work fine
-            return view("frontend.pages.$page");
+            return view("system_frontend.pages.$page");
 
         }
 
@@ -115,43 +120,50 @@ class GenericFrontendPagesController extends Controller
     }
 
     /**
-     * @param $page_slug
+     * @param string $page_slug
      *
-     * @return Application|Factory|View
+     * @return Application|Factory|RedirectResponse|View
      */
-    public function displayCMSFrontendPageBySlug($page_slug)
+    public function displayCMSFrontendPageBySlug(string $page_slug)
     {
         #If its a get, display the contact page
         $blogPostCategories = $this->blogPostCategory->getAllCategoriesWhereHasBlogPosts('15');
         $page = $this->systemPageRepository->getSystemPageBySlug($page_slug);
 
-        $page_title = Str::words($page->title);
-        $page_header = Str::upper($page->title);
+        if($page) {
+            $systemPageSections = SystemPageSection::orderBy("order", "ASC")->where("system_page_id", $page->id)->get();
 
-        $this->systemMetadataRepository->formatMetaData(
-            $page->systemPageMetadata->robots,
-            $page->systemPageMetadata->title,
-            $page->systemPageMetadata->author,
-            $page->systemPageMetadata->keywords,
-            $page->systemPageMetadata->description
-        );
+            $page_title = Str::words($page->title);
+            $page_header = Str::upper($page->title);
 
-        $data = compact('blogPostCategories', 'page', 'page_title', 'page_header');
+            $this->systemMetadataRepository->formatMetaData(
+                $page->systemPageMetadata->robots,
+                $page->systemPageMetadata->title,
+                $page->systemPageMetadata->author,
+                $page->systemPageMetadata->keywords,
+                $page->systemPageMetadata->description
+            );
 
-        return view("frontend.pages._dynamic_cms_frontend_page", $data);
+            $data = compact('blogPostCategories', 'page', 'page_title', 'page_header', 'systemPageSections');
+
+            return view("system_frontend.pages._dynamic_cms_frontend_page", $data);
+        }
+
+        return redirect()->back();
     }
 
     /**
      * @param Request $request
      *
-     * @return Application|Factory|View
+     * @return Application|Factory|RedirectResponse|View
      */
     public function contact(Request $request)
     {
+
         #If it's a post, send the email and redirect
         if($request->method() === "POST")
         {
-            $this->systemEmailPostCategory->processContactFormEmail($request);
+            return $this->contactSubmit($request);
         }
 
         #If its a get, display the contact page
@@ -163,7 +175,36 @@ class GenericFrontendPagesController extends Controller
 
         $this->systemMetadataRepository->formatMetaData('index,follow', $page_title);
 
-        return view("frontend.pages.contact", $data);
+        return view("system_frontend.pages.contact", $data);
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return RedirectResponse
+     */
+    public function contactSubmit(Request $request): RedirectResponse
+    {
+        return $this->systemEmailPostCategory->processContactFormEmail($request);
+    }
+
+    /**
+     * @return Application|Factory|View
+     */
+    public function music()
+    {
+        $blogPostCategories = $this->blogPostCategory->getAllCategoriesWhereHasBlogPosts('15');
+        $lastfmData = get_last_fm_data();
+
+        $page_title = "Music";
+        $page_header = "MUSIC";
+
+        $data = compact('blogPostCategories', 'lastfmData', 'page_title', 'page_header');
+
+        $this->systemMetadataRepository->formatMetaData('index,follow', $page_title);
+
+        //return view("system_frontend.pages.music-spotify", $data);
+        return view("system_frontend.pages.music", $data);
     }
 
     /**
@@ -181,7 +222,7 @@ class GenericFrontendPagesController extends Controller
 
         $this->systemMetadataRepository->formatMetaData('index,follow', $page_title);
 
-        return view("frontend.sitemap", $data);
+        return view("system_frontend.sitemap.index", $data);
     }
 
 }

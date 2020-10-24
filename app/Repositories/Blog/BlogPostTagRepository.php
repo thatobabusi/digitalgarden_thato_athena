@@ -18,7 +18,7 @@ use Illuminate\Support\Collection;
  */
 class BlogPostTagRepository  implements BlogPostTagRepositoryInterface
 {
-    #Get
+    /* Get ********************************************************************************************************* */
 
     /**
      * @param string|null $limit
@@ -69,9 +69,7 @@ class BlogPostTagRepository  implements BlogPostTagRepositoryInterface
         return BlogPostTag::whereSlug($slug)->first();
     }
 
-    #Check
-
-    #List
+    /* List ********************************************************************************************************* */
 
     /**
      * @return Collection
@@ -80,7 +78,8 @@ class BlogPostTagRepository  implements BlogPostTagRepositoryInterface
     {
         return BlogPostTag::orderBy('title')->get()->pluck('title', 'id');
     }
-    #Store
+
+    /* Store ******************************************************************************************************** */
 
     /**
      * @param StoreBlogPostTagRequest $request
@@ -89,15 +88,12 @@ class BlogPostTagRepository  implements BlogPostTagRepositoryInterface
      */
     public function storeNewBlogPostTagRecord(StoreBlogPostTagRequest $request) :BlogPostTag
     {
-        $blog_post_tag = new BlogPostTag();
-        $blog_post_tag->title = $request->input('title');
-        $blog_post_tag->slug = $request->input('slug');
+        $blog_post_tag = BlogPostTag::create($request->all());
         $blog_post_tag->save();
-
         return $blog_post_tag;
     }
 
-    #Update
+    /* Update ******************************************************************************************************* */
 
     /**
      * @param UpdateBlogPostTagRequest $request
@@ -114,7 +110,7 @@ class BlogPostTagRepository  implements BlogPostTagRepositoryInterface
         return $blog_post_tag;
     }
 
-    #Delete
+    /* Delete ******************************************************************************************************* */
 
     /**
      * @param string $blog_post_tag_id
@@ -139,4 +135,7 @@ class BlogPostTagRepository  implements BlogPostTagRepositoryInterface
     {
         return BlogPostTag::whereIn('id', request('ids'))->delete();
     }
+
+    /* Sanitize ***************************************************************************************************** */
+
 }

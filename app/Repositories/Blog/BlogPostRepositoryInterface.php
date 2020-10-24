@@ -14,7 +14,7 @@ use App\Models\Blog\BlogPost;
  */
 interface BlogPostRepositoryInterface
 {
-    #Get
+    /* Get ********************************************************************************************************* */
 
     /**
      * @param string|null $limit
@@ -105,16 +105,14 @@ interface BlogPostRepositoryInterface
      */
     public function getFeaturedBlogPosts(string $id = null);
 
-    #Check
-
-    #List
+    /* List ********************************************************************************************************* */
 
     /**
      * @return mixed
      */
     public function listAllStatussesByTitleAndId();
 
-    #Store
+    /* Store ******************************************************************************************************** */
 
     /**
      * @param StoreBlogPostRequest $request
@@ -124,7 +122,7 @@ interface BlogPostRepositoryInterface
      */
     public function storeNewBlogPostRecord(StoreBlogPostRequest $request, array $image_id_array);
 
-    #Update
+    /* Update ******************************************************************************************************* */
 
     /**
      * @param UpdateBlogPostRequest $request
@@ -134,7 +132,7 @@ interface BlogPostRepositoryInterface
      */
     public function updateExistingBlogPostRecord(UpdateBlogPostRequest $request, string $id);
 
-    #Delete
+    /* Delete ******************************************************************************************************* */
 
     /**
      * @param string $blog_post_id
@@ -150,11 +148,15 @@ interface BlogPostRepositoryInterface
      */
     public function massDestroyBlogPostRecords(MassDestroyBlogPostRequest $request);
 
-    #Format
+    /* Format ******************************************************************************************************* */
+
     /**
      * @param BlogPost $blogPost
      *
      * @return array
      */
     public function formatBlogPostDataDetailsForDisplay(BlogPost $blogPost): array;
+
+    /* Sanitize ***************************************************************************************************** */
+
 }

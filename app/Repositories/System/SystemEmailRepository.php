@@ -2,15 +2,14 @@
 
 namespace App\Repositories\System;
 
+Use Alert;
 use App\Mail\SendContactFormEmail;
 use App\User;
-use Exception;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\ValidationException;
 
 /**
  * Class EmailRepository
@@ -20,7 +19,8 @@ use Illuminate\Validation\ValidationException;
 class SystemEmailRepository implements SystemEmailRepositoryInterface
 {
 
-    #Get
+    /* Process ****************************************************************************************************** */
+
     /**
      * @param Request $request
      *
@@ -44,6 +44,7 @@ class SystemEmailRepository implements SystemEmailRepositoryInterface
             activity('front-end | contact form')->withProperties(['ip_address' => get_user_ip_address_via_helper()])
                 ->log('User entered invalid data on the contact form');
 
+            flash('Failed!')->error('Validation Error: Error in form, please check that all input fields are correct.');
             alert()->error('Validation Error','Error in form, please check that all input fields are correct.')->timerProgressBar();
 
             return Redirect::back()->withErrors($validator)->withInput();
@@ -64,7 +65,7 @@ class SystemEmailRepository implements SystemEmailRepositoryInterface
         #If it was successful
         alert()->success('Success:', 'Contact form submitted successfully');
 
-        return redirect()->action('Frontend\BlogController@index');
+        return redirect()->back();
 
     }
 

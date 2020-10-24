@@ -11,6 +11,9 @@ use Illuminate\Http\Request;
  */
 interface SystemConfigPluginRepositoryInterface
 {
+
+    /* Format ******************************************************************************************************* */
+
     /**
      * @param string      $robots
      * @param string      $title
